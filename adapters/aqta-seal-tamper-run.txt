@@ -1,0 +1,71 @@
+DIFF  ATTESTATION-v1 valid/001-allowed.json expected valid got invalid (Ed25519 signature does not verify)
+AGREE ATTESTATION-v1 valid/002-blocked.json expected valid got valid
+AGREE ATTESTATION-v1 valid/003-suppressed.json expected valid got valid
+AGREE ATTESTATION-v1 valid/004-passed.json expected valid got valid
+AGREE ATTESTATION-v1 valid/005-multi-policy.json expected valid got valid
+AGREE ATTESTATION-v1 valid/006-cost-prevented-nonzero.json expected valid got valid
+AGREE ATTESTATION-v1 valid/007-non-ascii-policy.json expected valid got valid
+AGREE ATTESTATION-v1 valid/008-cost-sub-milli.json expected valid got valid
+AGREE ATTESTATION-v1 valid/009-cost-smallest-precision.json expected valid got valid
+AGREE ATTESTATION-v1 valid/010-timestamp-leap-second.json expected valid got valid
+AGREE ATTESTATION-v1 invalid/001-tampered-signature.json expected invalid got invalid (Ed25519 signature does not verify)
+AGREE ATTESTATION-v1 invalid/002-tampered-outcome.json expected invalid got invalid (Ed25519 signature does not verify)
+AGREE ATTESTATION-v1 invalid/003-tampered-public-key.json expected invalid got invalid (public_key is not the pinned key)
+AGREE ATTESTATION-v1 invalid/004-missing-field.json expected invalid got invalid (field set differs: missing ['outcome'] extra [])
+AGREE ATTESTATION-v1 invalid/005-unknown-field.json expected invalid got invalid (field set differs: missing [] extra ['extra_metadata'])
+AGREE ATTESTATION-v1 invalid/006-wrong-version.json expected invalid got invalid (v is not the integer 1)
+AGREE ATTESTATION-v1 invalid/007-bad-request-hash.json expected invalid got invalid (request_hash not 64 lowercase hex)
+AGREE ATTESTATION-v1 invalid/008-invalid-outcome.json expected invalid got invalid (outcome not in section 5)
+AGREE ATTESTATION-v1 invalid/009-policy-not-sorted.json expected invalid got invalid (policy_applied not strings sorted by UTF-16 code unit)
+AGREE ATTESTATION-v1 invalid/010-policy-not-strings.json expected invalid got invalid (policy_applied not strings sorted by UTF-16 code unit)
+AGREE ATTESTATION-v1 invalid/011-timestamp-no-offset.json expected invalid got invalid (timestamp not RFC 3339 with offset)
+AGREE ATTESTATION-v1 invalid/012-timestamp-not-datetime.json expected invalid got invalid (timestamp not RFC 3339 with offset)
+AGREE ATTESTATION-v1 invalid/013-negative-cost.json expected invalid got invalid (cost_prevented_eur not a non-negative number)
+AGREE ATTESTATION-v1 invalid/014-boolean-version.json expected invalid got invalid (v is not the integer 1)
+AGREE ATTESTATION-v1 invalid/015-uncoerced-integer-float.json expected invalid got invalid (Ed25519 signature does not verify)
+AGREE ATTESTATION-v1 invalid/016-signature-padded.json expected invalid got invalid (signature is not 64 bytes of unpadded base64url)
+AGREE ATTESTATION-v1 invalid/017-signature-standard-base64-alphabet.json expected invalid got invalid (signature is not 64 bytes of unpadded base64url)
+AGREE ATTESTATION-v1 invalid/018-request-hash-trailing-newline.json expected invalid got invalid (request_hash not 64 lowercase hex)
+AGREE ATTESTATION-v1 invalid/019-timestamp-trailing-newline.json expected invalid got invalid (timestamp not RFC 3339 with offset)
+AGREE ATTESTATION-v1 invalid/020-signature-trailing-newline.json expected invalid got invalid (signature is not 64 bytes of unpadded base64url)
+AGREE ATTESTATION-v1 invalid/021-timestamp-non-ascii-digits.json expected invalid got invalid (timestamp not RFC 3339 with offset)
+AGREE ATTESTATION-v1 invalid/022-outcome-not-a-string.json expected invalid got invalid (outcome not in section 5)
+AGREE ATTESTATION-v1 invalid/023-policy-lone-surrogate.json expected invalid got invalid (policy_applied not strings sorted by UTF-16 code unit)
+SET ATTESTATION-v1: 32 of 33 agree
+DIFF  ACTION-v1 valid/001-allowed.json expected valid got invalid (Ed25519 signature does not verify)
+AGREE ACTION-v1 valid/002-blocked.json expected valid got valid
+AGREE ACTION-v1 valid/003-no-session.json expected valid got valid
+AGREE ACTION-v1 valid/004-session-no-intent.json expected valid got valid
+AGREE ACTION-v1 valid/005-empty-policy.json expected valid got valid
+AGREE ACTION-v1 valid/006-multi-policy.json expected valid got valid
+AGREE ACTION-v1 valid/006-policy-non-bmp-sorted.json expected valid got valid
+AGREE ACTION-v1 valid/007-non-ascii-tool.json expected valid got valid
+AGREE ACTION-v1 valid/008-non-utc-offset.json expected valid got valid
+AGREE ACTION-v1 valid/009-agent-empty.json expected valid got valid
+AGREE ACTION-v1 valid/010-deep-namespace.json expected valid got valid
+AGREE ACTION-v1 invalid/001-tampered-signature.json expected invalid got invalid (Ed25519 signature does not verify)
+AGREE ACTION-v1 invalid/002-tampered-outcome.json expected invalid got invalid (Ed25519 signature does not verify)
+AGREE ACTION-v1 invalid/003-tampered-public-key.json expected invalid got invalid (public_key is not the pinned key)
+AGREE ACTION-v1 invalid/004-missing-field.json expected invalid got invalid (field set differs: missing ['agent'] extra [])
+AGREE ACTION-v1 invalid/005-unknown-field.json expected invalid got invalid (field set differs: missing [] extra ['cost_prevented_eur'])
+AGREE ACTION-v1 invalid/006-integer-version.json expected invalid got invalid (v is not the string action-1)
+AGREE ACTION-v1 invalid/007-attestation-v1-receipt.json expected invalid got invalid (field set differs: missing ['action_id', 'agent', 'args_hash', 'intent_hash', 'session_id', 'tool'] extra ['attestation_id', 'cost_prevented_eur', 'model', 'request_hash', 'trace_id'])
+AGREE ACTION-v1 invalid/008-uppercase-args-hash.json expected invalid got invalid (args_hash not 64 lowercase hex)
+AGREE ACTION-v1 invalid/009-policy-not-sorted.json expected invalid got invalid (policy_applied not strings sorted by UTF-16 code unit)
+AGREE ACTION-v1 invalid/010-policy-not-strings.json expected invalid got invalid (policy_applied not strings sorted by UTF-16 code unit)
+AGREE ACTION-v1 invalid/011-timestamp-no-offset.json expected invalid got invalid (timestamp not RFC 3339 with offset)
+AGREE ACTION-v1 invalid/012-suppressed-outcome.json expected invalid got invalid (outcome not ALLOWED or BLOCKED)
+AGREE ACTION-v1 invalid/013-empty-tool.json expected invalid got invalid (tool is empty)
+AGREE ACTION-v1 invalid/014-intent-without-session.json expected invalid got invalid (intent_hash set without a session)
+AGREE ACTION-v1 invalid/015-escaped-unicode-signing.json expected invalid got invalid (Ed25519 signature does not verify)
+AGREE ACTION-v1 invalid/016-policy-code-point-order.json expected invalid got invalid (policy_applied not strings sorted by UTF-16 code unit)
+AGREE ACTION-v1 invalid/017-args-hash-trailing-newline.json expected invalid got invalid (args_hash not 64 lowercase hex)
+AGREE ACTION-v1 invalid/018-intent-hash-trailing-newline.json expected invalid got invalid (intent_hash not empty or 64 lowercase hex)
+AGREE ACTION-v1 invalid/019-timestamp-trailing-newline.json expected invalid got invalid (timestamp not RFC 3339 with offset)
+AGREE ACTION-v1 invalid/020-signature-trailing-newline.json expected invalid got invalid (signature is not 64 bytes of unpadded base64url)
+AGREE ACTION-v1 invalid/021-timestamp-non-ascii-digits.json expected invalid got invalid (timestamp not RFC 3339 with offset)
+AGREE ACTION-v1 invalid/022-outcome-not-a-string.json expected invalid got invalid (outcome not ALLOWED or BLOCKED)
+AGREE ACTION-v1 invalid/023-policy-lone-surrogate.json expected invalid got invalid (policy_applied not strings sorted by UTF-16 code unit)
+SET ACTION-v1: 33 of 34 agree
+SUMMARY 65 of 67 vectors agree
+EXIT=1
