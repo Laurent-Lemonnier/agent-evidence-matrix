@@ -1,0 +1,18 @@
+r0-01-malformed-missing-key.aep.json	DENY:malformed_aep	chain=bad aepsig=bad credsig=ok princ=ok	in-profile	expected=DENY:malformed_aep	scored=True
+r0-02-malformed-action-list.aep.json	DENY:malformed_aep	chain=bad aepsig=bad credsig=ok princ=ok	in-profile	expected=DENY:malformed_aep	scored=True
+r0-03-measurement-mismatch-tampered.aep.json	DENY:measurement_mismatch	chain=ok aepsig=ok credsig=ok princ=ok	in-profile	expected=DENY:measurement_mismatch	scored=True
+r0-04-measurement-absent.aep.json	DENY:measurement_mismatch	chain=ok aepsig=ok credsig=ok princ=ok	in-profile	expected=DENY:measurement_mismatch	scored=True
+r0-05-malformed-mandate-body-string.aep.json	DENY:malformed_mandate	chain=ok aepsig=ok credsig=ok princ=n/a	in-profile	expected=DENY:malformed_mandate	scored=True
+r0-06-credential-sig-invalid.aep.json	DENY:credential_sig_invalid	chain=ok aepsig=ok credsig=bad princ=ok	in-profile	expected=DENY:credential_sig_invalid	scored=True
+r0-07-principal-sig-invalid.aep.json	DENY:principal_sig_invalid	chain=ok aepsig=ok credsig=ok princ=bad	in-profile	expected=DENY:principal_sig_invalid	scored=True
+r0-08-agent-binding-mismatch.aep.json	DENY:agent_binding_mismatch	chain=ok aepsig=ok credsig=ok princ=ok	in-profile	expected=DENY:agent_binding_mismatch	scored=True
+r0-09-boundary-now-eq-exp.aep.json	ALLOW	chain=ok aepsig=ok credsig=ok princ=ok	in-profile	expected=ALLOW	scored=True
+r0-10-boundary-amount-eq-max.aep.json	ALLOW	chain=ok aepsig=ok credsig=ok princ=ok	in-profile	expected=ALLOW	scored=True
+r0-11-amount-string.aep.json	DENY:scope_violation	chain=ok aepsig=ok credsig=ok princ=ok	in-profile	expected=DENY:scope_violation	scored=True
+r0-12-mandate-no-exp.aep.json	DENY:expired	chain=ok aepsig=ok credsig=ok princ=ok	in-profile	expected=DENY:expired	scored=True
+r0-13-action-no-method.aep.json	DENY:scope_violation	chain=ok aepsig=ok credsig=ok princ=ok	in-profile	expected=DENY:scope_violation	scored=True
+r0-14-probe-float-0_1.aep.json	ALLOW	chain=ok aepsig=ok credsig=ok princ=ok	outside-profile	expected=ALLOW (both) — control probe	scored=False
+r0-15-probe-float-1e-7.aep.json	ALLOW	chain=ok aepsig=ok credsig=ok princ=ok	outside-profile	expected=DIVERGENCE — Python ALLOW, JS DENY:content_mutated	scored=False
+r0-16-probe-unicode.aep.json	ALLOW	chain=ok aepsig=ok credsig=ok princ=ok	in-profile	expected=ALLOW (both) — control probe	scored=False
+r0-17-probe-dup-key.aep.json	ALLOW	chain=ok aepsig=ok credsig=ok princ=ok	in-profile	expected=ALLOW (both) — confirms last-key-wins	scored=False
+r0-18-probe-numeric-nonce.aep.json	ALLOW	chain=ok aepsig=ok credsig=ok princ=ok	in-profile	expected=ALLOW (both) — replay type-semantics	scored=False

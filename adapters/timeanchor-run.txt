@@ -1,0 +1,73 @@
+ADAPTER timeanchor_adapter draft=draft-fassbender-scitt-time-anchor-08.txt sha256=687000b938fcea6b15871f9ea20dc4694f89b7a78f719bacc72ef0ecf1da3394
+CASE clean D1-v1-artifact-hash PASS a183f624efbbda7d
+CASE clean D1-v1-leaf PASS aafc3638a4795c85
+CASE clean D1-v2-artifact-hash PASS 0df073a986e5e514
+CASE clean D1-v2-leaf PASS 7306ab5d2290e681
+CASE clean D1-v3-artifact-hash PASS d82bf84f17057c0e
+CASE clean D1-v3-leaf PASS d051a6258f904499
+CASE clean D1-v4-artifact-hash PASS 94a86d117047f2af
+CASE clean D1-v4-leaf PASS 8864a03154f5dae2
+CASE clean D2-node_12 PASS 034dd422ce07afeb
+CASE clean D2-node_34 PASS 7c629aed686c1598
+CASE clean D2-root PASS b4d19ae256a6c3bc
+CASE clean D5-v1-file PASS 1877 bytes sha256 2c1ec4cbe4779d8d
+CASE clean D5-v1-message PASS a183f624efbbda7d
+CASE clean D5-v1-one-bitcoin-attestation-at-957289 PASS 1 branch(es)
+CASE clean D4-v1-82-operations PASS 82 ops
+CASE clean D5-v1-replay-to-header-root PASS 81383c9ce0d3174b
+CASE clean D4-v1-op2-leaf PASS aafc3638a4795c85
+CASE clean D4-v1-op6-root PASS b4d19ae256a6c3bc
+CASE clean D4-v1-ops-1-to-6 PASS trace matches
+CASE clean D4-v1-ops-40-41-43 PASS prepend 89 bytes, append locktime 689b0e00, txid 3cad384e
+CASE clean D4-v1-op82-header-root PASS 81383c9ce0d3174b
+CASE clean D5-v1-pending-calendar-attestations PASS 4 pending
+CASE clean D5-v2-file PASS 1877 bytes sha256 dc630f6039890b98
+CASE clean D5-v2-message PASS 0df073a986e5e514
+CASE clean D5-v2-one-bitcoin-attestation-at-957289 PASS 1 branch(es)
+CASE clean D4-v2-82-operations PASS 82 ops
+CASE clean D5-v2-replay-to-header-root PASS 81383c9ce0d3174b
+CASE clean D4-v2-op2-leaf PASS 7306ab5d2290e681
+CASE clean D4-v2-op6-root PASS b4d19ae256a6c3bc
+CASE clean D5-v2-pending-calendar-attestations PASS 4 pending
+CASE clean D5-v3-file PASS 1877 bytes sha256 4e2a3ce0758ab8be
+CASE clean D5-v3-message PASS d82bf84f17057c0e
+CASE clean D5-v3-one-bitcoin-attestation-at-957289 PASS 1 branch(es)
+CASE clean D4-v3-82-operations PASS 82 ops
+CASE clean D5-v3-replay-to-header-root PASS 81383c9ce0d3174b
+CASE clean D4-v3-op2-leaf PASS d051a6258f904499
+CASE clean D4-v3-op6-root PASS b4d19ae256a6c3bc
+CASE clean D5-v3-pending-calendar-attestations PASS 4 pending
+CASE clean D5-v4-file PASS 1877 bytes sha256 4905b48a6d26ed43
+CASE clean D5-v4-message PASS 94a86d117047f2af
+CASE clean D5-v4-one-bitcoin-attestation-at-957289 PASS 1 branch(es)
+CASE clean D4-v4-82-operations PASS 82 ops
+CASE clean D5-v4-replay-to-header-root PASS 81383c9ce0d3174b
+CASE clean D4-v4-op2-leaf PASS 8864a03154f5dae2
+CASE clean D4-v4-op6-root PASS b4d19ae256a6c3bc
+CASE clean D5-v4-pending-calendar-attestations PASS 4 pending
+CASE clean D3-two-explorers-same-80-bytes PASS 80 bytes
+CASE clean D3-block-hash-from-header PASS 000000000000000000018e5b
+CASE clean D3-pow-meets-nBits PASS hash <= target(nBits)
+CASE clean D3-merkle-root-as-committed PASS 81383c9ce0d3174b
+CASE clean D3-merkle-root-as-displayed PASS ef433cffccecaee6
+CASE clean D3-replay-equals-header-root-all-vectors PASS 4 of 4 proofs
+CASE clean D3-RWCP-nTime PASS 2026-07-09T10:02:59Z
+CASE clean D3-height-from-explorers PASS 957289
+CASE clean D3-MTP-from-explorer-mediantime PASS 2026-07-09T09:26:48Z
+CASE clean D6-negative-v1-one-byte-artifact-change PASS invalid (step 2: hash mismatch)
+CASE clean D6-negative-v2-one-byte-artifact-change PASS invalid (step 2: hash mismatch)
+CASE clean D6-negative-v3-one-byte-artifact-change PASS invalid (step 2: hash mismatch)
+CASE clean D6-negative-v4-one-byte-artifact-change PASS invalid (step 2: hash mismatch)
+CASE clean D6-unverifiable-v1-no-validated-chain PASS unverifiable (step 7b: no validated chain supplied)
+CASE clean D6-unverifiable-v2-no-validated-chain PASS unverifiable (step 7b: no validated chain supplied)
+CASE clean D6-unverifiable-v3-no-validated-chain PASS unverifiable (step 7b: no validated chain supplied)
+CASE clean D6-unverifiable-v4-no-validated-chain PASS unverifiable (step 7b: no validated chain supplied)
+GROUP clean D1D2 11 of 11
+GROUP clean D3 9 of 9
+GROUP clean D4D5 35 of 35
+GROUP clean D6 8 of 8
+TOTAL clean 63 of 63
+TAMPER tamper-draft-nonce flipped 9 case(s): D1-v1-leaf, D2-node_12, D2-root, D4-v1-op2-leaf, D4-v1-op6-root, D4-v1-ops-1-to-6, D4-v2-op6-root, D4-v3-op6-root, D4-v4-op6-root
+TOTAL tamper-draft-nonce 54 of 63
+TAMPER tamper-proof-byte flipped 8 case(s): D5-v1-file, D5-v1-replay-to-header-root, D4-v1-op2-leaf, D4-v1-op6-root, D4-v1-ops-1-to-6, D4-v1-ops-40-41-43, D4-v1-op82-header-root, D3-replay-equals-header-root-all-vectors
+TOTAL tamper-proof-byte 55 of 63

@@ -1,0 +1,78 @@
+A.1/harness-pk-from-seed	agrees	public key from seed: d04ab232742bb4ab3a1368bd4615e4e6d0224ab71a016baf8520a332c9778737
+A.1/harness-pk-in-draft	agrees	public key stated in draft Appendix A: d04ab232742bb4ab3a1368bd4615e4e6d0224ab71a016baf8520a332c9778737
+A.1/agent-pk-from-seed	agrees	public key from seed: a09aa5f47a6759802ff955f8dc2d2a14a5c99d23be97f864127ff9383455a4f0
+A.1/agent-pk-in-draft	agrees	public key stated in draft Appendix A: a09aa5f47a6759802ff955f8dc2d2a14a5c99d23be97f864127ff9383455a4f0
+A.1/register-pk-from-seed	agrees	public key from seed: 17cb79fb2b4120f2b1ec65e4198d6e08b28e813feb01e4a400839b85e18080ce
+A.1/register-pk-in-draft	agrees	public key stated in draft Appendix A: 17cb79fb2b4120f2b1ec65e4198d6e08b28e813feb01e4a400839b85e18080ce
+A.1/serving-pk-from-seed	agrees	public key from seed: d759793bbc13a2819a827c76adb6fba8a49aee007f49f2d0992d99b825ad2c48
+A.1/serving-pk-in-draft	agrees	public key stated in draft Appendix A: d759793bbc13a2819a827c76adb6fba8a49aee007f49f2d0992d99b825ad2c48
+cose/agent-registration/canonical-encoding	agrees	file bytes equal deterministic re-encoding: 358 bytes, sha256 f84dbe1dc067c596
+cose/agent-registration/signature	agrees	ed25519 ok; key=register
+cose/agent-registration/kid	agrees	kid 6c8f8607dbe87077 == sha256(pk)[:8]
+cose/agent-registration/payload-canonical	agrees	payload is deterministic CBOR: 149 bytes, sha256 f994b20f8c780fcd
+cose/agent-credential/canonical-encoding	agrees	file bytes equal deterministic re-encoding: 736 bytes, sha256 81e9877ef992e0dc
+cose/agent-credential/signature	agrees	ed25519 ok; key=harness
+cose/agent-credential/kid	agrees	kid 10ba682c8ad13513 == sha256(pk)[:8]
+cose/agent-credential/payload-canonical	agrees	payload is deterministic CBOR: 518 bytes, sha256 4593697379adf3ef
+cose/execution-receipt-2/canonical-encoding	agrees	file bytes equal deterministic re-encoding: 746 bytes, sha256 a95b58f93932e36f
+cose/execution-receipt-2/signature	agrees	ed25519 ok; key=harness
+cose/execution-receipt-2/kid	agrees	kid 10ba682c8ad13513 == sha256(pk)[:8]
+cose/execution-receipt-2/payload-canonical	agrees	payload is deterministic CBOR: 528 bytes, sha256 7df8cc808530b8a0
+cose/execution-epoch/canonical-encoding	agrees	file bytes equal deterministic re-encoding: 384 bytes, sha256 42ac8f097f2f3884
+cose/execution-epoch/signature	agrees	ed25519 ok; key=harness
+cose/execution-epoch/kid	agrees	kid 10ba682c8ad13513 == sha256(pk)[:8]
+cose/execution-epoch/payload-canonical	agrees	payload is deterministic CBOR: 167 bytes, sha256 15db8820648de823
+A.2/registration-payload-digest	agrees	sha256(payload) vs vectors.txt: f994b20f8c780fcd2b2981784c79e1afa1591a1a33d2a9ce90739b0d622716ec
+A.2/registration-payload-digest-in-draft	agrees	digest stated in draft Appendix A: f994b20f8c780fcd2b2981784c79e1afa1591a1a33d2a9ce90739b0d622716ec
+A.2/registration-payload-equals-diagnostic	agrees	decoded payload vs diagnostic form: structure
+A.2/credential-payload-digest	agrees	sha256(payload) vs vectors.txt: 4593697379adf3ef10053f8ccd652c15bb99268be881a56198194fb3b8abcef5
+A.2/credential-payload-digest-in-draft	agrees	digest stated in draft Appendix A: 4593697379adf3ef10053f8ccd652c15bb99268be881a56198194fb3b8abcef5
+A.2/credential-registration-digest-link	agrees	credential key 13 equals registration digest: f994b20f8c780fcd2b2981784c79e1afa1591a1a33d2a9ce90739b0d622716ec
+A.2/principal-digest	agrees	sha256(pepper||principal) vs credential key 4: 355acb442721073848a4b78577b31cd2958587696cf8378ab050011c8a042638
+A.2/credential-agent-key	agrees	COSE key in credential is the agent public key: a09aa5f47a6759802ff955f8dc2d2a14a5c99d23be97f864127ff9383455a4f0
+A.3/entries-ordered-by-name-octets	agrees	entries ordered by name (octet order)
+A.3/config-digest	agrees	sha256(canonical entries): 654e7b4e605a07c8657d5f2c01360d2367022d18a2ee2dfce1a6489e1c6b6781
+A.3/config-digest-in-draft	agrees	config_digest stated in draft Appendix A: 654e7b4e605a07c8657d5f2c01360d2367022d18a2ee2dfce1a6489e1c6b6781
+A.3/entry-digest-in-draft/INSTRUCTIONS.md	agrees	entry digest stated in draft Appendix A: b7151d3ad953353923932e171b27567ba78524f13ba853e6c912ea3d43653610
+A.3/entry-digest-in-draft/SYSTEM_PROMPT	agrees	entry digest stated in draft Appendix A: fe6ff403a894e40e32eacf012889e4bf1cc74be70216ceb8250cf3419f6434ff
+A.3/entry-digest-in-draft/tools/send_invoice.json	agrees	entry digest stated in draft Appendix A: 1c9c542a99e6804c6ce08d17c38fa2f3068507cf2c6f7d97a092e111a1651707
+A.4/policy-pack-digest	agrees	sha256 of the stated pack octets vs receipt key 7: 563a0a3a0c09b773b7f07dd66931dc56605cb0e56d53d1da9cdefe6ae4c56f4d
+A.4/policy-pack-digest-in-draft	agrees	pack digest stated in draft Appendix A: 563a0a3a0c09b773b7f07dd66931dc56605cb0e56d53d1da9cdefe6ae4c56f4d
+A.4/record-hash-0	agrees	sha256(deterministic CBOR of receipt) vs vectors.txt: 1942de9ac9bd019506aa5e551ede9ae92676942d4278816ab458a9deb16548c0
+A.4/record-hash-0-in-draft	agrees	record-hash stated in draft Appendix A: 1942de9ac9bd019506aa5e551ede9ae92676942d4278816ab458a9deb16548c0
+A.4/record-hash-1	agrees	sha256(deterministic CBOR of receipt) vs vectors.txt: 3d3b1f63cb07c710049eed093e439600464a47a36b37175372e1fc734f6d39a9
+A.4/record-hash-1-in-draft	agrees	record-hash stated in draft Appendix A: 3d3b1f63cb07c710049eed093e439600464a47a36b37175372e1fc734f6d39a9
+A.4/record-hash-2	agrees	sha256(deterministic CBOR of receipt) vs vectors.txt: 7df8cc808530b8a02e78f723ddcda32645e14c66dd61b8525279fa94118f9ec9
+A.4/record-hash-2-in-draft	agrees	record-hash stated in draft Appendix A: 7df8cc808530b8a02e78f723ddcda32645e14c66dd61b8525279fa94118f9ec9
+A.4/record-hash-3	agrees	sha256(deterministic CBOR of receipt) vs vectors.txt: 6724c98d2b78fe984db24ce2d8cb63cc214171928ec4f9ebb09770e3d9196fa7
+A.4/record-hash-3-in-draft	agrees	record-hash stated in draft Appendix A: 6724c98d2b78fe984db24ce2d8cb63cc214171928ec4f9ebb09770e3d9196fa7
+A.4/chain-links	agrees	seq 0 prev_hash is 32 zero octets; each prev_hash is the previous record-hash; seq increases by one
+A.4/seq-increments	agrees	seq 0,1,2,3
+A.4/receipt-2-agent-sig	agrees	ed25519 ok; detached payload = canonical receipt without key 15; len(key15)=226
+cose/execution-receipt-2/payload-equals-diagnostic	agrees	signed receipt payload vs diagnostic: structure
+cose/execution-receipt-2/record-hash	agrees	record-hash from the signed payload bytes: 7df8cc808530b8a02e78f723ddcda32645e14c66dd61b8525279fa94118f9ec9
+A.4/call-digest	agrees	HTTP binding over literal octets <invoice request bytes>: 544d017602d3f2c25b263dc8b8a7c124a27f447f9820363ba99793d5baeda60f
+A.4/call-digest-in-draft	agrees	call_digest stated in draft Appendix A: 544d017602d3f2c25b263dc8b8a7c124a27f447f9820363ba99793d5baeda60f
+A.4/principal-link	agrees	sha256 of literal octets <delegation token octets>: 1c8ec66d31e2260b8ebe9e7c602773d0b7b8803689e8a935c3d7d22002cd813d
+A.4/principal-link-in-draft	agrees	principal_link stated in draft Appendix A: 1c8ec66d31e2260b8ebe9e7c602773d0b7b8803689e8a935c3d7d22002cd813d
+A.4/request-digest-input-not-in-draft	cannot-tell	seq 2 key 12 989a658a232f0329b3372261bdd4d3bec9e31d57094015433bf54fbd2aeca8f5: the draft names the input only as <prompt bytes>/<request bytes>; generator input reproduces it: True
+A.4/prompt-digest-literal	agrees	seq 1 key 12 over literal octets <prompt bytes>: b1d21340b999c928ffd214aa36db4be63eedce244aa382e47e4d579ed576bc40
+A.4/completion-digest-literal	agrees	seq 1 key 13 over literal octets <completion bytes>: 022531c9882a5426d13f9af059c17d2f60d0df585b3fe3ae0f016a8a5f5562ca
+A.5/epoch-root	agrees	RFC 9162 MTH over record-hash 0..2 vs vectors.txt: 99286bfb71a2baa0e9cce47d284e67434fc3d3b47cd424c4ec184e5bc7b27809
+A.5/epoch-root-in-draft	agrees	epoch_root stated in draft Appendix A: 99286bfb71a2baa0e9cce47d284e67434fc3d3b47cd424c4ec184e5bc7b27809
+A.5/epoch-last-hash	agrees	epoch last_hash equals record-hash(2): 7df8cc808530b8a02e78f723ddcda32645e14c66dd61b8525279fa94118f9ec9
+A.5/epoch-count	agrees	count = last_seq - first_seq + 1
+cose/execution-epoch/payload-equals-diagnostic	agrees	signed epoch payload vs diagnostic: structure
+A.6/serving-credential-digest	agrees	sha256(canonical payload): 232bfea5a26a43e92d41873083ba54b735e5a7aeb669654869172c6037d6b0ab
+A.6/serving-credential-digest-in-draft	agrees	digest stated in draft Appendix A: 232bfea5a26a43e92d41873083ba54b735e5a7aeb669654869172c6037d6b0ab
+A.6/serving-credential-key	agrees	serving key in credential: d759793bbc13a2819a827c76adb6fba8a49aee007f49f2d0992d99b825ad2c48
+A.6/serving-config-digest	agrees	sha256(canonical entries): db4faed7cf5ef7b1127006d60afda3d47e4970f7f89baf37eb233ec665dc6c68
+A.6/serving-pack-digest	agrees	serving pack digest: 5b582ac36c7eb1ee98d6be83fe7594a80ae9c11d65a4da796810897772123dce
+A.6/admission-record-hash	agrees	sha256(canonical admission receipt): 712bba68319f1aa5f048292b99107131d513b3ba96f3d23b2a318585bf98a425
+A.6/admission-record-hash-in-draft	agrees	record-hash(admission 0) stated in draft Appendix A: 712bba68319f1aa5f048292b99107131d513b3ba96f3d23b2a318585bf98a425
+A.6/admission-names-caller-record	agrees	admission key 21 record-hash equals record-hash(3): 6724c98d2b78fe984db24ce2d8cb63cc214171928ec4f9ebb09770e3d9196fa7
+A.6/admission-call-digest-equals-caller	agrees	same call_digest on both sides: structure
+A.6/admission-principal-link-equals-caller	agrees	same principal_link on both sides: 1c8ec66d31e2260b8ebe9e7c602773d0b7b8803689e8a935c3d7d22002cd813d
+A.6/admission-principal-digest	agrees	serving-side pepper principal digest: 461e46747b2b36f5a21c8ef5d0526c9d4c8b8d4d561b92ed4cef35f80b14f3f0
+A.6/admission-principal-differs	agrees	peppers differ, so principal digests differ
+SUMMARY	agrees=76	contradicted=0	cannot-tell=1	total=77

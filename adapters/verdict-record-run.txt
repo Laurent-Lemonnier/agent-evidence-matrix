@@ -1,0 +1,113 @@
+A.1/record-digest	agrees	sha256(canonical record) 2a85c94e39c56f50185b3b69b8f56026946364631799774a83b4f93399841c45 vs stated 2a85c94e39c56f50185b3b69b8f56026946364631799774a83b4f93399841c45
+A.1/stated-digest-in-text	agrees	digest printed in the text
+A.1/record-admitted	agrees	canonical bytes reach the steps (no refusal under Sections 2.1 to 2.3)
+A.2/record-digest	agrees	sha256(canonical record) 62017940a8ddddd5ddd7ff46c8ff2a6ce79dfcccb775d767b8dff8db0ebe19ed vs stated 62017940a8ddddd5ddd7ff46c8ff2a6ce79dfcccb775d767b8dff8db0ebe19ed
+A.2/stated-digest-in-text	agrees	digest printed in the text
+A.2/record-admitted	agrees	canonical bytes reach the steps (no refusal under Sections 2.1 to 2.3)
+A/claim-record-is-canonical	agrees	item bytes equal their own canonical form (A.2 says the hops are already in JCS form)
+A/parent-hop-is-canonical	agrees	item bytes equal their own canonical form (A.2 says the hops are already in JCS form)
+A/child-hop-is-canonical	agrees	item bytes equal their own canonical form (A.2 says the hops are already in JCS form)
+A.1/evidence0-digest	agrees	sha256(claim record) f4747f1fa1ad63eaad90e41b587794f8f5c82f9215b9a8e23a6c204edabc7d48 equals evidence[0].sha256 and body.claim.ref.sha256
+A.1/evidence1-item-not-in-text	cannot-tell	evidence[1] 0c964f45c450a0253fc09eb2316e6ad271944be201c46ebf2c5d40e529f35306 cites draft-gruszka-signed-evaluation-receipts; the text prints no bytes for it
+A.2/evidence0-digest	agrees	sha256(parent hop) 1336337e88adc67853b80b4998363210dc5c0797cc7b7c722128cecc56a38c14
+A.2/evidence1-digest	agrees	sha256(child hop) 8886795d4403b5cd8820eb813ee0724f1d6d5d383124364b09cdc5020639e00c
+A.2/bound-inputs-resolve	agrees	check.inputs pointers read the cited bytes
+A.2/rule-rerun	agrees	rule re-run gives attenuated_and_linked; record states attenuated_and_linked
+A.2/widened-child-gives-different-result	agrees	text: if the child hop widened the scopes the re-run would give a different result (checked on a widened copy)
+B/A.2-parent-bytes-equal-text	agrees	author's bytes equal the text's bytes
+B/A.2-child-bytes-equal-text	agrees	author's bytes equal the text's bytes
+B/A.1-claim-bytes-equal-text	agrees	author's bytes equal the text's bytes
+B/A.1-second-item-vs-text	cannot-tell	author's second A.1 item has sha256 02036d1f57509858330383755ec16c532bdc58b0f2d949464488d57abc9f95e7; the -02 text cites 0c964f45c450a0253fc09eb2316e6ad271944be201c46ebf2c5d40e529f35306: the repository is at -03, which replaced this item (README), so -02's cited digest has no published bytes
+vec/a01-baseline-released	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/a02-whitespace	agrees	expected pre-step outcome Section 2.1; adapter Section 2.1 (not in canonical form) [open:I-1]
+vec/a03-member-order	agrees	expected pre-step outcome Section 2.1; adapter Section 2.1 (not in canonical form) [open:I-1]
+vec/a04-duplicate-member	agrees	expected pre-step outcome Section 2.1; adapter Section 2.1 (member 'key' twice) [open:I-1]
+vec/a05-byte-order-mark	agrees	expected pre-step outcome Section 2.1; adapter Section 2.1 (byte-order mark) [open:I-1]
+vec/a06-fraction	agrees	expected pre-step outcome Section 2.1; adapter Section 2.1 (number '7.5' is not an integer) [open:I-1]
+vec/a07-integer-range	agrees	expected pre-step outcome Section 2.1; adapter Section 2.1 (integer out of range) [open:I-1]
+vec/a08-escaped-non-ascii	agrees	expected pre-step outcome Section 2.1; adapter Section 2.1 (not in canonical form) [open:I-1]
+vec/a09-utf8-bytes	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/a10-lone-surrogate	agrees	expected pre-step outcome Section 2.1; adapter Section 2.1 (lone surrogate) [open:I-1]
+vec/a11-depth-32	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/a12-depth-33	agrees	expected pre-step outcome Section 2.1; adapter Section 2.1 (nested deeper than 32) [open:I-1]
+vec/a13-unknown-member	agrees	expected pre-step outcome Section 2.2; adapter Section 2.2 (member ['note'] not allowed) [open:I-1]
+vec/a14-missing-writer	agrees	expected pre-step outcome Section 2.2; adapter Section 2.2 (writer missing) [open:I-1]
+vec/a15-control-short-escape	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-03-only]
+vec/a16-control-u-escape	contradicted	expected pre-step outcome Section 2.1; adapter reaches-steps [-03-only]
+vec/a17-leap-second	agrees	expected pre-step outcome Section 2.1; adapter Section 2.1 (act_time not YYYY-MM-DDTHH:MM:SS.ffffffZ) [-03-only]
+vec/a18-breaks-2-1-and-2-2	contradicted	expected pre-step outcome Section 2.1; adapter Section 2.2 (member ['note'] not allowed) [-03-only]
+vec/b01-check-missing	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/b02-check-no-result	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/b03-judgement-kind-not-listed	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [open:I-4]
+vec/b04-judgement-kind-listed	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [open:I-4]
+vec/c01-evidence-missing	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/c02-entry-extra-member	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/c03-entry-uppercase-hex	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/c04-item-not-held	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/c05-format-not-in-policy	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/c06-item-does-not-verify	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/c07-cites-released-record	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/c08-beyond-depth	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [open:I-5]
+vec/c09-cited-bound-later	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/c10-cites-refused-record	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [open:I-6]
+vec/c11-claim-ref-not-in-evidence	contradicted	expected pre-step outcome Section 2.3; adapter reaches-steps (claim.ref not in evidence: -02 does not say refuse-before-steps) [-03-only]
+vec/c12-empty-evidence	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [open:I-3]
+vec/d01-result-mismatch	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/d02-input-wrong-type	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [open:I-7]
+vec/d03-rule-not-held	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/d04-not-run-then-fail	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/d05-rule-false-low	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/e01-invalid-policy	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [open:I-8]
+vec/f01-appendix-a	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [open:I-4]
+vec/g01-bound-pointer-released	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g02-bound-digest-released	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g03-body-inputs-named	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g04-evidence-only-body-input	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g05-evidence-only-bound	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g06-bound-item-not-held	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g07-bound-item-not-relied-on	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g08-binding-extra-member	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g09-no-such-evidence-entry	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g10-pointer-does-not-resolve	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g11-item-not-json	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g12-not-run-and-fail	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g13-bound-input-wrong-type	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g14-policy-evidence-only-not-boolean	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [open:O-2]
+vec/g15-policy-unknown-member	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g16-policy-citation-depth	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g17-policy-two-depths	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g18-step2-names-every-entry	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [open:O-3]
+vec/g19-act-time-form	agrees	expected pre-step outcome Section 2.1; adapter Section 2.1 (act_time not YYYY-MM-DDTHH:MM:SS.ffffffZ) [-02]
+vec/g20-version-zero	agrees	expected pre-step outcome Section 2.2; adapter Section 2.2 (version not an integer of 1 or more) [-02]
+vec/g21-supersedes-on-version-1	agrees	expected pre-step outcome Section 2.2; adapter Section 2.2 (supersedes on version 1) [-02]
+vec/g22-version-2-supersedes-null	agrees	expected pre-step outcome Section 2.2; adapter Section 2.2 (version above 1 with supersedes null) [-02]
+vec/g23-version-2-supersedes-digest	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g24-key-empty	agrees	expected pre-step outcome Section 2.2; adapter Section 2.2 (key empty or not a string) [-02]
+vec/g25-actor-person-with-model	agrees	expected pre-step outcome Section 2.2; adapter Section 2.2 (person actor with extra members) [-02]
+vec/g26-v-other-value	agrees	expected pre-step outcome Section 2.2; adapter Section 2.2 (v is not verdict-record/1) [open:O-13]
+vec/g27-check-extra-member	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/g28-claim-text-and-ref	agrees	expected pre-step outcome Section 2.3; adapter Section 2.3 (claim is not exactly one of text, ref) [open:O-14]
+vec/g29-body-not-object	agrees	expected pre-step outcome Section 2.2; adapter Section 2.2 (body not an object) [-02]
+vec/g30-claim-text-not-string	agrees	expected pre-step outcome Section 2.3; adapter Section 2.3 (claim.text not a string) [open:O-14]
+vec/g31-policy-max-depth-only	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-03-only]
+vec/g32-kind-empty	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-03-only]
+vec/g33-actor-id-not-string	agrees	expected pre-step outcome Section 2.2; adapter Section 2.2 (actor malformed) [-03-only]
+vec/g34-version-2-supersedes-absent	agrees	expected pre-step outcome Section 2.2; adapter Section 2.2 (version above 1 without supersedes) [-03-only]
+vec/g35-claim-missing	agrees	expected pre-step outcome Section 2.3; adapter Section 2.3 (body.claim missing) [-03-only]
+vec/g36-claim-ref-no-evidence	contradicted	expected pre-step outcome Section 2.3; adapter reaches-steps (claim.ref not in evidence: -02 does not say refuse-before-steps) [-03-only]
+vec/g37-entry-format-empty	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-03-only]
+vec/g38-rule-empty	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-03-only]
+vec/g39-unresolvable-input-rule-not-held	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-03-only]
+vec/g40-fail-outranks-not-run	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-03-only]
+vec/g41-two-steps-fail	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-03-only]
+vec/g42-equal-numbers-written-differently	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-03-only]
+vec/g43-equal-nested-numbers	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-03-only]
+vec/g44-inputs-not-object-rule-not-held	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-03-only]
+vec/g45-supersedes-uppercase-hex	agrees	expected pre-step outcome Section 2.1; adapter Section 2.1 (supersedes is not lowercase hex digest) [-03-only]
+vec/g46-claim-ref-uppercase-hex	agrees	expected pre-step outcome Section 2.1; adapter Section 2.1 (claim.ref sha256 not lowercase hex) [-03-only]
+vec/h01-a2-hops-without-signature-released	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [open:I-9]
+vec/h02-a2-hops-signature-required-held	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/h03-a2-child-widened-refused	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+vec/h04-a2-child-not-held	agrees	expected pre-step outcome reaches-steps; adapter reaches-steps [-02]
+VECTORS	total=91	vectors-of--02=70 agree=70	vectors-added-for--03=21 agree=17
+SUMMARY	agrees=105	contradicted=4	cannot-tell=2	total=111

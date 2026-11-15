@@ -1,0 +1,13 @@
+valid/hybrid-mldsa65	hash+form=pass	rsa=pass	receipt=pass	mldsa=pass	tsr=pass	verdict=true	expected=true	
+valid/mcp-tools-call-denied-policy	hash+form=pass	rsa=pass-nonnull	receipt=pass	mldsa=absent	tsr=pass	verdict=true	expected=true	
+valid/mcp-tools-call-valid	hash+form=pass	rsa=pass-nonnull	receipt=pass	mldsa=absent	tsr=pass	verdict=true	expected=true	
+valid/minimal-roundtrip	hash+form=pass	rsa=pass	receipt=pass	mldsa=absent	tsr=pass	verdict=true	expected=true	
+valid/valid-overt-profile	hash+form=pass	rsa=pass-nonnull	receipt=pass	mldsa=absent	tsr=pass	verdict=true	expected=true	
+invalid/bad-signature-classical	hash+form=pass	rsa=fail	receipt=pass	mldsa=absent	tsr=pass	verdict=false	expected=false	
+invalid/bad-signature-pqc	hash+form=pass	rsa=pass	receipt=pass	mldsa=fail	tsr=pass	verdict=false	expected=false	mldsa: signature
+invalid/bad-timestamp	hash+form=pass	rsa=pass	receipt=pass	mldsa=absent	tsr=fail	verdict=false	expected=false	tsr: unparseable Error
+invalid/missing-canonical-bin	hash+form=n/a	rsa=n/a	receipt=pass	mldsa=absent	tsr=pass	verdict=false	expected=false	
+invalid/tampered-canonical-bin	hash+form=fail	rsa=fail	receipt=pass	mldsa=absent	tsr=pass	verdict=false	expected=false	hash+form: no-form
+invalid/tampered-metadata	hash+form=pass	rsa=pass	receipt=fail	mldsa=absent	tsr=pass	verdict=false	expected=false	receipt: policy.decision (allow) != metadata.policy_decision (deny)
+invalid/tampered-overt-receipt	hash+form=pass	rsa=pass-nonnull	receipt=fail	mldsa=absent	tsr=pass	verdict=false	expected=false	receipt: content_hash
+invalid/untrusted-issuer	hash+form=pass	rsa=fail	receipt=pass	mldsa=absent	tsr=pass	verdict=false	expected=false	
