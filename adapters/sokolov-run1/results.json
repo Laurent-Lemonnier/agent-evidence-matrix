@@ -1,0 +1,8 @@
+{
+  "host": "developer workstation",
+  "tools": {"swtpm": "TPM emulator version 0.7.1, Copyright (c) 2014-2021 IBM Corp.", "tpm2_tools": "5.4"},
+  "aep_digest": "b80c48d9115da3ed8d388f670af5d713cfd990d6743c77094495fcabe3e59d89",
+  "verdicts": {"run_A_good_fresh": "Attested", "run_B_perturbed_pcr3": "Contested", "run_C_replayed_quote": "Expired"},
+  "output_binding_forged_aep": "rejected",
+  "notes": "Appraiser is a minimal RATS-Verifier stand-in: tpm2_checkquote (signature+qualifying-data/freshness) + reference-PCR compare. PCR3 carries the model-artefact measurement; qualifying data binds H(AEP outcome) + fresh nonce into the AK-signed quote."
+}

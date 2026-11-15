@@ -1,0 +1,13 @@
+# sokolov-aep-rats adapter: tpm-demo quotes appraised against draft-sokolov-rats-aep-composition-06 Section 11
+RECORD-DIGEST script-heredoc=b80c48d9115da3ed emitted-aep.json=True run.log=True results.json=True readme=True -> agrees
+PCR-RECOMPUTE four extends from script text equal reference-pcrs.txt: True; swapped PCR3 differs from reference: True
+STRUCT runA magic=TCG type=QUOTE selection=sha256:PCR0-3 sigAlg=RSASSA hash=SHA256 extraData=32 bytes safe=1 -> ok
+STRUCT runB magic=TCG type=QUOTE selection=sha256:PCR0-3 sigAlg=RSASSA hash=SHA256 extraData=32 bytes safe=1 -> ok
+KEY-NAME TPM name of ak.pub recomputed True logged name equal; quote qualifiedSigner equals logged qualified name: True
+V1 run A signature=True pcrComposite=match extraData(H(AEPH:nonceA))=match -> ATTESTED
+V2 run B signature=True pcrComposite-vs-approved=diverged composite-equals-swapped-PCR3-recompute=True -> CONTESTED
+V3 one-byte alteration of runA TPMS_ATTEST at each of 145 positions: signature rejected 145 of 145 -> CONTRAINDICATED
+V4 run A quote replayed against a fresh expected nonce: signature=True pcrComposite=match extraData=mismatch -> FAIL-CLOSED
+V5 platform evidence kept, outcome changed: their forged digest extraData=mismatch; aep.json with outcome_digest replaced (record digest ca0eb936355da23f, was b80c48d9115da3ed) extraData=mismatch; signature and PCR composite still valid -> REJECTED
+THEIR-VERDICTS run.log ['Attested', 'Contested', 'Expired', 'rejected']; ours Attested/Contested/Expired/rejected ['Attested', 'Contested', 'Expired', 'rejected']
+RESULT record-digest=True V1=True V2=True V3=145/145 V4=True V5=True agree-with-their-verdicts=True
