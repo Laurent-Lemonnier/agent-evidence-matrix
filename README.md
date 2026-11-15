@@ -7,7 +7,7 @@ For people who maintain a project that records what an AI agent did and want to 
 Install the reader as a pinned dependency:
 
 ```
-pip install agent-evidence-vectors==0.36.3 agent-evidence-verify==0.5.0
+pip install agent-evidence-vectors==0.36.3 agent-evidence-verify==0.5.1
 ```
 
 Rebuild the table and its coverage count:

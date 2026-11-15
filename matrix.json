@@ -1,260 +1,260 @@
 {
- "reader": {
-  "agent-evidence-vectors": "0.36.3",
-  "agent-evidence-verify": "0.5.0"
- },
- "verdicts": [
-  "agrees",
-  "contradicted",
-  "cannot-tell",
-  "unsupported",
-  "not run"
- ],
- "total_projects": 14,
- "projects": [
-  {
-   "id": 1,
-   "name": "AER-1 execution receipts",
-   "cells": [
-    {
-     "cell": "whole",
-     "source": "none",
-     "verdict": "not run",
-     "evidence": "not run in this matrix"
-    }
-   ]
+  "reader": {
+    "agent-evidence-vectors": "0.36.3",
+    "agent-evidence-verify": "0.5.1"
   },
-  {
-   "id": 2,
-   "name": "Action Evidence Packages",
-   "cells": [
+  "verdicts": [
+    "agrees",
+    "contradicted",
+    "cannot-tell",
+    "unsupported",
+    "not run"
+  ],
+  "total_projects": 14,
+  "projects": [
     {
-     "cell": "JCS function against vectors-a2a-jcs-v01 (rfc8785 target)",
-     "source": "our adapter",
-     "verdict": "contradicted",
-     "detail": "2 of 53",
-     "evidence": "adapters/eatf-jcs-run.txt: A5-002 (1e21) and A5-012 (1e20) refused, 51 of 53 agree"
+      "id": 1,
+      "name": "AER-1 execution receipts",
+      "cells": [
+        {
+          "cell": "whole",
+          "source": "none",
+          "verdict": "not run",
+          "evidence": "not run in this matrix"
+        }
+      ]
     },
     {
-     "cell": ".aep packages, hash and JCS layers",
-     "source": "their records",
-     "verdict": "agrees",
-     "detail": "11 of 13; 1 cannot-tell; 1 contradicted (the intended tamper)",
-     "evidence": "adapters/aep-layers-run.txt"
+      "id": 2,
+      "name": "Action Evidence Packages",
+      "cells": [
+        {
+          "cell": "JCS function against vectors-a2a-jcs-v01 (rfc8785 target)",
+          "source": "our adapter",
+          "verdict": "contradicted",
+          "detail": "2 of 53",
+          "evidence": "adapters/eatf-jcs-run.txt: A5-002 (1e21) and A5-012 (1e20) refused, 51 of 53 agree"
+        },
+        {
+          "cell": ".aep packages, hash and JCS layers",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "11 of 13; 1 cannot-tell; 1 contradicted (the intended tamper)",
+          "evidence": "adapters/aep-layers-run.txt"
+        },
+        {
+          "cell": "signatures, timestamp, ML-DSA",
+          "source": "none",
+          "verdict": "not run",
+          "evidence": "adapter reads no keys"
+        }
+      ]
     },
     {
-     "cell": "signatures, timestamp, ML-DSA",
-     "source": "none",
-     "verdict": "not run",
-     "evidence": "adapter reads no keys"
-    }
-   ]
-  },
-  {
-   "id": 3,
-   "name": "Agent credential conformance",
-   "cells": [
-    {
-     "cell": "whole",
-     "source": "none",
-     "verdict": "not run",
-     "evidence": "not run in this matrix"
-    }
-   ]
-  },
-  {
-   "id": 4,
-   "name": "Agent action evidence interop",
-   "cells": [
-    {
-     "cell": "audit-record and approval-binding readers in the champion's CI",
-     "source": "their records",
-     "verdict": "not run",
-     "evidence": "the project reports 217/217 and 37/37 in its own interop README; not reproduced here"
-    }
-   ]
-  },
-  {
-   "id": 5,
-   "name": "Agent memory integrity",
-   "cells": [
-    {
-     "cell": "results/report-v01.json through --read-w3c-report",
-     "source": "their records",
-     "verdict": "agrees",
-     "evidence": "adapters/agmi-w3c-report-run.txt: conforms, exit 0"
+      "id": 3,
+      "name": "Agent credential conformance",
+      "cells": [
+        {
+          "cell": "whole",
+          "source": "none",
+          "verdict": "not run",
+          "evidence": "not run in this matrix"
+        }
+      ]
     },
     {
-     "cell": "submissions/w3c-agent-conformance-v1.json",
-     "source": "their records",
-     "verdict": "unsupported",
-     "evidence": "refused on shape: a different wrapper than report/v0.1"
-    }
-   ]
-  },
-  {
-   "id": 6,
-   "name": "Independent time anchoring",
-   "cells": [
-    {
-     "cell": "whole",
-     "source": "none",
-     "verdict": "not run",
-     "evidence": "not run in this matrix"
-    }
-   ]
-  },
-  {
-   "id": 7,
-   "name": "TTTPS and AUDIT testbed",
-   "cells": [
-    {
-     "cell": "whole",
-     "source": "none",
-     "verdict": "not run",
-     "evidence": "not run in this matrix"
-    }
-   ]
-  },
-  {
-   "id": 8,
-   "name": "WEXP Appraisal Core with SCITT",
-   "cells": [
-    {
-     "cell": "Core-02 corpora 001 and 002 (89 + 35 cases) through wexp_check against the frozen expectations",
-     "source": "their records",
-     "verdict": "agrees",
-     "detail": "124 of 124",
-     "evidence": "adapters/wexp-run.txt (adapters/wexp_adapter.py)"
+      "id": 4,
+      "name": "Agent action evidence interop",
+      "cells": [
+        {
+          "cell": "audit-record and approval-binding readers in the champion's CI",
+          "source": "their records",
+          "verdict": "not run",
+          "evidence": "the project reports 217/217 and 37/37 in its own interop README; not reproduced here"
+        }
+      ]
     },
     {
-     "cell": "an agent-audit-record member mapped to a normalized Core-02 input",
-     "source": "our adapter",
-     "verdict": "not run",
-     "evidence": "mapping needs the champion's input; row ADP-WEXP-1"
-    }
-   ]
-  },
-  {
-   "id": 9,
-   "name": "Formal model of MCP Authorization",
-   "cells": [
-    {
-     "cell": "Tamarin model",
-     "source": "none",
-     "verdict": "unsupported",
-     "evidence": "no records emitted"
-    }
-   ]
-  },
-  {
-   "id": 10,
-   "name": "DNS Based Agent Discovery",
-   "cells": [
-    {
-     "cell": "whole",
-     "source": "none",
-     "verdict": "unsupported",
-     "evidence": "discovery records, not evidence records"
-    }
-   ]
-  },
-  {
-   "id": 11,
-   "name": "DAWN ARD",
-   "cells": [
-    {
-     "cell": "whole",
-     "source": "none",
-     "verdict": "unsupported",
-     "evidence": "manifests, not evidence records"
-    }
-   ]
-  },
-  {
-   "id": 12,
-   "name": "ICON observability",
-   "cells": [
-    {
-     "cell": "whole",
-     "source": "none",
-     "verdict": "unsupported",
-     "evidence": "no signed or hashed record format read"
-    }
-   ]
-  },
-  {
-   "id": 13,
-   "name": "ATX (Agent Trust eXtension) credentials",
-   "cells": [
-    {
-     "cell": "records/atx (5 conformance fixtures: v1.0 pipe form and v1.1 JCS form), canonical signing bytes and Ed25519 layer",
-     "source": "their records",
-     "verdict": "agrees",
-     "detail": "3 of 5; 2 contradicted (the intended tampers)",
-     "evidence": "adapters/atx-layers-run.txt (adapters/atx_layers.py)"
+      "id": 5,
+      "name": "Agent memory integrity",
+      "cells": [
+        {
+          "cell": "results/report-v01.json through --read-w3c-report",
+          "source": "their records",
+          "verdict": "agrees",
+          "evidence": "adapters/agmi-w3c-report-run.txt: conforms, exit 0"
+        },
+        {
+          "cell": "submissions/w3c-agent-conformance-v1.json",
+          "source": "their records",
+          "verdict": "unsupported",
+          "evidence": "refused on shape: a different wrapper than report/v0.1"
+        }
+      ]
     },
     {
-     "cell": "ML-DSA-65 entries, validity window, trusted-issuer set, revocation, distinct-authority count",
-     "source": "none",
-     "verdict": "not run",
-     "evidence": "adapter reads no ML-DSA-65 key; the project's reference verifiers cover these (records/atx/README.md)"
+      "id": 6,
+      "name": "Independent time anchoring",
+      "cells": [
+        {
+          "cell": "whole",
+          "source": "none",
+          "verdict": "not run",
+          "evidence": "not run in this matrix"
+        }
+      ]
     },
     {
-     "cell": "JCS function (the suite's vendored RFC 8785 serializer) against vectors-a2a-jcs-v01 (rfc8785 target)",
-     "source": "our adapter",
-     "verdict": "contradicted",
-     "detail": "11 of 53",
-     "evidence": "adapters/atx-jcs-run.txt: the 11 floating-point vectors refused by design (ATX signs no such number), 42 of 53 agree; replayed outside the packaged harness"
+      "id": 7,
+      "name": "TTTPS and AUDIT testbed",
+      "cells": [
+        {
+          "cell": "180-octet PoT Record v2 (draft-helmprotocol-tttps-12): integrity_tag = SHA-256(octets 0-79), Ed25519 issuer_sig over octets 0-115",
+          "source": "none",
+          "verdict": "not run",
+          "evidence": "no record bytes published: Appendix C states property-based tests only, no byte vectors; Helm-Protocol/OpenTTT at feb61afd (1 Aug 2026) predates the v2 layout and holds no 180-octet record; the live API kpp.kenosian.com/api/verify did not answer (curl exit 28, connect timeout, 15 Nov 01:38 UTC)"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "WEXP Appraisal Core with SCITT",
+      "cells": [
+        {
+          "cell": "Core-02 corpora 001 and 002 (89 + 35 cases) through wexp_check against the frozen expectations",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "124 of 124",
+          "evidence": "adapters/wexp-run.txt (adapters/wexp_adapter.py)"
+        },
+        {
+          "cell": "an agent-audit-record member mapped to a normalized Core-02 input",
+          "source": "our adapter",
+          "verdict": "not run",
+          "evidence": "mapping needs the champion's input; row ADP-WEXP-1"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Formal model of MCP Authorization",
+      "cells": [
+        {
+          "cell": "Tamarin model",
+          "source": "none",
+          "verdict": "unsupported",
+          "evidence": "no records emitted"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "DNS Based Agent Discovery",
+      "cells": [
+        {
+          "cell": "whole",
+          "source": "none",
+          "verdict": "unsupported",
+          "evidence": "discovery records, not evidence records"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "DAWN ARD",
+      "cells": [
+        {
+          "cell": "whole",
+          "source": "none",
+          "verdict": "unsupported",
+          "evidence": "manifests, not evidence records"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "ICON observability",
+      "cells": [
+        {
+          "cell": "whole",
+          "source": "none",
+          "verdict": "unsupported",
+          "evidence": "no signed or hashed record format read"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "ATX (Agent Trust eXtension) credentials",
+      "cells": [
+        {
+          "cell": "records/atx (5 conformance fixtures: v1.0 pipe form and v1.1 JCS form), canonical signing bytes and Ed25519 layer",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "3 of 5; 2 contradicted (the intended tampers)",
+          "evidence": "adapters/atx-layers-run.txt (adapters/atx_layers.py)"
+        },
+        {
+          "cell": "ML-DSA-65 entries, validity window, trusted-issuer set, revocation, distinct-authority count",
+          "source": "none",
+          "verdict": "not run",
+          "evidence": "adapter reads no ML-DSA-65 key; the project's reference verifiers cover these (records/atx/README.md)"
+        },
+        {
+          "cell": "JCS function (the suite's vendored RFC 8785 serializer) against vectors-a2a-jcs-v01 (rfc8785 target)",
+          "source": "our adapter",
+          "verdict": "contradicted",
+          "detail": "11 of 53",
+          "evidence": "adapters/atx-jcs-run.txt: the 11 floating-point vectors refused by design (ATX signs no such number), 42 of 53 agree; replayed outside the packaged harness"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "AI Runtime Evidence Protocol (AIREP)",
+      "cells": [
+        {
+          "cell": "v0.2 beta lifecycle fixtures through the reference reconciler versus committed expected JSON",
+          "source": "our adapter",
+          "verdict": "agrees",
+          "detail": "11 of 11; expected FAILURE/MISSING/NOT_EVALUATED/INDETERMINATE preserved",
+          "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)"
+        },
+        {
+          "cell": "authorized/executed action digest equality: complete fixture",
+          "source": "our adapter",
+          "verdict": "agrees",
+          "detail": "supplied digests equal; no event-truth claim",
+          "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)"
+        },
+        {
+          "cell": "authorized/executed action digest equality: toctou-mismatch fixture",
+          "source": "our adapter",
+          "verdict": "contradicted",
+          "detail": "intentional unequal digests, despite valid signatures",
+          "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)"
+        },
+        {
+          "cell": "authorized/executed action digest equality: no-execution fixture",
+          "source": "our adapter",
+          "verdict": "cannot-tell",
+          "detail": "Execution absent; comparison NOT_EVALUATED; not proof of non-execution",
+          "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)"
+        },
+        {
+          "cell": "Certisyn consumer/verifier on original v0.2 handoff corpus v0.1: process, class, channels, observer and producer-crypto projection",
+          "source": "our adapter",
+          "verdict": "contradicted",
+          "detail": "17 agree, 1 contradicted (CLS-XT1 expected-projection defect); all 18 raw outputs reproduced byte-exact",
+          "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)"
+        },
+        {
+          "cell": "AIREP records through the shared agent-evidence-verify reader",
+          "source": "none",
+          "verdict": "not run",
+          "evidence": "adapters/airep_adapter.py: only scoped AIREP replay; no general cross-format interoperability claim"
+        }
+      ]
     }
-   ]
-  },
-  {
-   "id": 14,
-   "name": "AI Runtime Evidence Protocol (AIREP)",
-   "cells": [
-    {
-     "cell": "v0.2 beta lifecycle fixtures through the reference reconciler versus committed expected JSON",
-     "source": "our adapter",
-     "verdict": "agrees",
-     "detail": "11 of 11; expected FAILURE/MISSING/NOT_EVALUATED/INDETERMINATE preserved",
-     "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)"
-    },
-    {
-     "cell": "authorized/executed action digest equality: complete fixture",
-     "source": "our adapter",
-     "verdict": "agrees",
-     "detail": "supplied digests equal; no event-truth claim",
-     "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)"
-    },
-    {
-     "cell": "authorized/executed action digest equality: toctou-mismatch fixture",
-     "source": "our adapter",
-     "verdict": "contradicted",
-     "detail": "intentional unequal digests, despite valid signatures",
-     "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)"
-    },
-    {
-     "cell": "authorized/executed action digest equality: no-execution fixture",
-     "source": "our adapter",
-     "verdict": "cannot-tell",
-     "detail": "Execution absent; comparison NOT_EVALUATED; not proof of non-execution",
-     "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)"
-    },
-    {
-     "cell": "Certisyn consumer/verifier on original v0.2 handoff corpus v0.1: process, class, channels, observer and producer-crypto projection",
-     "source": "our adapter",
-     "verdict": "contradicted",
-     "detail": "17 agree, 1 contradicted (CLS-XT1 expected-projection defect); all 18 raw outputs reproduced byte-exact",
-     "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)"
-    },
-    {
-     "cell": "AIREP records through the shared agent-evidence-verify reader",
-     "source": "none",
-     "verdict": "not run",
-     "evidence": "adapters/airep_adapter.py: only scoped AIREP replay; no general cross-format interoperability claim"
-    }
-   ]
-  }
- ]
+  ]
 }

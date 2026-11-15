@@ -1,6 +1,6 @@
 # Conformance matrix
 
-Reader: agent-evidence-vectors 0.36.3, agent-evidence-verify 0.5.0.
+Reader: agent-evidence-vectors 0.36.3, agent-evidence-verify 0.5.1.
 
 Coverage: 5 of 14 projects have at least one cell with a result (agrees, contradicted or cannot-tell).
 
@@ -17,7 +17,7 @@ Source: "their records" = the project's own record bytes were read; "our adapter
 | 5 | Agent memory integrity | results/report-v01.json through --read-w3c-report | their records | agrees | adapters/agmi-w3c-report-run.txt: conforms, exit 0 |
 | 5 | Agent memory integrity | submissions/w3c-agent-conformance-v1.json | their records | unsupported | refused on shape: a different wrapper than report/v0.1 |
 | 6 | Independent time anchoring | whole | none | not run | not run in this matrix |
-| 7 | TTTPS and AUDIT testbed | whole | none | not run | not run in this matrix |
+| 7 | TTTPS and AUDIT testbed | 180-octet PoT Record v2 (draft-helmprotocol-tttps-12): integrity_tag = SHA-256(octets 0-79), Ed25519 issuer_sig over octets 0-115 | none | not run | no record bytes published: Appendix C states property-based tests only, no byte vectors; Helm-Protocol/OpenTTT at feb61afd (1 Aug 2026) predates the v2 layout and holds no 180-octet record; the live API kpp.kenosian.com/api/verify did not answer (curl exit 28, connect timeout, 15 Nov 01:38 UTC) |
 | 8 | WEXP Appraisal Core with SCITT | Core-02 corpora 001 and 002 (89 + 35 cases) through wexp_check against the frozen expectations | their records | agrees (124 of 124) | adapters/wexp-run.txt (adapters/wexp_adapter.py) |
 | 8 | WEXP Appraisal Core with SCITT | an agent-audit-record member mapped to a normalized Core-02 input | our adapter | not run | mapping needs the champion's input; row ADP-WEXP-1 |
 | 9 | Formal model of MCP Authorization | Tamarin model | none | unsupported | no records emitted |
