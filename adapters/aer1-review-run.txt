@@ -1,0 +1,67 @@
+== Cell A: the ten valid/ vectors (kit: valid/ files MUST conform) ==
+bound-04                   schema="0.4" metadata_hash=absent sha256(file)=f9a447049112554c
+  bound-04                                                 draft=reject(METAMISSING)    kitread=accept     kit=accept
+deep-nesting               schema="0.4" metadata_hash=absent sha256(file)=ac4aeb7562657292
+  deep-nesting                                             draft=reject(METAMISSING)    kitread=accept     kit=accept
+edge-numbers               schema="0.4" metadata_hash=absent sha256(file)=ef70b12a9f2f8a84
+  edge-numbers                                             draft=reject(METAMISSING)    kitread=accept     kit=accept
+empty-members              schema="0.4" metadata_hash=absent sha256(file)=b88a78eaf5596dd1
+  empty-members                                            draft=reject(METAMISSING)    kitread=accept     kit=accept
+input-hash-multikey-20     schema="0.4" metadata_hash=absent sha256(file)=a4ac5c0973f0a908
+  input-hash-multikey-20                                   draft=reject(METAMISSING)    kitread=accept     kit=accept
+large-payload              schema="0.4" metadata_hash=absent sha256(file)=f3b7818b5b9668ac
+  large-payload                                            draft=reject(METAMISSING)    kitread=accept     kit=accept
+maximum-offset-timestamp   schema="0.4" metadata_hash=absent sha256(file)=f313b4b7bf389e82
+  maximum-offset-timestamp                                 draft=reject(METAMISSING)    kitread=accept     kit=accept
+optional-members-18        schema="0.4" metadata_hash=absent sha256(file)=922cd701e967dc6c
+  optional-members-18                                      draft=reject(METAMISSING)    kitread=accept     kit=accept
+typographic-unicode        schema="0.4" metadata_hash=absent sha256(file)=91a3d7fda2f82c3e
+  typographic-unicode                                      draft=reject(METAMISSING)    kitread=accept     kit=accept
+uuid-v1-core               schema="0.4" metadata_hash=absent sha256(file)=597522c8279f4012
+  uuid-v1-core                                             draft=reject(METAMISSING)    kitread=accept     kit=accept
+
+== Cell A ground truth: our Section 3.1 block reproduces the kit's real-04 metadata_hash ==
+real-04 stored   sha256:8502f3dfb695d08d986ae9b51b7d86e278d6911bfe0dbfda92a57679037029da
+real-04 ours     sha256:8502f3dfb695d08d986ae9b51b7d86e278d6911bfe0dbfda92a57679037029da  MATCH
+real-04 (as published)                                     draft=accept                 kitread=accept     kit=accept
+
+== Cell A tamper: add a correct metadata_hash to each of the ten (must flip draft to accept) ==
+  bound-04 + metadata_hash                                 draft=accept                 kitread=accept     kit=accept
+  deep-nesting + metadata_hash                             draft=accept                 kitread=accept     kit=accept
+  edge-numbers + metadata_hash                             draft=accept                 kitread=accept     kit=accept
+  empty-members + metadata_hash                            draft=accept                 kitread=accept     kit=accept
+  input-hash-multikey-20 + metadata_hash                   draft=accept                 kitread=accept     kit=accept
+  large-payload + metadata_hash                            draft=accept                 kitread=accept     kit=accept
+  maximum-offset-timestamp + metadata_hash                 draft=accept                 kitread=accept     kit=accept
+  optional-members-18 + metadata_hash                      draft=accept                 kitread=accept     kit=accept
+  typographic-unicode + metadata_hash                      draft=accept                 kitread=accept     kit=accept
+  uuid-v1-core + metadata_hash                             draft=accept                 kitread=accept     kit=accept
+
+== Cell A reverse control: remove metadata_hash from real-04 (must flip draft to reject) ==
+real-04 - metadata_hash                                    draft=reject(METAMISSING)    kitread=accept     kit=accept
+
+== Cell A consequence: strip metadata_hash from real-04, then move created_at by one minute ==
+created_at 2026-10-17T15:04:05.000Z -> 2026-10-17T15:05:05.000Z
+real-04 - metadata_hash, created_at moved                  draft=reject(METAMISSING)    kitread=accept     kit=accept
+real-04 created_at moved, metadata_hash kept               draft=reject(METAHASH)       kitread=reject(METAHASH) kit=reject(metadata_hash does not match the recomputed metadata block)
+
+== Cell B: commitment vectors (expected_verdict from commitment-vectors.json) ==
+raw spelling in the file: ['"5"', '5', '5.0', '7']
+commit-valid-1             entry_count=5      expected=valid    draft=valid    kit=valid
+commit-digest-mismatch     entry_count=5      expected=invalid  draft=invalid  kit=invalid(commitment final_entry_digest does not match the recomputed digest of the last entry)
+commit-count-mismatch      entry_count=7      expected=invalid  draft=invalid  kit=invalid(commitment entry_count 7 does not match the timeline length 5)
+commit-job-mismatch        entry_count=5      expected=invalid  draft=invalid  kit=invalid(entry 0 job_id does not match the commitment job_id; entry 1 job_id does not match the commitment job_id; entry 2 job_id does not match the commitment job_id; entry 3 job_id does not match the commitment job_id; entry 4 job_id does not match the commitment job_id)
+commit-malformed-missing   entry_count=5      expected=invalid  draft=invalid  kit=invalid(commitment final_entry_digest is not 64 lowercase hex characters)
+commit-malformed-types     entry_count='5'    expected=invalid  draft=invalid  kit=invalid(commitment final_entry_digest is not 64 lowercase hex characters; commitment entry_count is not an integer; commitment published_at is not a valid calendar date/time)
+commit-not-an-object       entry_count=None   expected=invalid  draft=invalid  kit=invalid(commitment is not a JSON object)
+x-entry-count-float        entry_count=5.0    expected=invalid  draft=valid    kit=invalid(commitment entry_count is not an integer)
+
+== Cell B tamper: x-entry-count-float with 5.0 spelled 5 (kit must flip to valid) ==
+x-entry-count-float        entry_count=5      expected=invalid  draft=valid    kit=valid
+
+== Cell B reverse control: commit-valid-1 with 5 spelled 5.0 (kit must flip to invalid) ==
+commit-valid-1             entry_count=5.0    expected=valid    draft=valid    kit=invalid(commitment entry_count is not an integer)
+
+== Cell B parallel: the same phrase for seq (Section 7.1) and the kit's own chain vectors ==
+v07-seq-float-valid        float seq values=[1.0, 2.0] expected=valid kit=valid
+v07-seq-fraction-invalid   float seq values=[1.5] expected=invalid kit=invalid(entry 0 seq is not an integer)
