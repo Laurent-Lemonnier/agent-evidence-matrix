@@ -1,0 +1,11 @@
+eatf valid/minimal-roundtrip mutate canonical.bin (canonical bytes)	before={'hash+form': 'pass', 'rsa': 'pass', 'receipt': 'pass', 'mldsa': 'absent', 'tsr': 'pass'}	after={'hash+form': 'fail', 'rsa': 'fail', 'receipt': 'pass', 'mldsa': 'absent', 'tsr': 'pass'}	layers flipped=['hash+form', 'rsa']
+eatf valid/minimal-roundtrip mutate signature.sig (RSA signature)	before={'hash+form': 'pass', 'rsa': 'pass', 'receipt': 'pass', 'mldsa': 'absent', 'tsr': 'pass'}	after={'hash+form': 'pass', 'rsa': 'fail', 'receipt': 'pass', 'mldsa': 'absent', 'tsr': 'pass'}	layers flipped=['rsa']
+eatf valid/hybrid-mldsa65 mutate signature_pqc.sig (ML-DSA signature)	before={'hash+form': 'pass', 'rsa': 'pass', 'receipt': 'pass', 'mldsa': 'pass', 'tsr': 'pass'}	after={'hash+form': 'pass', 'rsa': 'pass', 'receipt': 'pass', 'mldsa': 'fail', 'tsr': 'pass'}	layers flipped=['mldsa']
+eatf valid/minimal-roundtrip mutate overt_receipt.json (receipt)	before={'hash+form': 'pass', 'rsa': 'pass', 'receipt': 'pass', 'mldsa': 'absent', 'tsr': 'pass'}	after={'hash+form': 'pass', 'rsa': 'pass', 'receipt': 'fail', 'mldsa': 'absent', 'tsr': 'pass'}	layers flipped=['receipt']
+eatf valid/minimal-roundtrip mutate timestamp.tsr (last signature byte of the token)	before={'hash+form': 'pass', 'rsa': 'pass', 'receipt': 'pass', 'mldsa': 'absent', 'tsr': 'pass'}	after={'hash+form': 'pass', 'rsa': 'pass', 'receipt': 'pass', 'mldsa': 'absent', 'tsr': 'fail'}	layers flipped=['tsr']
+sandbox r1-01 untouched	 ('ALLOW', None) {'chain': 'ok', 'aepsig': 'ok', 'credsig': 'ok', 'princ': 'ok'}
+sandbox r1-01 flip receipt_hash	 ('DENY', 'content_mutated') {'chain': 'bad', 'aepsig': 'ok', 'credsig': 'ok', 'princ': 'ok'}
+sandbox r1-01 flip aep_sig	 ('DENY', 'aep_sig_invalid') {'chain': 'ok', 'aepsig': 'bad', 'credsig': 'ok', 'princ': 'ok'}
+sandbox r1-01 flip credential.sig	 ('DENY', 'content_mutated') {'chain': 'bad', 'aepsig': 'bad', 'credsig': 'bad', 'princ': 'ok'}
+sandbox r1-01 flip mandate.sig	 ('DENY', 'content_mutated') {'chain': 'bad', 'aepsig': 'bad', 'credsig': 'ok', 'princ': 'bad'}
+sandbox r1-01 flip action.args.amount (signed core)	 ('DENY', 'content_mutated') {'chain': 'bad', 'aepsig': 'bad', 'credsig': 'ok', 'princ': 'ok'}
