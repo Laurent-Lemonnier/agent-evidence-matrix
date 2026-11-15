@@ -10,7 +10,7 @@
     "unsupported",
     "not run"
   ],
-  "total_projects": 19,
+  "total_projects": 21,
   "projects": [
     {
       "id": 1,
@@ -757,6 +757,70 @@
         "sha": "53d1eafe8eaf7c558ed394e01d1b29d132c2fd47"
       },
       "replay": "git clone https://github.com/b7n0de/proofbundle /tmp/proofbundle && git -C /tmp/proofbundle checkout 53d1eafe8eaf7c558ed394e01d1b29d132c2fd47 && python -I adapters/proofbundle_roots_adapter.py /tmp/proofbundle && (python -m venv /tmp/pbv && /tmp/pbv/bin/pip install '/tmp/proofbundle[anchors,test]' && cd /tmp/proofbundle && /tmp/pbv/bin/python conformance/run_conformance.py --require-anchors)"
+    },
+    {
+      "id": 20,
+      "name": "Succession Receipts (jsabes24/css-succession-receipts)",
+      "cells": [
+        {
+          "cell": "Authority-Handoff Receipt corpus ahr-v0.1/r1 and ahr-v0.2/r1 (25 cases): verification steps 1 to 5 of spec/authority-handoff-receipts.md re-derived from the spec text (canonical bytes, receipt hash, issuer proof, event hashes, event signatures, claim grounding, version claims)",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "25 of 25 cases reach the manifest's verdict and, for each of the 20 failing cases, the same failing check (proof, evidence_hash, evidence_signature, claim_grounding, version_claims; none differ). Both golden receipts pass, including the Go-style event hash over the stored payload order. The repository holds no verifier, so the adapter is written from the spec alone. Second run from a second export is byte-identical; changing one byte of authority_scope in a copy of ahr-v0.1/r1/golden.json makes that case fail at proof, so the adapter reads the receipt bytes.",
+          "evidence": "adapters/css-succession-run.txt (adapters/css_succession_adapter.py); adapters/css-succession-tamper-run.txt"
+        },
+        {
+          "cell": "corpus/SHA256SUMS over every file under corpus/, and the header digest of corpus/SHA256SUMS.ots",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "153 files listed, 0 digests differ, no file under corpus/ missing from the list and none listed but absent. The OpenTimestamps file carries the SHA-256 of the current corpus/SHA256SUMS in its header. The Bitcoin attestation inside the .ots file was not fetched or verified. The same tamper (one byte) also turns the checksum comparison into a mismatch.",
+          "evidence": "adapters/css-succession-run.txt (adapters/css_succession_adapter.py); adapters/css-succession-tamper-run.txt"
+        },
+        {
+          "cell": "Other artifacts of the corpus: authorization binding (ahr-v0.2/r2, r3), capability credentials, ledger anchoring, ledger export, precommitment atoms, refusal digests, selective-disclosure receipts, seat evidence",
+          "source": "our adapter",
+          "verdict": "not run",
+          "detail": "Not read in this run: spec step 6 and the other seven artifact specs each need their own verifier, which the repository does not hold.",
+          "evidence": "corpus/*/manifest.json at the pinned commit"
+        }
+      ],
+      "upstream": {
+        "url": "https://github.com/jsabes24/css-succession-receipts",
+        "sha": "7a4d1e96326ccae5b865fd0061bd6dd78a3b1fe1"
+      },
+      "replay": "git clone https://github.com/jsabes24/css-succession-receipts /tmp/css && git -C /tmp/css checkout 7a4d1e96326ccae5b865fd0061bd6dd78a3b1fe1 && python -I adapters/css_succession_adapter.py /tmp/css"
+    },
+    {
+      "id": 21,
+      "name": "XAIP receipts (draft-xkumakichi-xaip-receipts-03, xkumakichi/xaip-protocol)",
+      "cells": [
+        {
+          "cell": "The 15 vectors of docs/spec/test-vectors/receipts-v1-vectors.json (5 preimage, 3 payload, 4 receipt, 3 rejection), recomputed from draft -03 Sections 3.1 to 3.5 with rfc8785 and Ed25519",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "15 of 15 agree. tampered_success_flip is additionally refused by the Section 3.3 fail-closed check (failureType required when success is false). Second run from a second export is byte-identical; changing one byte of toolName in the v1_cosigned_valid receipt makes both signatures fail, 14 of 15.",
+          "evidence": "adapters/xaip-receipts-run.txt (adapters/xaip_receipts_adapter.py); adapters/xaip-receipts-tamper-run.txt"
+        },
+        {
+          "cell": "Their checker docs/spec/test-vectors/check.mjs (node:crypto only) on their own 15 vectors",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "All 15 vectors verified, exit 0, node 24.19.0; the second run is byte-identical. With the same one-byte toolName change it prints FAIL for v1_cosigned_valid and exits 1.",
+          "evidence": "adapters/xaip-theirs-check-run.txt; adapters/xaip-theirs-check-tamper-run.txt"
+        },
+        {
+          "cell": "Their canonicalize() function (read verbatim from check.mjs, labelled 'JCS (RFC 8785) canonical serialization') against vectors-a2a-jcs-v01, rfc8785 target",
+          "source": "our adapter",
+          "verdict": "contradicted",
+          "detail": "48 of 53 agree, 5 differ. Executed 53 of 53, 48 pass. The 5 failures are the lone-surrogate rejects A3-REJECT-011, A3-REJECT-012, A4-REJECT-013, A4-REJECT-014 and A4-REJECT-015: the function emits a \\udXXX escape and exits 0 where the corpus says no canonical form exists. RFC 8785 Section 3.2.2.2: 'occurrences of such data MUST cause a compliant JCS implementation to terminate with an appropriate error'; Section 3.1 requires I-JSON input and RFC 7493 Section 2.1 says string values 'MUST NOT include code points that identify Surrogates or Noncharacters'. Draft -03 says 'Implementations producing receipts MUST canonicalize using JCS as defined in [RFC8785]'. Control: the same function patched to refuse a lone surrogate passes 53 of 53, so the verdict follows that one behaviour. Second run byte-identical.",
+          "evidence": "adapters/xaip-jcs-a2a-run.txt (adapters/xaip_jcs_cli.mjs); adapters/xaip-jcs-a2a-control-run.txt"
+        }
+      ],
+      "upstream": {
+        "url": "https://github.com/xkumakichi/xaip-protocol",
+        "sha": "287d77654ea504d8dc0f1feaa9bbb5db4e43271a"
+      },
+      "replay": "git clone https://github.com/xkumakichi/xaip-protocol /tmp/xaip && git -C /tmp/xaip checkout 287d77654ea504d8dc0f1feaa9bbb5db4e43271a && python -I adapters/xaip_receipts_adapter.py /tmp/xaip && (cd /tmp/xaip/docs/spec/test-vectors && node check.mjs) && XAIP_ROOT=/tmp/xaip A2A_JCS_TARGET=rfc8785 agent-evidence-vectors --corpus vectors-a2a-jcs-v01 --verifier \"node adapters/xaip_jcs_cli.mjs\""
     }
   ]
 }

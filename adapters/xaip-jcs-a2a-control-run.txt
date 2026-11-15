@@ -1,0 +1,2 @@
+a2a-agent-card-canonicalization-conformance target rfc8785: executed 53 of 53, 53 pass; report conformance-report.json
+EXIT=0
