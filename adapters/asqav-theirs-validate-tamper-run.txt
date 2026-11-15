@@ -1,0 +1,4 @@
+FAIL compat: extension-fields.json: 'nonce': scope changed 'signed-payload' -> 'envelope-level'
+
+1 problem(s)
+EXIT=1
