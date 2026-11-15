@@ -120,6 +120,7 @@ NIL = "00000000-0000-0000-0000-000000000000"
 # (the kit's own stated rule). The default reading is draft -26 Section 6 step 4 verbatim:
 # 'A "0.4" receipt without metadata_hash MUST fail.'
 KIT_READING = False
+ERRATA_READING = False
 
 
 def version_tuple(s):
@@ -471,7 +472,8 @@ def verify_commitment(tl, c):
         why.append("job_id")
     if not (isinstance(fed, str) and re.fullmatch(r"[0-9a-f]{64}", fed)):
         why.append("final_entry_digest")
-    if not is_int_valued(cnt):
+    if not is_int_valued(cnt) or (ERRATA_READING and not (isinstance(cnt, int) and not isinstance(cnt, bool))):
+        # ERRATA E-2026-11-15-2: entry_count MUST be encoded as a JSON integer; 5.0 is a mistyped member.
         why.append("entry_count")
     if not valid_ts(pub):
         why.append("published_at")
@@ -680,10 +682,14 @@ def main(kit):
 
 
 if __name__ == "__main__":
-    args = [a for a in sys.argv[1:] if a != "--kit-reading"]
-    KIT_READING = "--kit-reading" in sys.argv[1:]
+    args = [a for a in sys.argv[1:] if a not in ("--kit-reading", "--errata-reading")]
+    ERRATA_READING = "--errata-reading" in sys.argv[1:]
+    KIT_READING = ERRATA_READING or "--kit-reading" in sys.argv[1:]  # E-1: absent metadata_hash is not failed
     if len(args) != 1:
-        print("usage: aer1_adapter.py [--kit-reading] <kit-checkout>", file=sys.stderr)
+        print("usage: aer1_adapter.py [--kit-reading | --errata-reading] <kit-checkout>", file=sys.stderr)
         sys.exit(2)
-    print("READING: %s" % ("kit (0.4 without metadata_hash not failed)" if KIT_READING else "draft-26 verbatim (0.4 requires metadata_hash)"))
+    reading = ("errata ERRATA.md E-2026-11-15-1 and -2 (absent metadata_hash not failed; entry_count must be a JSON integer)" if ERRATA_READING
+               else "kit (0.4 without metadata_hash not failed)" if KIT_READING
+               else "draft-26 verbatim (0.4 requires metadata_hash)")
+    print("READING: %s" % reading)
     sys.exit(main(args[0]))
