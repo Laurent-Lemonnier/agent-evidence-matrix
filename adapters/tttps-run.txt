@@ -1,5 +1,5 @@
 extracted ed25519 record 180 octets, psk record 180 octets
-draft13 /home/sgilda/Documents/probity-lanes/catchup-1114/matrix-fill/recheck/_raw/draft-helmprotocol-tttps-13.txt sha256=b7d4e5df8e60b4c3dbc05e182baaa7db588bd67b51cc5c38ce5f38e76dee85cc
+draft13 _raw/draft-helmprotocol-tttps-13.txt sha256=b7d4e5df8e60b4c3dbc05e182baaa7db588bd67b51cc5c38ce5f38e76dee85cc
 common ts=2100000000000000 dispersion=100 issuer_key_id=1001
 == S1 draft-13 Appendix B vectors (their published bytes)
 match B.2 ed25519 record length: got=180 expect=180
