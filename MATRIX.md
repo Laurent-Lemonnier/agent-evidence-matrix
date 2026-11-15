@@ -2,7 +2,7 @@
 
 Reader: agent-evidence-vectors 0.36.3, agent-evidence-verify 0.5.0.
 
-Coverage: 4 of 13 projects have at least one cell with a result (agrees, contradicted or cannot-tell).
+Coverage: 5 of 14 projects have at least one cell with a result (agrees, contradicted or cannot-tell).
 
 Source: "their records" = the project's own record bytes were read; "our adapter" = code in adapters/ carried their record to our reader or their code to our corpus.
 
@@ -27,3 +27,9 @@ Source: "their records" = the project's own record bytes were read; "our adapter
 | 13 | ATX (Agent Trust eXtension) credentials | records/atx (5 conformance fixtures: v1.0 pipe form and v1.1 JCS form), canonical signing bytes and Ed25519 layer | their records | agrees (3 of 5; 2 contradicted (the intended tampers)) | adapters/atx-layers-run.txt (adapters/atx_layers.py) |
 | 13 | ATX (Agent Trust eXtension) credentials | ML-DSA-65 entries, validity window, trusted-issuer set, revocation, distinct-authority count | none | not run | adapter reads no ML-DSA-65 key; the project's reference verifiers cover these (records/atx/README.md) |
 | 13 | ATX (Agent Trust eXtension) credentials | JCS function (the suite's vendored RFC 8785 serializer) against vectors-a2a-jcs-v01 (rfc8785 target) | our adapter | contradicted (11 of 53) | adapters/atx-jcs-run.txt: the 11 floating-point vectors refused by design (ATX signs no such number), 42 of 53 agree; replayed outside the packaged harness |
+| 14 | AI Runtime Evidence Protocol (AIREP) | v0.2 beta lifecycle fixtures through the reference reconciler versus committed expected JSON | our adapter | agrees (11 of 11; expected FAILURE/MISSING/NOT_EVALUATED/INDETERMINATE preserved) | adapters/airep-run.txt (adapters/airep_adapter.py) |
+| 14 | AI Runtime Evidence Protocol (AIREP) | authorized/executed action digest equality: complete fixture | our adapter | agrees (supplied digests equal; no event-truth claim) | adapters/airep-run.txt (adapters/airep_adapter.py) |
+| 14 | AI Runtime Evidence Protocol (AIREP) | authorized/executed action digest equality: toctou-mismatch fixture | our adapter | contradicted (intentional unequal digests, despite valid signatures) | adapters/airep-run.txt (adapters/airep_adapter.py) |
+| 14 | AI Runtime Evidence Protocol (AIREP) | authorized/executed action digest equality: no-execution fixture | our adapter | cannot-tell (Execution absent; comparison NOT_EVALUATED; not proof of non-execution) | adapters/airep-run.txt (adapters/airep_adapter.py) |
+| 14 | AI Runtime Evidence Protocol (AIREP) | Certisyn consumer/verifier on original v0.2 handoff corpus v0.1: process, class, channels, observer and producer-crypto projection | our adapter | contradicted (17 agree, 1 contradicted (CLS-XT1 expected-projection defect); all 18 raw outputs reproduced byte-exact) | adapters/airep-run.txt (adapters/airep_adapter.py) |
+| 14 | AI Runtime Evidence Protocol (AIREP) | AIREP records through the shared agent-evidence-verify reader | none | not run | adapters/airep_adapter.py: only scoped AIREP replay; no general cross-format interoperability claim |
