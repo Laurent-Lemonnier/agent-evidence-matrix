@@ -1,0 +1,6 @@
+OK: 49 extension fields, 9 type namespaces, version 1.3.0
+EXIT=0
+OK: wire vocabulary reference shape and relationships
+EXIT=0
+OK: generated wire vocabulary files
+EXIT=0

@@ -1,0 +1,9 @@
+AGREE manifest: 4 listed files, 0 digests differ []
+AGREE entries: 49 extension fields (1 envelope-level, 47 signed-payload, 1 signing-time declaration), 9 type namespaces; problems []
+AGREE reservation: 9 namespaces, all under protectmcp; problems []
+AGREE stability: previous.json (version 1.1.0, 47 fields, 9 namespaces) survives; problems []
+AGREE changelog: version 1.3.0 on both registries; CHANGELOG entry found states 49 extension fields and date 2026-10-24; file has 49, updated 2026-10-24
+AGREE wire: wire.json lists 9 receipt types (equal to the registered namespaces: True); problems []
+OBSERVE wire.json describes 43 field names; 41 are registered extension fields and 2 are not: ['user_intent', 'user_intent_verified']. Neither document says a wire.json field must be registered (vocabulary/README.md: 'Listing a field here does not establish support in every SDK or route'), so this is reported and not scored.
+SUMMARY 6 of 6 agree
+EXIT=0

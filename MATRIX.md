@@ -2,7 +2,7 @@
 
 Reader: agent-evidence-vectors 0.36.3, agent-evidence-verify 0.5.1.
 
-Coverage: 17 of 21 projects have at least one cell with a result (agrees, contradicted or cannot-tell).
+Coverage: 19 of 23 projects have at least one cell with a result (agrees, contradicted or cannot-tell).
 
 Source: "their records" = the project's own record bytes were read; "our adapter" = code in adapters/ carried their record to our reader or their code to our corpus.
 
@@ -97,6 +97,10 @@ Source: "their records" = the project's own record bytes were read; "our adapter
 | 21 | XAIP receipts (draft-xkumakichi-xaip-receipts-03, xkumakichi/xaip-protocol) | The 15 vectors of docs/spec/test-vectors/receipts-v1-vectors.json (5 preimage, 3 payload, 4 receipt, 3 rejection), recomputed from draft -03 Sections 3.1 to 3.5 with rfc8785 and Ed25519 | their records | agrees (15 of 15 agree. tampered_success_flip is additionally refused by the Section 3.3 fail-closed check (failureType required when success is false). Second run from a second export is byte-identical; changing one byte of toolName in the v1_cosigned_valid receipt makes both signatures fail, 14 of 15.) | adapters/xaip-receipts-run.txt (adapters/xaip_receipts_adapter.py); adapters/xaip-receipts-tamper-run.txt |
 | 21 | XAIP receipts (draft-xkumakichi-xaip-receipts-03, xkumakichi/xaip-protocol) | Their checker docs/spec/test-vectors/check.mjs (node:crypto only) on their own 15 vectors | their records | agrees (All 15 vectors verified, exit 0, node 24.19.0; the second run is byte-identical. With the same one-byte toolName change it prints FAIL for v1_cosigned_valid and exits 1.) | adapters/xaip-theirs-check-run.txt; adapters/xaip-theirs-check-tamper-run.txt |
 | 21 | XAIP receipts (draft-xkumakichi-xaip-receipts-03, xkumakichi/xaip-protocol) | Their canonicalize() function (read verbatim from check.mjs, labelled 'JCS (RFC 8785) canonical serialization') against vectors-a2a-jcs-v01, rfc8785 target | our adapter | contradicted (48 of 53 agree, 5 differ. Executed 53 of 53, 48 pass. The 5 failures are the lone-surrogate rejects A3-REJECT-011, A3-REJECT-012, A4-REJECT-013, A4-REJECT-014 and A4-REJECT-015: the function emits a \udXXX escape and exits 0 where the corpus says no canonical form exists. RFC 8785 Section 3.2.2.2: 'occurrences of such data MUST cause a compliant JCS implementation to terminate with an appropriate error'; Section 3.1 requires I-JSON input and RFC 7493 Section 2.1 says string values 'MUST NOT include code points that identify Surrogates or Noncharacters'. Draft -03 says 'Implementations producing receipts MUST canonicalize using JCS as defined in [RFC8785]'. Control: the same function patched to refuse a lone surrogate passes 53 of 53, so the verdict follows that one behaviour. Second run byte-identical.) | adapters/xaip-jcs-a2a-run.txt (adapters/xaip_jcs_cli.mjs); adapters/xaip-jcs-a2a-control-run.txt |
+| 22 | Seal records ATTESTATION-v1 and ACTION-v1 (Aqta-ai/attestation-spec) | ATTESTATION-v1 and ACTION-v1 test vectors (valid/ must verify, invalid/ must fail under the pinned key), recomputed from spec sections 4 to 7 | their records | agrees (67 of 67: ATTESTATION-v1 33 of 33 (10 valid, 23 invalid), ACTION-v1 34 of 34 (11 valid, 23 invalid); none differ, and each invalid vector fails on the rule its README row names (uncoerced 1.0 fails the signature, lone surrogate fails UTF-16 order, fullwidth and trailing-newline timestamps fail the ASCII full-match grammar, the ATTESTATION-v1 receipt fails the ACTION-v1 field set). Second run from a second export is byte-identical; changing one byte of org_id in a valid vector of each set flips both to invalid, 65 of 67.) | adapters/aqta-seal-run.txt (adapters/aqta_seal_adapter.py); adapters/aqta-seal-tamper-run.txt |
+| 22 | Seal records ATTESTATION-v1 and ACTION-v1 (Aqta-ai/attestation-spec) | Their CLI aqta-verify-receipt 1.4.0 (built from packages/verify-receipt-py) on their ATTESTATION-v1, ACTION-v1 (--profile action-1) and 7 byte-level inputs, exit codes against the stated ones | their records | agrees (74 of 74 exit codes equal the stated ones (valid 0, invalid 1, malformed bytes 2) and the sha256 pins of the byte inputs hold; the second run in a fresh venv from a second export is byte-identical. The same one-byte org_id change makes the two valid vectors exit 1, 72 of 74.) | adapters/aqta-theirs-cli-run.txt (adapters/aqta_theirs_cli_runner.py); adapters/aqta-theirs-cli-tamper-run.txt |
+| 23 | Compliance Receipts registries (draft-marques-asqav-compliance-receipts, jagmarques/asqav-registry) | Registry contents re-derived from REGISTRATION.md and CHANGELOG.md: MANIFEST.sha256, entry name and scope rules, protectmcp reservation and parent inheritance, never-removed-never-renamed against previous.json, changelog counts, wire.json receipt types | their records | agrees (6 of 6 checks agree on 49 extension fields (47 signed-payload, 1 envelope-level, 1 signing-time declaration) and 9 type namespaces at version 1.3.0: the 4 manifest digests match, every name fits its pattern, previous.json (1.1.0) survives with the same scope and change controller, CHANGELOG 1.3.0 states 49 fields and the file's date, and wire.json receipt_types equals the 9 registered namespaces. Observation, not scored: wire.json describes 43 field names of which 41 are registered; user_intent and user_intent_verified are not, and neither document says a wire.json field must be registered. Second run from a second export is byte-identical; flipping the scope of nonce in a copy fails the stability check and the manifest check.) | adapters/asqav-registry-run.txt (adapters/asqav_registry_adapter.py); adapters/asqav-registry-tamper-run.txt |
+| 23 | Compliance Receipts registries (draft-marques-asqav-compliance-receipts, jagmarques/asqav-registry) | Their validate.py, vocabulary/validate.py and tools/wire_vocabulary.py --check on the pinned tree (jsonschema 4.26.0) | their records | agrees (All three exit 0 (49 extension fields, 9 type namespaces, version 1.3.0; wire vocabulary shape and generated files). The same validate.py on the nonce-scope copy exits 1 with 'compat: extension-fields.json: nonce: scope changed signed-payload -> envelope-level'. Their wire unit tests were not scored: one renderer test needs the TypeScript consumer installed with npm ci, which was not run.) | adapters/asqav-theirs-validate-run.txt; adapters/asqav-theirs-validate-tamper-run.txt |
 
 ## Replay
 
@@ -212,4 +216,20 @@ Upstream: https://github.com/xkumakichi/xaip-protocol at 287d77654ea504d8dc0f1fe
 
 ```
 git clone https://github.com/xkumakichi/xaip-protocol /tmp/xaip && git -C /tmp/xaip checkout 287d77654ea504d8dc0f1feaa9bbb5db4e43271a && python -I adapters/xaip_receipts_adapter.py /tmp/xaip && (cd /tmp/xaip/docs/spec/test-vectors && node check.mjs) && XAIP_ROOT=/tmp/xaip A2A_JCS_TARGET=rfc8785 agent-evidence-vectors --corpus vectors-a2a-jcs-v01 --verifier "node adapters/xaip_jcs_cli.mjs"
+```
+
+### 22. Seal records ATTESTATION-v1 and ACTION-v1 (Aqta-ai/attestation-spec)
+
+Upstream: https://github.com/Aqta-ai/attestation-spec at 5c38c716f16bfe6b4a537ec64f0af6cf33105ea3
+
+```
+git clone https://github.com/Aqta-ai/attestation-spec /tmp/aqta && git -C /tmp/aqta checkout 5c38c716f16bfe6b4a537ec64f0af6cf33105ea3 && python -I adapters/aqta_seal_adapter.py /tmp/aqta && python -m venv /tmp/aqv && /tmp/aqv/bin/pip install /tmp/aqta/packages/verify-receipt-py && python -I adapters/aqta_theirs_cli_runner.py /tmp/aqta /tmp/aqv/bin/aqta-verify-receipt
+```
+
+### 23. Compliance Receipts registries (draft-marques-asqav-compliance-receipts, jagmarques/asqav-registry)
+
+Upstream: https://github.com/jagmarques/asqav-registry at d479897af4ac21126a89b6ccf9723970590468e0
+
+```
+git clone https://github.com/jagmarques/asqav-registry /tmp/asqav && git -C /tmp/asqav checkout d479897af4ac21126a89b6ccf9723970590468e0 && python -I adapters/asqav_registry_adapter.py /tmp/asqav && python -m venv /tmp/asqv && /tmp/asqv/bin/pip install jsonschema==4.26.0 && (cd /tmp/asqav && /tmp/asqv/bin/python validate.py && /tmp/asqv/bin/python vocabulary/validate.py && /tmp/asqv/bin/python tools/wire_vocabulary.py --check)
 ```
