@@ -10,7 +10,7 @@
     "unsupported",
     "not run"
   ],
-  "total_projects": 16,
+  "total_projects": 17,
   "projects": [
     {
       "id": 1,
@@ -564,6 +564,38 @@
         "sha": "a867a23bbaf88df942f6c09f7e002b7ddda5814d"
       },
       "replay": "git clone https://github.com/diggertydog/verdict-record-test-vectors && git -C verdict-record-test-vectors checkout a867a23bbaf88df942f6c09f7e002b7ddda5814d && curl -sO https://www.ietf.org/archive/id/draft-wright-verdict-record-02.txt && venv/bin/python -I adapters/verdict_record_adapter.py verdict-record-test-vectors draft-wright-verdict-record-02.txt"
+    },
+    {
+      "id": 17,
+      "name": "Card-scheme dispute evidence profile (draft-xg-payment-dispute-profile-01, ActaSeal)",
+      "cells": [
+        {
+          "cell": "24 dispute packets: hash chain, receipt signature, scope hashes, anchor hash, custody (provisional: second-angle check not yet run)",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "24 of 24. Second angle: one ledger amount byte (vectors/valid) and one anchor time byte (demo-packet-anchored) changed in a copy flip both cases to refused (EVENT_HASH_MISMATCH and SETTLEMENT_ANCHOR_HASH_MISMATCH).",
+          "evidence": "adapters/actaseal-dispute-run.txt (adapters/actaseal_dispute_adapter.py)"
+        },
+        {
+          "cell": "draft Section 3: canonical form byte-identical to RFC 8785 (provisional)",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "310 of 310 objects",
+          "evidence": "adapters/actaseal-dispute-run.txt (adapters/actaseal_dispute_adapter.py)"
+        },
+        {
+          "cell": "draft Sections 4.2 and 5: scope verdict re-derived by the verifier from the recorded intent scope and executed action",
+          "source": "our adapter",
+          "verdict": "contradicted",
+          "detail": "1 forged packet, 2 runs, both differ from the draft. Draft -01 Section 4.2: scope_conformance \"MUST be re-derived by the verifier from recorded inputs, never asserted without re-derivation\"; Section 5: the shipped verifier \"recomputes ... the scope verdict from the recorded intent scope and executed action\". The valid vector rebuilt with executed amount 9999.00 against intent max_amount 5000.00, verdict left IN_SCOPE, every hash and the chain recomputed and the receipt re-signed: their verify.py at the pinned commit prints VERIFIED (exit 0), and still prints VERIFIED with that signing key pinned through --receipt-public-key, which is the case of a trusted key holder signing a verdict its own recorded inputs do not support. Their verify_scope_conformance checks that manifest headline, receipt and ScopeEvaluated event agree and that scope_hash and action_hash recompute; it does not derive the verdict. Control: the same packet with one signature character changed is refused (exit 1, VERIFICATION FAILED). Clean rerun from a fresh export at the pin is byte-identical.",
+          "evidence": "adapters/actaseal-dispute-run.txt, cases draft-s4.2-s5/* and forged/* (adapters/actaseal_dispute_adapter.py)"
+        }
+      ],
+      "upstream": {
+        "url": "https://github.com/actaseal/actaseal-verify",
+        "sha": "b862d1014c33ea63871754efd16f95a6dfa48cc7"
+      },
+      "replay": "git clone https://github.com/actaseal/actaseal-verify actaseal-verify && git -C actaseal-verify checkout b862d1014c33ea63871754efd16f95a6dfa48cc7 && venv/bin/python -I adapters/actaseal_dispute_adapter.py actaseal-verify \"$(mktemp -d)\""
     }
   ]
 }

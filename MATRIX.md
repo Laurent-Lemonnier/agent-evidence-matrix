@@ -2,7 +2,7 @@
 
 Reader: agent-evidence-vectors 0.36.3, agent-evidence-verify 0.5.1.
 
-Coverage: 11 of 16 projects have at least one cell with a result (agrees, contradicted or cannot-tell).
+Coverage: 12 of 17 projects have at least one cell with a result (agrees, contradicted or cannot-tell).
 
 Source: "their records" = the project's own record bytes were read; "our adapter" = code in adapters/ carried their record to our reader or their code to our corpus.
 
@@ -69,6 +69,9 @@ Source: "their records" = the project's own record bytes were read; "our adapter
 | 16 | Verdict Records (draft-wright-verdict-record-02) | Appendix A examples recomputed from the published -02 text | their records | agrees (18 of 20; 2 cannot-tell: A.1 evidence[1] digest has no published bytes in -02 (the repo's -03 replaced the item)) | adapters/verdict-record-run.txt (adapters/verdict_record_adapter.py) |
 | 16 | Verdict Records (draft-wright-verdict-record-02) | 70 vectors written for -02: refused before any step, by section, or reaches the steps | their records | agrees (70 of 70; steps 1 to 3 outcomes not tested) | adapters/verdict-record-run.txt (adapters/verdict_record_adapter.py) |
 | 16 | Verdict Records (draft-wright-verdict-record-02) | 21 vectors added for -03 (not on datatracker): same axis | their records | cannot-tell (17 of 21 agree; a16, a18, c11, g36 differ and the published -02 text does not decide them) | adapters/verdict-record-run.txt (adapters/verdict_record_adapter.py) |
+| 17 | Card-scheme dispute evidence profile (draft-xg-payment-dispute-profile-01, ActaSeal) | 24 dispute packets: hash chain, receipt signature, scope hashes, anchor hash, custody (provisional: second-angle check not yet run) | their records | agrees (24 of 24. Second angle: one ledger amount byte (vectors/valid) and one anchor time byte (demo-packet-anchored) changed in a copy flip both cases to refused (EVENT_HASH_MISMATCH and SETTLEMENT_ANCHOR_HASH_MISMATCH).) | adapters/actaseal-dispute-run.txt (adapters/actaseal_dispute_adapter.py) |
+| 17 | Card-scheme dispute evidence profile (draft-xg-payment-dispute-profile-01, ActaSeal) | draft Section 3: canonical form byte-identical to RFC 8785 (provisional) | their records | agrees (310 of 310 objects) | adapters/actaseal-dispute-run.txt (adapters/actaseal_dispute_adapter.py) |
+| 17 | Card-scheme dispute evidence profile (draft-xg-payment-dispute-profile-01, ActaSeal) | draft Sections 4.2 and 5: scope verdict re-derived by the verifier from the recorded intent scope and executed action | our adapter | contradicted (1 forged packet, 2 runs, both differ from the draft. Draft -01 Section 4.2: scope_conformance "MUST be re-derived by the verifier from recorded inputs, never asserted without re-derivation"; Section 5: the shipped verifier "recomputes ... the scope verdict from the recorded intent scope and executed action". The valid vector rebuilt with executed amount 9999.00 against intent max_amount 5000.00, verdict left IN_SCOPE, every hash and the chain recomputed and the receipt re-signed: their verify.py at the pinned commit prints VERIFIED (exit 0), and still prints VERIFIED with that signing key pinned through --receipt-public-key, which is the case of a trusted key holder signing a verdict its own recorded inputs do not support. Their verify_scope_conformance checks that manifest headline, receipt and ScopeEvaluated event agree and that scope_hash and action_hash recompute; it does not derive the verdict. Control: the same packet with one signature character changed is refused (exit 1, VERIFICATION FAILED). Clean rerun from a fresh export at the pin is byte-identical.) | adapters/actaseal-dispute-run.txt, cases draft-s4.2-s5/* and forged/* (adapters/actaseal_dispute_adapter.py) |
 
 ## Replay
 
@@ -136,4 +139,12 @@ Upstream: https://github.com/diggertydog/verdict-record-test-vectors at a867a23b
 
 ```
 git clone https://github.com/diggertydog/verdict-record-test-vectors && git -C verdict-record-test-vectors checkout a867a23bbaf88df942f6c09f7e002b7ddda5814d && curl -sO https://www.ietf.org/archive/id/draft-wright-verdict-record-02.txt && venv/bin/python -I adapters/verdict_record_adapter.py verdict-record-test-vectors draft-wright-verdict-record-02.txt
+```
+
+### 17. Card-scheme dispute evidence profile (draft-xg-payment-dispute-profile-01, ActaSeal)
+
+Upstream: https://github.com/actaseal/actaseal-verify at b862d1014c33ea63871754efd16f95a6dfa48cc7
+
+```
+git clone https://github.com/actaseal/actaseal-verify actaseal-verify && git -C actaseal-verify checkout b862d1014c33ea63871754efd16f95a6dfa48cc7 && venv/bin/python -I adapters/actaseal_dispute_adapter.py actaseal-verify "$(mktemp -d)"
 ```
