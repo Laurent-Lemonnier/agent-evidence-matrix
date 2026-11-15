@@ -1,0 +1,7 @@
+FAIL A3-REJECT-011: accepted: produced b'{"a":2,"b\\ud800key":1}' for input with no canonical form (exit 0)
+FAIL A3-REJECT-012: accepted: produced b'{"a":2,"b\\udc00key":1}' for input with no canonical form (exit 0)
+FAIL A4-REJECT-013: accepted: produced b'{"name":"broken \\udc00 value"}' for input with no canonical form (exit 0)
+FAIL A4-REJECT-014: accepted: produced b'{"name":"before\\udc00after"}' for input with no canonical form (exit 0)
+FAIL A4-REJECT-015: accepted: produced b'{"name":"\\ud800x"}' for input with no canonical form (exit 0)
+a2a-agent-card-canonicalization-conformance target rfc8785: executed 53 of 53, 48 pass; report conformance-report.json
+EXIT=1

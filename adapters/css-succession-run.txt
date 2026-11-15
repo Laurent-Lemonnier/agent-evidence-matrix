@@ -1,0 +1,30 @@
+AGREE ahr-v0.1/r1 golden expected pass got pass
+AGREE ahr-v0.1/r1 proof-signature-bitflip expected proof got proof
+AGREE ahr-v0.1/r1 content-altered expected proof got proof
+AGREE ahr-v0.1/r1 lying-issuer-untrusted expected proof got proof
+AGREE ahr-v0.1/r1 lying-issuer-trusted-key expected evidence_hash got evidence_hash
+AGREE ahr-v0.1/r1 evidence-signature-stale expected evidence_signature got evidence_signature
+AGREE ahr-v0.1/r1 claim-hidden-obligation expected claim_grounding got claim_grounding
+AGREE ahr-v0.1/r1 claim-invented-obligation expected claim_grounding got claim_grounding
+AGREE ahr-v0.1/r1 proof-stripped expected proof got proof
+AGREE ahr-v0.2/r1 golden expected pass got pass
+AGREE ahr-v0.2/r1 proof-signature-bitflip expected proof got proof
+AGREE ahr-v0.2/r1 content-altered expected proof got proof
+AGREE ahr-v0.2/r1 lying-issuer-untrusted expected proof got proof
+AGREE ahr-v0.2/r1 lying-issuer-trusted-key expected evidence_hash got evidence_hash
+AGREE ahr-v0.2/r1 evidence-signature-stale expected evidence_signature got evidence_signature
+AGREE ahr-v0.2/r1 claim-hidden-obligation expected claim_grounding got claim_grounding
+AGREE ahr-v0.2/r1 claim-invented-obligation expected claim_grounding got claim_grounding
+AGREE ahr-v0.2/r1 proof-stripped expected proof got proof
+AGREE ahr-v0.2/r1 constitution-claim-dropped expected version_claims got version_claims
+AGREE ahr-v0.2/r1 genesis-evidence-stripped expected version_claims got version_claims
+AGREE ahr-v0.2/r1 amendment-count-inflated expected version_claims got version_claims
+AGREE ahr-v0.2/r1 ledger-binding-hash-swapped expected version_claims got version_claims
+AGREE ahr-v0.2/r1 ledger-binding-height-understated expected version_claims got version_claims
+AGREE ahr-v0.2/r1 spec-version-unknown expected version_claims got version_claims
+AGREE ahr-v0.2/r1 v01-label-smuggling expected version_claims got version_claims
+SHA256SUMS: 153 listed, 0 mismatched, 0 files under corpus/ not listed [], 0 listed absent []
+AGREE corpus/SHA256SUMS over 153 files
+AGREE corpus/SHA256SUMS.ots stamps the SHA-256 of corpus/SHA256SUMS (file header digest; no Bitcoin block was fetched)
+SUMMARY 27 of 27 agree
+EXIT=0

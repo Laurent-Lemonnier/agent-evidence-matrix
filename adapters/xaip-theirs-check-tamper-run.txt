@@ -1,0 +1,18 @@
+ok    string_raw_utf8
+ok    unicode_string_raw_utf8
+ok    json_key_order_invariance
+ok    json_object_task
+ok    empty_input_sentinel
+ok    v1_canonical_payload
+ok    toolmetadata_excluded_from_payload
+ok    legacy_payload_nine_fields
+FAIL  v1_cosigned_valid: agent signature: got false, expected true; caller signature: got false, expected true
+ok    v1_failure_sentinel
+ok    legacy_agent_only
+ok    tampered_success_flip
+ok    v1_truncated_hash
+ok    v1_uppercase_hash
+ok    v1_failuretype_inconsistent
+
+1 vector(s) FAILED
+EXIT=1
