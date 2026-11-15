@@ -348,12 +348,60 @@
       "name": "TTTPS and AUDIT testbed",
       "cells": [
         {
-          "cell": "180-octet PoT Record v2 (draft-helmprotocol-tttps-12): integrity_tag = SHA-256(octets 0-79), Ed25519 issuer_sig over octets 0-115",
+          "cell": "PoT Record v2 emitted by openttt-mcp 0.4.7 (e60bae0, the revision draft-12 names; npm dist and HEAD e123ba9 emit the same bytes): layout, SHA-256 integrity_tag, Ed25519 issuer_sig, single-bit mutants",
+          "source": "our adapter",
+          "verdict": "agrees",
+          "detail": "3 of 3 records intact under our reader and theirs; 4320 of 4320 single-bit mutants rejected by both, per-mutant verdicts equal; Ed25519 and PSK records byte-identical to the draft-13 Appendix B records (6 of 6 across three modules)",
+          "evidence": "adapters/tttps-run.txt (adapters/tttps_pot_adapter.py, adapters/tttps_emit.mjs)"
+        },
+        {
+          "cell": "draft-13 Appendix B vectors B.2 and B.3 (published bytes): record, tag, signature, record_hash, binding_input, holder_proof, presentation",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "28 of 28 checks over 2 of 2 vectors; vectors are draft-13 (same 180-octet layout as draft-12, different TLS transcript)",
+          "evidence": "adapters/tttps-run.txt (adapters/tttps_pot_adapter.py)"
+        },
+        {
+          "cell": "draft-13 holder proof and asymmetric freshness in HEAD e123ba9 (verifyDraft13BindingProof, draft13Freshness)",
+          "source": "our adapter",
+          "verdict": "agrees",
+          "detail": "17 of 17: 7 freshness cases, 10 proof checks over both vectors",
+          "evidence": "adapters/tttps-run.txt (adapters/tttps_pot_adapter.py)"
+        },
+        {
+          "cell": "dual-window freshness of 0.4.7 verifyPotRecordV2 against draft-12 section 2.5 step 4 and Appendix C.6",
+          "source": "our adapter",
+          "verdict": "contradicted",
+          "detail": "3 of 5 cases agree; differs on future_F_plus_1 (500,001 us ahead with dispersion 100: package intact, draft REJECT) and overflow_W_max; same in the npm dist. Draft-12 section 13.3 discloses the symmetric freshness helper. Spec: 'Dispersion extends only the past-freshness bound; it MUST NOT extend the future-skew allowance.'. The current module (HEAD e123ba9) follows draft-13 here; see the HEAD cell.",
+          "evidence": "adapters/tttps-run.txt (adapters/tttps_pot_adapter.py)"
+        },
+        {
+          "cell": "holder binding transcript of 0.4.7 against draft-12 section 6.1",
+          "source": "our adapter",
+          "verdict": "contradicted",
+          "detail": "binding_input and exporter context differ (81 octets each, different bytes: package uses ctx_id||nonce, draft-12 uses record_hash); draft-12 sections 6.1 and 13.3 disclose the draft-11 transcript. The current module (HEAD e123ba9) follows draft-13 here; see the HEAD cell.",
+          "evidence": "adapters/tttps-run.txt (adapters/tttps_pot_adapter.py)"
+        },
+        {
+          "cell": "live conformance API kpp.kenosian.com/api/verify and api.kenosian.com:8090",
           "source": "none",
           "verdict": "not run",
-          "evidence": "no record bytes published: Appendix C states property-based tests only, no byte vectors; Helm-Protocol/OpenTTT at feb61afd (1 Aug 2026) predates the v2 layout and holds no 180-octet record; the live API kpp.kenosian.com/api/verify did not answer (curl exit 28, connect timeout, 15 Nov 01:38 UTC)"
+          "detail": "curl exit 28, connect timeout after 20 s, at 02:15 UTC (9:15 PM EST) and 02:21 UTC (9:21 PM EST), 14 Nov 2026",
+          "evidence": "recheck/_raw/kenosian-retry2.log, kenosian-api-8090.log"
+        },
+        {
+          "cell": "Helm-Protocol/OpenTTT feb61afd 143-octet v1 PoT record",
+          "source": "none",
+          "verdict": "unsupported",
+          "detail": "emits a 143-octet record (src/pot_frame.ts POT_RECORD_SIZE), not a record draft-12 defines",
+          "evidence": "git-clones/matrixfill-OpenTTT src/pot_frame.ts"
         }
-      ]
+      ],
+      "upstream": {
+        "url": "https://github.com/Helm-Protocol/openttt-mcp",
+        "sha": "e60bae0686a232cc1593e04a70f8f70ff4d7ce5c"
+      },
+      "replay": "sh adapters/tttps_run.sh <recheck-dir> <venv>/bin/python <draft-helmprotocol-tttps-13.txt> <outdir>   (from recheck/adapter/run.sh; inputs: git show e60bae0:pot_record_v2.ts and e123ba9:pot_record_v2.ts from https://github.com/Helm-Protocol/openttt-mcp, npm pack @helm-protocol/ttt-mcp@0.4.7, https://www.ietf.org/archive/id/draft-helmprotocol-tttps-13.txt)"
     },
     {
       "id": 8,
