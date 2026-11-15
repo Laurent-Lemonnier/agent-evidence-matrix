@@ -1,0 +1,150 @@
+[conformance] 148 cases · 148 fully checked · 0 partially checked · 0 not run · 0 failed (anchors required)
+  PASS     agent-review-counter-proof-a-foreign-key-cannot-supersede-our-receipt: unverified supersession claim reported (32fc4455e730), nothing corrected
+  PASS     agent-review-counter-proof-a-superseded-predecessor-must-still-be-present: chain integrity False, as this case asserts (missing predecessor f9316113f6e4)
+  PASS     agent-review-counter-proof-anchored-time-needs-evidence: classified refused
+  PASS     agent-review-counter-proof-assurance-cannot-be-self-raised: classified refused
+  PASS     agent-review-counter-proof-complete-needs-an-expectation: classified refused
+  PASS     agent-review-counter-proof-duplicate-disclosure-block-fails-closed: classified refused
+  PASS     agent-review-counter-proof-findings-root-covers-the-list: classified invalid
+  PASS     agent-review-counter-proof-gap-duty-cannot-be-switched-off: classified refused
+  PASS     agent-review-counter-proof-introducing-the-first-block-moves-the-digest: body core digest MOVED, as this case asserts (2e617e35cd17 -> 7003300dfd49)
+  PASS     agent-review-counter-proof-partial-must-name-its-gap: classified refused
+  PASS     agent-review-counter-proof-receipt-does-not-travel-between-subjects: classified invalid
+  PASS     agent-review-positive-control-absent-expectation-is-reported: subject expectation not_supplied, and the limit is stated
+  PASS     agent-review-positive-control-emit-verify-roundtrip: classified valid
+  PASS     agent-review-positive-control-prepare-then-fill-keeps-the-digest: body core digest stable across re-render (7003300dfd49)
+  PASS     agent-review-positive-control-rerendered-block-keeps-body-core: body core digest stable across re-render (ad3dd98c8782)
+  PASS     agent-review-positive-control-supersession-names-the-current-receipt: current receipt 8b9f70c9eb0a, 2/2 envelope(s) verified
+  PASS     agent-review-positive-control-valid-self-declared: classified valid
+  PASS     agent-review-v02-counter-proof-coverage-partial-must-name-its-gap: classified refused
+  PASS     agent-review-v02-counter-proof-disclosure-core-digest-is-required: classified refused
+  PASS     agent-review-v02-counter-proof-fixcommit-must-be-the-full-sha: classified refused
+  PASS     agent-review-v02-counter-proof-limitation-codes-are-required: classified refused
+  PASS     agent-review-v02-positive-control-emitter-default-is-v02: classified valid
+  PASS     agent-review-v02-positive-control-fixcommit-full-sha-is-accepted: classified valid
+  PASS     native-bundle-coherent-rewrap-fails-expected-root: verify exit 1 (verification failed) as expected
+  PASS     native-bundle-coherent-rewrap-verifies-no-policy: verify exit 0 (verified) as expected
+  PASS     native-bundle-corrupted-signature: verify exit 1 (verification failed) as expected
+  PASS     native-bundle-duplicate-json-key: verify exit 2 (malformed/rejected) as expected
+  PASS     native-bundle-forged-anchor-own-frozen: verify exit 3 (policy unmet) as expected
+  PASS     native-bundle-n1-eval-sdjwt-graft-non-eval: verify exit 1 (verification failed) as expected
+  PASS     native-bundle-sd-jwt-forged-issuer-identity: verify exit 1 (verification failed) as expected
+  PASS     native-bundle-sd-jwt-signed-but-unbound: verify exit 1 (verification failed) as expected
+  PASS     native-bundle-sd-jwt-unsigned-unauthenticated: verify exit 1 (verification failed) as expected
+  PASS     native-bundle-tampered-payload: verify exit 1 (verification failed) as expected
+  PASS     native-bundle-tree-size-expectation-mismatch: verify exit 1 (verification failed) as expected
+  PASS     native-bundle-valid-minimal: verify exit 0 (verified) as expected
+  PASS     decision-crossimpl-canonicalization-root-binding: decision root ff05e3e0126e… ok · evidence root 323adb188f84… ok · validator 12 findings (expected-fail) · anchor pending (offline, relying-party header)
+  PASS     decision-crossimpl-confirmed-anchor-lifecycle: decision root 16b80b4ce783… ok · evidence root a86058b3b338… ok · validator 12 findings (expected-fail) · anchor confirmed (offline, relying-party header)
+  PASS     decision-crossimpl-schema-conformant: decision root 97e1d74b810a… ok · evidence root 323adb188f84… ok · validator clean · anchor confirmed (offline, relying-party header)
+  PASS     envelope-profile-r1-counter-proof-float-is-refused-so-two-axes-cannot-arise: all 2 object(s) refused, as the counter-proof asserts
+  PASS     envelope-profile-r1-counter-proof-nonconformant-serializer-diverges: serializations differ as expected (cbb19685ce37 vs 7ad22f25a26e)
+  PASS     envelope-profile-r1-positive-control-canonical-root: canonical content root reproduced
+  PASS     envelope-profile-r2-counter-proof-absent-envelope-id-is-invalid-not-refused: classified invalid
+  PASS     envelope-profile-r2-counter-proof-empty-envelope-id-is-invalid-not-refused: classified invalid
+  PASS     envelope-profile-r2-counter-proof-foreign-envelope-id-is-refused-not-invalid: classified refused_unknown_schema
+  PASS     envelope-profile-r2-counter-proof-foreign-schema-id-is-refused-not-invalid: classified refused_unknown_schema
+  PASS     envelope-profile-r2-counter-proof-numeric-envelope-id-is-invalid-not-refused: classified invalid
+  PASS     envelope-profile-r2-counter-proof-unknown-alg-under-our-id-is-invalid-not-refused: classified invalid
+  PASS     envelope-profile-r2-counter-proof-unverifiable-is-invalid-not-refused: classified invalid
+  PASS     envelope-profile-r2-positive-control-known-schema-classifies-valid: classified valid
+  PASS     envelope-profile-r3-counter-proof-hand-signed-binding-lies-about-tree-size: classified invalid
+  PASS     envelope-profile-r3-positive-control-coherent-sample-binding: classified valid
+  PASS     envelope-profile-r4-counter-proof-issuer-is-not-the-signing-key: classified invalid
+  PASS     envelope-profile-r4-positive-control-issuer-is-the-signing-key: classified valid
+  PASS     provenance-version-status-absent-legacy-receipt: 0 issue(s) as expected
+  PASS     provenance-version-status-lookalike-version-field: 0 issue(s) as expected
+  PASS     provenance-version-status-missing-reason: 1 issue(s) as expected
+  PASS     provenance-version-status-not-bound: 0 issue(s) as expected
+  PASS     provenance-version-status-not-reported: 0 issue(s) as expected
+  PASS     provenance-version-status-not-reported-with-field: 1 issue(s) as expected
+  PASS     provenance-version-status-reported: 0 issue(s) as expected
+  PASS     provenance-version-status-reported-without-field: 1 issue(s) as expected
+  PASS     provenance-version-status-unknown-literal: 1 issue(s) as expected
+  PASS     provenance-version-status-unrelated-status-field: 0 issue(s) as expected
+  PASS     provenance-version-status-unrelated-status-field-named-set: 0 issue(s) as expected
+  PASS     relation-declared-supersedes-verified: decision verify exit 0, lineage as declared
+  PASS     relation-declared-unresolved: decision verify exit 0, lineage as declared
+  PASS     relation-decoy-on-accept-path: decision verify exit 3, lineage as declared
+  PASS     relation-decoy-parent-correct-pass: decision verify exit 0, lineage as declared
+  PASS     relation-decoy-parent-no-pin-old-behavior: decision verify exit 0, lineage as declared
+  PASS     relation-decoy-parent-target-mismatch: decision verify exit 3, lineage as declared
+  PASS     relation-depth-exceeded: decision verify exit 2, lineage as declared
+  PASS     relation-digest-mismatch: decision verify exit 3, lineage as declared
+  PASS     relation-malformed-digest: decision verify exit 2, lineage as declared
+  PASS     relation-malformed-relationships-successor: decision verify exit 3, lineage as declared
+  PASS     relation-null-relationships-successor: decision verify exit 0, lineage as declared
+  PASS     outcome-relation-declared-supersedes-verified: outcome verify exit 0, lineage as declared
+  PASS     outcome-relation-decoy-parent-target-mismatch: outcome verify exit 3, lineage as declared
+  PASS     outcome-relation-digest-mismatch: outcome verify exit 3, lineage as declared
+  PASS     outcome-relation-signer-unauthorized: outcome verify exit 3, lineage as declared
+  PASS     outcome-relation-renews: outcome verify exit 0, lineage as declared
+  PASS     outcome-relation-silent-landing: outcome verify exit 1, lineage as declared
+  PASS     outcome-relation-valid-baseline: outcome verify exit 0, lineage as declared
+  PASS     relation-edge-amends: decision verify exit 0, lineage as declared
+  PASS     relation-edge-corrects: decision verify exit 0, lineage as declared
+  PASS     relation-edge-derivedfrom: decision verify exit 0, lineage as declared
+  PASS     relation-edge-retracts: decision verify exit 0, lineage as declared
+  PASS     relation-edge-revises: decision verify exit 0, lineage as declared
+  PASS     relation-signer-cross-issuer-unauthorized: decision verify exit 3, lineage as declared
+  PASS     relation-signer-cross-issuer-verified: decision verify exit 0, lineage as declared
+  PASS     relation-signer-same-key-explicit: decision verify exit 0, lineage as declared
+  PASS     relation-signer-verified-under-not-claim: decision verify exit 3, lineage as declared
+  PASS     relation-renews-vector: decision verify exit 0, lineage as declared
+  PASS     relation-retracts-then-use: decision verify exit 3, lineage as declared
+  PASS     relation-silent-landing: decision verify exit 1, lineage as declared
+  PASS     relation-statement-malformed: relation-statement verify exit 2, lineage as declared
+  PASS     relation-statement-retracts-declared-unresolved: relation-statement verify exit 0, lineage as declared
+  PASS     relation-statement-retracts-unauthorized: relation-statement verify exit 3, lineage as declared
+  PASS     relation-statement-retracts-verified-blocked: relation-statement verify exit 3, lineage as declared
+  PASS     relation-statement-retracts-verified-visible: relation-statement verify exit 0, lineage as declared
+  PASS     relation-statement-supersedes-verified: relation-statement verify exit 0, lineage as declared
+  PASS     relation-statement-supersedes-verified-blocked: relation-statement verify exit 3, lineage as declared
+  PASS     relation-t1-canonical-invalid-signature: decision verify exit 1, lineage as declared
+  PASS     relation-target-subject-ambiguous: decision verify exit 2, lineage as declared
+  PASS     relation-target-subject-correct-pass: decision verify exit 0, lineage as declared
+  PASS     relation-target-subject-mismatch: decision verify exit 2, lineage as declared
+  PASS     relation-target-subject-missing: decision verify exit 2, lineage as declared
+  PASS     relation-unauthorized-signer: decision verify exit 2, lineage as declared
+  PASS     relation-valid-baseline: decision verify exit 0, lineage as declared
+  PASS     relation-wrong-payloadtype-target: decision verify exit 2, lineage as declared
+  PASS     agent-review-v02-positive-control-legacy-v01-is-marked-legacy: predicateVersionStatus legacy, codes []
+  PASS     agent-review-v02-positive-control-current-v02-is-marked-current: predicateVersionStatus current, codes []
+  PASS     agent-review-v02-counter-proof-unknown-predicate-type-is-refused: predicateVersionStatus unknown, codes ['AGENT_REVIEW_PREDICATE_TYPE_UNKNOWN']
+  PASS     agent-review-v02-positive-control-default-policy-decides-accept: policy_decision accept, policy 'agent-review/default' sha256:248daae3a7202011
+  PASS     agent-review-v02-counter-proof-without-policy-nothing-is-decided: policy_decision None, policy None None
+  PASS     agent-review-v02-counter-proof-unknown-coverage-is-insufficient-evidence: policy_decision insufficient_evidence, policy 'agent-review/default' sha256:248daae3a7202011
+  PASS     agent-review-v02-counter-proof-blocking-policy-rejects: policy_decision reject, policy 'agent-review/conformance-blocking' sha256:3ccb8c12be5d421e
+  PASS     agent-review-v03-positive-control-verifier-block-is-accepted: classified valid
+  PASS     agent-review-v03-counter-proof-verifier-block-must-be-self-declared: classified refused
+  PASS     agent-review-v03-counter-proof-verifier-block-build-digest-must-be-sha256: classified refused
+  PASS     agent-review-v03-counter-proof-verifier-block-refuses-unknown-fields: classified refused
+  PASS     agent-review-counter-proof-verifier-block-is-not-a-v01-field: classified refused
+  PASS     cap1-positive-control-pv-01-complete-run-catalogued-basis: conformant, no rule fires
+  PASS     cap1-positive-control-pv-02-policy-and-scope-dispositions-still-complete: conformant, no rule fires
+  PASS     cap1-positive-control-pv-03-failure-reported-and-verdict-capped: conformant, no rule fires
+  PASS     cap1-positive-control-pv-04-withholding-digest-bound: conformant, no rule fires
+  PASS     cap1-positive-control-pv-05-two-strata-at-different-granularity: conformant, no rule fires
+  PASS     cap1-counter-proof-nc-01-two-units-vanish-from-the-accounting-the-counts-no-longer-re: refused by exactly ['R1-no-silent-remainder']
+  PASS     cap1-counter-proof-nc-02-an-open-reason-string-replaces-a-vocabulary-member: refused by exactly ['R2-closed-disposition']
+  PASS     cap1-counter-proof-nc-03-a-unit-is-withheld-with-no-digest-of-what-was-withheld: refused by exactly ['R3-withholding-digest-bound']
+  PASS     cap1-counter-proof-nc-04-a-catalogue-denominator-is-asserted-without-naming-the-catal: refused by exactly ['R4-denominator-basis']
+  PASS     cap1-counter-proof-nc-05-examined-exceeds-eligible: refused by exactly ['R1-no-silent-remainder', 'R5-counts-well-formed']
+  PASS     cap1-counter-proof-nc-06-an-absence-is-asserted-against-no-population: refused by exactly ['R6-absence-is-scoped']
+  PASS     cap1-counter-proof-nc-07-a-unit-failed-and-the-run-is-still-reported-complete: refused by exactly ['R7-incomplete-not-clean']
+  PASS     cap1-counter-proof-nc-08-a-cited-stratum-states-no-supported-claim-classes: refused by exactly ['R8-supports-bounds-citation']
+  PASS     cap1-counter-proof-nc-09-a-count-only-ledger-the-disposition-totals-are-present-but-n: refused by exactly ['R1-no-silent-remainder']
+  PASS     cap1-counter-proof-nc-10-incomplete-is-declared-but-no-capped-verdict-is-given: refused by exactly ['R7-incomplete-not-clean']
+  PASS     content-root-key-order: root 378c93782ad4… on both sides of the two-part rule
+  PASS     content-root-unicode: root a5f3ff7d762f… on both sides of the two-part rule
+  PASS     content-root-numbers: root dc6c98580dd4… on both sides of the two-part rule
+  PASS     content-root-nested-arrays: root 03ab2e4e5a87… on both sides of the two-part rule
+  PASS     content-root-unknown-top-field: root d2aa7428a913… on both sides of the two-part rule
+  PASS     content-root-cross-predicate-ref: decision a0dd638f2904… binds evidence 45292dd8cf95…
+  PASS     content-root-cross-predicate-ref-predicates-path: decision c46e64e9a055… binds evidence 45292dd8cf95…
+  PASS     content-root-negative-alg-confusion: binding False under declared alg jcs-sha256-v1
+  PASS     content-root-legacy-absent-verifies: binding True under declared alg legacy-sortkeys-json-v0
+  PASS     content-root-envelope-invariance: root a0dd638f2904… invariant across differing signature blocks
+  PASS     content-root-envelope-invariance-predicates-path: root c46e64e9a055… invariant across differing signature blocks
+  PASS     content-root-utf16-order: root 46d48fa2f718… on both sides of the two-part rule
+EXIT=0
