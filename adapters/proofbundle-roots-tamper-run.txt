@@ -1,0 +1,16 @@
+AGREE decision-crossimpl-canonicalization-root-binding decision_crossimpl (6 axes) [anchor: 4 pending attestation(s)]
+DIFF  decision-crossimpl-confirmed-anchor-lifecycle decision_crossimpl: anchor.status want 'confirmed' got 'block_mismatch'
+DIFF  decision-crossimpl-schema-conformant decision_crossimpl: jcs_byte_identical want True got False; anchor.status want 'confirmed' got 'digest_mismatch'
+AGREE content-root-key-order content_root_vector (2 axes)
+AGREE content-root-unicode content_root_vector (2 axes)
+AGREE content-root-numbers content_root_vector (2 axes)
+AGREE content-root-nested-arrays content_root_vector (2 axes)
+AGREE content-root-unknown-top-field content_root_vector (2 axes)
+AGREE content-root-cross-predicate-ref content_root_vector (3 axes)
+AGREE content-root-cross-predicate-ref-predicates-path content_root_vector (3 axes)
+AGREE content-root-negative-alg-confusion content_root_vector (2 axes)
+AGREE content-root-legacy-absent-verifies content_root_vector (2 axes)
+AGREE content-root-envelope-invariance content_root_vector (1 axes)
+AGREE content-root-envelope-invariance-predicates-path content_root_vector (1 axes)
+AGREE content-root-utf16-order content_root_vector (2 axes)
+SUMMARY 13 of 15 cases agree on every recomputed axis (42 axes); decision_predicate_findings and schema_conformant not recomputed (their validator)

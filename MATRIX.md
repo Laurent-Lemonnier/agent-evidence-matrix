@@ -2,7 +2,7 @@
 
 Reader: agent-evidence-vectors 0.36.3, agent-evidence-verify 0.5.1.
 
-Coverage: 14 of 18 projects have at least one cell with a result (agrees, contradicted or cannot-tell).
+Coverage: 15 of 19 projects have at least one cell with a result (agrees, contradicted or cannot-tell).
 
 Source: "their records" = the project's own record bytes were read; "our adapter" = code in adapters/ carried their record to our reader or their code to our corpus.
 
@@ -88,6 +88,9 @@ Source: "their records" = the project's own record bytes were read; "our adapter
 | 18 | AEP over RATS (draft-sokolov-rats-aep-composition-06) | V4 stale replay: the run A quote checked against a different expected nonce | our adapter | agrees (Signature valid and pcrDigest matching, yet extraData does not equal H(AEP digest : fresh nonce), so appraisal fails closed, as the draft's V4 requires; the project's run C reports Expired for the same input. This is the nonce comparison Section 14.1 says the unmodified Veraison reference scheme did not perform: our appraiser performs it, so the cell makes no claim about that scheme.) | adapters/sokolov-aep-rats-run.txt (adapters/sokolov_aep_rats_adapter.py) |
 | 18 | AEP over RATS (draft-sokolov-rats-aep-composition-06) | V5 outcome substitution: platform evidence kept, outcome changed (reverse binding of the outcome digest into the quote) | our adapter | agrees (Both the project's forged outcome text and a copy of aep.json with its outcome_digest replaced give a different record digest, so extraData no longer matches while the signature and PCR composite stay valid: rejected, the outcome contributes to the signed qualifying data. The project's own check reports rejected. This tests the binding of the outcome digest, not the truth of the reported outcome (the draft says the same in Section 12).) | adapters/sokolov-aep-rats-run.txt (adapters/sokolov_aep_rats_adapter.py) |
 | 18 | AEP over RATS (draft-sokolov-rats-aep-composition-06) | V6 authority substitution or replay (platform affirming, application policy returns Unauthorised) | their records | cannot-tell (tpm-demo has no application layer. The nearest running code, the aep-sandbox attack scripts, returns DENY aep_sig_invalid for a swapped mandate (rejected at the package signature, not as an Unauthorised policy result next to an affirming platform appraisal) and ALLOW then DENY replayed for a reused one-shot nonce. No EAR fields are produced, and the draft prints no V6 bytes, so whether these are the draft's V6 is not decided.) | adapters/v6-attacks-run.txt |
+| 19 | proofbundle conformance corpus (b7n0de/proofbundle) | Content roots (jcs-sha256-v1, ADR 0002): the 12 content_root_vector cases and the RFC 8785, content-root, MANIFEST and evidenceRefs axes of the 3 decision_crossimpl cases, recomputed from the ADR text with rfc8785 | their records | agrees (15 of 15 cases agree on all 42 recomputed axes; none differ. Covers key order, Unicode, numbers, nested arrays, unknown top field, UTF-16 key order, the cross-predicate evidenceRef binding (both predicateType spellings), DSSE envelope invariance (two envelopes, one root), the legacy-sortkeys-json-v0 binding (absent contentRootAlg selects legacy, true) and the algorithm-confusion negative (sortkeys body offered as jcs-sha256-v1, false). decision_predicate_findings and schema_conformant are not recomputed by us (their validator, next cell).) | adapters/proofbundle-roots-run.txt (adapters/proofbundle_roots_adapter.py) |
+| 19 | proofbundle conformance corpus (b7n0de/proofbundle) | OpenTimestamps anchors of the 3 decision_crossimpl cases: proof file digest equals SHA-256 of decision_receipt.jcs, and the proof's operations reach the relying-party Bitcoin merkle root the case supplies (our walker of the public OTS serialization) | their records | agrees (3 of 3 match the stated anchor status: schema-conformant confirmed at height 958761, confirmed-anchor-lifecycle confirmed at height 957504, canonicalization-root-binding pending (4 pending attestations, no Bitcoin attestation). The Bitcoin header merkle roots are the case's rpTrust inputs; we did not refetch the blocks.) | adapters/proofbundle-roots-run.txt (adapters/proofbundle_roots_adapter.py) |
+| 19 | proofbundle conformance corpus (b7n0de/proofbundle) | their runner conformance/run_conformance.py --require-anchors on all 148 manifest cases (10 kinds), against its own expected blocks | their records | agrees (148 of 148 fully checked, 0 partial, 0 not run, 0 failed, exit 0, in a venv built from their pyproject.toml extras [anchors,test] (proofbundle 6.6.0 from the pinned tree, opentimestamps 0.4.5, rfc8785 0.1.4, cryptography 50.0.2).) | adapters/proofbundle-theirs-conformance-run.txt (their conformance/run_conformance.py at the pinned commit) |
 
 ## Replay
 
@@ -179,4 +182,12 @@ Upstream: https://github.com/tyche-institute/aep-sandbox at c5d4194f4a5fbd0a117d
 
 ```
 git clone https://github.com/tyche-institute/aep-sandbox && git -C aep-sandbox checkout c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132 && cp -r aep-sandbox/tpm-demo demo && mkdir demo/work && docker build -t aep-demo demo && docker run --rm -u "$(id -u):$(id -g)" -e TMPDIR=/demo/work -v "$PWD/demo:/demo" aep-demo /demo && mkdir run && cp demo/work/tmp.*/{ak.pub,runA.msg,runA.sig,runA.pcrs,runB.msg,runB.sig,runB.pcrs} demo/{run.log,aep.json,golden.pcrs,reference-pcrs.txt,results.json} run/ && venv/bin/python -I adapters/sokolov_aep_rats_adapter.py aep-sandbox run
+```
+
+### 19. proofbundle conformance corpus (b7n0de/proofbundle)
+
+Upstream: https://github.com/b7n0de/proofbundle at 53d1eafe8eaf7c558ed394e01d1b29d132c2fd47
+
+```
+git clone https://github.com/b7n0de/proofbundle /tmp/proofbundle && git -C /tmp/proofbundle checkout 53d1eafe8eaf7c558ed394e01d1b29d132c2fd47 && python -I adapters/proofbundle_roots_adapter.py /tmp/proofbundle && (python -m venv /tmp/pbv && /tmp/pbv/bin/pip install '/tmp/proofbundle[anchors,test]' && cd /tmp/proofbundle && /tmp/pbv/bin/python conformance/run_conformance.py --require-anchors)
 ```
