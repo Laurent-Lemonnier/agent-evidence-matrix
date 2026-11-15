@@ -1,0 +1,3 @@
+clean quote, right qualifying data: exit=0
+one byte of TPMS_ATTEST flipped: exit=1
+clean quote, other qualifying data: exit=1

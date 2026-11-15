@@ -1,0 +1,36 @@
+== python attacks/swap_mandate.py (aep-sandbox c5d4194f, run from attacks/)
+
+=== swap_mandate — replace the mandate with a self-signed, broader one ===
+$ python3 verify.py attacks/out/swap_mandate.aep.json
+  [PASS] structure
+  [PASS] chain_integrity
+  [FAIL] aep_signature
+VERDICT: DENY  reason=aep_sig_invalid  (swap_mandate.aep.json)
+
+-> exit 2 (expected 2 / DENY:aep_sig_invalid — the agent never signed THIS mandate)
+== python attacks/replay.py (aep-sandbox c5d4194f, run from attacks/)
+
+=== replay — submit the same ALLOWed AEP twice (verifier in --consume mode) ===
+
+# first submission:
+$ python3 verify.py --consume samples/good.aep.json
+  [PASS] structure
+  [PASS] chain_integrity
+  [PASS] aep_signature
+  [PASS] measurements
+  [PASS] mandate
+  [PASS] replay
+VERDICT: ALLOW  (good.aep.json)
+  one-shot nonce consumed: aep-nonce-0001
+-> exit 0 (expected 0 / ALLOW, nonce now consumed)
+
+# replay the very same package:
+$ python3 verify.py --consume samples/good.aep.json
+  [PASS] structure
+  [PASS] chain_integrity
+  [PASS] aep_signature
+  [PASS] measurements
+  [PASS] mandate
+  [FAIL] replay
+VERDICT: DENY  reason=replayed  (good.aep.json)
+-> exit 2 (expected 2 / DENY:replayed)

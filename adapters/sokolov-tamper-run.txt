@@ -1,0 +1,19 @@
+CASE runA.sig one bit (V1 signature) -> FLIPS
+    V1 run A signature=False pcrComposite=match extraData(H(AEPH:nonceA))=match -> NOT-ATTESTED
+    V4 run A quote replayed against a fresh expected nonce: signature=False pcrComposite=match extraData=mismatch -> UNEXPECTED
+CASE run.log nonce A one hex digit (V1 extraData) -> FLIPS
+    V1 run A signature=True pcrComposite=match extraData(H(AEPH:nonceA))=mismatch -> NOT-ATTESTED
+    THEIR-VERDICTS run.log ['Attested', 'Contested', 'Expired', 'rejected']; ours Attested/Contested/Expired/rejected ['-', 'Contested', 'Expired', 'rejected']
+CASE aep.json one bit (record digest) -> FLIPS
+    RECORD-DIGEST script-heredoc=b80c48d9115da3ed emitted-aep.json=False run.log=True results.json=True readme=True -> differs
+    RESULT record-digest=False V1=True V2=True V3=145/145 V4=True V5=True agree-with-their-verdicts=False
+CASE runB.msg one bit in pcrDigest (V2 composite) -> FLIPS
+    V2 run B signature=False pcrComposite-vs-approved=diverged composite-equals-swapped-PCR3-recompute=False -> UNEXPECTED
+    THEIR-VERDICTS run.log ['Attested', 'Contested', 'Expired', 'rejected']; ours Attested/Contested/Expired/rejected ['Attested', '-', 'Expired', 'rejected']
+CASE reference-pcrs.txt one hex digit (PCR recompute) -> FLIPS
+    PCR-RECOMPUTE four extends from script text equal reference-pcrs.txt: False; swapped PCR3 differs from reference: True
+    RESULT record-digest=True V1=True V2=True V3=145/145 V4=True V5=True agree-with-their-verdicts=False
+CASE ak.pub modulus one bit (every signature) -> FLIPS
+    KEY-NAME TPM name of ak.pub recomputed False logged name differs; quote qualifiedSigner equals logged qualified name: True
+    V1 run A signature=False pcrComposite=match extraData(H(AEPH:nonceA))=match -> NOT-ATTESTED
+TAMPER 6 of 6 changed the adapter output
