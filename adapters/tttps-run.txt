@@ -1,0 +1,139 @@
+extracted ed25519 record 180 octets, psk record 180 octets
+draft13 _raw/draft-helmprotocol-tttps-13.txt sha256=b7d4e5df8e60b4c3dbc05e182baaa7db588bd67b51cc5c38ce5f38e76dee85cc
+common ts=2100000000000000 dispersion=100 issuer_key_id=1001
+== S1 draft-13 Appendix B vectors (their published bytes)
+match B.2 ed25519 record length: got=180 expect=180
+match ed25519 verdict (version, alg_id, integrity_tag, issuer_sig over 0-115, holder_auth_data): got=intact expect=intact
+match ed25519 ts/dispersion/issuer_key_id equal B.1: got=(2100000000000000, 100, 1001) expect=(2100000000000000, 100, 1001)
+match ed25519 ctx_id/nonce equal B.1: got=('00112233445566778899aabbccddeeff', 'ffeeddccbbaa99887766554433221100') expect=('00112233445566778899aabbccddeeff', 'ffeeddccbbaa99887766554433221100')
+match ed25519 integrity_tag field = SHA-256(record[0:80]): got=5cf2bfa0a58c85a33f32e5ebbbeb34fa79441c78f7c70de475bd0c30e6629d0b expect=5cf2bfa0a58c85a33f32e5ebbbeb34fa79441c78f7c70de475bd0c30e6629d0b
+match ed25519 issuer_signed_bytes = record[0:116]: got=02010001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa998877665544332211003d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c5cf2bfa0a58c85a33f32e5ebbbeb34fa79441c78f7c70de475bd0c30e6629d0b000003e9 expect=02010001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa998877665544332211003d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c5cf2bfa0a58c85a33f32e5ebbbeb34fa79441c78f7c70de475bd0c30e6629d0b000003e9
+match ed25519 issuer_signature = record[116:180]: got=135ec500276a3a2ac2b603afa325c2e54a7ffc1fd4108bbb1ed7c453c428f0921f462789c36a92615696198c56a4652c25eb78947d5036a1a2470102e9c4290d expect=135ec500276a3a2ac2b603afa325c2e54a7ffc1fd4108bbb1ed7c453c428f0921f462789c36a92615696198c56a4652c25eb78947d5036a1a2470102e9c4290d
+match ed25519 issuer_signature equals our own Ed25519 signature over record[0:116] (deterministic): got=135ec500276a3a2ac2b603afa325c2e54a7ffc1fd4108bbb1ed7c453c428f0921f462789c36a92615696198c56a4652c25eb78947d5036a1a2470102e9c4290d expect=135ec500276a3a2ac2b603afa325c2e54a7ffc1fd4108bbb1ed7c453c428f0921f462789c36a92615696198c56a4652c25eb78947d5036a1a2470102e9c4290d
+match ed25519 record_hash: got=968122a4b0af83c17a1d9efd2e7fcdb7e97ccd0f751940321de75bfee12b0569 expect=968122a4b0af83c17a1d9efd2e7fcdb7e97ccd0f751940321de75bfee12b0569
+match ed25519 exporter_context_hash (draft-13 6.1, 58-octet input): got=0a79108f007531c8ee489cf41679e2989650ac76540a4751c4702e56bac59053 expect=0a79108f007531c8ee489cf41679e2989650ac76540a4751c4702e56bac59053
+match ed25519 binding_input (90 octets): got=74747470732d62696e64696e672d76322d647261667431330000202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f968122a4b0af83c17a1d9efd2e7fcdb7e97ccd0f751940321de75bfee12b0569 expect=74747470732d62696e64696e672d76322d647261667431330000202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f968122a4b0af83c17a1d9efd2e7fcdb7e97ccd0f751940321de75bfee12b0569
+match ed25519 holder_proof recomputed: got=af4cbed0316474c4b05dc1afa01969605acda016e3b6436583b8428322760f3c4020f94ddbf3f5b60b5bce539407cc8b859f8144124c614daa54e0e37636460c expect=af4cbed0316474c4b05dc1afa01969605acda016e3b6436583b8428322760f3c4020f94ddbf3f5b60b5bce539407cc8b859f8144124c614daa54e0e37636460c
+match ed25519 presentation = record || holder_proof, 244 octets: got=02010001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa998877665544332211003d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c5cf2bfa0a58c85a33f32e5ebbbeb34fa79441c78f7c70de475bd0c30e6629d0b000003e9135ec500276a3a2ac2b603afa325c2e54a7ffc1fd4108bbb1ed7c453c428f0921f462789c36a92615696198c56a4652c25eb78947d5036a1a2470102e9c4290daf4cbed0316474c4b05dc1afa01969605acda016e3b6436583b8428322760f3c4020f94ddbf3f5b60b5bce539407cc8b859f8144124c614daa54e0e37636460c expect=02010001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa998877665544332211003d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c5cf2bfa0a58c85a33f32e5ebbbeb34fa79441c78f7c70de475bd0c30e6629d0b000003e9135ec500276a3a2ac2b603afa325c2e54a7ffc1fd4108bbb1ed7c453c428f0921f462789c36a92615696198c56a4652c25eb78947d5036a1a2470102e9c4290daf4cbed0316474c4b05dc1afa01969605acda016e3b6436583b8428322760f3c4020f94ddbf3f5b60b5bce539407cc8b859f8144124c614daa54e0e37636460c
+match ed25519 presentation length: got=244 expect=244
+match B.3 psk record length: got=180 expect=180
+match psk verdict (version, alg_id, integrity_tag, issuer_sig over 0-115, holder_auth_data): got=intact expect=intact
+match psk ts/dispersion/issuer_key_id equal B.1: got=(2100000000000000, 100, 1001) expect=(2100000000000000, 100, 1001)
+match psk ctx_id/nonce equal B.1: got=('00112233445566778899aabbccddeeff', 'ffeeddccbbaa99887766554433221100') expect=('00112233445566778899aabbccddeeff', 'ffeeddccbbaa99887766554433221100')
+match psk integrity_tag field = SHA-256(record[0:80]): got=94b2652334f11f00c2b844d351e64f054e9598542dba5f88595f4a45da21e232 expect=94b2652334f11f00c2b844d351e64f054e9598542dba5f88595f4a45da21e232
+match psk issuer_signed_bytes = record[0:116]: got=02020001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa99887766554433221100630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd94b2652334f11f00c2b844d351e64f054e9598542dba5f88595f4a45da21e232000003e9 expect=02020001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa99887766554433221100630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd94b2652334f11f00c2b844d351e64f054e9598542dba5f88595f4a45da21e232000003e9
+match psk issuer_signature = record[116:180]: got=f4e432c3acf244a0c5f8990a6d8704cb6fcadb7d1c1c48c51d5d55e15857cc7631849ba6ff5ece9f4cc741efe57408ed7d3a903fa718596b9bc65c816d4fe20d expect=f4e432c3acf244a0c5f8990a6d8704cb6fcadb7d1c1c48c51d5d55e15857cc7631849ba6ff5ece9f4cc741efe57408ed7d3a903fa718596b9bc65c816d4fe20d
+match psk issuer_signature equals our own Ed25519 signature over record[0:116] (deterministic): got=f4e432c3acf244a0c5f8990a6d8704cb6fcadb7d1c1c48c51d5d55e15857cc7631849ba6ff5ece9f4cc741efe57408ed7d3a903fa718596b9bc65c816d4fe20d expect=f4e432c3acf244a0c5f8990a6d8704cb6fcadb7d1c1c48c51d5d55e15857cc7631849ba6ff5ece9f4cc741efe57408ed7d3a903fa718596b9bc65c816d4fe20d
+match psk record_hash: got=b3772734f2ad713baf6e06a16b4dacc567cae0d35b1eda2530bafb73d3f1b2e5 expect=b3772734f2ad713baf6e06a16b4dacc567cae0d35b1eda2530bafb73d3f1b2e5
+match psk exporter_context_hash (draft-13 6.1, 58-octet input): got=5110791a9d7997e5932918505b6a1c2ae3ca5044e3937ff5d8308359354efbc7 expect=5110791a9d7997e5932918505b6a1c2ae3ca5044e3937ff5d8308359354efbc7
+match psk binding_input (90 octets): got=74747470732d62696e64696e672d76322d647261667431330000202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3fb3772734f2ad713baf6e06a16b4dacc567cae0d35b1eda2530bafb73d3f1b2e5 expect=74747470732d62696e64696e672d76322d647261667431330000202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3fb3772734f2ad713baf6e06a16b4dacc567cae0d35b1eda2530bafb73d3f1b2e5
+match psk holder_proof recomputed: got=d00e186bbf243d2a4af6b5dd1b30c5c949caee2f002967408e42aa2ac113d0ec expect=d00e186bbf243d2a4af6b5dd1b30c5c949caee2f002967408e42aa2ac113d0ec
+match psk presentation = record || holder_proof, 212 octets: got=02020001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa99887766554433221100630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd94b2652334f11f00c2b844d351e64f054e9598542dba5f88595f4a45da21e232000003e9f4e432c3acf244a0c5f8990a6d8704cb6fcadb7d1c1c48c51d5d55e15857cc7631849ba6ff5ece9f4cc741efe57408ed7d3a903fa718596b9bc65c816d4fe20dd00e186bbf243d2a4af6b5dd1b30c5c949caee2f002967408e42aa2ac113d0ec expect=02020001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa99887766554433221100630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd94b2652334f11f00c2b844d351e64f054e9598542dba5f88595f4a45da21e232000003e9f4e432c3acf244a0c5f8990a6d8704cb6fcadb7d1c1c48c51d5d55e15857cc7631849ba6ff5ece9f4cc741efe57408ed7d3a903fa718596b9bc65c816d4fe20dd00e186bbf243d2a4af6b5dd1b30c5c949caee2f002967408e42aa2ac113d0ec
+match psk presentation length: got=212 expect=212
+== S2 records emitted by their pot_record_v2 (our adapter reads the bytes)
+-- module e60bae0: pot_record_v2.ts exports HOLDER_AUTH_ED25519,HOLDER_AUTH_SHARED_SECRET,POT_V2_INTEGRITY_SHA256,POT_V2_ISSUER_SIGNATURE_SIZE,POT_V2_SIGNED_PREFIX_
+match e60bae0 ed25519: emitted record equals draft-13 published record: got=02010001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa998877665544332211003d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c5cf2bfa0a58c85a33f32e5ebbbeb34fa79441c78f7c70de475bd0c30e6629d0b000003e9135ec500276a3a2ac2b603afa325c2e54a7ffc1fd4108bbb1ed7c453c428f0921f462789c36a92615696198c56a4652c25eb78947d5036a1a2470102e9c4290d expect=02010001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa998877665544332211003d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c5cf2bfa0a58c85a33f32e5ebbbeb34fa79441c78f7c70de475bd0c30e6629d0b000003e9135ec500276a3a2ac2b603afa325c2e54a7ffc1fd4108bbb1ed7c453c428f0921f462789c36a92615696198c56a4652c25eb78947d5036a1a2470102e9c4290d
+match e60bae0 psk: emitted record equals draft-13 published record: got=02020001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa99887766554433221100630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd94b2652334f11f00c2b844d351e64f054e9598542dba5f88595f4a45da21e232000003e9f4e432c3acf244a0c5f8990a6d8704cb6fcadb7d1c1c48c51d5d55e15857cc7631849ba6ff5ece9f4cc741efe57408ed7d3a903fa718596b9bc65c816d4fe20d expect=02020001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa99887766554433221100630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd94b2652334f11f00c2b844d351e64f054e9598542dba5f88595f4a45da21e232000003e9f4e432c3acf244a0c5f8990a6d8704cb6fcadb7d1c1c48c51d5d55e15857cc7631849ba6ff5ece9f4cc741efe57408ed7d3a903fa718596b9bc65c816d4fe20d
+match e60bae0 ed25519: our verdict on emitted record: got=intact expect=intact
+match e60bae0 ed25519: their own verdict on emitted record: got=intact expect=intact
+match e60bae0 ed25519: single-bit mutants accepted by our verifier (of 1440, C.5 wants 0): got=0 expect=0
+match e60bae0 ed25519: single-bit mutants accepted by their verifier (of 1440): got=0 expect=0
+match e60bae0 ed25519: per-mutant agreement between our verdicts and theirs (of 1440): got=1440 expect=1440
+match e60bae0 psk: our verdict on emitted record: got=intact expect=intact
+match e60bae0 psk: their own verdict on emitted record: got=intact expect=intact
+match e60bae0 psk: single-bit mutants accepted by our verifier (of 1440, C.5 wants 0): got=0 expect=0
+match e60bae0 psk: single-bit mutants accepted by their verifier (of 1440): got=0 expect=0
+match e60bae0 psk: per-mutant agreement between our verdicts and theirs (of 1440): got=1440 expect=1440
+match e60bae0 other: our verdict on emitted record: got=intact expect=intact
+match e60bae0 other: their own verdict on emitted record: got=intact expect=intact
+match e60bae0 other: single-bit mutants accepted by our verifier (of 1440, C.5 wants 0): got=0 expect=0
+match e60bae0 other: single-bit mutants accepted by their verifier (of 1440): got=0 expect=0
+match e60bae0 other: per-mutant agreement between our verdicts and theirs (of 1440): got=1440 expect=1440
+-- module npm0.4.7: pot_record_v2.js exports HOLDER_AUTH_ED25519,HOLDER_AUTH_SHARED_SECRET,POT_V2_INTEGRITY_SHA256,POT_V2_ISSUER_SIGNATURE_SIZE,POT_V2_SIGNED_PREFIX_
+match npm0.4.7 ed25519: emitted record equals draft-13 published record: got=02010001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa998877665544332211003d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c5cf2bfa0a58c85a33f32e5ebbbeb34fa79441c78f7c70de475bd0c30e6629d0b000003e9135ec500276a3a2ac2b603afa325c2e54a7ffc1fd4108bbb1ed7c453c428f0921f462789c36a92615696198c56a4652c25eb78947d5036a1a2470102e9c4290d expect=02010001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa998877665544332211003d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c5cf2bfa0a58c85a33f32e5ebbbeb34fa79441c78f7c70de475bd0c30e6629d0b000003e9135ec500276a3a2ac2b603afa325c2e54a7ffc1fd4108bbb1ed7c453c428f0921f462789c36a92615696198c56a4652c25eb78947d5036a1a2470102e9c4290d
+match npm0.4.7 psk: emitted record equals draft-13 published record: got=02020001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa99887766554433221100630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd94b2652334f11f00c2b844d351e64f054e9598542dba5f88595f4a45da21e232000003e9f4e432c3acf244a0c5f8990a6d8704cb6fcadb7d1c1c48c51d5d55e15857cc7631849ba6ff5ece9f4cc741efe57408ed7d3a903fa718596b9bc65c816d4fe20d expect=02020001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa99887766554433221100630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd94b2652334f11f00c2b844d351e64f054e9598542dba5f88595f4a45da21e232000003e9f4e432c3acf244a0c5f8990a6d8704cb6fcadb7d1c1c48c51d5d55e15857cc7631849ba6ff5ece9f4cc741efe57408ed7d3a903fa718596b9bc65c816d4fe20d
+match npm0.4.7 ed25519: our verdict on emitted record: got=intact expect=intact
+match npm0.4.7 ed25519: their own verdict on emitted record: got=intact expect=intact
+match npm0.4.7 ed25519: single-bit mutants accepted by our verifier (of 1440, C.5 wants 0): got=0 expect=0
+match npm0.4.7 ed25519: single-bit mutants accepted by their verifier (of 1440): got=0 expect=0
+match npm0.4.7 ed25519: per-mutant agreement between our verdicts and theirs (of 1440): got=1440 expect=1440
+match npm0.4.7 psk: our verdict on emitted record: got=intact expect=intact
+match npm0.4.7 psk: their own verdict on emitted record: got=intact expect=intact
+match npm0.4.7 psk: single-bit mutants accepted by our verifier (of 1440, C.5 wants 0): got=0 expect=0
+match npm0.4.7 psk: single-bit mutants accepted by their verifier (of 1440): got=0 expect=0
+match npm0.4.7 psk: per-mutant agreement between our verdicts and theirs (of 1440): got=1440 expect=1440
+match npm0.4.7 other: our verdict on emitted record: got=intact expect=intact
+match npm0.4.7 other: their own verdict on emitted record: got=intact expect=intact
+match npm0.4.7 other: single-bit mutants accepted by our verifier (of 1440, C.5 wants 0): got=0 expect=0
+match npm0.4.7 other: single-bit mutants accepted by their verifier (of 1440): got=0 expect=0
+match npm0.4.7 other: per-mutant agreement between our verdicts and theirs (of 1440): got=1440 expect=1440
+-- module e123ba9: pot_record_v2.ts exports DRAFT13_EXPORTER_LABEL,HOLDER_AUTH_ED25519,HOLDER_AUTH_SHARED_SECRET,POT_V2_INTEGRITY_SHA256,POT_V2_ISSUER_SIGNATURE_SIZ
+match e123ba9 ed25519: emitted record equals draft-13 published record: got=02010001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa998877665544332211003d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c5cf2bfa0a58c85a33f32e5ebbbeb34fa79441c78f7c70de475bd0c30e6629d0b000003e9135ec500276a3a2ac2b603afa325c2e54a7ffc1fd4108bbb1ed7c453c428f0921f462789c36a92615696198c56a4652c25eb78947d5036a1a2470102e9c4290d expect=02010001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa998877665544332211003d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c5cf2bfa0a58c85a33f32e5ebbbeb34fa79441c78f7c70de475bd0c30e6629d0b000003e9135ec500276a3a2ac2b603afa325c2e54a7ffc1fd4108bbb1ed7c453c428f0921f462789c36a92615696198c56a4652c25eb78947d5036a1a2470102e9c4290d
+match e123ba9 psk: emitted record equals draft-13 published record: got=02020001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa99887766554433221100630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd94b2652334f11f00c2b844d351e64f054e9598542dba5f88595f4a45da21e232000003e9f4e432c3acf244a0c5f8990a6d8704cb6fcadb7d1c1c48c51d5d55e15857cc7631849ba6ff5ece9f4cc741efe57408ed7d3a903fa718596b9bc65c816d4fe20d expect=02020001000775f05a0740000000006400112233445566778899aabbccddeeffffeeddccbbaa99887766554433221100630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd94b2652334f11f00c2b844d351e64f054e9598542dba5f88595f4a45da21e232000003e9f4e432c3acf244a0c5f8990a6d8704cb6fcadb7d1c1c48c51d5d55e15857cc7631849ba6ff5ece9f4cc741efe57408ed7d3a903fa718596b9bc65c816d4fe20d
+match e123ba9 ed25519: our verdict on emitted record: got=intact expect=intact
+match e123ba9 ed25519: their own verdict on emitted record: got=intact expect=intact
+match e123ba9 ed25519: single-bit mutants accepted by our verifier (of 1440, C.5 wants 0): got=0 expect=0
+match e123ba9 ed25519: single-bit mutants accepted by their verifier (of 1440): got=0 expect=0
+match e123ba9 ed25519: per-mutant agreement between our verdicts and theirs (of 1440): got=1440 expect=1440
+match e123ba9 psk: our verdict on emitted record: got=intact expect=intact
+match e123ba9 psk: their own verdict on emitted record: got=intact expect=intact
+match e123ba9 psk: single-bit mutants accepted by our verifier (of 1440, C.5 wants 0): got=0 expect=0
+match e123ba9 psk: single-bit mutants accepted by their verifier (of 1440): got=0 expect=0
+match e123ba9 psk: per-mutant agreement between our verdicts and theirs (of 1440): got=1440 expect=1440
+match e123ba9 other: our verdict on emitted record: got=intact expect=intact
+match e123ba9 other: their own verdict on emitted record: got=intact expect=intact
+match e123ba9 other: single-bit mutants accepted by our verifier (of 1440, C.5 wants 0): got=0 expect=0
+match e123ba9 other: single-bit mutants accepted by their verifier (of 1440): got=0 expect=0
+match e123ba9 other: per-mutant agreement between our verdicts and theirs (of 1440): got=1440 expect=1440
+== S3 freshness: draft-12 2.5 step 4 and Appendix C.6, draft-13 2.6
+match e60bae0 verifyPotRecordV2 freshness future_equal_F (single maxSkewUs=500000 used as W and F): got=intact expect=intact reason=None
+DIFF  e60bae0 verifyPotRecordV2 freshness future_F_plus_1 (single maxSkewUs=500000 used as W and F): got=intact expect=rejected reason=None
+match e60bae0 verifyPotRecordV2 freshness past_equal_W_plus_D (single maxSkewUs=500000 used as W and F): got=intact expect=intact reason=None
+match e60bae0 verifyPotRecordV2 freshness past_W_plus_D_plus_1 (single maxSkewUs=500000 used as W and F): got=rejected expect=rejected reason=freshness window exceeded
+DIFF  e60bae0 verifyPotRecordV2 freshness overflow_W_max (single maxSkewUs=18446744073709551615 used as W and F): got=intact expect=rejected reason=None
+match npm0.4.7 verifyPotRecordV2 freshness future_equal_F (single maxSkewUs=500000 used as W and F): got=intact expect=intact reason=None
+DIFF  npm0.4.7 verifyPotRecordV2 freshness future_F_plus_1 (single maxSkewUs=500000 used as W and F): got=intact expect=rejected reason=None
+match npm0.4.7 verifyPotRecordV2 freshness past_equal_W_plus_D (single maxSkewUs=500000 used as W and F): got=intact expect=intact reason=None
+match npm0.4.7 verifyPotRecordV2 freshness past_W_plus_D_plus_1 (single maxSkewUs=500000 used as W and F): got=rejected expect=rejected reason=freshness window exceeded
+DIFF  npm0.4.7 verifyPotRecordV2 freshness overflow_W_max (single maxSkewUs=18446744073709551615 used as W and F): got=intact expect=rejected reason=None
+match e123ba9 draft13Freshness future_equal_F: got=True expect=True
+match e123ba9 draft13Freshness future_F_plus_1: got=False expect=False
+match e123ba9 draft13Freshness past_equal_W_plus_D: got=True expect=True
+match e123ba9 draft13Freshness past_W_plus_D_plus_1: got=False expect=False
+match e123ba9 draft13Freshness overflow_W_gt_max_minus_D: got=False expect=False
+match e123ba9 draft13Freshness overflow_W_max_minus_D_ok: got=True expect=True
+match e123ba9 draft13Freshness future_with_huge_D: got=False expect=False
+== S4 holder binding transcript: draft-12 6.1 text versus 0.4.7 package computeV2BindingInput
+match draft-12 6.1 binding_input is 81 octets: got=81 expect=81
+match draft-12 6.1 context hash input is 49 octets: got=49 expect=49
+DIFF  e60bae0 package binding_input equals draft-12 6.1 binding_input: got=74747470732d62696e64696e672d763200202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f00112233445566778899aabbccddeeffffeeddccbbaa99887766554433221100 expect=74747470732d62696e64696e672d763200202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f968122a4b0af83c17a1d9efd2e7fcdb7e97ccd0f751940321de75bfee12b0569 package_len=81
+DIFF  e60bae0 package exporter context equals draft-12 6.1 context_value: got=3a0a62abe39021cf3d55922657f0e4f7e564c60bcc7136acedaa72de4306a9d1 expect=71890c9f815ca5cff0321f3199b97bd1f41dac0ee439e7070898e05125d4b957
+DIFF  npm0.4.7 package binding_input equals draft-12 6.1 binding_input: got=74747470732d62696e64696e672d763200202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f00112233445566778899aabbccddeeffffeeddccbbaa99887766554433221100 expect=74747470732d62696e64696e672d763200202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f968122a4b0af83c17a1d9efd2e7fcdb7e97ccd0f751940321de75bfee12b0569 package_len=81
+DIFF  npm0.4.7 package exporter context equals draft-12 6.1 context_value: got=3a0a62abe39021cf3d55922657f0e4f7e564c60bcc7136acedaa72de4306a9d1 expect=71890c9f815ca5cff0321f3199b97bd1f41dac0ee439e7070898e05125d4b957
+== S5 draft-13 holder proofs through e123ba9 verifyDraft13BindingProof
+match e123ba9 ed25519: published holder_proof: got=intact expect=intact
+match e123ba9 ed25519: holder_proof with one byte flipped: got=rejected expect=rejected
+match e123ba9 ed25519: published proof checked as direction 1: got=rejected expect=rejected
+match e123ba9 ed25519: their binding_input equals published: got=74747470732d62696e64696e672d76322d647261667431330000202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f968122a4b0af83c17a1d9efd2e7fcdb7e97ccd0f751940321de75bfee12b0569 expect=74747470732d62696e64696e672d76322d647261667431330000202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f968122a4b0af83c17a1d9efd2e7fcdb7e97ccd0f751940321de75bfee12b0569
+match e123ba9 ed25519: their exporter context equals published: got=0a79108f007531c8ee489cf41679e2989650ac76540a4751c4702e56bac59053 expect=0a79108f007531c8ee489cf41679e2989650ac76540a4751c4702e56bac59053
+match e123ba9 psk: published holder_proof: got=intact expect=intact
+match e123ba9 psk: holder_proof with one byte flipped: got=rejected expect=rejected
+match e123ba9 psk: published proof checked as direction 1: got=rejected expect=rejected
+match e123ba9 psk: their binding_input equals published: got=74747470732d62696e64696e672d76322d647261667431330000202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3fb3772734f2ad713baf6e06a16b4dacc567cae0d35b1eda2530bafb73d3f1b2e5 expect=74747470732d62696e64696e672d76322d647261667431330000202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3fb3772734f2ad713baf6e06a16b4dacc567cae0d35b1eda2530bafb73d3f1b2e5
+match e123ba9 psk: their exporter context equals published: got=5110791a9d7997e5932918505b6a1c2ae3ca5044e3937ff5d8308359354efbc7 expect=5110791a9d7997e5932918505b6a1c2ae3ca5044e3937ff5d8308359354efbc7
+== S6 tamper: one octet of the published ed25519 record changed, nothing recomputed
+match tampered octet 20 (ctx_id): our verdict: got=rejected expect=rejected integrity_tag mismatch
+match tampered octet 4 (ts): our verdict: got=rejected expect=rejected integrity_tag mismatch
+match tampered octet 60 (holder_auth_data): our verdict: got=rejected expect=rejected integrity_tag mismatch
+match tampered octet 90 (integrity_tag): our verdict: got=rejected expect=rejected integrity_tag mismatch
+match tampered octet 120 (issuer_sig): our verdict: got=rejected expect=rejected issuer_sig invalid
+match tampered ctx_id with integrity_tag recomputed (draft-13 4.1: unkeyed, so only the signature catches it): got=issuer_sig invalid expect=issuer_sig invalid
+SUMMARY cases=118 diff=8
+DIFFCASE e60bae0 verifyPotRecordV2 freshness future_F_plus_1 (single maxSkewUs=500000 used as W and F)
+DIFFCASE e60bae0 verifyPotRecordV2 freshness overflow_W_max (single maxSkewUs=18446744073709551615 used as W and F)
+DIFFCASE npm0.4.7 verifyPotRecordV2 freshness future_F_plus_1 (single maxSkewUs=500000 used as W and F)
+DIFFCASE npm0.4.7 verifyPotRecordV2 freshness overflow_W_max (single maxSkewUs=18446744073709551615 used as W and F)
+DIFFCASE e60bae0 package binding_input equals draft-12 6.1 binding_input
+DIFFCASE e60bae0 package exporter context equals draft-12 6.1 context_value
+DIFFCASE npm0.4.7 package binding_input equals draft-12 6.1 binding_input
+DIFFCASE npm0.4.7 package exporter context equals draft-12 6.1 context_value

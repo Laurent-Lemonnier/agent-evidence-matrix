@@ -1,0 +1,31 @@
+packet/vectors/valid	agrees	verified=True as expected.json says
+packet/vectors/tampered_payload	agrees	verified=False as expected.json says; named ['EVENT_HASH_MISMATCH', 'EVENT_ID_MISMATCH', 'PAYLOAD_HASH_MISMATCH']
+packet/vectors/tampered_chain	agrees	verified=False as expected.json says; named ['CHAIN_BROKEN', 'EVENT_HASH_MISMATCH', 'EVENT_ID_MISMATCH']
+packet/vectors/wrong_signature	agrees	verified=False as expected.json says; named ['RECEIPT_SIGNATURE_INVALID']
+packet/vectors/rotated/issued_before_rotation	agrees	verified=True as expected.json says
+packet/vectors/rotated/issued_after_rotation	agrees	verified=True as expected.json says
+packet/frozen/2026-08-11-e23b40f/tampered_chain	agrees	verified=False as frozen/expectations.json says; named ['CHAIN_BROKEN', 'EVENT_HASH_MISMATCH', 'EVENT_ID_MISMATCH']
+packet/frozen/2026-08-11-e23b40f/tampered_payload	agrees	verified=False as frozen/expectations.json says; named ['EVENT_HASH_MISMATCH', 'EVENT_ID_MISMATCH', 'PAYLOAD_HASH_MISMATCH']
+packet/frozen/2026-08-11-e23b40f/valid	agrees	verified=True as frozen/expectations.json says
+packet/frozen/2026-08-11-e23b40f/wrong_signature	agrees	verified=False as frozen/expectations.json says; named ['RECEIPT_SIGNATURE_INVALID']
+packet/frozen/2026-09-30-b95f6f3/tampered_chain	agrees	verified=False as frozen/expectations.json says; named ['CHAIN_BROKEN', 'EVENT_HASH_MISMATCH', 'EVENT_ID_MISMATCH']
+packet/frozen/2026-09-30-b95f6f3/tampered_payload	agrees	verified=False as frozen/expectations.json says; named ['EVENT_HASH_MISMATCH', 'EVENT_ID_MISMATCH', 'PAYLOAD_HASH_MISMATCH']
+packet/frozen/2026-09-30-b95f6f3/valid	agrees	verified=True as frozen/expectations.json says
+packet/frozen/2026-09-30-b95f6f3/wrong_signature	agrees	verified=False as frozen/expectations.json says; named ['RECEIPT_SIGNATURE_INVALID']
+packet/frozen/2026-10-05-cfc2a7c/tampered_chain	agrees	verified=False as frozen/expectations.json says; named ['CHAIN_BROKEN', 'EVENT_HASH_MISMATCH', 'EVENT_ID_MISMATCH']
+packet/frozen/2026-10-05-cfc2a7c/tampered_payload	agrees	verified=False as frozen/expectations.json says; named ['EVENT_HASH_MISMATCH', 'EVENT_ID_MISMATCH', 'PAYLOAD_HASH_MISMATCH']
+packet/frozen/2026-10-05-cfc2a7c/valid	agrees	verified=True as frozen/expectations.json says
+packet/frozen/2026-10-05-cfc2a7c/wrong_signature	agrees	verified=False as frozen/expectations.json says; named ['RECEIPT_SIGNATURE_INVALID']
+packet/frozen/2026-10-11-a80a192/tampered_chain	agrees	verified=False as frozen/expectations.json says; named ['CHAIN_BROKEN', 'EVENT_HASH_MISMATCH', 'EVENT_ID_MISMATCH']
+packet/frozen/2026-10-11-a80a192/tampered_payload	agrees	verified=False as frozen/expectations.json says; named ['EVENT_HASH_MISMATCH', 'EVENT_ID_MISMATCH', 'PAYLOAD_HASH_MISMATCH']
+packet/frozen/2026-10-11-a80a192/valid	agrees	verified=True as frozen/expectations.json says
+packet/frozen/2026-10-11-a80a192/wrong_signature	agrees	verified=False as frozen/expectations.json says; named ['RECEIPT_SIGNATURE_INVALID']
+packet/demo/demo-packet-unanchored	agrees	verified=True as README: python verify.py demo/<packet> exits 0 says
+packet/demo/demo-packet-anchored	agrees	verified=True as README: python verify.py demo/<packet> exits 0 says
+draft-s3/canonical-form-equals-JCS	agrees	310 hashed or signed objects canonicalized with rfc8785; 0 differ from the repository's json.dumps form
+forged/adapter-consistency	agrees	forged packet is internally consistent: hashes, chain, signature (own key), anchor, custody all recompute
+forged/recorded-inputs-breach-the-scope	agrees	executed amount 9999.00 vs intent max_amount 5000.00; verdict recorded as IN_SCOPE
+draft-s4.2-s5/scope-verdict-rederived-by-verify.py	contradicted	verify.py exit 0 on a packet whose recorded action breaches its recorded scope but is signed IN_SCOPE: VERIFIED: 3 ledger events, receipt signature valid, chain intact
+draft-s4.2-s5/scope-verdict-rederived-by-verify.py-key-pinned	contradicted	verify.py --receipt-public-key <signing key> exit 0: VERIFIED: 3 ledger events, receipt signature valid, chain intact; receipt key matches --receipt-public-key (checked against the key you supplied)
+forged/control-bad-signature-refused-by-verify.py	agrees	verify.py exit 1 when one signature character is changed: VERIFICATION FAILED
+SUMMARY	agrees=28	contradicted=2	cannot-tell=0	total=30
