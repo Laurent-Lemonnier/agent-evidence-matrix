@@ -1,0 +1,6 @@
+READER agent_evidence_vectors.recorded.check_set, 4 bindings, header id 000000000000000000018e5b (draft prints 000000000000000000018e5b)
+READER-CASE clean verified codes=- expected=- PASS
+READER-CASE tamper-artifact-byte-v1 failed codes=binding-mismatch expected=binding-mismatch PASS
+READER-CASE tamper-proof-nonce-byte-v1 failed codes=anchor-mismatch expected=anchor-mismatch PASS
+READER-CASE tamper-header-merkle-root-byte failed codes=anchor-mismatch expected=anchor-mismatch PASS
+READER-TOTAL 4 of 4

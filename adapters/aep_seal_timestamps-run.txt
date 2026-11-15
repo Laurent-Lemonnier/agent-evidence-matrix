@@ -1,0 +1,5 @@
+seal	sha256=8d213af4da148ed8779a9c4663a02e2b847f2748311cba08f973d33ab2fb7303	matches README=True
+seal	seal-freetsa.tsr	verify=OK	time+serial matches README=True
+seal	seal-digicert.tsr	verify=OK	time+serial matches README=True
+tampered-seal	seal-freetsa.tsr	verify=FAILED	time+serial matches README=True
+tampered-seal	seal-digicert.tsr	verify=FAILED	time+serial matches README=True

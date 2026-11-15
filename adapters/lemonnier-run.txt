@@ -1,0 +1,288 @@
+reader agent-evidence-vectors 0.36.3 | project commit expected 00d748a63d96b13905dafb4100fb694c0715469f
+their verifier sha256 c61665ada0da8ff7 approval 2a86fe76ae15aa39
+== A. audit record: our reader on the 217 members, against the project's per-member verdicts
+corpusDigest eee834bdb4c3f1f846f1026524472f89b7ee2b8922440eeca5520e1446a1bb52 members 217 project-report-members 217
+agrees      A1 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A2 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A3 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A4 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A5 accept        ours=valid[]/voluntary theirs=valid[]/voluntary
+agrees      A6 accept        ours=valid[]/voluntary theirs=valid[]/voluntary
+agrees      A7 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A8 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A9 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A10 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A11 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A12 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A13 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A14 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A15 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A16 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A17 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A18 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A19 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      A20 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      F1 reject        ours=malformed['member-missing'] theirs=malformed['member-missing']
+agrees      F2 reject        ours=malformed['delegation-subject-inconsistent'] theirs=malformed['delegation-subject-inconsistent']
+agrees      F3 reject        ours=malformed['arguments-digest-missing'] theirs=malformed['arguments-digest-missing']
+agrees      F3b reject        ours=malformed['arguments-digest-forbidden'] theirs=malformed['arguments-digest-forbidden']
+agrees      F3c reject        ours=malformed['arguments-digest-forbidden'] theirs=malformed['arguments-digest-forbidden']
+agrees      F4 reject        ours=malformed['request-digest-mismatch'] theirs=malformed['request-digest-mismatch']
+agrees      F5 reject        ours=malformed['external-anchor-inconsistent'] theirs=malformed['external-anchor-inconsistent']
+agrees      F6 reject        ours=malformed['posture-agreement-underivable'] theirs=malformed['posture-agreement-underivable']
+agrees      F7 reject        ours=malformed['remediation-order'] theirs=malformed['remediation-order']
+agrees      T1 reject        ours=malformed['effect-observed-underivable'] theirs=malformed['effect-observed-underivable']
+agrees      T2 reject        ours=malformed['signature-invalid'] theirs=malformed['signature-invalid']
+agrees      T3 reject        ours=malformed['duplicate-member'] theirs=malformed['duplicate-member']
+agrees      T4 reject        ours=malformed['nesting-too-deep'] theirs=malformed['nesting-too-deep']
+agrees      T5 reject        ours=malformed['unsafe-integer'] theirs=malformed['unsafe-integer']
+agrees      D1 reject        ours=malformed['agreement-underivable'] theirs=malformed['agreement-underivable']
+agrees      D2 reject        ours=malformed['agreement-reserved-value'] theirs=malformed['agreement-reserved-value']
+agrees      D3 reject        ours=malformed['agreement-underivable'] theirs=malformed['agreement-underivable']
+agrees      S1 reject        ours=malformed['subject-interval-mismatch'] theirs=malformed['subject-interval-mismatch']
+agrees      S2 reject        ours=malformed['subject-after-root-mismatch'] theirs=malformed['subject-after-root-mismatch']
+agrees      I1r reject        ours=malformed['subject-interval-mismatch'] theirs=malformed['subject-interval-mismatch']
+agrees      TI1 reject        ours=malformed['tier-overclaim-vantage'] theirs=malformed['tier-overclaim-vantage']
+agrees      TI2 reject        ours=malformed['tier-overclaim-commitment'] theirs=malformed['tier-overclaim-commitment']
+agrees      TI3 reject        ours=malformed['tier-overclaim-scope'] theirs=malformed['tier-overclaim-scope']
+agrees      TI4 reject        ours=malformed['tier-overclaim-coverage'] theirs=malformed['tier-overclaim-coverage']
+agrees      TI5 reject        ours=malformed['tier-overclaim-binding'] theirs=malformed['tier-overclaim-binding']
+agrees      C1 reject        ours=malformed['commitment-key-is-agent-signer'] theirs=malformed['commitment-key-is-agent-signer']
+agrees      C2 reject        ours=malformed['commitment-order'] theirs=malformed['commitment-order']
+agrees      C3 reject        ours=malformed['commitment-digest-mismatch'] theirs=malformed['commitment-digest-mismatch']
+agrees      E1 reject        ours=malformed['effect-observed-underivable'] theirs=malformed['effect-observed-underivable']
+agrees      E2 reject        ours=malformed['write-chain-broken'] theirs=malformed['write-chain-broken']
+agrees      E3 reject        ours=malformed['empty-tree-constant-mismatch'] theirs=malformed['empty-tree-constant-mismatch']
+agrees      E4 reject        ours=malformed['write-chain-broken'] theirs=malformed['write-chain-broken']
+agrees      E5 reject        ours=malformed['write-chain-broken'] theirs=malformed['write-chain-broken']
+agrees      E6 reject        ours=malformed['write-chain-broken'] theirs=malformed['write-chain-broken']
+agrees      V1 reject        ours=malformed['value-outside-vocabulary'] theirs=malformed['value-outside-vocabulary']
+agrees      V2 reject        ours=malformed['path-scope-glob'] theirs=malformed['path-scope-glob']
+agrees      V3 reject        ours=malformed['write-scope-mismatch'] theirs=malformed['write-scope-mismatch']
+agrees      FE1 reject        ours=malformed['field-evidence-keys'] theirs=malformed['field-evidence-keys']
+agrees      FE2 reject        ours=malformed['field-evidence-self-substrate'] theirs=malformed['field-evidence-self-substrate']
+agrees      FR1 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      FR2 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      FR3 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      FR4 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      FR5 reject        ours=malformed['member-missing'] theirs=malformed['member-missing']
+agrees      FR6 reject        ours=malformed['member-missing'] theirs=malformed['member-missing']
+agrees      FR7 reject        ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      FR8 reject        ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      FR9 reject        ours=malformed['evaluation-result-after-decision'] theirs=malformed['evaluation-result-after-decision']
+agrees      FR10 reject        ours=malformed['evaluation-input-repeated'] theirs=malformed['evaluation-input-repeated']
+agrees      FR11 reject        ours=malformed['evaluation-entry-malformed'] theirs=malformed['evaluation-entry-malformed']
+agrees      FR12 reject        ours=malformed['value-outside-vocabulary'] theirs=malformed['value-outside-vocabulary']
+agrees      FR13 reject        ours=malformed['evaluation-entry-malformed'] theirs=malformed['evaluation-entry-malformed']
+agrees      EV1 reject        ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      EV2 reject        ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      EV3 reject        ours=malformed['member-missing'] theirs=malformed['member-missing']
+agrees      EV4 reject        ours=malformed['value-outside-vocabulary'] theirs=malformed['value-outside-vocabulary']
+agrees      EV5 reject        ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      EV6 reject        ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      EV7 reject        ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      EV8 reject        ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      EV9 reject        ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      EV10 reject        ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      EV11 reject        ours=malformed['value-outside-vocabulary'] theirs=malformed['value-outside-vocabulary']
+agrees      EV12 reject        ours=malformed['evaluation-malformed'] theirs=malformed['evaluation-malformed']
+agrees      EV13 reject        ours=malformed['member-missing'] theirs=malformed['member-missing']
+agrees      OV1 reject        ours=malformed['value-outside-vocabulary'] theirs=malformed['value-outside-vocabulary']
+agrees      OV2 reject        ours=malformed['oversight-malformed'] theirs=malformed['oversight-malformed']
+agrees      OV3 reject        ours=malformed['member-missing'] theirs=malformed['member-missing']
+agrees      N1 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      N2 indeterminate ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      R1 accept        ours=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:05:00Z theirs=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:05:00Z
+agrees      R2 accept        ours=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:04:20Z theirs=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:04:20Z
+agrees      R3 accept        ours=valid[]/authoritative dating=entry-received-after-anchor datedAt=2026-09-19T11:04:20Z theirs=valid[]/authoritative dating=entry-received-after-anchor datedAt=2026-09-19T11:04:20Z
+agrees      R4 accept        ours=valid[]/authoritative dating=entry-retainer-anchor-missing datedAt=2026-09-19T11:04:20Z theirs=valid[]/authoritative dating=entry-retainer-anchor-missing datedAt=2026-09-19T11:04:20Z
+agrees      R5 accept        ours=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:04:20Z theirs=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:04:20Z
+agrees      R6 accept        ours=valid[]/authoritative dating=entry-received-before-issued datedAt=2026-09-19T11:04:20Z theirs=valid[]/authoritative dating=entry-received-before-issued datedAt=2026-09-19T11:04:20Z
+agrees      R7 accept        ours=valid[]/authoritative dating=entry-anchor-late datedAt=2026-09-19T11:14:12Z theirs=valid[]/authoritative dating=entry-anchor-late datedAt=2026-09-19T11:14:12Z
+agrees      R8 accept        ours=valid[]/authoritative dating=well-formed not dated theirs=valid[]/authoritative dating=well-formed not dated
+agrees      R9 accept        ours=valid[]/authoritative dating=entry-received-at-inconsistent datedAt=2026-09-19T11:05:00Z theirs=valid[]/authoritative dating=entry-received-at-inconsistent datedAt=2026-09-19T11:05:00Z
+agrees      FR13b reject        ours=malformed['evaluation-entry-malformed'] theirs=malformed['evaluation-entry-malformed']
+agrees      FR16 reject        ours=malformed['member-missing'] theirs=malformed['member-missing']
+agrees      FR17a accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      FR17b accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      FR17c reject        ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      FR18 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      EV14 reject        ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      TI6 reject        ours=malformed['tier-overclaim-coverage'] theirs=malformed['tier-overclaim-coverage']
+agrees      V4 reject        ours=malformed['coverage-inconsistent'] theirs=malformed['coverage-inconsistent']
+agrees      V5 reject        ours=malformed['coverage-inconsistent'] theirs=malformed['coverage-inconsistent']
+agrees      FR14 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      FR15 reject        ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      CS1 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      CS2 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      CS3 reject        ours=malformed['consumption-reserved-mismatch'] theirs=malformed['consumption-reserved-mismatch']
+agrees      CS4 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      CS5 reject        ours=malformed['consumption-value-invalid'] theirs=malformed['consumption-value-invalid']
+agrees      CS6 reject        ours=malformed['consumption-misplaced'] theirs=malformed['consumption-misplaced']
+agrees      CS7 accept        ours=valid[]/authoritative set=['consumption-set-stale-revision'] theirs=valid[]/authoritative set=['consumption-set-stale-revision']
+agrees      CS8 accept        ours=valid[]/authoritative set=['consumption-set-release-unshown'] theirs=valid[]/authoritative set=['consumption-set-release-unshown']
+agrees      CS9 reject        ours=malformed['member-missing'] theirs=malformed['member-missing']
+agrees      CS10 reject        ours=malformed['consumption-key-reused'] theirs=malformed['consumption-key-reused']
+agrees      CS11 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      CS12 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      CS13 reject        ours=malformed['consumption-held-key-repeated'] theirs=malformed['consumption-held-key-repeated']
+agrees      CS14 reject        ours=malformed['member-missing'] theirs=malformed['member-missing']
+agrees      CS15 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      CS16 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      CS17 accept        ours=valid[]/authoritative set=['consumption-set-stale-revision'] theirs=valid[]/authoritative set=['consumption-set-stale-revision']
+agrees      CS18 accept        ours=valid[]/authoritative set=valid theirs=valid[]/authoritative set=valid
+agrees      CS19 accept        ours=valid[]/authoritative set=valid theirs=valid[]/authoritative set=valid
+agrees      CS20 accept        ours=valid[]/authoritative set=['consumption-set-release-unshown'] theirs=valid[]/authoritative set=['consumption-set-release-unshown']
+agrees      CS21 accept        ours=valid[]/authoritative set=['consumption-set-stale-revision'] theirs=valid[]/authoritative set=['consumption-set-stale-revision']
+agrees      CS22 accept        ours=valid[]/authoritative set=valid theirs=valid[]/authoritative set=valid
+agrees      CS23 reject        ours=malformed['consumption-supersedes-self'] theirs=malformed['consumption-supersedes-self']
+agrees      CS24 reject        ours=malformed['consumption-value-invalid'] theirs=malformed['consumption-value-invalid']
+agrees      CS25 accept        ours=valid[]/authoritative set=valid theirs=valid[]/authoritative set=valid
+agrees      CS26 accept        ours=valid[]/authoritative set=valid theirs=valid[]/authoritative set=valid
+agrees      CS27 accept        ours=valid[]/authoritative set=valid theirs=valid[]/authoritative set=valid
+agrees      CS28 accept        ours=valid[]/authoritative set=valid theirs=valid[]/authoritative set=valid
+agrees      CS29 accept        ours=valid[]/authoritative set=valid theirs=valid[]/authoritative set=valid
+agrees      CS30 accept        ours=valid[]/authoritative set=['consumption-set-release-unshown'] theirs=valid[]/authoritative set=['consumption-set-release-unshown']
+agrees      CS31 accept        ours=valid[]/authoritative set=['consumption-set-retry-as-new'] theirs=valid[]/authoritative set=['consumption-set-retry-as-new']
+agrees      CS32 accept        ours=valid[]/authoritative set=['consumption-set-retry-as-new'] theirs=valid[]/authoritative set=['consumption-set-retry-as-new']
+agrees      CS33 accept        ours=valid[]/authoritative set=valid theirs=valid[]/authoritative set=valid
+agrees      CS34 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      CS35 reject        ours=malformed['consumption-value-invalid'] theirs=malformed['consumption-value-invalid']
+agrees      CS36 reject        ours=malformed['consumption-value-invalid'] theirs=malformed['consumption-value-invalid']
+agrees      CS37 reject        ours=malformed['consumption-unit-ambiguous'] theirs=malformed['consumption-unit-ambiguous']
+agrees      CS38 accept        ours=valid[]/authoritative set=['consumption-set-asset-mismatch'] theirs=valid[]/authoritative set=['consumption-set-asset-mismatch']
+agrees      CS39 accept        ours=valid[]/authoritative set=['consumption-set-asset-mismatch'] theirs=valid[]/authoritative set=['consumption-set-asset-mismatch']
+agrees      CS40 accept        ours=valid[]/authoritative set=valid theirs=valid[]/authoritative set=valid
+agrees      CS41 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      CS42 reject        ours=malformed['consumption-key-reused'] theirs=malformed['consumption-key-reused']
+agrees      CS43 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      CS44 reject        ours=malformed['consumption-settled-exceeds'] theirs=malformed['consumption-settled-exceeds']
+agrees      CS45 reject        ours=malformed['consumption-settled-differs'] theirs=malformed['consumption-settled-differs']
+agrees      CS46 reject        ours=malformed['consumption-settled-differs'] theirs=malformed['consumption-settled-differs']
+agrees      CS47 reject        ours=malformed['consumption-value-invalid'] theirs=malformed['consumption-value-invalid']
+agrees      CS48 accept        ours=valid[]/authoritative set=valid theirs=valid[]/authoritative set=valid
+agrees      CS49 accept        ours=valid[]/authoritative set=['consumption-set-settled-uncounted'] theirs=valid[]/authoritative set=['consumption-set-settled-uncounted']
+agrees      A21 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      SQ1 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      SQ2 reject        ours=malformed['sequence-malformed'] theirs=malformed['sequence-malformed']
+agrees      SQ3 reject        ours=malformed['sequence-malformed'] theirs=malformed['sequence-malformed']
+agrees      SQ4 accept        ours=valid[]/authoritative set=valid theirs=valid[]/authoritative set=valid
+agrees      SQ5 accept        ours=valid[]/authoritative set=['sequence-duplicate'] theirs=valid[]/authoritative set=['sequence-duplicate']
+agrees      R10 accept        ours=valid[]/authoritative dating=well-formed datedAt=2026-09-19T10:54:30Z theirs=valid[]/authoritative dating=well-formed datedAt=2026-09-19T10:54:30Z
+agrees      R11 accept        ours=valid[]/authoritative dating=entry-received-after-anchor datedAt=2026-09-19T09:04:29Z theirs=valid[]/authoritative dating=entry-received-after-anchor datedAt=2026-09-19T09:04:29Z
+agrees      R12 accept        ours=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:40:00Z theirs=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:40:00Z
+agrees      R13 accept        ours=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:05:00Z theirs=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:05:00Z
+agrees      R14 accept        ours=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:05:00Z theirs=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:05:00Z
+agrees      R15 accept        ours=valid[]/authoritative dating=entry-delegation-root-mismatch datedAt=2026-09-19T11:05:00Z theirs=valid[]/authoritative dating=entry-delegation-root-mismatch datedAt=2026-09-19T11:05:00Z
+agrees      R16 accept        ours=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:30:00Z theirs=valid[]/authoritative dating=well-formed datedAt=2026-09-19T11:30:00Z
+agrees      IS1 reject        ours=malformed['issued-before-sealed'] theirs=malformed['issued-before-sealed']
+agrees      IS2 reject        ours=malformed['issued-before-sealed'] theirs=malformed['issued-before-sealed']
+agrees      PS1 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      PS2 reject        ours=malformed['value-outside-vocabulary'] theirs=malformed['value-outside-vocabulary']
+agrees      PS1b indeterminate ours=malformed['evaluation-inconsistent'] theirs=malformed['evaluation-inconsistent']
+agrees      PR1 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      PR2 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      PR3 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      PR4 reject        ours=malformed['principal-thumbprint-mismatch'] theirs=malformed['principal-thumbprint-mismatch']
+agrees      PR5 reject        ours=malformed['principal-expired'] theirs=malformed['principal-expired']
+agrees      PR6 reject        ours=malformed['principal-credential-unbound'] theirs=malformed['principal-credential-unbound']
+agrees      PR7 reject        ours=malformed['principal-member-missing'] theirs=malformed['principal-member-missing']
+agrees      PR8 reject        ours=malformed['principal-subject-mismatch'] theirs=malformed['principal-subject-mismatch']
+agrees      PR9 reject        ours=malformed['principal-kid-mismatch'] theirs=malformed['principal-kid-mismatch']
+agrees      PR10 reject        ours=malformed['principal-not-yet-valid'] theirs=malformed['principal-not-yet-valid']
+agrees      PR11 reject        ours=malformed['principal-member-unknown'] theirs=malformed['principal-member-unknown']
+agrees      DS1 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      DS2 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      DS3 accept        ours=valid[]/authoritative theirs=valid[]/authoritative
+agrees      DS4 reject        ours=malformed['data-subject-member-missing'] theirs=malformed['data-subject-member-missing']
+agrees      DS5 reject        ours=malformed['data-subject-member-unknown'] theirs=malformed['data-subject-member-unknown']
+agrees      DS6 reject        ours=malformed['data-subject-malformed'] theirs=malformed['data-subject-malformed']
+agrees      DS7 reject        ours=malformed['data-subject-merged'] theirs=malformed['data-subject-merged']
+agrees      DS8 reject        ours=malformed['data-subject-relation-mismatch'] theirs=malformed['data-subject-relation-mismatch']
+agrees      DS9 reject        ours=malformed['data-subject-purpose-undeclared'] theirs=malformed['data-subject-purpose-undeclared']
+agrees      DS10 reject        ours=malformed['data-subject-purposes-digest-mismatch'] theirs=malformed['data-subject-purposes-digest-mismatch']
+agrees      X1 reject        ours=malformed['value-not-representable'] theirs=malformed['value-not-representable']
+agrees      X2 reject        ours=malformed['not-parseable'] theirs=malformed['not-parseable']
+agrees      X3 reject        ours=malformed['timestamp-malformed'] theirs=malformed['timestamp-malformed']
+agrees      X4 reject        ours=malformed['statement-type-unexpected'] theirs=malformed['statement-type-unexpected']
+agrees      X5 reject        ours=malformed['predicate-type-mismatch'] theirs=malformed['predicate-type-mismatch']
+agrees      X6 reject        ours=malformed['consumption-malformed'] theirs=malformed['consumption-malformed']
+agrees      X7 reject        ours=malformed['operation-key-invalid'] theirs=malformed['operation-key-invalid']
+agrees      X8 reject        ours=malformed['subject-request-mismatch'] theirs=malformed['subject-request-mismatch']
+agrees      X9 reject        ours=malformed['envelope-unreadable'] theirs=malformed['envelope-unreadable']
+agrees      X10 reject        ours=malformed['statement-shape'] theirs=malformed['statement-shape']
+agrees      X11 accept        ours=valid[]/authoritative dating=entry-shape-malformed not dated theirs=valid[]/authoritative dating=entry-shape-malformed not dated
+agrees      X12 accept        ours=valid[]/authoritative dating=entry-envelope-digest-mismatch datedAt=2026-09-19T11:05:00Z theirs=valid[]/authoritative dating=entry-envelope-digest-mismatch datedAt=2026-09-19T11:05:00Z
+agrees      X13 accept        ours=valid[]/authoritative dating=entry-delegation-root-unexpected datedAt=2026-09-19T11:05:00Z theirs=valid[]/authoritative dating=entry-delegation-root-unexpected datedAt=2026-09-19T11:05:00Z
+agrees      X14 accept        ours=valid[]/authoritative dating=entry-delegation-root-unreadable datedAt=2026-09-19T11:05:00Z theirs=valid[]/authoritative dating=entry-delegation-root-unreadable datedAt=2026-09-19T11:05:00Z
+agrees      X15 reject        ours=malformed['not-parseable'] dating=entry-record-unreadable not dated theirs=malformed['not-parseable'] dating=entry-record-unreadable not dated
+agrees      X16 reject        ours=malformed['retained-unreadable'] dating=retained-unreadable not dated theirs=malformed['retained-unreadable'] dating=retained-unreadable not dated
+DIFFERS-KNOWN X17 reject        ours=malformed[] set=['set-unreadable'] theirs=malformed['envelope-unreadable']
+agrees      X18 reject        ours=malformed['issued-before-sealed', 'issued-before-sealed'] set=['set-record-malformed'] theirs=malformed['issued-before-sealed', 'issued-before-sealed'] set=['set-record-malformed']
+A-summary: verdict equal 217 of 217; full per-member surface ours=theirs 216 of 217; ours=manifest 217 of 217; theirs=manifest 217 of 217; first refusal code equal on 122 of 123 reject members
+== B. approval binding: our reader on the 37 cases, against the project's per-case verdicts
+corpusDigest f6f0fb39e913bdaacdb411903d946243d1b3d6c4703daa563c0277a43be64ccb cases 37 project-report-cases 37
+agrees      allow-bound ours=allow/bound theirs=allow/bound manifest=allow/bound
+agrees      allow-other-approval-distinct-id ours=allow/bound theirs=allow/bound manifest=allow/bound
+agrees      allow-same-approval-presented-twice ours=allow/bound theirs=allow/bound manifest=allow/bound
+agrees      allow-last-second-of-validity ours=allow/bound theirs=allow/bound manifest=allow/bound
+agrees      allow-release-first-served-at-decision ours=allow/bound theirs=allow/bound manifest=allow/bound
+agrees      allow-release-within-grace ours=allow/bound theirs=allow/bound manifest=allow/bound
+agrees      approval-id-reused-different-content ours=deny/approval_id_ambiguous theirs=deny/approval_id_ambiguous manifest=deny/approval_id_ambiguous
+agrees      approval-id-reused-unread-member ours=deny/approval_id_ambiguous theirs=deny/approval_id_ambiguous manifest=deny/approval_id_ambiguous
+agrees      approval-already-consumed ours=deny/approval_replayed theirs=deny/approval_replayed manifest=deny/approval_replayed
+agrees      approval-key-not-approvers ours=deny/key_not_bound theirs=deny/key_not_bound manifest=deny/key_not_bound
+agrees      approval-asserted-in-tool-arguments ours=deny/key_not_bound theirs=deny/key_not_bound manifest=deny/key_not_bound
+agrees      same-client-other-user ours=deny/principal_mismatch theirs=deny/principal_mismatch manifest=deny/principal_mismatch
+agrees      event-differs ours=deny/event_phase_mismatch theirs=deny/event_phase_mismatch manifest=deny/event_phase_mismatch
+agrees      phase-differs ours=deny/event_phase_mismatch theirs=deny/event_phase_mismatch manifest=deny/event_phase_mismatch
+agrees      payload-mutated-after-approval ours=deny/payload_mismatch theirs=deny/payload_mismatch manifest=deny/payload_mismatch
+agrees      target-differs ours=deny/payload_mismatch theirs=deny/payload_mismatch manifest=deny/payload_mismatch
+agrees      tool-differs ours=deny/payload_mismatch theirs=deny/payload_mismatch manifest=deny/payload_mismatch
+agrees      used-at-expiry ours=deny/approval_outside_validity theirs=deny/approval_outside_validity manifest=deny/approval_outside_validity
+agrees      used-before-issued ours=deny/approval_outside_validity theirs=deny/approval_outside_validity manifest=deny/approval_outside_validity
+agrees      release-lookup-unavailable ours=deny/comparison_unavailable theirs=deny/comparison_unavailable manifest=deny/comparison_unavailable
+agrees      release-first-served-after-decision ours=deny/release_not_served_at_decision theirs=deny/release_not_served_at_decision manifest=deny/release_not_served_at_decision
+agrees      release-retired-beyond-grace ours=deny/release_not_served_at_decision theirs=deny/release_not_served_at_decision manifest=deny/release_not_served_at_decision
+agrees      approval-renewed-same-bounds ours=allow/bound theirs=allow/bound manifest=allow/bound
+agrees      allow-predecessor-before-replacement ours=allow/bound theirs=allow/bound manifest=allow/bound
+agrees      approval-reused-after-renewal ours=deny/approval_superseded theirs=deny/approval_superseded manifest=deny/approval_superseded
+agrees      approval-renewal-transition-not-accepted ours=deny/renewal_transition_missing theirs=deny/renewal_transition_missing manifest=deny/renewal_transition_missing
+agrees      approval-renewal-decision-not-distinct ours=deny/renewal_binding_invalid theirs=deny/renewal_binding_invalid manifest=deny/renewal_binding_invalid
+agrees      approval-renewal-predecessor-decision-not-cited ours=deny/renewal_binding_invalid theirs=deny/renewal_binding_invalid manifest=deny/renewal_binding_invalid
+agrees      approval-renewal-bounds-differ ours=deny/renewal_binding_invalid theirs=deny/renewal_binding_invalid manifest=deny/renewal_binding_invalid
+agrees      approval-renewal-reopens-consumed-effect ours=deny/effect_already_closed theirs=deny/effect_already_closed manifest=deny/effect_already_closed
+agrees      approval-renewal-reopens-uncertain-effect ours=deny/effect_already_closed theirs=deny/effect_already_closed manifest=deny/effect_already_closed
+agrees      approval-renewal-accepted-after-use ours=deny/renewal_transition_missing theirs=deny/renewal_transition_missing manifest=deny/renewal_transition_missing
+agrees      approval-renewal-predecessor-ambiguous ours=deny/renewal_binding_invalid theirs=deny/renewal_binding_invalid manifest=deny/renewal_binding_invalid
+agrees      approval-use-cites-predecessor ours=deny/approval_not_cited theirs=deny/approval_not_cited manifest=deny/approval_not_cited
+agrees      approval-use-cites-no-approval ours=deny/approval_not_cited theirs=deny/approval_not_cited manifest=deny/approval_not_cited
+agrees      contract-id-missing ours=deny/contract_id_missing theirs=deny/contract_id_missing manifest=deny/contract_id_missing
+agrees      contract-id-unknown ours=deny/contract_id_unknown theirs=deny/contract_id_unknown manifest=deny/contract_id_unknown
+B-summary: ours=theirs=manifest 37 of 37
+== C. the project's verifier gilda_verify_independent.py, run here on the 217 members
+exit 0
+stdout-last-line: # agent-audit-record-conformance: 217/217 members agree with MANIFEST (verdict, codes, derivedTier, withinLimit, set, dating: codes, datedAt, entry, receipt, delegation root); first refusal code agrees on 123/123 reject members; 0 retained members with an anchor not attempted (rfc3161 only); aggregation correspondence 1/1
+agrees      C members fresh=217 claimed=217
+agrees      C agree fresh=217 claimed=217
+agrees      C firstCodeAgree fresh=123 claimed=123
+agrees      C rejectMembers fresh=123 claimed=123
+agrees      C datingNotAttempted fresh=0 claimed=0
+agrees      C per-member rows of this run equal the committed judge-20261108-0.36.3.json: 217 of 217
+agrees      C verifier exit code 0
+== D. the project's verifier approval_binding_verify_independent.py, run here on the 37 cases
+exit 0
+stdout-last-line: # approval-binding/v1: 37/37 cases agree with MANIFEST on decision and reason
+agrees      D cases fresh=37 claimed=37
+agrees      D agree fresh=37 claimed=37
+agrees      D checks fresh=16 claimed=16
+agrees      D per-case rows of this run equal the committed judge-approval-binding-20261108-0.36.3.json: 37 of 37
+agrees      D verifier exit code 0
+agrees      C their aggregation regression tests: exit 0, Ran 12 tests, OK
+== T. second angle: one signed byte of one record, one payload byte of one approval case, in copies
+A1 signed payload: 3507 bytes, 1 changed (one digit of a signed timestamp, year 2026 to 2027)
+agrees      T ours A1: untouched valid[], tampered malformed['signature-invalid']
+agrees      T theirs A1 tampered: malformed ['signature-invalid'] exit 1
+agrees      T ours allow-bound: untouched allow/bound, one payload byte changed deny/payload_mismatch
+agrees      T theirs allow-bound tampered: deny/payload_mismatch
+SUMMARY: 0 comparisons differ, 1 known and explained

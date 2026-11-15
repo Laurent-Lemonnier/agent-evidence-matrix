@@ -1,0 +1,168 @@
+READING: kit (0.4 without metadata_hash not failed)
+[valid] bound-04.json: OK expect=accept got=accept
+[valid] deep-nesting.json: OK expect=accept got=accept
+[valid] edge-numbers.json: OK expect=accept got=accept
+[valid] empty-members.json: OK expect=accept got=accept
+[valid] feb29-leap.json: OK expect=accept got=accept notes=legacy acceptance; id, tool, version, scope, creation time and provenance are not bound to the commitment
+[valid] fraction-one-digit.json: OK expect=accept got=accept notes=legacy acceptance; id, tool, version, scope, creation time and provenance are not bound to the commitment
+[valid] input-hash-multikey-20.json: OK expect=accept got=accept
+[valid] large-payload.json: OK expect=accept got=accept
+[valid] legacy-02.json: OK expect=accept got=accept notes=legacy acceptance; id, tool, version, scope, creation time and provenance are not bound to the commitment
+[valid] legacy-03.json: OK expect=accept got=accept notes=legacy acceptance; id, tool, version, scope, creation time and provenance are not bound to the commitment
+[valid] legacy-real-2.json: OK expect=accept got=accept notes=tool read in legacy bare-string form|created_at read from legacy timestamp member|verification_status 'not_verified' read as a producer claim|legacy acceptance; id, tool, version, scope, creation time and provenance are not bound to the commitment
+[valid] maximum-offset-timestamp.json: OK expect=accept got=accept
+[valid] metadata-hash-non-ascii-tool.json: OK expect=accept got=accept
+[valid] optional-members-18.json: OK expect=accept got=accept
+[valid] real-04.json: OK expect=accept got=accept
+[valid] real-1-bare.json: OK expect=accept got=accept notes=legacy acceptance; id, tool, version, scope, creation time and provenance are not bound to the commitment
+[valid] receipt-01.json: OK expect=accept got=accept notes=legacy acceptance; id, tool, version, scope, creation time and provenance are not bound to the commitment
+[valid] receipt-02.json: OK expect=accept got=accept notes=legacy acceptance; id, tool, version, scope, creation time and provenance are not bound to the commitment
+[valid] receipt-03-live.json: OK expect=accept got=accept notes=legacy acceptance; id, tool, version, scope, creation time and provenance are not bound to the commitment
+[valid] typographic-unicode.json: OK expect=accept got=accept
+[valid] uuid-v1-core.json: OK expect=accept got=accept
+[invalid] ax-base64-unpadded.json: OK expect=reject got=reject reason-code B64 present first=canonical_bytes is not valid base64
+[invalid] ax-feb29-1900.json: OK expect=reject got=reject reason-code TIME present first=created_at is not a valid RFC 3339 calendar date and time
+[invalid] ax-feb29-non-leap.json: OK expect=reject got=reject reason-code TIME present first=created_at is not a valid RFC 3339 calendar date and time
+[invalid] ax-tool-empty-scope.json: OK expect=reject got=reject reason-code TOOL present first=tool is not an object with non-empty name, version and scope strings
+[invalid] bad-created-at.json: OK expect=reject got=reject reason-code TIME present first=created_at is not a valid RFC 3339 calendar date and time
+[invalid] bad-id.json: OK expect=reject got=reject reason-code ID present first=id is not a lowercase UUID-shaped string
+[invalid] bad-offset-range.json: OK expect=reject got=reject reason-code TIME present first=created_at is not a valid RFC 3339 calendar date and time
+[invalid] bad-provenance.json: OK expect=reject got=reject reason-code PROV present first=provenance_class is not one of the three Section 5 classes
+[invalid] bad-verification-status.json: OK expect=reject got=reject reason-code STATUS present first=verification_status is not verified
+[invalid] base64-pad-bit.json: OK expect=reject got=reject first=canonical_bytes is not the canonical base64 spelling
+[invalid] base64-unpadded.json: OK expect=reject got=reject reason-code B64 present first=canonical_bytes is not valid base64
+[invalid] bytes-not-base64.json: OK expect=reject got=reject reason-code B64 present first=canonical_bytes is not valid base64
+[invalid] duplicate-member-name.json: OK expect=reject got=reject reason-code DUP present first=duplicate member name: output_hash
+[invalid] feb29-1900.json: OK expect=reject got=reject reason-code TIME present first=created_at is not a valid RFC 3339 calendar date and time
+[invalid] feb29-non-leap.json: OK expect=reject got=reject reason-code TIME present first=created_at is not a valid RFC 3339 calendar date and time
+[invalid] hash-bad-format.json: OK expect=reject got=reject reason-code HASHFMT present first=output_hash is not sha256: plus 64 lowercase hex
+[invalid] hash-mismatch.json: OK expect=reject got=reject reason-code HASHMISMATCH present first=output_hash differs from sha256 of the decoded canonical_bytes
+[invalid] id-trailing-newline.json: OK expect=reject got=reject reason-code ID present first=id is not a lowercase UUID-shaped string
+[invalid] impossible-date.json: OK expect=reject got=reject reason-code TIME present first=created_at is not a valid RFC 3339 calendar date and time
+[invalid] input-hash-key-order-20.json: OK expect=reject got=reject reason-code INPUTHASH present first=input_hash differs from the serialized recorded inputs
+[invalid] input-hash-mismatch.json: OK expect=reject got=reject reason-code INPUTHASH present first=input_hash differs from the serialized recorded inputs
+[invalid] leap-second-created-at.json: OK expect=reject got=reject reason-code TIME present first=created_at is not a valid RFC 3339 calendar date and time
+[invalid] lowercase-timestamp.json: DIFF expect=reject got=accept
+[invalid] missing-output-hash.json: OK expect=reject got=reject reason-code MISSING present first=missing required member: output_hash
+[invalid] nil-uuid.json: OK expect=reject got=reject first=id is the nil UUID
+[invalid] non-utf8-bytes.json: OK expect=reject got=reject reason-code UTF8 present first=canonical_bytes is not valid UTF-8
+[invalid] payload-is-array.json: OK expect=reject got=reject reason-code BIND_VERSION present first=receipt_schema_version: one side missing
+[invalid] payload-omits-issuer-claims.json: OK expect=reject got=reject reason-code BIND_PROV present first=provenance binding: committed provenance_class missing
+[invalid] provenance-control-char.json: OK expect=reject got=reject first=provenance_class is not one of the three Section 5 classes
+[invalid] provenance-trailing-newline.json: OK expect=reject got=reject reason-code PROV present first=provenance_class is not one of the three Section 5 classes
+[invalid] tampered-provenance.json: OK expect=reject got=reject first=provenance binding: outer differs from committed
+[invalid] timestamp-no-timezone.json: OK expect=reject got=reject reason-code TIME present first=created_at is not a valid RFC 3339 calendar date and time
+[invalid] tool-empty-name.json: OK expect=reject got=reject reason-code TOOL present first=tool is not an object with non-empty name, version and scope strings
+[invalid] tool-not-object.json: OK expect=reject got=reject reason-code TOOL present first=tool is not an object with non-empty name, version and scope strings
+[invalid] uppercase-id.json: OK expect=reject got=reject reason-code ID present first=id is not a lowercase UUID-shaped string
+[invalid] version-downgrade.json: OK expect=reject got=reject first=receipt_schema_version: outer 0.3 differs from committed 0.4
+[profile-invalid] missing-inputs.json: OK expect=core-accept,profile-reject got=core-accept,profile-reject
+[anchored] anchored-bad-id-version.json: OK expect=core-accept,verification failed got=core-accept,verification failed
+[anchored] anchored-bad-leaf-hash.json: OK expect=core-accept,verification failed got=core-accept,verification failed
+[anchored] anchored-bad-timestamp.json: OK expect=core-accept,verification failed got=core-accept,verification failed
+[anchored] anchored-missing-proof.json: OK expect=core-accept,verification failed got=core-accept,verification failed
+[anchored] anchored-unresolvable-anchor.json: OK expect=core-accept,rejected: unresolvable record got=core-accept,rejected: unresolvable record
+[anchored] anchored-valid.json: OK expect=core-accept,verified got=core-accept,verified
+[anchor-report] anchor-resolves: OK expect=verified/present=True/evaluated=True got=verified/present=True/evaluated=True
+[anchor-report] anchor-unresolvable: OK expect=rejected: unresolvable record/present=True/evaluated=True got=rejected: unresolvable record/present=True/evaluated=True
+[anchor-report] anchor-not-checked: OK expect=not checked/present=True/evaluated=False got=not checked/present=True/evaluated=False
+[anchor-report] anchor-verification-failed: OK expect=verification failed/present=True/evaluated=True got=verification failed/present=True/evaluated=True
+[anchor-report] anchor-absent: OK expect=absent/present=False/evaluated=False got=absent/present=False/evaluated=False
+[anchor-report] anchor-other-profile: OK expect=absent/present=False/evaluated=False got=absent/present=False/evaluated=False
+[anchor-report] anchor-unresolvable-bad-leaf: OK expect=rejected: unresolvable record/present=True/evaluated=True got=rejected: unresolvable record/present=True/evaluated=True
+[anchor-report] anchor-partial-profile: OK expect=verification failed/present=True/evaluated=True got=verification failed/present=True/evaluated=True
+[merkle] canonical-5-step: OK expect=7c4817ca249e.. got=7c4817ca249e..
+[merkle-workflow] canonical-5-step: OK expect=valid got=valid
+[merkle] legacy-construction-rejected: OK expect=a4b2fcb4684c.. got=a4b2fcb4684c..
+[merkle] odd-duplication-3: OK expect=4860e25bbc8d.. got=4860e25bbc8d..
+[merkle] ordering-matters: OK expect=362530ecc354.. got=362530ecc354..
+[merkle] single-leaf: OK expect=609eb71e8855.. got=609eb71e8855..
+[merkle] empty: OK expect=e3b0c44298fc.. got=e3b0c44298fc..
+[merkle] worked-example-byte-exact: OK expect=7c4817ca249e.. got=7c4817ca249e..
+[merkle] duplicate-receipt-id-collision: OK expect=7c4817ca249e.. got=7c4817ca249e..
+[merkle-workflow] duplicate-receipt-id-collision: OK expect=invalid got=invalid (duplicate receipt_id)
+[merkle] one-step-single-receipt: OK expect=7c90f65aeccd.. got=7c90f65aeccd..
+[merkle-workflow] one-step-single-receipt: OK expect=valid got=valid
+[workflow-root] legacy-receipt-id-v0-mixed-version: OK expect=valid got=valid (receipt-id-v0 version)
+[workflow-root] seq-output-v1-single-step: OK expect=valid got=valid (seq-output-v1 version)
+[workflow-root] seq-output-v1-multi-step: OK expect=valid got=valid (seq-output-v1 version)
+[workflow-root] seq-output-v1-odd-level-duplicates-last: OK expect=valid got=valid (seq-output-v1 version)
+[workflow-root] seq-output-v1-multi-step-odd-levels: OK expect=valid got=valid (seq-output-v1 version)
+[workflow-root] xversion-seq-output-v1-evaluated-as-receipt-id-v0: OK expect=valid got=valid (seq-output-v1 version)
+[workflow-root] xversion-receipt-id-v0-evaluated-as-seq-output-v1: OK expect=valid got=valid (receipt-id-v0 version)
+[workflow-root] seq-output-v1-thirteen-step: OK expect=valid got=valid (seq-output-v1 version)
+[chain-06] chain-valid-3: OK expect=valid got=valid
+[chain-06] chain-single-entry-valid: OK expect=valid got=valid
+[chain-06] chain-tampered-middle: OK expect=invalid got=invalid first=entry 2 prev_digest does not match
+[chain-06] chain-truncated-no-close: OK expect=invalid got=invalid first=last entry is not closing
+[chain-06] chain-reordered: OK expect=invalid got=invalid first=entry 1 prev_digest does not match
+[chain-06] chain-bad-genesis: OK expect=invalid got=invalid first=entry 0 prev_digest is not the zero digest
+[chain-06] chain-close-wrong-type: OK expect=invalid got=invalid first=last entry is not closing
+[chain-07] v07-valid-5: OK expect=valid got=valid
+[chain-07] v07-valid-single: OK expect=valid got=valid
+[chain-07] v07-truncation-limit-prefix: OK expect=valid got=valid
+[chain-07] v07-relabel-provenance: OK expect=invalid got=invalid first=entry 3 prev_digest does not match
+[chain-07] v07-relabel-tool-id: OK expect=invalid got=invalid first=entry 3 prev_digest does not match
+[chain-07] v07-close-middle: OK expect=invalid got=invalid first=entry 1 closes before the last entry
+[chain-07] v07-close-wrong-type: OK expect=invalid got=invalid first=entry 4 close is not a boolean
+[chain-07] v07-delete-identical-pair: OK expect=invalid got=invalid first=entry 2 seq breaks contiguity
+[chain-07] v07-insert-duplicate: OK expect=invalid got=invalid first=entry 3 seq breaks contiguity
+[chain-07] v07-splice-cross-job: OK expect=invalid got=invalid first=entry 2 mixes jobs
+[chain-07] v07-bad-genesis: OK expect=invalid got=invalid first=entry 0 prev_digest is not the zero digest
+[chain-07] v07-seq-gap: OK expect=invalid got=invalid first=entry 3 seq breaks contiguity
+[chain-07] v07-mixed-job-id: OK expect=invalid got=invalid first=entry 3 mixes jobs
+[chain-07] v07-bad-base64: OK expect=invalid got=invalid first=entry 2 canonical_bytes is not valid base64
+[chain-07] v07-v06-chain-rejected: OK expect=invalid got=invalid first=entry 0 missing tool
+[chain-07] v07-seq-float-valid: OK expect=valid got=valid
+[chain-07] v07-seq-bool-invalid: OK expect=invalid got=invalid first=entry 0 seq is not an integer
+[chain-07] v07-seq-fraction-invalid: OK expect=invalid got=invalid first=entry 0 seq is not an integer
+[chain-07] v07-seq-negative-invalid: OK expect=invalid got=invalid first=entry 0 seq breaks contiguity
+[chain-07] v07-seq-string-invalid: OK expect=invalid got=invalid first=entry 0 seq is not an integer
+[chain-07] v07-seq-null-invalid: OK expect=invalid got=invalid first=entry 0 seq is not an integer
+[chain-07] v07-seq-missing-invalid: OK expect=invalid got=invalid first=entry 0 seq is not an integer
+[chain-07] x-genesis-single: OK expect=invalid got=invalid first=entry 0 prev_digest is not the zero digest
+[chain-07] x-encoding-reference: OK expect=valid got=valid
+[chain-07] x-encoding-draft-literal: OK expect=invalid got=invalid first=entry 1 prev_digest does not match
+[chain-07] ax-genesis-single: OK expect=invalid got=invalid first=entry 0 prev_digest is not the zero digest
+[chain-07] ax-esc-hex-upper: OK expect=invalid got=invalid first=entry 1 prev_digest does not match
+[chain-07] ax-esc-long-escape: OK expect=invalid got=invalid first=entry 1 prev_digest does not match
+[commitment] commit-valid-1: OK expect=valid got=valid
+[commitment] commit-digest-mismatch: OK expect=invalid got=invalid first=final_entry_digest differs from the recomputed last entry digest
+[commitment] commit-count-mismatch: OK expect=invalid got=invalid first=entry_count differs from timeline length
+[commitment] commit-job-mismatch: OK expect=invalid got=invalid first=job_id differs from the timeline
+[commitment] commit-malformed-missing: OK expect=invalid got=invalid first=malformed commitment member: final_entry_digest
+[commitment] commit-malformed-types: OK expect=invalid got=invalid first=malformed commitment member: final_entry_digest,entry_count,published_at
+[commitment] commit-not-an-object: OK expect=invalid got=invalid first=commitment is not an object
+[commitment] x-entry-count-float: DIFF expect=invalid got=valid
+[unicode] unicode-nfc-form: OK expect=match got=match
+[unicode] unicode-nfd-form: OK expect=match got=match
+[unicode] unicode-nfd-against-nfc-commitment: OK expect=mismatch got=mismatch
+[unicode] unicode-narrow-nbsp-curly-quote: OK expect=match got=match
+[unicode] unicode-nonbreaking-hyphen-against-ascii: OK expect=mismatch got=mismatch
+[id-binding] id-alone-unverified: OK expect=unverified/pass got=unverified/pass (structural pass)
+[id-binding] id-expected-match: OK expect=matched/pass got=matched/pass (structural pass)
+[id-binding] id-expected-mismatch: OK expect=mismatched/fail got=mismatched/fail (structural pass)
+[id-binding] id-resolution-agreement: OK expect=resolved/pass got=resolved/pass (structural pass)
+[id-binding] id-resolution-disagreement: OK expect=mismatched/fail got=mismatched/fail (structural pass)
+[id-binding] id-absent: OK expect=absent/fail got=absent/fail (structural fail)
+
+SUMMARY anchor-report    8 of 8 agree
+SUMMARY anchored         6 of 6 agree
+SUMMARY chain-06         7 of 7 agree
+SUMMARY chain-07         28 of 28 agree
+SUMMARY commitment       7 of 8 agree
+SUMMARY id-binding       6 of 6 agree
+SUMMARY invalid          35 of 36 agree
+SUMMARY merkle           9 of 9 agree
+SUMMARY merkle-workflow  3 of 3 agree
+SUMMARY profile-invalid  1 of 1 agree
+SUMMARY unicode          5 of 5 agree
+SUMMARY valid            21 of 21 agree
+SUMMARY workflow-root    8 of 8 agree
+SUMMARY TOTAL            144 of 146 checks agree with the kit's expected outcome
+DIFFERS: [invalid] lowercase-timestamp.json
+DIFFERS: [commitment] x-entry-count-float
+EXTRA cross-version xversion-seq-output-v1-evaluated-as-receipt-id-v0: root 242397c374053da292c53b4854271684b030f3cc014d5d3f8dcda83f9f7a95de under receipt-id-v0, computed_root in vector 242397c374053da292c53b4854271684b030f3cc014d5d3f8dcda83f9f7a95de -> OK
+EXTRA cross-version xversion-receipt-id-v0-evaluated-as-seq-output-v1: root None under seq-output-v1, computed_root in vector None -> OK
+EXTRA chain-valid-3 verifies under -06; under the current construction: rejected -> OK
+EXTRA chain-single-entry-valid verifies under -06; under the current construction: rejected -> OK

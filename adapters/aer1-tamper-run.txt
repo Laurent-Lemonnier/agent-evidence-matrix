@@ -1,0 +1,6 @@
+TAMPER receipt-01 canonical_bytes one char flipped                    original=accept                 tampered=reject(HASHMISMATCH)           FLIPS
+TAMPER real-04 created_at one digit flipped                           original=accept                 tampered=reject(METAHASH,TIME)          FLIPS
+TAMPER v07-valid-5 entry 3 canonical_bytes one char flipped           original=valid                  tampered=invalid                        FLIPS
+TAMPER canonical-5-step receipt_id 2 one char changed                 original=root matches           tampered=root differs                   FLIPS
+TAMPER input-hash-multikey-20 input_hash last hex digit changed       original=accept                 tampered=reject(INPUTHASH)              FLIPS
+TAMPER SUMMARY 5 of 5 flip

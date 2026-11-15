@@ -1,0 +1,31 @@
+CASE emilia v1-their-file-equals-draft-08-extraction PASS 1877 bytes sha256 2c1ec4cbe4779d8d
+CASE emilia v1-their-parser-one-branch-82-ops-height-957289 PASS 
+CASE emilia v1-their-replay-equals-draft-header-root PASS 
+CASE emilia v1-D6-no-validated-chain-unverifiable PASS unverifiable
+CASE emilia v1-D6-artifact-byte-changed-invalid PASS invalid
+CASE emilia v2-their-file-equals-draft-08-extraction PASS 1877 bytes sha256 dc630f6039890b98
+CASE emilia v2-their-parser-one-branch-82-ops-height-957289 PASS 
+CASE emilia v2-their-replay-equals-draft-header-root PASS 
+CASE emilia v2-D6-no-validated-chain-unverifiable PASS unverifiable
+CASE emilia v2-D6-artifact-byte-changed-invalid PASS invalid
+CASE emilia v3-their-file-equals-draft-08-extraction PASS 1877 bytes sha256 4e2a3ce0758ab8be
+CASE emilia v3-their-parser-one-branch-82-ops-height-957289 PASS 
+CASE emilia v3-their-replay-equals-draft-header-root PASS 
+CASE emilia v3-D6-no-validated-chain-unverifiable PASS unverifiable
+CASE emilia v3-D6-artifact-byte-changed-invalid PASS invalid
+CASE emilia v4-their-file-equals-draft-08-extraction PASS 1877 bytes sha256 4905b48a6d26ed43
+CASE emilia v4-their-parser-one-branch-82-ops-height-957289 PASS 
+CASE emilia v4-their-replay-equals-draft-header-root PASS 
+CASE emilia v4-D6-no-validated-chain-unverifiable PASS unverifiable
+CASE emilia v4-D6-artifact-byte-changed-invalid PASS invalid
+CASE emilia manifest-batch_root-equals-draft PASS 
+CASE emilia manifest-node_12-equals-draft PASS 
+CASE emilia manifest-node_34-equals-draft PASS 
+CASE emilia manifest-header-root-internal-equals-draft PASS 
+CASE emilia manifest-RWCP-equals-draft PASS 
+INFO emilia v1 with unvalidated explorer header and depth 18583 (tip 975871 from one explorer): valid height=957289
+INFO emilia v2 with unvalidated explorer header and depth 18583 (tip 975871 from one explorer): valid height=957289
+INFO emilia v3 with unvalidated explorer header and depth 18583 (tip 975871 from one explorer): valid height=957289
+INFO emilia v4 with unvalidated explorer header and depth 18583 (tip 975871 from one explorer): valid height=957289
+TOTAL emilia 25 of 25
+TAMPER emilia v1 nonce byte flipped: file equals draft extraction=False; their replay equals draft header root=False
