@@ -2,8 +2,10 @@
 
 Run by .github/workflows/intake.yml under pull_request_target from the BASE branch's checkout. It reads
 the pull request through the API and never checks out or runs the pull request's code. Inputs come from
-the environment (REPO, PR, AUTHOR, ASSOCIATION, BASE_SHA, HEAD_REPO, HEAD_SHA, HELD_LOGINS, HELD_OWNERS);
-the held lists are repository variables and are never printed.
+the environment (REPO, PR, AUTHOR, BASE_SHA, HEAD_REPO, HEAD_SHA, HELD_LOGINS, HELD_OWNERS); the held lists are
+repository variables and are never printed. A maintainer is an account with admin, maintain or write permission on
+the repository, read through the API: the pull request's author_association is not used, because GitHub reports an
+organization owner whose membership is private as CONTRIBUTOR.
 
 Refusals:
 - the author is on the held list;
@@ -24,7 +26,7 @@ import re
 import subprocess
 import sys
 
-MAINTAINER = ("OWNER", "MEMBER", "COLLABORATOR")
+MAINTAINER = ("admin", "maintain", "write")
 
 
 class ReadError(RuntimeError):
@@ -32,7 +34,7 @@ class ReadError(RuntimeError):
 
 
 def gh(*args: str) -> str:
-    out = subprocess.run(["gh", "api", *args], capture_output=True, text=True)
+    out = subprocess.run(["gh", "api", *args], capture_output=True, text=True, check=False)
     if out.returncode != 0:
         raise ReadError(f"could not read {args[-1].split('?')[0]}: {out.stderr.strip()}")
     return out.stdout
@@ -70,9 +72,16 @@ def held_owner_named(project: dict, owners: set[str]) -> bool:
     return False
 
 
-def refusals(files, base, head, author, association, held_logins, held_owners) -> list[str]:
+def is_maintainer(repo: str, author: str, read=gh) -> bool:
+    """True when the author holds admin, maintain or write permission on the repository (raises ReadError if unread)."""
+    perm = json.loads(read(f"repos/{repo}/collaborators/{author}/permission")).get("permission")
+    if not isinstance(perm, str):
+        raise ReadError(f"no permission value for {author}")
+    return perm in MAINTAINER
+
+
+def refusals(files, base, head, author, maintainer, held_logins, held_owners) -> list[str]:
     """Every refusal for one pull request; base and head are matrix.json documents (or None if unchanged)."""
-    maintainer = association in MAINTAINER
     out = []
     if author.lower() in held_logins:
         out.append("this account's rows are held for maintainer review; a maintainer will follow up")
@@ -101,6 +110,7 @@ def main() -> int:
     held_owners = {x.strip().lower() for x in env.get("HELD_OWNERS", "").split(",") if x.strip()}
     try:
         files = changed_files(env["REPO"], env["PR"])
+        maintainer = is_maintainer(env["REPO"], env["AUTHOR"])
         base = head = None
         if "matrix.json" in files:
             base = matrix_at(env["REPO"], env["BASE_SHA"])
@@ -109,7 +119,7 @@ def main() -> int:
     except ReadError as exc:
         print(f"::error::intake: {exc}")
         return 2
-    found = refusals(files, base, head, env["AUTHOR"], env["ASSOCIATION"], held_logins, held_owners)
+    found = refusals(files, base, head, env["AUTHOR"], maintainer, held_logins, held_owners)
     for r in found:
         print(f"::error::{r}")
     return 1 if found else 0
