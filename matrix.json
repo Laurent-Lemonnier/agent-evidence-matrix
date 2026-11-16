@@ -750,9 +750,10 @@
         {
           "cell": "examples/results regenerated with the project's own code (python3 -m agentops demo) against the committed run",
           "source": "their records",
-          "verdict": "not run",
-          "detail": "the icon-agentops CI job regenerates the run at the pinned commit and compares it after dropping times, ids and durations; this cell takes that job's recorded result",
-          "evidence": "adapters/icon_agentops.py"
+          "verdict": "agrees",
+          "detail": "9 of 9 sessions equal for events.json, evidence.json and analysis.json after dropping clock readings: times, ids, durations, diagnosis.record.created_at, and call-latency's measured_value, which analysis.py copies from the event's duration_ms. The analyzer's verdicts are compared, including call-latency's result. The icon-agentops CI job regenerates the run at the pinned commit and requires the recorded lines.",
+          "evidence": "adapters/icon-agentops-regen-run.txt (adapters/icon_agentops.py)",
+          "read_their_code": true
         },
         {
           "cell": "ietf-icon-agent-handover demo (trace.json)",
