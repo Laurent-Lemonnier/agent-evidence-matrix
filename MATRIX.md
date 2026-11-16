@@ -162,13 +162,19 @@ Each command runs from the repository root with the pinned reader installed (`pi
 
 Upstream: https://gitlab.com/rambozambodotdev/zambo at fa4a980727de31e5175953935e2348a19e3e37d8
 
+Note: AER-1 conformance kit v1.5.7 mirror (143 vectors, 146 checks, evaluated-set digest sha256:60bf73f325793e16843370cfa24903bb0d017525cb297e42bebc35857e2db0d2), draft-zambo-aer1-26, the latest revision on the datatracker on 14 Nov 2026
+
 ```
 git clone https://gitlab.com/rambozambodotdev/zambo /tmp/aer1-kit && git -C /tmp/aer1-kit checkout fa4a980727de31e5175953935e2348a19e3e37d8 && python -I adapters/aer1_adapter.py /tmp/aer1-kit > adapters/aer1-run.txt && python -I adapters/aer1_adapter.py --kit-reading /tmp/aer1-kit > adapters/aer1-kit-reading-run.txt && python -I adapters/aer1_adapter.py --errata-reading /tmp/aer1-kit > adapters/aer1-errata-reading-run.txt && python -I adapters/aer1_tamper.py /tmp/aer1-kit /tmp/aer1-tampered > adapters/aer1-tamper-run.txt && python -I adapters/aer1_review.py /tmp/aer1-kit /tmp/aer1-review-tampered > adapters/aer1-review-run.txt && A2A_JCS_TARGET=rfc8785 agent-evidence-vectors --corpus vectors-a2a-jcs-v01 --verifier "python -I adapters/aer1_ser_cli.py"
 ```
 
 ### 2. Action Evidence Packages
 
-Upstream: https://github.com/tyche-institute/aep-sandbox (hackathon pack) and https://github.com/tyche-institute/eatf-verifier (.aep packages, release v0.7.4) at aep-sandbox c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132; eatf-verifier fade5e0ac1223b7ff13339b7c9bcf973b699f9a7
+Upstream: https://github.com/tyche-institute/eatf-verifier at fade5e0ac1223b7ff13339b7c9bcf973b699f9a7
+
+Also read: https://github.com/tyche-institute/aep-sandbox at c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132
+
+Note: eatf-verifier carries the .aep packages (release v0.7.4); aep-sandbox carries the hackathon pack
 
 ```
 git clone https://github.com/tyche-institute/aep-sandbox X && git -C X checkout c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132 && git clone https://github.com/tyche-institute/eatf-verifier E && git -C E checkout fade5e0ac1223b7ff13339b7c9bcf973b699f9a7 && venv/bin/python -I adapters/aep_sandbox_adapter.py X/hackathon/ietf127/round1/vectors X/hackathon/ietf127/round1/trusted_issuers.json && venv/bin/python -I adapters/aep_sandbox_adapter.py X/interlab/round0/vectors X/interlab/round0/trusted_issuers.json && venv/bin/python -I adapters/aep_eatf_sigs.py E/test-vectors && venv/bin/python -I adapters/aep_seal_timestamps.py X/hackathon/ietf127/timestamps X/hackathon/ietf127/SEAL.sha256 && venv/bin/python -I adapters/aep_tamper_check.py E/test-vectors X/hackathon/ietf127/round1/vectors X/hackathon/ietf127/round1/trusted_issuers.json <scratch dir> && venv/bin/pip install E/lib-python && A2A_JCS_TARGET=rfc8785 EATF_LIB_PYTHON=E/lib-python EATF_CLASS_LOG=classes.log agent-evidence-vectors --corpus vectors-a2a-jcs-v01 --verifier "venv/bin/python adapters/eatf_jcs_cli.py"
@@ -200,7 +206,11 @@ git clone https://github.com/tech4biz-yasha/agent-memory-integrity /tmp/agmi && 
 
 ### 6. Independent time anchoring
 
-Upstream: https://datatracker.ietf.org/doc/draft-fassbender-scitt-time-anchor/ (revision -08, 23 October 2026, txt sha256 687000b938fcea6b15871f9ea20dc4694f89b7a78f719bacc72ef0ecf1da3394); verifier core https://github.com/emiliaprotocol/scitt-time-anchor-verifier at 6ea9afb257df9c9de28fc04001e9cc70124aa6fd (verifier core)
+Upstream: https://github.com/emiliaprotocol/scitt-time-anchor-verifier at 6ea9afb257df9c9de28fc04001e9cc70124aa6fd
+
+Also read: https://www.ietf.org/archive/id/draft-fassbender-scitt-time-anchor-08.txt at sha256 687000b938fcea6b15871f9ea20dc4694f89b7a78f719bacc72ef0ecf1da3394
+
+Note: the verifier core implements draft-fassbender-scitt-time-anchor revision -08 (23 October 2026), https://datatracker.ietf.org/doc/draft-fassbender-scitt-time-anchor/
 
 ```
 mkdir -p raw/timeanchor && cd raw/timeanchor && curl -sLO https://www.ietf.org/archive/id/draft-fassbender-scitt-time-anchor-08.txt && echo '687000b938fcea6b15871f9ea20dc4694f89b7a78f719bacc72ef0ecf1da3394  draft-fassbender-scitt-time-anchor-08.txt' | sha256sum -c - && curl -sL https://blockstream.info/api/block/000000000000000000018e5b8c68a63c45b3eeac3a05ecf621a3b3f7890e3534/header -o block-957289-header-blockstream.hex && curl -sL https://mempool.space/api/block/000000000000000000018e5b8c68a63c45b3eeac3a05ecf621a3b3f7890e3534/header -o block-957289-header-mempool.hex && curl -sL https://blockstream.info/api/block/000000000000000000018e5b8c68a63c45b3eeac3a05ecf621a3b3f7890e3534 -o block-957289-blockstream.json && curl -sL https://mempool.space/api/block/000000000000000000018e5b8c68a63c45b3eeac3a05ecf621a3b3f7890e3534 -o block-957289-mempool.json && cd ../.. && git clone https://github.com/emiliaprotocol/scitt-time-anchor-verifier raw/timeanchor-emilia && git -C raw/timeanchor-emilia checkout 6ea9afb257df9c9de28fc04001e9cc70124aa6fd && venv/bin/python -I adapters/timeanchor_adapter.py raw/timeanchor --tamper && venv/bin/python -I adapters/timeanchor_reader_cell.py raw/timeanchor && venv/bin/python -I adapters/timeanchor_emilia_crosscheck.py raw/timeanchor raw/timeanchor-emilia
@@ -216,7 +226,11 @@ sh adapters/tttps_run.sh <recheck-dir> <venv>/bin/python <draft-helmprotocol-ttt
 
 ### 8. WEXP Appraisal Core with SCITT
 
-Upstream: https://github.com/WEXP-dev/wexp-ref + https://github.com/WEXP-dev/wexp-check (corpus: agent-evidence-vectors==0.36.3) at wexp-ref c7dfce98cb265a883b38c7f99b9721e1b5de6d07; wexp-check 4cc2e63172d49022333a9fc935812ad667a7cd9d
+Upstream: https://github.com/WEXP-dev/wexp-ref at c7dfce98cb265a883b38c7f99b9721e1b5de6d07
+
+Also read: https://github.com/WEXP-dev/wexp-check at 4cc2e63172d49022333a9fc935812ad667a7cd9d
+
+Note: corpus: agent-evidence-vectors==0.36.3
 
 ```
 git clone https://github.com/WEXP-dev/wexp-ref /tmp/wexp-ref && git -C /tmp/wexp-ref checkout c7dfce98cb265a883b38c7f99b9721e1b5de6d07 && git clone https://github.com/WEXP-dev/wexp-check /tmp/wexp-check && git -C /tmp/wexp-check checkout 4cc2e63172d49022333a9fc935812ad667a7cd9d && python -I adapters/wexp_aar_adapter.py /tmp/wexp-ref /tmp/wexp-check "$(python -c 'import os,agent_evidence_vectors as a;print(os.path.join(os.path.dirname(a.__file__),"corpora","vectors-agent-audit-record"))')"

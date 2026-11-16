@@ -159,3 +159,63 @@ def test_freshness_reports_a_moved_upstream_and_a_failed_read():
 def test_unread_count_counts_projects_with_no_result():
     c = bm.counts(matrix(project(1), {"id": 2, "name": "n", "cells": [cell(verdict="not run")]}))
     assert c["unread"] == {2} and c["run"] == {1}
+
+
+# Counter-examples from the adversarial read of the schema gate (each was accepted before the fix).
+
+def test_an_evidence_path_that_climbs_out_of_the_tree_is_refused():
+    out = check(project(1, [cell(evidence="see records/../../../../../../../../etc/hostname")]))
+    assert any("leaves this tree" in line for line in out)
+
+
+def test_a_new_project_may_not_take_a_frozen_projects_upstream():
+    frozen = project(3)
+    taker = project(1)
+    taker["upstream"] = dict(frozen["upstream"])
+    assert any("share the upstream" in line for line in check(taker, frozen, frozen=[frozen]))
+
+
+@pytest.mark.parametrize("spelling", ["https://github.com/example/p1.git", "https://github.com/Example/P1",
+                                      "https://github.com/example/p1/"])
+def test_one_upstream_spelled_two_ways_is_still_shared(spelling):
+    a, b = project(1), project(2)
+    b["upstream"] = {"url": spelling, "sha": "b" * 40}
+    assert any("share the upstream" in line for line in check(a, b))
+
+
+@pytest.mark.parametrize("url,sha", [
+    ("https://github.com/a/b (hackathon pack) and https://github.com/a/c", "a" * 40),
+    ("https://github.com/a/b.git", "a" * 40),
+    ("https://github.com/a/b", "b c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132; c fade5e0ac1223b7ff13339b7c9bcf973b699f9a7"),
+    ("https://github.com/a/b", "6ea9afb (verifier core)"),
+])
+def test_an_upstream_is_one_repository_at_one_commit(url, sha):
+    p = project(1)
+    p["upstream"] = {"url": url, "sha": sha}
+    assert check(p) != []
+
+
+def test_further_inputs_go_in_also_and_prose_in_note():
+    p = project(1)
+    p["upstream"]["also"] = [{"url": "https://github.com/example/other", "sha": "c" * 40},
+                             {"url": "https://www.ietf.org/archive/id/draft-x-08.txt", "sha256": "d" * 64}]
+    p["upstream"]["note"] = "the second repository carries the corpus"
+    assert check(p) == []
+    p["upstream"]["also"].append({"url": "https://github.com/example/third"})
+    assert any("upstream.also[2]" in line for line in check(p))
+    p["upstream"]["also"].pop()
+    p["upstream"]["kit"] = "prose"
+    assert any("unknown keys" in line for line in check(p))
+
+
+def test_freshness_never_reads_an_empty_or_non_commit_answer_as_fresh():
+    for answer in ("", "null", "a" * 12):
+        lines = bm.freshness(matrix(project(1)), lambda o, r, a=answer: a)
+        assert lines and all("freshness not checked" in line for line in lines), answer
+
+
+def test_freshness_reads_every_pinned_repository_of_a_project():
+    p = project(1)
+    p["upstream"]["also"] = [{"url": "https://github.com/example/other", "sha": "c" * 40}]
+    lines = bm.freshness(matrix(p), lambda o, r: "a" * 40)
+    assert lines == ["project 1: upstream-moved, pinned cccccccccccc, example/other head aaaaaaaaaaaa"]

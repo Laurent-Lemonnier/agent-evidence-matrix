@@ -12,10 +12,14 @@ The schema rules, each a refusal (exit 1 with every problem named):
 - a verdict is one of the listed codes and a source one of "their records", "our adapter", "none";
 - a contradicted cell carries basis, divergence_in and declared_revision; a refusal inside a declared
   profile is not a contradiction, so basis "declared-profile" requires verdict unsupported and a profile;
-- every repository path an evidence string cites resolves in this tree, and no evidence string cites a
-  path that exists on one machine only;
+- every repository path an evidence string cites resolves to a file or directory inside this tree (a path
+  that climbs out through `..` or a symlink is refused), and no evidence string cites a path that exists on
+  one machine only;
 - a project with a result (agrees, contradicted or cannot-tell) names its upstream pin and a replay command;
-- two projects never share one upstream;
+- an upstream is one repository: `url` is https://<host>/<owner>/<repo> (no `.git`, no trailing slash, no
+  prose) and `sha` its 40-hex commit; further inputs go in `also` (each a url with a 40-hex `sha` for a
+  repository or a 64-hex `sha256` for a fetched file) and free text in `note`;
+- two projects never share one upstream: compared without case, over every project, frozen ones included;
 - property columns use the listed names and verdict codes.
 """
 from __future__ import annotations
@@ -46,6 +50,10 @@ COLUMNS = (
 REVIEW_STATES = ("published", "frozen")
 PATH = re.compile(r"(?<![\w/.-])((?:adapters|records|libraries|tests|tools|badges)/[\w.@+/-]*[\w@+-])")
 ONE_MACHINE = re.compile(r"(?:^|[\s(])(?:/home/|/Users/|~/|/tmp/)|_raw/|probity-lanes")
+REPO_URL = re.compile(r"https://[a-z0-9.-]+\.[a-z]{2,}/[\w.-]+/[\w.-]+")
+FILE_URL = re.compile(r"https://[a-z0-9.-]+\.[a-z]{2,}/\S+")
+SHA1 = re.compile(r"[0-9a-f]{40}")
+SHA256 = re.compile(r"[0-9a-f]{64}")
 
 
 def project_digest(project: dict) -> str:
@@ -63,9 +71,52 @@ def _evidence_problems(where: str, evidence: str, root: pathlib.Path) -> list[st
     out = []
     if ONE_MACHINE.search(evidence):
         out.append(f"{where}: evidence cites a path that exists on one machine only: {evidence[:120]!r}")
+    top = root.resolve()
     for path in PATH.findall(evidence):
-        if not (root / path).exists():
+        target = (root / path).resolve()
+        if not target.is_relative_to(top):
+            out.append(f"{where}: evidence path {path} leaves this tree")
+        elif not target.exists():
             out.append(f"{where}: evidence path {path} does not resolve in this tree")
+    return out
+
+
+def upstream_key(url: str) -> str:
+    """The form two upstream URLs are compared in: without case, `.git` or a trailing slash."""
+    key = (url or "").strip().lower().rstrip("/")
+    return key[:-4] if key.endswith(".git") else key
+
+
+def _repo_url_ok(url) -> bool:
+    return (isinstance(url, str) and REPO_URL.fullmatch(url) is not None and not url.endswith(".git")
+            and url == url.strip())
+
+
+def _upstream_problems(pid, up: dict) -> list[str]:
+    out = []
+    if "url" in up and not _repo_url_ok(up["url"]):
+        out.append(f"project {pid}: upstream.url {str(up['url'])[:80]!r} is not one repository URL "
+                   "https://<host>/<owner>/<repo>; put further inputs in upstream.also and prose in upstream.note")
+    if "sha" in up and not (isinstance(up["sha"], str) and SHA1.fullmatch(up["sha"])):
+        out.append(f"project {pid}: upstream.sha {str(up['sha'])[:60]!r} is not a 40-hex commit")
+    unknown = set(up) - {"url", "sha", "also", "note", "released"}
+    if unknown:
+        out.append(f"project {pid}: upstream has unknown keys {sorted(unknown)}")
+    if "note" in up and not (isinstance(up["note"], str) and up["note"].strip()):
+        out.append(f"project {pid}: upstream.note is a non-empty string")
+    also = up.get("also", [])
+    if not isinstance(also, list):
+        return out + [f"project {pid}: upstream.also is a list"]
+    for i, item in enumerate(also):
+        where = f"project {pid}: upstream.also[{i}]"
+        if not isinstance(item, dict) or set(item) not in ({"url", "sha"}, {"url", "sha256"}):
+            out.append(f"{where} is {{url, sha}} for a repository or {{url, sha256}} for a fetched file")
+        elif "sha" in item and not (_repo_url_ok(item["url"]) and isinstance(item["sha"], str)
+                                    and SHA1.fullmatch(item["sha"])):
+            out.append(f"{where}: a repository input needs a repository URL and a 40-hex sha")
+        elif "sha256" in item and not (isinstance(item["url"], str) and FILE_URL.fullmatch(item["url"])
+                                       and isinstance(item["sha256"], str) and SHA256.fullmatch(item["sha256"])):
+            out.append(f"{where}: a file input needs an https URL and a 64-hex sha256")
     return out
 
 
@@ -123,6 +174,7 @@ def _project_problems(project: dict, codes: set[str], root: pathlib.Path) -> lis
     up = project.get("upstream") or {}
     if has_result and not (up.get("url") and up.get("sha") and project.get("replay")):
         out.append(f"project {pid}: a project with a result needs upstream.url, upstream.sha and replay")
+    out += _upstream_problems(pid, up)
     if project.get("independence") is not None and project["independence"] not in INDEPENDENCE:
         out.append(f"project {pid}: independence {project['independence']!r} is not one of {list(INDEPENDENCE)}")
     released = up.get("released")
@@ -167,6 +219,14 @@ def problems(data: dict, reviews: dict, root: pathlib.Path = ROOT) -> list[str]:
     seen_upstream = {}
     for project in data.get("projects") or []:
         pid = project.get("id")
+        # Uniqueness holds over every project: a frozen entry keeps its bytes, and a new or edited one
+        # may still not take its upstream.
+        url = (project.get("upstream") or {}).get("url")
+        if url:
+            key = upstream_key(url)
+            if key in seen_upstream:
+                out.append(f"projects {seen_upstream[key]} and {pid} share the upstream {url}")
+            seen_upstream.setdefault(key, pid)
         review = by_project.get(pid)
         if review is None:
             out.append(f"project {pid}: no review entry in reviews.json; a project lands after its review")
@@ -177,11 +237,6 @@ def problems(data: dict, reviews: dict, root: pathlib.Path = ROOT) -> list[str]:
                            f"(recorded {str(review.get('digest'))[:12]}, now {project_digest(project)[:12]})")
             continue
         out += _project_problems(project, codes, root)
-        url = (project.get("upstream") or {}).get("url")
-        if url:
-            if url in seen_upstream:
-                out.append(f"projects {seen_upstream[url]} and {pid} share the upstream {url}")
-            seen_upstream[url] = pid
     return out
 
 
@@ -247,6 +302,10 @@ def render(data: dict, reviews: dict) -> tuple[str, dict[str, str]]:
         if p.get("replay"):
             up = p.get("upstream") or {}
             pin = f"Upstream: {up.get('url', '')} at {up.get('sha', '')}\n\n" if up else ""
+            for item in up.get("also", []):
+                pin += f"Also read: {item['url']} at {item.get('sha') or 'sha256 ' + item['sha256']}\n\n"
+            if up.get("note"):
+                pin += f"Note: {up['note']}\n\n"
             rel = up.get("released")
             if rel:
                 same = "the same bytes as the pinned source" if rel["same_as_source"] else "different bytes from the pinned source"
@@ -309,7 +368,9 @@ def _github(url: str):
 
 
 def freshness(data: dict, fetch=None) -> list[str]:
-    """One line per GitHub upstream whose default branch moved past the pinned commit."""
+    """One line per GitHub repository (upstream and `also`) whose default branch moved past its pin.
+
+    An answer that is not a 40-hex commit is a failed read, reported as not checked, never as fresh."""
     def gh_head(owner: str, repo: str) -> str:
         out = subprocess.run(["gh", "api", f"repos/{owner}/{repo}/commits/HEAD", "--jq", ".sha"],
                              capture_output=True, text=True, check=False)
@@ -320,17 +381,23 @@ def freshness(data: dict, fetch=None) -> list[str]:
     lines = []
     for p in data["projects"]:
         up = p.get("upstream") or {}
-        repo = _github(up.get("url", ""))
-        if not repo or not up.get("sha"):
-            continue
-        pinned = up["sha"].split()[0]
-        try:
-            head = fetch(*repo)
-        except RuntimeError as exc:
-            lines.append(f"project {p['id']}: freshness not checked ({exc})")
-            continue
-        if not head.startswith(pinned) and not pinned.startswith(head):
-            lines.append(f"project {p['id']}: upstream-moved, pinned {pinned[:12]}, {repo[0]}/{repo[1]} head {head[:12]}")
+        pins = [(up.get("url", ""), up.get("sha"))] + [(a.get("url", ""), a.get("sha")) for a in up.get("also", [])
+                                                        if isinstance(a, dict)]
+        for url, pinned in pins:
+            repo = _github(url)
+            if not repo or not pinned:
+                continue
+            try:
+                head = fetch(*repo)
+            except RuntimeError as exc:
+                lines.append(f"project {p['id']}: freshness not checked for {repo[0]}/{repo[1]} ({exc})")
+                continue
+            if not (isinstance(head, str) and SHA1.fullmatch(head)):
+                lines.append(f"project {p['id']}: freshness not checked for {repo[0]}/{repo[1]} "
+                             f"(the read returned {str(head)[:40]!r}, not a commit)")
+            elif head != pinned:
+                lines.append(f"project {p['id']}: upstream-moved, pinned {pinned[:12]}, "
+                             f"{repo[0]}/{repo[1]} head {head[:12]}")
     return lines
 
 
