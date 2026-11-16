@@ -1,3 +1,58 @@
+# tyche-institute/eatf-verifier v0.7.4 (fade5e0ac1223b7ff13339b7c9bcf973b699f9a7), lib-python eatf_verifier.canonical.jcs, through adapters/eatf_jcs_cli.py; corpus vectors-a2a-jcs-v01 from agent-evidence-vectors 0.36.3, target rfc8785
 FAIL A5-002: refused: refused on input that has a canonical form (exit 1)
 FAIL A5-012: refused: refused on input that has a canonical form (exit 1)
-a2a-agent-card-canonicalization-conformance target rfc8785: executed 53 of 53, 51 pass; report /home/sgilda/Documents/.lanes/ietf127-hack-1110/research/1283-ietf127-hackathon-2026-11-10/adapters/eatf-jcs-report.json
+a2a-agent-card-canonicalization-conformance target rfc8785: executed 53 of 53, 51 pass
+# refusal path per vector (EATF_CLASS_LOG), sorted
+A3-001.json	canonical
+A3-002.json	canonical
+A3-003.json	canonical
+A3-004.json	canonical
+A3-005.json	canonical
+A3-006.json	canonical
+A3-007.json	canonical
+A3-008.json	canonical
+A3-009.json	canonical
+A3-010.json	canonical
+A3-REJECT-011.json	refused-by-encoder UnicodeEncodeError
+A3-REJECT-012.json	refused-by-encoder UnicodeEncodeError
+A4-001.json	canonical
+A4-002.json	canonical
+A4-003.json	canonical
+A4-004.json	canonical
+A4-005.json	canonical
+A4-006.json	canonical
+A4-007.json	canonical
+A4-008.json	canonical
+A4-009.json	canonical
+A4-010.json	canonical
+A4-011.json	canonical
+A4-012.json	canonical
+A4-REJECT-013.json	refused-by-profile CanonicalizationError
+A4-REJECT-014.json	refused-by-profile CanonicalizationError
+A4-REJECT-015.json	refused-by-profile CanonicalizationError
+A5-001.json	canonical
+A5-002.json	refused-by-profile FloatDomainError
+A5-003.json	canonical
+A5-004.json	canonical
+A5-005.json	canonical
+A5-006.json	canonical
+A5-007.json	canonical
+A5-008.json	canonical
+A5-009.json	canonical
+A5-010.json	canonical
+A5-011.json	canonical
+A5-012.json	refused-by-profile FloatDomainError
+A5-013.json	canonical
+A5-014.json	canonical
+A5-015.json	canonical
+A5-REJECT-016.json	refused-by-profile FloatDomainError
+A5-REJECT-017.json	refused-by-profile FloatDomainError
+A5-REJECT-018.json	refused-by-profile FloatDomainError
+A6-001.json	canonical
+A6-002.json	canonical
+A6-003.json	canonical
+A6-004.json	canonical
+A6-005.json	canonical
+A6-006.json	canonical
+A6-007.json	canonical
+A6-008.json	canonical

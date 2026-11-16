@@ -1,0 +1,34 @@
+draft-mozleywilliams-dawn-dnsaid-00 sha256 8a77fc8d86415714a0f39506d09510ee20b966c244dd3230355ccd528a7fe2e6
+dns-aid-core pyproject version 0.28.1
+INFO  draft-table1-names: draft-mozleywilliams-dawn-dnsaid-00 Table 1 defines ['proto', 'proto-ver', 'well-known', 'path', 'desc-ref', 'desc-ref-digest']
+PASS  agent-name/flat-owner: SVCB stored at agent-name.example.com. (draft 3.1 flat name)
+PASS  agent-name/servicemode-target: priority 1 target agent-name.example.com. (draft Fig 1 and Fig 3: priority 1, dotted target without underscores)
+DIFF  agent-name/proto-single-agent-protocol: proto=None (dawn-00 3.1.1 and Table 1: the agent protocol is carried in proto)
+DIFF  agent-name/alpn-transport-only: alpn=a2a (dawn-00 Table 1: alpn is the transport suite, e.g. h2,h3)
+PASS  agent-name/rfc9460-parse-wire-roundtrip: dnspython parses the provider text and the wire round trip is equal (185 octets)
+PASS  agent-name/parsed-alpn-port: alpn id a2a port 443
+DIFF  agent-name/parameter-names: emitted ['cap', 'cap-sha256', 'well-known']; not in draft-mozleywilliams-dawn-dnsaid-00 Table 1: ['cap', 'cap-sha256']
+PASS  agent-name/private-use-keys: emitted as ['key65400', 'key65401', 'key65409'] (RFC 9460 private-use range 65280-65534; the draft defers numbers to IANA)
+PASS  agent-name/own-reader-roundtrip: _parse_svcb_custom_params recovers ['cap', 'cap-sha256', 'well-known'] from the emitted text
+PASS  agent-name/mandatory-keys-present: mandatory=alpn,port
+PASS  hosted-agent/flat-owner: SVCB stored at hosted-agent.example.com. (draft 3.1 flat name)
+PASS  hosted-agent/servicemode-target: priority 1 target resource.service-provider.example. (draft Fig 1 and Fig 3: priority 1, dotted target without underscores)
+DIFF  hosted-agent/proto-single-agent-protocol: proto=None (dawn-00 3.1.1 and Table 1: the agent protocol is carried in proto)
+DIFF  hosted-agent/alpn-transport-only: alpn=mcp (dawn-00 Table 1: alpn is the transport suite, e.g. h2,h3)
+PASS  hosted-agent/rfc9460-parse-wire-roundtrip: dnspython parses the provider text and the wire round trip is equal (116 octets)
+PASS  hosted-agent/parsed-alpn-port: alpn id mcp port 443
+DIFF  hosted-agent/parameter-names: emitted ['policy', 'realm', 'well-known']; not in draft-mozleywilliams-dawn-dnsaid-00 Table 1: ['policy', 'realm']
+PASS  hosted-agent/private-use-keys: emitted as ['key65403', 'key65404', 'key65409'] (RFC 9460 private-use range 65280-65534; the draft defers numbers to IANA)
+PASS  hosted-agent/own-reader-roundtrip: _parse_svcb_custom_params recovers ['policy', 'realm', 'well-known'] from the emitted text
+PASS  hosted-agent/mandatory-keys-present: mandatory=alpn,port
+PASS  cap-sha256/value-equals-b64url-sha256: emitted LA8rIctDtzekmQn983nhe_UKEShLlUkGJ9d9_YlqimM, independent base64url(SHA-256(descriptor)) LA8rIctDtzekmQn983nhe_UKEShLlUkGJ9d9_YlqimM
+PASS  cap-sha256/their-verifier-accepts-served-bytes: _verify_cap_digest accepts the served descriptor
+INFO  cap-sha256/canonicalization: draft says digest of the canonical capability descriptor and defines no canonical form; dns-aid-core hashes the fetched bytes as served
+PASS  agent-name/walkable-aliasmode: agent-name._agents.example.com. SVCB 0 agent-name.example.com. params {}
+PASS  agent-name/walkable-aliasmode-rfc9460: dnspython parses AliasMode text '0 agent-name.example.com.'
+DIFF  multi-protocol/two-records-one-owner: after publishing mcp then a2a for one owner the RRset holds 1 record(s) naming [['a2a']] (expected one record per agent protocol: a2a and mcp)
+PASS  multi-protocol/rule-control: -02 example alpn=mcp,h2,h3 / alpn=a2a,h2,h3: conforms as expected
+PASS  multi-protocol/rule-control: dawn-00 example proto=a2a / proto=mcp: conforms as expected
+PASS  multi-protocol/rule-control: one record alpn=mcp,a2a: violates as expected
+INFO  draft-examples/rfc9460-parse: 8 of 11 single-line example records in the draft parse as RFC 9460 presentation; unparsed: ['1 . alpn=h2,h3 proto=a2a well-known=agent-card.json', '2 . alpn=h2,h3 proto=mcp path=/mcp', '1 . alpn=h2,h3 proto=a2a,mcp # MUST NOT be used']
+SUMMARY pass=21 diff=7 info=3

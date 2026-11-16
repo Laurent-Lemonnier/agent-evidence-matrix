@@ -1,0 +1,5 @@
+# Retained copies from HarshThumar/mcp-auth-tamarin at f2b59e17dc91fe451b225f70aca43a5243a70c9b (MIT, see LICENSE).
+# tamarin-results.zip is the CI artifact 14175059232 of that commit; GitHub reports its digest as below and deletes
+# it on 2027-02-13. prove.sh is scripts/prove.sh at the same commit, which carries the 376-row expectation table.
+91b3ec8c0939f755593b689a1501d24445be02037d914a5c792449121effabd3  tamarin-results.zip
+bd0ecd11d967430e821e6c8394f11e0cf0ef8b1f40a6d4e7d4aeb1a18e47a449  prove.sh

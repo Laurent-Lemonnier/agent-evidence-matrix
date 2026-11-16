@@ -1,0 +1,31 @@
+name: intake
+# A matrix row lands only after a maintainer records its review in reviews.json. tools/intake.py (from the
+# base branch) reads the pull request through the API and never checks out or runs its code, so it is safe
+# under pull_request_target. The held list lives in repository variables, never in a file or a log line.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, edited]
+permissions:
+  contents: read
+  pull-requests: read
+jobs:
+  intake:
+    runs-on: ubuntu-latest
+    steps:
+      # pull_request_target checks out the BASE branch by default: only reviewed code runs here.
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Review gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          AUTHOR: ${{ github.event.pull_request.user.login }}
+          ASSOCIATION: ${{ github.event.pull_request.author_association }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          HELD_LOGINS: ${{ vars.MATRIX_HELD_LOGINS }}
+          HELD_OWNERS: ${{ vars.MATRIX_HELD_OWNERS }}
+        run: python3 -I tools/intake.py

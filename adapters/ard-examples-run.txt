@@ -1,0 +1,25 @@
+# ards-project/ard-spec at f073b1ea9b01a5f068d0b0986426f2ea49fa30b2, conformance/examples, read by adapters/ard_examples_adapter.py
+basic/ard.json#0	manifest-only	unsupported	no trustManifest: no digest or signature to recompute
+basic/ard.json#1	manifest-only	unsupported	no trustManifest: no digest or signature to recompute
+basic/ard.json#2	manifest-only	unsupported	no trustManifest: no digest or signature to recompute
+basic/ard.json#3	manifest-only	unsupported	no trustManifest: no digest or signature to recompute
+fda-ndc/fda-ndc-catalog.json#0	draft-bu-00	contradicted	missing: subject; signature; top-level digest (url-referenced entry with attestations); signed attestation statement (attestations 0, 1, 2)
+fda-ndc/fda-ndc-catalog.json#0	repository-spec	agrees	identity present
+local-business/local-business-catalog.json#0	draft-bu-00	contradicted	missing: subject; signature; top-level digest (url-referenced entry with attestations); signed attestation statement (attestations 0, 1)
+local-business/local-business-catalog.json#0	repository-spec	agrees	identity present
+local-business/local-business-catalog.json#1	manifest-only	unsupported	no trustManifest: no digest or signature to recompute
+nevermined/nevermined-catalog.json#0	draft-bu-00	contradicted	missing: subject; signature
+nevermined/nevermined-catalog.json#0	repository-spec	agrees	identity present
+nevermined/nevermined-catalog.json#1	draft-bu-00	contradicted	missing: subject; signature
+nevermined/nevermined-catalog.json#1	repository-spec	agrees	identity present
+nevermined/nevermined-catalog.json#2	draft-bu-00	contradicted	missing: subject; signature
+nevermined/nevermined-catalog.json#2	repository-spec	agrees	identity present
+noaa-weather/noaa-weather-catalog.json#0	draft-bu-00	contradicted	missing: subject; signature; top-level digest (url-referenced entry with attestations); signed attestation statement (attestations 0, 1, 2)
+noaa-weather/noaa-weather-catalog.json#0	repository-spec	agrees	identity present
+scan-attestation/ard.json#0	attestation-digest	agrees	attestations[1] invoice-reader.scan.sarif sha256 cdbd706458d3
+scan-attestation/ard.json#0	draft-bu-00	contradicted	missing: subject; signature; top-level digest (url-referenced entry with attestations); signed attestation statement (attestations 0, 1)
+scan-attestation/ard.json#0	repository-spec	agrees	identity present
+SUMMARY attestation-digest: 1 (agrees 1)
+SUMMARY draft-bu-00: 7 (contradicted 7)
+SUMMARY repository-spec: 7 (agrees 7)
+SUMMARY manifest-only: 5 (unsupported 5)
