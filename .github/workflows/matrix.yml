@@ -13,8 +13,139 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: python build_matrix.py
-      - run: git diff --exit-code MATRIX.md
+      - run: python build_matrix.py --check
+      # The daily run reports every pinned upstream whose default branch moved past its pin.
+      - name: Upstream freshness (warnings only)
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python build_matrix.py --freshness | sed 's/^/::warning::/'
+  # The pinned reader, installed from the hash-locked requirements, judges every record a
+  # project says is RFC 8785 bytes. The run must equal the committed one, and a one-member
+  # reorder of one record must turn exactly that line and the exit code (1, comparison failed).
+  reader:
+    runs-on: ubuntu-latest
+    env:
+      PROOFBUNDLE: 53d1eafe8eaf7c558ed394e01d1b29d132c2fd47
+      AEP_SANDBOX: c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install --require-hashes -r requirements.txt
+      - name: Fetch the pinned upstreams
+        run: |
+          git clone -q https://github.com/b7n0de/proofbundle ../proofbundle
+          git -C ../proofbundle checkout -q "$PROOFBUNDLE"
+          git clone -q https://github.com/tyche-institute/aep-sandbox ../aep-sandbox
+          git -C ../aep-sandbox checkout -q "$AEP_SANDBOX"
+      - name: Replay and compare with the recorded run
+        run: |
+          python -I adapters/reader_cells.py proofbundle=../proofbundle aep-sandbox=../aep-sandbox > "$RUNNER_TEMP/body.txt"
+          head -2 adapters/reader-run.txt | cat - "$RUNNER_TEMP/body.txt" | diff adapters/reader-run.txt -
+      - name: A reordered record must change its line and exit 1
+        run: |
+          F=conformance/decision/crossimpl/schema-conformant/decision_receipt.jcs
+          set +e
+          python -I adapters/reader_cells.py --mutation "proofbundle/$F" proofbundle=../proofbundle > "$RUNNER_TEMP/mut.txt"
+          rc=$?
+          set -e
+          test "$rc" = 1 || { echo "expected exit 1, got $rc"; cat "$RUNNER_TEMP/mut.txt"; exit 1; }
+          grep -qxF "$(printf 'proofbundle/%s\tcontradicted\tcanonical_bytes_differ' "$F")" "$RUNNER_TEMP/mut.txt"
+          test "$(grep -c contradicted "$RUNNER_TEMP/mut.txt")" = 1
+      - name: A missing reader is a setup error, not a result
+        run: |
+          set +e
+          PATH=/usr/bin:/bin python3 -I adapters/reader_cells.py proofbundle=../proofbundle > /dev/null 2>&1
+          rc=$?
+          set -e
+          test "$rc" = 2
+  # Rebuilds the ICON agentops example run with the project's own stdlib-only code at the pinned
+  # commit and compares it with the committed run, then reads the committed records.
+  icon-agentops:
+    runs-on: ubuntu-latest
+    env:
+      ICON_COMMIT: 8d370de7e09d2fe5d9efa93120e564cd825331fc
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install --require-hashes -r requirements.txt
+      - name: Fetch the pinned upstream
+        run: |
+          git clone -q https://github.com/billwuqin/Agent-Observability-Intervention-Control ../icon
+          git -C ../icon checkout -q "$ICON_COMMIT"
+      - name: The committed records equal the recorded run
+        run: |
+          python -I adapters/icon_agentops.py "../icon/Hackathon/IETF 127/running code/agentops" > "$RUNNER_TEMP/body.txt"
+          head -1 adapters/icon-agentops-run.txt | cat - "$RUNNER_TEMP/body.txt" | diff adapters/icon-agentops-run.txt -
+      # bash with pipefail, so a regenerated events or evidence file that differs (adapter exit 1) fails the
+      # step; analysis.json carries measured durations and is reported, not compared.
+      - name: Regenerate with their code and compare
+        shell: bash
+        run: |
+          (cd "../icon/Hackathon/IETF 127/running code/agentops" && python3 -m agentops demo --out "$RUNNER_TEMP/ao-regen" > /dev/null)
+          python -I adapters/icon_agentops.py "../icon/Hackathon/IETF 127/running code/agentops" --regenerated "$RUNNER_TEMP/ao-regen" | tee "$RUNNER_TEMP/regen.txt"
+          grep -q "^PASS  agentops/events.json-normalized: 9 of 9" "$RUNNER_TEMP/regen.txt"
+          grep -q "^PASS  agentops/evidence.json-normalized: 9 of 9" "$RUNNER_TEMP/regen.txt"
+  # Runs dns-aid-core's own publisher and signer at the pinned commit (their records), checks the
+  # emitted SVCB records against both draft revisions and the signed bindings with our reader, and
+  # requires every recorded run to replay line for line. Keys are fresh per run; verdicts are not.
+  dnsaid:
+    runs-on: ubuntu-latest
+    env:
+      DNSAID_COMMIT: 825ccea1259267898df59b80e063317ec6900224
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Fetch the pinned upstream and the two draft revisions
+        run: |
+          git clone -q https://github.com/dns-aid/dns-aid-core ../dns-aid-core
+          git -C ../dns-aid-core checkout -q "$DNSAID_COMMIT"
+          pip install ../dns-aid-core
+          mkdir ../drafts
+          curl -sfo ../drafts/02.txt https://www.ietf.org/archive/id/draft-mozleywilliams-dnsop-dnsaid-02.txt
+          curl -sfo ../drafts/00.txt https://www.ietf.org/archive/id/draft-mozleywilliams-dawn-dnsaid-00.txt
+          echo "aab6b8bbd3aa45f24a29702cf96854328dab51ef37c851d73c81daf4b6ced494  ../drafts/02.txt" | sha256sum -c
+          echo "8a77fc8d86415714a0f39506d09510ee20b966c244dd3230355ccd528a7fe2e6  ../drafts/00.txt" | sha256sum -c
+      - name: Emission against each revision equals the recorded runs
+        run: |
+          for r in 02 00; do
+            python -I adapters/dnsaid_adapter.py ../dns-aid-core "../drafts/$r.txt" | diff "adapters/dnsaid-run-$r.txt" -
+          done
+      - name: A descriptor byte flipped after hashing must fail the digest check
+        run: python -I adapters/dnsaid_adapter.py ../dns-aid-core ../drafts/00.txt --tamper | grep -q "^DIFF  cap-sha256/their-verifier-accepts-served-bytes"
+      - name: Signed bindings equal the recorded run
+        run: |
+          sh adapters/dnsaid_sig_run.sh python ../dns-aid-core "$RUNNER_TEMP/sig" > "$RUNNER_TEMP/sig.txt"
+          head -1 adapters/dnsaid-sig-run.txt | cat - "$RUNNER_TEMP/sig.txt" | diff adapters/dnsaid-sig-run.txt -
+  # Replays the EATF canonicalizer of the pinned release through the RFC 8785 corpus, recording which
+  # code refused each vector; a crash exits 2 and fails the corpus run instead of scoring as a refusal.
+  eatf-jcs:
+    runs-on: ubuntu-latest
+    env:
+      EATF_COMMIT: fade5e0ac1223b7ff13339b7c9bcf973b699f9a7
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Fetch the pinned release and install its library
+        run: |
+          git clone -q https://github.com/tyche-institute/eatf-verifier ../eatf
+          git -C ../eatf checkout -q "$EATF_COMMIT"
+          pip install ../eatf/lib-python agent-evidence-vectors==0.36.3
+      - name: Corpus run equals the recorded run
+        run: |
+          set +e
+          A2A_JCS_TARGET=rfc8785 EATF_LIB_PYTHON=../eatf/lib-python EATF_CLASS_LOG="$RUNNER_TEMP/classes.log" \
+            agent-evidence-vectors --corpus vectors-a2a-jcs-v01 --verifier "python adapters/eatf_jcs_cli.py" > "$RUNNER_TEMP/run.txt" 2>&1
+          set -e
+          { head -1 adapters/eatf-jcs-run.txt; grep -v "^a2a-agent-card" "$RUNNER_TEMP/run.txt"; grep "^a2a-agent-card" "$RUNNER_TEMP/run.txt" | sed 's/; report .*//'; echo "# refusal path per vector (EATF_CLASS_LOG), sorted"; sort "$RUNNER_TEMP/classes.log"; } | diff adapters/eatf-jcs-run.txt -
   adapter-tests:
     runs-on: ubuntu-latest
     steps:

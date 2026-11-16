@@ -1,0 +1,25 @@
+# dns-aid/dns-aid-core at 825ccea1259267898df59b80e063317ec6900224; cases signed by its own jwks.sign_record with fresh keys; columns: expected, our reader adapters/dnsaid_sig_reader.py, the model of their live discoverer adapters/dnsaid_sig_theirs.py
+pinned	alg-none	expected=contradicted	ours=contradicted	their_live=contradicted
+pinned	dup-member-fqdn	expected=contradicted	ours=contradicted	their_live=agrees
+pinned	endpoint-only	expected=cannot-tell	ours=cannot-tell	their_live=cannot-tell
+pinned	endpoint-tamper-target	expected=contradicted	ours=contradicted	their_live=contradicted
+pinned	expired	expected=contradicted	ours=contradicted	their_live=contradicted
+pinned	full-coverage-valid	expected=agrees	ours=agrees	their_live=agrees
+pinned	iat-future	expected=cannot-tell	ours=cannot-tell	their_live=agrees
+pinned	param-tamper-cap-sha256	expected=contradicted	ours=contradicted	their_live=contradicted
+pinned	port-float	expected=contradicted	ours=contradicted	their_live=agrees
+pinned	sig-bitflip	expected=contradicted	ours=contradicted	their_live=contradicted
+pinned	svcb1-field-boundary	expected=contradicted	ours=contradicted	their_live=contradicted
+pinned	wrong-key	expected=contradicted	ours=contradicted	their_live=contradicted
+new	ce1-foreign-key-no-provenance	expected=cannot-tell	ours=cannot-tell	their_live=contradicted
+new	ce1-foreign-key-pinned-owner	expected=contradicted	ours=contradicted	their_live=contradicted
+new	ce1-foreign-key-wrong-host	expected=contradicted	ours=contradicted	their_live=contradicted
+new	ce1-owner-key-pinned-control	expected=agrees	ours=agrees	their_live=agrees
+new	ce2-crit-unknown-extension	expected=contradicted	ours=contradicted	their_live=not-published
+new	ce3-dawn00-alpn-transport-proto-a2a	expected=agrees	ours=agrees	their_live=agrees
+new	ce4-malformed-header-b64	expected=contradicted	ours=contradicted	their_live=contradicted
+new	ce6-empty-realm-injected	expected=contradicted	ours=contradicted	their_live=not-published
+SUMMARY new ours 8/8
+SUMMARY new their_live 5/6
+SUMMARY pinned ours 12/12
+SUMMARY pinned their_live 9/12

@@ -1,0 +1,8 @@
+# AER-1 kit at fa4a980727de31e5175953935e2348a19e3e37d8, base/chain-vectors-v07.json v07-valid-5, judged by verify_chain_07 in adapters/aer1_adapter.py
+detected  drop an entry
+detected  swap two entries
+detected  flip provenance_class of entry 1
+detected  rewrite prev_digest of entry 2
+detected  edit canonical_bytes of entry 1
+detected  truncate the tail
+SUMMARY detected 6 of 6
