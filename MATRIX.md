@@ -2,7 +2,7 @@
 
 Reader: agent-evidence-vectors 0.36.3, agent-evidence-verify 0.5.1.
 
-Coverage: 20 of 24 projects have at least one cell with a result (agrees, contradicted or cannot-tell). No record read yet: 4 of 24 (every cell unsupported or not run: projects 9, 10, 12, 24).
+Coverage: 21 of 24 projects have at least one cell with a result (agrees, contradicted or cannot-tell). No record read yet: 3 of 24 (every cell unsupported or not run: projects 9, 10, 24).
 
 Source: "their records" = the project's own record bytes were read; "our adapter" = code in adapters/ carried their record to our reader or their code to our corpus.
 
@@ -69,7 +69,12 @@ A contradicted cell names its basis (defect, adapter, upstream-moved, revision-s
 | 11 | DAWN ARD (ards-project/ard-spec v0.91; IETF draft-bu-dawn-ard-discovery-00) | artifact binding inside the SARIF scan (which artifact the scan covers) | their records | cannot-tell (the scanned artifact is not vendored beside the example, so the binding cannot be recomputed) | adapters/ard-examples-run.txt (adapters/ard_examples_adapter.py) |
 | 11 | DAWN ARD (ards-project/ard-spec v0.91; IETF draft-bu-dawn-ard-discovery-00) | signed trust manifests: signing input (draft-bu-00 section 3.5 against the whole-entry practice), publisher rule and algorithm rule | our adapter | cannot-tell (no example in the repository is signed, so there is nothing of theirs to verify. The strict checker adapters/ard_trust_manifest_check.py is ready for the first signed record: strict I-JSON, RFC 8785 through the pinned rfc8785, the RFC 7515 and 7797 header rules, kid under the identity DID and listed under assertionMethod, and both signing inputs reported side by side; its nine constructed cases run in CI.) | adapters/ard_trust_manifest_check.py; tests/test_ard_trust_manifest_check.py |
 | 11 | DAWN ARD (ards-project/ard-spec v0.91; IETF draft-bu-dawn-ard-discovery-00) | manifest-only entries (basic 4, local-business 1) | their records | unsupported (5 entries carry no trustManifest: no digest or signature to recompute) | adapters/ard-examples-run.txt (adapters/ard_examples_adapter.py) |
-| <a id="project-12"></a>12 | ICON observability | whole | none | unsupported | no signed or hashed record format read |
+| <a id="project-12"></a>12 | ICON observability (agentops running code; draft-mcw-opsawg-icon-requirements-02, draft-pei-opsawg-agentops-observability-00) | agentops evidence_ref hash over the 99 events of the 9 committed example sessions | their records | agrees [read their code] (99 of 99: each event carries one ref whose hash equals SHA-256 of json.dumps(attributes, sort_keys=True, ensure_ascii=False), the rule in agentops/telemetry.py, and the stored evidence.json body equals the inline attributes that agentops/analysis.py reads. Read with a strict I-JSON parser; a session with no events is not a pass.) | adapters/icon-agentops-run.txt (adapters/icon_agentops.py) |
+| 12 | ICON observability (agentops running code; draft-mcw-opsawg-icon-requirements-02, draft-pei-opsawg-agentops-observability-00) | the same hashes read as SHA-256 of RFC 8785 canonical JSON | their records | cannot-tell (27 of 99 reproduce, all 27 empty objects; the other 72 match only Python's default ', ' and ': ' separators. draft-pei-opsawg-agentops-observability-00 declares '? hash: tstr' with no algorithm and no serialization, so there is nothing to contradict, and an implementation in another language cannot reproduce the prototype's digests without copying Python's serializer.) | adapters/icon-agentops-run.txt (adapters/icon_agentops.py) |
+| 12 | ICON observability (agentops running code; draft-mcw-opsawg-icon-requirements-02, draft-pei-opsawg-agentops-observability-00) | event envelope integrity and omission (draft-mcw-opsawg-icon-requirements-02 OBS-5) | our adapter | unsupported (Events carry no hash, signature or chain; only the stored evidence body is hashed. Of five edits to the committed clean session (drop an event, flip a status, rewrite a parent link, edit a stored body, edit the inline attributes), the project's own hash rule detects 1, and 0 of the 4 that change the bytes the analyzer reads. The prototype ships no verifier for OBS-5, which asks for detection of alteration and omission.) | adapters/icon-agentops-run.txt (adapters/icon_agentops.py) |
+| 12 | ICON observability (agentops running code; draft-mcw-opsawg-icon-requirements-02, draft-pei-opsawg-agentops-observability-00) | examples/results regenerated with the project's own code (python3 -m agentops demo) against the committed run | their records | not run (the icon-agentops CI job regenerates the run at the pinned commit and compares it after dropping times, ids and durations; this cell takes that job's recorded result) | adapters/icon_agentops.py |
+| 12 | ICON observability (agentops running code; draft-mcw-opsawg-icon-requirements-02, draft-pei-opsawg-agentops-observability-00) | ietf-icon-agent-handover demo (trace.json) | their records | unsupported (a demo trace with no hash, signature or chain to recompute) | no signed or hashed record |
+| 12 | ICON observability (agentops running code; draft-mcw-opsawg-icon-requirements-02, draft-pei-opsawg-agentops-observability-00) | the ICON drafts (problem statement, requirements, agentops observability) | none | unsupported (requirements text with no record format a reader can open; the test-vector appendix of the requirements draft is where vectors would land) | no records emitted |
 | <a id="project-13"></a>13 | ATX (Agent Trust eXtension) credentials | records/atx (5 conformance fixtures: v1.0 pipe form and v1.1 JCS form), canonical signing bytes and Ed25519 layer | their records | agrees (3 of 5; 2 contradicted (the intended tampers)) | adapters/atx-layers-run.txt (adapters/atx_layers.py) |
 | 13 | ATX (Agent Trust eXtension) credentials | ML-DSA-65 entries, validity window, trusted-issuer set, revocation, distinct-authority count | none | not run | adapter reads no ML-DSA-65 key; the project's reference verifiers cover these (records/atx/README.md) |
 | 13 | ATX (Agent Trust eXtension) credentials | JCS function (the suite's vendored RFC 8785 serializer) against vectors-a2a-jcs-v01 (rfc8785 target) | our adapter | contradicted (11 of 53) | adapters/atx-jcs-run.txt: the 11 floating-point vectors refused by design (ATX signs no such number), 42 of 53 agree; replayed outside the packaged harness |
@@ -186,6 +191,14 @@ Upstream: https://github.com/ards-project/ard-spec at f073b1ea9b01a5f068d0b09864
 
 ```
 git clone https://github.com/ards-project/ard-spec /tmp/ard-spec && git -C /tmp/ard-spec checkout f073b1ea9b01a5f068d0b0986426f2ea49fa30b2 && venv/bin/python -I adapters/ard_examples_adapter.py /tmp/ard-spec
+```
+
+### 12. ICON observability (agentops running code; draft-mcw-opsawg-icon-requirements-02, draft-pei-opsawg-agentops-observability-00)
+
+Upstream: https://github.com/billwuqin/Agent-Observability-Intervention-Control at 8d370de7e09d2fe5d9efa93120e564cd825331fc
+
+```
+git clone https://github.com/billwuqin/Agent-Observability-Intervention-Control /tmp/icon && git -C /tmp/icon checkout 8d370de7e09d2fe5d9efa93120e564cd825331fc && venv/bin/python -I adapters/icon_agentops.py "/tmp/icon/Hackathon/IETF 127/running code/agentops"
 ```
 
 ### 15. Agent Execution Evidence (draft-thaha-scitt-agent-execution-evidence-02)

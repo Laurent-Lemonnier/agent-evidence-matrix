@@ -547,15 +547,57 @@
     },
     {
       "id": 12,
-      "name": "ICON observability",
+      "name": "ICON observability (agentops running code; draft-mcw-opsawg-icon-requirements-02, draft-pei-opsawg-agentops-observability-00)",
       "cells": [
         {
-          "cell": "whole",
+          "cell": "agentops evidence_ref hash over the 99 events of the 9 committed example sessions",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "99 of 99: each event carries one ref whose hash equals SHA-256 of json.dumps(attributes, sort_keys=True, ensure_ascii=False), the rule in agentops/telemetry.py, and the stored evidence.json body equals the inline attributes that agentops/analysis.py reads. Read with a strict I-JSON parser; a session with no events is not a pass.",
+          "evidence": "adapters/icon-agentops-run.txt (adapters/icon_agentops.py)",
+          "read_their_code": true
+        },
+        {
+          "cell": "the same hashes read as SHA-256 of RFC 8785 canonical JSON",
+          "source": "their records",
+          "verdict": "cannot-tell",
+          "detail": "27 of 99 reproduce, all 27 empty objects; the other 72 match only Python's default ', ' and ': ' separators. draft-pei-opsawg-agentops-observability-00 declares '? hash: tstr' with no algorithm and no serialization, so there is nothing to contradict, and an implementation in another language cannot reproduce the prototype's digests without copying Python's serializer.",
+          "evidence": "adapters/icon-agentops-run.txt (adapters/icon_agentops.py)"
+        },
+        {
+          "cell": "event envelope integrity and omission (draft-mcw-opsawg-icon-requirements-02 OBS-5)",
+          "source": "our adapter",
+          "verdict": "unsupported",
+          "detail": "Events carry no hash, signature or chain; only the stored evidence body is hashed. Of five edits to the committed clean session (drop an event, flip a status, rewrite a parent link, edit a stored body, edit the inline attributes), the project's own hash rule detects 1, and 0 of the 4 that change the bytes the analyzer reads. The prototype ships no verifier for OBS-5, which asks for detection of alteration and omission.",
+          "evidence": "adapters/icon-agentops-run.txt (adapters/icon_agentops.py)"
+        },
+        {
+          "cell": "examples/results regenerated with the project's own code (python3 -m agentops demo) against the committed run",
+          "source": "their records",
+          "verdict": "not run",
+          "detail": "the icon-agentops CI job regenerates the run at the pinned commit and compares it after dropping times, ids and durations; this cell takes that job's recorded result",
+          "evidence": "adapters/icon_agentops.py"
+        },
+        {
+          "cell": "ietf-icon-agent-handover demo (trace.json)",
+          "source": "their records",
+          "verdict": "unsupported",
+          "detail": "a demo trace with no hash, signature or chain to recompute",
+          "evidence": "no signed or hashed record"
+        },
+        {
+          "cell": "the ICON drafts (problem statement, requirements, agentops observability)",
           "source": "none",
           "verdict": "unsupported",
-          "evidence": "no signed or hashed record format read"
+          "detail": "requirements text with no record format a reader can open; the test-vector appendix of the requirements draft is where vectors would land",
+          "evidence": "no records emitted"
         }
-      ]
+      ],
+      "upstream": {
+        "url": "https://github.com/billwuqin/Agent-Observability-Intervention-Control",
+        "sha": "8d370de7e09d2fe5d9efa93120e564cd825331fc"
+      },
+      "replay": "git clone https://github.com/billwuqin/Agent-Observability-Intervention-Control /tmp/icon && git -C /tmp/icon checkout 8d370de7e09d2fe5d9efa93120e564cd825331fc && venv/bin/python -I adapters/icon_agentops.py \"/tmp/icon/Hackathon/IETF 127/running code/agentops\""
     },
     {
       "id": 13,

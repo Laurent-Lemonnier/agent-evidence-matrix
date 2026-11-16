@@ -61,6 +61,31 @@ jobs:
           rc=$?
           set -e
           test "$rc" = 2
+  # Rebuilds the ICON agentops example run with the project's own stdlib-only code at the pinned
+  # commit and compares it with the committed run, then reads the committed records.
+  icon-agentops:
+    runs-on: ubuntu-latest
+    env:
+      ICON_COMMIT: 8d370de7e09d2fe5d9efa93120e564cd825331fc
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install --require-hashes -r requirements.txt
+      - name: Fetch the pinned upstream
+        run: |
+          git clone -q https://github.com/billwuqin/Agent-Observability-Intervention-Control ../icon
+          git -C ../icon checkout -q "$ICON_COMMIT"
+      - name: The committed records equal the recorded run
+        run: |
+          python -I adapters/icon_agentops.py "../icon/Hackathon/IETF 127/running code/agentops" > "$RUNNER_TEMP/body.txt"
+          head -1 adapters/icon-agentops-run.txt | cat - "$RUNNER_TEMP/body.txt" | diff adapters/icon-agentops-run.txt -
+      - name: Regenerate with their code and compare
+        run: |
+          (cd "../icon/Hackathon/IETF 127/running code/agentops" && python3 -m agentops demo --out "$RUNNER_TEMP/ao-regen" > /dev/null)
+          python -I adapters/icon_agentops.py "../icon/Hackathon/IETF 127/running code/agentops" --regenerated "$RUNNER_TEMP/ao-regen" | tee "$RUNNER_TEMP/regen.txt"
+          grep -E "normalized" "$RUNNER_TEMP/regen.txt"
   adapter-tests:
     runs-on: ubuntu-latest
     steps:
