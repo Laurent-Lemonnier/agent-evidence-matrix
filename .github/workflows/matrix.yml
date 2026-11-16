@@ -13,8 +13,13 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: python build_matrix.py
-      - run: git diff --exit-code MATRIX.md
+      - run: python build_matrix.py --check
+      # The daily run reports every pinned upstream whose default branch moved past its pin.
+      - name: Upstream freshness (warnings only)
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python build_matrix.py --freshness | sed 's/^/::warning::/'
   adapter-tests:
     runs-on: ubuntu-latest
     steps:
