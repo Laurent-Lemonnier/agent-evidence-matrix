@@ -1,0 +1,21 @@
+# agent-evidence-verify 0.5.1, claim jcs_canonical/v1 (target rfc8785), over every *.jcs file of b7n0de/proofbundle at 53d1eafe8eaf7c558ed394e01d1b29d132c2fd47 and tyche-institute/aep-sandbox at c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132
+# command: python -I adapters/reader_cells.py proofbundle=<proofbundle> aep-sandbox=<aep-sandbox>
+proofbundle/conformance/action_chain_content_roots/cross-predicate-ref-predicates-path/decision.jcs	supported	canonical_bytes_match
+proofbundle/conformance/action_chain_content_roots/cross-predicate-ref-predicates-path/evidence.jcs	supported	canonical_bytes_match
+proofbundle/conformance/action_chain_content_roots/cross-predicate-ref/decision.jcs	supported	canonical_bytes_match
+proofbundle/conformance/action_chain_content_roots/cross-predicate-ref/evidence.jcs	supported	canonical_bytes_match
+proofbundle/conformance/action_chain_content_roots/key-order/statement.jcs	supported	canonical_bytes_match
+proofbundle/conformance/action_chain_content_roots/nested-arrays/statement.jcs	supported	canonical_bytes_match
+proofbundle/conformance/action_chain_content_roots/numbers/statement.jcs	supported	canonical_bytes_match
+proofbundle/conformance/action_chain_content_roots/unicode/statement.jcs	supported	canonical_bytes_match
+proofbundle/conformance/action_chain_content_roots/unknown-top-field/statement.jcs	supported	canonical_bytes_match
+proofbundle/conformance/action_chain_content_roots/utf16-order/statement.jcs	supported	canonical_bytes_match
+proofbundle/conformance/decision/crossimpl/canonicalization-root-binding/decision_receipt.jcs	supported	canonical_bytes_match
+proofbundle/conformance/decision/crossimpl/canonicalization-root-binding/evidence_eval_result.jcs	supported	canonical_bytes_match
+proofbundle/conformance/decision/crossimpl/confirmed-anchor-lifecycle/decision_receipt.jcs	supported	canonical_bytes_match
+proofbundle/conformance/decision/crossimpl/confirmed-anchor-lifecycle/evidence_eval_result.jcs	supported	canonical_bytes_match
+proofbundle/conformance/decision/crossimpl/schema-conformant/decision_receipt.jcs	supported	canonical_bytes_match
+proofbundle/conformance/decision/crossimpl/schema-conformant/evidence_eval_result.jcs	supported	canonical_bytes_match
+SUMMARY proofbundle: 16 of 16 supported
+aep-sandbox/hackathon/ietf127/cell1/payload/payload.jcs	supported	canonical_bytes_match
+SUMMARY aep-sandbox: 1 of 1 supported

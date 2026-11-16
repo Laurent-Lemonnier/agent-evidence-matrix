@@ -20,6 +20,47 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python build_matrix.py --freshness | sed 's/^/::warning::/'
+  # The pinned reader, installed from the hash-locked requirements, judges every record a
+  # project says is RFC 8785 bytes. The run must equal the committed one, and a one-member
+  # reorder of one record must turn exactly that line and the exit code (1, comparison failed).
+  reader:
+    runs-on: ubuntu-latest
+    env:
+      PROOFBUNDLE: 53d1eafe8eaf7c558ed394e01d1b29d132c2fd47
+      AEP_SANDBOX: c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install --require-hashes -r requirements.txt
+      - name: Fetch the pinned upstreams
+        run: |
+          git clone -q https://github.com/b7n0de/proofbundle ../proofbundle
+          git -C ../proofbundle checkout -q "$PROOFBUNDLE"
+          git clone -q https://github.com/tyche-institute/aep-sandbox ../aep-sandbox
+          git -C ../aep-sandbox checkout -q "$AEP_SANDBOX"
+      - name: Replay and compare with the recorded run
+        run: |
+          python -I adapters/reader_cells.py proofbundle=../proofbundle aep-sandbox=../aep-sandbox > "$RUNNER_TEMP/body.txt"
+          head -2 adapters/reader-run.txt | cat - "$RUNNER_TEMP/body.txt" | diff adapters/reader-run.txt -
+      - name: A reordered record must change its line and exit 1
+        run: |
+          F=conformance/decision/crossimpl/schema-conformant/decision_receipt.jcs
+          set +e
+          python -I adapters/reader_cells.py --mutation "proofbundle/$F" proofbundle=../proofbundle > "$RUNNER_TEMP/mut.txt"
+          rc=$?
+          set -e
+          test "$rc" = 1 || { echo "expected exit 1, got $rc"; cat "$RUNNER_TEMP/mut.txt"; exit 1; }
+          grep -qxF "$(printf 'proofbundle/%s\tcontradicted\tcanonical_bytes_differ' "$F")" "$RUNNER_TEMP/mut.txt"
+          test "$(grep -c contradicted "$RUNNER_TEMP/mut.txt")" = 1
+      - name: A missing reader is a setup error, not a result
+        run: |
+          set +e
+          PATH=/usr/bin:/bin python3 -I adapters/reader_cells.py proofbundle=../proofbundle > /dev/null 2>&1
+          rc=$?
+          set -e
+          test "$rc" = 2
   adapter-tests:
     runs-on: ubuntu-latest
     steps:

@@ -161,6 +161,21 @@
           "verdict": "agrees",
           "detail": "2 of 2 tokens verify with openssl ts -verify (FreeTSA with its published certificates, which match freetsa.org byte for byte; DigiCert against the system store). Time 2026-11-14 05:11:11 UTC and both serial numbers match the README; SHA-256 of SEAL.sha256 is 8d213af4...7303 as published. A seal with one byte flipped fails both. The tokens fix the time of the commitment to the key, not the key's contents.",
           "evidence": "adapters/aep_seal_timestamps-run.txt (adapters/aep_seal_timestamps.py)"
+        },
+        {
+          "cell": "IETF 127 cell 1, JSON side: payload/payload.jcs through the shared reader agent-evidence-verify 0.5.1, claim jcs_canonical/v1, target rfc8785",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "1 of 1 supported (canonical_bytes_match): the 312 bytes are the RFC 8785 form of the payload. This reads the encoded payload only; the 12 COSE_Sign1 vectors of the cell are the next cell.",
+          "evidence": "adapters/reader-run.txt (adapters/reader_cells.py)",
+          "read_their_code": false
+        },
+        {
+          "cell": "IETF 127 cell 1 and ard: the 12 COSE_Sign1 hash-envelope vectors (JSON side declared through cpb-refs, CBOR side through deterministic-encodings) and the 10 signed ARD manifest vectors",
+          "source": "none",
+          "verdict": "not run",
+          "detail": "No adapter in this repository reads either emission yet; the answer key for cell 1 is sealed until the pack closes.",
+          "evidence": "no adapter yet"
         }
       ],
       "upstream": {
@@ -763,13 +778,21 @@
           "verdict": "agrees",
           "detail": "148 of 148 fully checked, 0 partial, 0 not run, 0 failed, exit 0, in a venv built from their pyproject.toml extras [anchors,test] (proofbundle 6.6.0 from the pinned tree, opentimestamps 0.4.5, rfc8785 0.1.4, cryptography 50.0.2).",
           "evidence": "adapters/proofbundle-theirs-conformance-run.txt (their conformance/run_conformance.py at the pinned commit)"
+        },
+        {
+          "cell": "every *.jcs record (16: content-root statements, evidence and decision bodies, decision receipts and evaluation results) through the shared reader agent-evidence-verify 0.5.1, claim jcs_canonical/v1, target rfc8785",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "16 of 16 supported (canonical_bytes_match): each file is the RFC 8785 form of the JSON value it encodes. CI replays the run from the pinned commit with the hash-locked reader, and a copy with two members swapped turns that one line contradicted (canonical_bytes_differ) and the exit code to 1.",
+          "evidence": "adapters/reader-run.txt (adapters/reader_cells.py)",
+          "read_their_code": false
         }
       ],
       "upstream": {
         "url": "https://github.com/b7n0de/proofbundle",
         "sha": "53d1eafe8eaf7c558ed394e01d1b29d132c2fd47"
       },
-      "replay": "git clone https://github.com/b7n0de/proofbundle /tmp/proofbundle && git -C /tmp/proofbundle checkout 53d1eafe8eaf7c558ed394e01d1b29d132c2fd47 && python -I adapters/proofbundle_roots_adapter.py /tmp/proofbundle && (python -m venv /tmp/pbv && /tmp/pbv/bin/pip install '/tmp/proofbundle[anchors,test]' && cd /tmp/proofbundle && /tmp/pbv/bin/python conformance/run_conformance.py --require-anchors)"
+      "replay": "git clone https://github.com/b7n0de/proofbundle /tmp/proofbundle && git -C /tmp/proofbundle checkout 53d1eafe8eaf7c558ed394e01d1b29d132c2fd47 && python -I adapters/proofbundle_roots_adapter.py /tmp/proofbundle && (python -m venv /tmp/pbv && /tmp/pbv/bin/pip install '/tmp/proofbundle[anchors,test]' && cd /tmp/proofbundle && /tmp/pbv/bin/python conformance/run_conformance.py --require-anchors) && venv/bin/python -I adapters/reader_cells.py proofbundle=<proofbundle checkout> aep-sandbox=<aep-sandbox checkout>"
     },
     {
       "id": 20,
