@@ -130,11 +130,29 @@ A contradicted cell names its basis (defect, adapter, upstream-moved, revision-s
 
 ## Properties
 
-One verdict per project and property. Independence says who wrote the adapter or record relative to the project: author, same-owner, co-author or non-author.
+One verdict per project and property, for every project whose review is not frozen. Independence says who wrote the adapter or record relative to the project: author, same-owner, co-author or non-author. Edit detection: six edits to a committed log (drop, swap, a status flip, a rewritten link, a body edit, a cut tail), judged by a verifier of the format. Digest input declared: the record names its digest algorithm and the exact bytes it covers. Authorized = executed: the record of what ran equals the record of what was allowed. Declared versus acted: a recorded run used only what the discovery record declared. Verdict re-derived: a verdict a record carries is recomputed from its recorded inputs. Re-proven by us: the project's own proof or test run repeated here with the binaries' digests recorded.
 
 | # | Project | Independence | edit detection | digest input declared | authorized = executed | declared versus acted | verdict re-derived | re-proven by us |
 |---|---|---|---|---|---|---|---|---|
-| 9 | Formal model of MCP authorization (Tamarin, nine models; HarshThumar/mcp-auth-tamarin) | not stated | not run | not run | not run | not run | not run | not run (reproof-tamarin workflow, first run pending) |
+| 1 | AER-1 execution receipts | non-author | agrees (6 of 6 edits to the kit's valid five-entry timeline detected by the Section 7 chain reading); adapters/edit-detection-aer1-run.txt (adapters/edit_detection.py) | agrees (Section 7.1 names SHA-256 over its own serialization of the entry fields); adapters/aer1-run.txt (adapters/aer1_adapter.py) | not run | not run | not run | not run |
+| 2 | Action Evidence Packages | non-author | not run | not run | not run | not run | not run | not run |
+| 4 | Agent action evidence interop | non-author | not run | not run | not run | not run | not run | not run |
+| 5 | Agent memory integrity | non-author | not run | not run | not run | not run | not run | not run |
+| 6 | Independent time anchoring | non-author | not run | not run | not run | not run | not run | not run |
+| 8 | WEXP Appraisal Core with SCITT | non-author | not run | not run | not run | not run | not run | not run |
+| 9 | Formal model of MCP authorization (Tamarin, nine models; HarshThumar/mcp-auth-tamarin) | non-author | not run | not run | not run | not run (the model's verified lemmas are the declared side; no recorded run is the acted side yet) | not run | not run (reproof-tamarin workflow, first run pending) |
+| 10 | DNS-AID (dns-aid/dns-aid-core; draft-mozleywilliams-dawn-dnsaid-00, which replaced draft-mozleywilliams-dnsop-dnsaid-02) | non-author | not run | cannot-tell (neither revision defines the canonical capability descriptor the digest covers); adapters/dnsaid-run-00.txt (adapters/dnsaid_adapter.py) | not run | not run (needs a recorded agent run checked against the discovery record it relied on) | not run | not run |
+| 11 | DAWN ARD (ards-project/ard-spec v0.91; IETF draft-bu-dawn-ard-discovery-00) | non-author | not run | agrees (attestations[].digest is algorithm-prefixed and covers the referenced document's bytes; 1 of 1 recomputed); adapters/ard-examples-run.txt (adapters/ard_examples_adapter.py) | not run | not run (needs a recorded agent run checked against the catalog entry it relied on) | not run | not run |
+| 12 | ICON observability (agentops running code; draft-mcw-opsawg-icon-requirements-02, draft-pei-opsawg-agentops-observability-00) | non-author | unsupported (no verifier of the event log; the project's hash rule detects 1 of 5 edits, 0 of the 4 that change the bytes the analyzer reads); adapters/icon-agentops-run.txt (adapters/icon_agentops.py) | cannot-tell (the draft declares '? hash: tstr' with no algorithm or serialization; 27 of 99 reproduce under RFC 8785); adapters/icon-agentops-run.txt (adapters/icon_agentops.py) | not run | not run | not run | not run |
+| 15 | Agent Execution Evidence (draft-thaha-scitt-agent-execution-evidence-02) | non-author | not run | not run | not run | not run | not run | not run |
+| 16 | Verdict Records (draft-wright-verdict-record-02) | non-author | not run | not run | not run | not run | not run | not run |
+| 18 | AEP over RATS (draft-sokolov-rats-aep-composition-06) | non-author | not run | not run | not run | not run | not run | not run |
+| 19 | proofbundle conformance corpus (b7n0de/proofbundle) | non-author | not run | not run | not run | not run | not run | not run |
+| 20 | Succession Receipts (jsabes24/css-succession-receipts) | non-author | not run | not run | not run | not run | not run | not run |
+| 21 | XAIP receipts (draft-xkumakichi-xaip-receipts-03, xkumakichi/xaip-protocol) | non-author | not run | not run | not run | not run | not run | not run |
+| 22 | Seal records ATTESTATION-v1 and ACTION-v1 (Aqta-ai/attestation-spec) | non-author | not run | not run | not run | not run | not run | not run |
+| 23 | Compliance Receipts registries (draft-marques-asqav-compliance-receipts, jagmarques/asqav-registry) | non-author | not run | not run | not run | not run | not run | not run |
+| 24 | AI Catalog (Agent-Card/ai-catalog; ADR 0027 did:web entry signature profile and ADR 0028 independent trust manifests, both Proposed) | non-author | not run | not run | not run | not run (needs a signed catalog entry and a recorded run) | not run | not run |
 
 ## Replay
 

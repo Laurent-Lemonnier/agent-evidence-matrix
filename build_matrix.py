@@ -254,9 +254,9 @@ def render(data: dict, reviews: dict) -> tuple[str, dict[str, str]]:
             replay.append(f"### {p['id']}. {p['name']}\n\n{pin}```\n{p['replay']}\n```\n")
     props = []
     for p in data["projects"]:
-        cols = p.get("columns") or {}
-        if not cols:
+        if p["id"] in frozen:
             continue
+        cols = p.get("columns") or {}
         vals = []
         for name in COLUMNS:
             v = cols.get(name)
@@ -282,8 +282,14 @@ def render(data: dict, reviews: dict) -> tuple[str, dict[str, str]]:
             "| # | Project | Cell | Source | Verdict | Evidence |\n|---|---|---|---|---|---|\n")
     text = head + "\n".join(rows) + "\n"
     if props:
-        text += ("\n## Properties\n\nOne verdict per project and property. Independence says who wrote the adapter or "
-                 "record relative to the project: author, same-owner, co-author or non-author.\n\n"
+        text += ("\n## Properties\n\nOne verdict per project and property, for every project whose review is not frozen. "
+                 "Independence says who wrote the adapter or record relative to the project: author, same-owner, co-author "
+                 "or non-author. Edit detection: six edits to a committed log (drop, swap, a status flip, a rewritten link, "
+                 "a body edit, a cut tail), judged by a verifier of the format. Digest input declared: the record names its "
+                 "digest algorithm and the exact bytes it covers. Authorized = executed: the record of what ran equals the "
+                 "record of what was allowed. Declared versus acted: a recorded run used only what the discovery record "
+                 "declared. Verdict re-derived: a verdict a record carries is recomputed from its recorded inputs. "
+                 "Re-proven by us: the project's own proof or test run repeated here with the binaries' digests recorded.\n\n"
                  "| # | Project | Independence | " + " | ".join(COLUMNS) + " |\n|---|---|---|"
                  + "---|" * len(COLUMNS) + "\n" + "\n".join(props) + "\n")
     if replay:
