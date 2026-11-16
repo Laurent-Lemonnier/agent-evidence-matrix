@@ -526,8 +526,8 @@
         {
           "cell": "the 376-row expectation table of scripts/prove.sh (294 expected verified, 82 expected falsified: attacks the model is built to find) against the transcript of the pinned commit's CI run",
           "source": "their records",
-          "verdict": "cannot-tell",
-          "detail": "372 of 376 rows match the transcript and the other 4 match only vacuously (next cells); none mismatches and none is missing. The transcript comes from the project's CI, which records no digest of the Tamarin and Maude binaries that produced it, so the matrix cannot say which verifier bytes stand behind the result. The re-proof cell below binds them; this cell moves to agrees only on a full match there.",
+          "verdict": "agrees",
+          "detail": "372 of 376 rows match the transcript and the other 4 match only vacuously (next cells); none mismatches and none is missing. The project's CI records no digest of the Tamarin and Maude binaries that produced the transcript; the re-proof below, with both binaries digested, reads line for line the same, so the result stands behind known verifier bytes.",
           "evidence": "adapters/mcp-auth-tamarin-run.txt (adapters/mcp_auth_tamarin_adapter.py; records/mcp-auth-tamarin/)",
           "read_their_code": true
         },
@@ -548,9 +548,9 @@
         {
           "cell": "re-proven by us: the project's Dockerfile at the pinned commit (Tamarin 1.12.0, Maude 3.5.1), every variant, binary digests recorded",
           "source": "our adapter",
-          "verdict": "not run",
-          "detail": "the reproof-tamarin workflow builds their image, records the sha256 of the two binaries that run, proves every variant and reads the fresh transcripts against the retained table; this cell takes its first recorded run",
-          "evidence": "adapters/mcp_auth_tamarin_adapter.py"
+          "verdict": "agrees",
+          "detail": "the reproof-tamarin workflow built their image, recorded the sha256 of the two binaries that ran (tamarin-prover 9d3fcbaa..., maude 9dd4044e...), proved every variant and read the fresh transcripts against the retained table: 372 of 376 rows match, 4 match only vacuously, 0 mismatch, 0 not reported, line for line the same reading as the CI transcript",
+          "evidence": "adapters/mcp-auth-tamarin-reproof-run.txt (adapters/mcp_auth_tamarin_adapter.py)"
         },
         {
           "cell": "ablation lattice (scripts/ablate.py: subsets of the checks, sufficiency and monotonicity)",
@@ -567,8 +567,9 @@
       "replay": "venv/bin/python -I adapters/mcp_auth_tamarin_adapter.py records/mcp-auth-tamarin  # retained artifact 14175059232 and prove.sh at the pin; a full re-proof is the reproof-tamarin workflow",
       "columns": {
         "re-proven by us": {
-          "verdict": "not run",
-          "detail": "reproof-tamarin workflow, first run pending"
+          "verdict": "agrees",
+          "detail": "re-proven in the project's image with both prover binaries digested; 372 of 376 rows match, 4 vacuous, 0 mismatch",
+          "evidence": "adapters/mcp-auth-tamarin-reproof-run.txt (adapters/mcp_auth_tamarin_adapter.py)"
         },
         "declared versus acted": {
           "verdict": "not run",
