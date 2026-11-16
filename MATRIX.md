@@ -196,6 +196,10 @@ git clone -q https://github.com/opena2a-standards/atx-conformance.git atx-confor
 
 Upstream: https://github.com/Laurent-Lemonnier/dps-scitt-decision-layer at 00d748a63d96b13905dafb4100fb694c0715469f
 
+Also read: https://github.com/Laurent-Lemonnier/dps-scitt-decision-layer at 615c0e07039fab5503feed330bf3ff4f1f5ef68e
+
+Also read: https://github.com/decision-provenance-standard/standard at 007f8c99ec910564bac1c508b76c8ce8391fa11e
+
 ```
 git clone https://github.com/Laurent-Lemonnier/dps-scitt-decision-layer ../dps-scitt-decision-layer && git -C ../dps-scitt-decision-layer checkout 00d748a63d96b13905dafb4100fb694c0715469f && venv/bin/python -I adapters/lemonnier_adapter.py ../dps-scitt-decision-layer
 # cells on the project's own records (refund chain, passkey approval, second log, signed-size receipt), at project commit 615c0e07039fab5503feed330bf3ff4f1f5ef68e:
