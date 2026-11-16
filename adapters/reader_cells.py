@@ -13,7 +13,8 @@ usage: reader_cells.py [--mutation <label>/<path>] <label>=<checkout> [<label>=<
 
 --mutation names one file whose bytes are rewritten with its first two object members swapped before
 the reader sees it (the copy is in a scratch directory; the checkout is not touched). A mutation that
-the reader does not turn into a different decision on that line is a broken comparison.
+the reader does not turn into a different decision on that line is a broken comparison, and a mutation
+that names no file it reads is a setup error (exit 2): it would leave the run unmutated and passing.
 
 Exit codes: 0 every file supported; 1 at least one decision is not supported (the comparison failed);
 2 setup error (missing checkout, no *.jcs file, the reader exited 2 or is not installed).
@@ -74,6 +75,9 @@ def judge(root: pathlib.Path, rel: str, work: pathlib.Path) -> tuple[str, str]:
 def main(argv: list[str]) -> int:
     mutation = None
     if argv[:1] == ["--mutation"]:
+        if len(argv) < 2:
+            print(__doc__, file=sys.stderr)
+            return 2
         mutation, argv = argv[1], argv[2:]
     if not argv or any("=" not in a for a in argv):
         print(__doc__, file=sys.stderr)
@@ -82,6 +86,7 @@ def main(argv: list[str]) -> int:
         print(f"setup: {READER} is not installed", file=sys.stderr)
         return 2
     failed = False
+    mutated = False
     with tempfile.TemporaryDirectory() as tmp:
         work = pathlib.Path(tmp)
         for arg in argv:
@@ -98,11 +103,15 @@ def main(argv: list[str]) -> int:
                     base = work / "mut"
                     (base / rel).parent.mkdir(parents=True, exist_ok=True)
                     (base / rel).write_bytes(swap_first_members((root / rel).read_bytes()))
+                    mutated = True
                 decision, reason = judge(base, rel, work)
                 supported += decision == "supported"
                 failed |= decision != "supported"
                 print(f"{label}/{rel}\t{decision}\t{reason}")
             print(f"SUMMARY {label}: {supported} of {len(files)} supported")
+    if mutation is not None and not mutated:
+        print(f"setup: --mutation {mutation} names no file this run read", file=sys.stderr)
+        return 2
     return 1 if failed else 0
 
 
