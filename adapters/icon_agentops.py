@@ -162,7 +162,7 @@ def edit_detection(results_dir):
 
 
 VOLATILE = {"timestamp", "trace_id", "span_id", "detected_at", "duration_ms", "latency_ms", "elapsed_ms", "duration",
-            "started_at", "ended_at"}
+            "started_at", "ended_at", "analysis_duration_ms"}
 
 
 def norm(v):
@@ -173,27 +173,26 @@ def norm(v):
     return v
 
 
-def first_diff(a, b, path="$"):
-    """The first JSON path where two values differ, with both values, or None."""
+def diffs(a, b, path="$"):
+    """Every JSON path where two values differ, as path strings with list indices written [*]."""
     if type(a) is not type(b):
-        return f"{path}: {a!r:.40} vs {b!r:.40}"
+        return [path]
     if isinstance(a, dict):
+        out = []
         for k in sorted(set(a) | set(b)):
-            if k not in a or k not in b:
-                return f"{path}.{k}: present on one side only"
-            d = first_diff(a[k], b[k], f"{path}.{k}")
-            if d:
-                return d
-        return None
+            out += [f"{path}.{k}"] if (k not in a or k not in b) else diffs(a[k], b[k], f"{path}.{k}")
+        return out
     if isinstance(a, list):
         if len(a) != len(b):
-            return f"{path}: {len(a)} vs {len(b)} items"
-        for i, (x, y) in enumerate(zip(a, b)):
-            d = first_diff(x, y, f"{path}[{i}]")
-            if d:
-                return d
-        return None
-    return None if a == b else f"{path}: {a!r:.40} vs {b!r:.40}"
+            return [path + "[length]"]
+        return [d for x, y in zip(a, b) for d in diffs(x, y, f"{path}[*]")]
+    return [] if a == b else [path]
+
+
+def first_diff(a, b):
+    """The distinct differing paths, or None when the values are equal."""
+    found = sorted(set(diffs(a, b)))
+    return ", ".join(found[:12]) if found else None
 
 
 def regenerated(results_dir, regen):
@@ -212,10 +211,10 @@ def regenerated(results_dir, regen):
                 differing.append(sess.name)
                 where[sess.name] = d
         status = "PASS" if not differing else ("INFO" if fname == "analysis.json" else "DIFF")
-        first = next(iter(where.items()), None)
+        paths = sorted({p for w in where.values() for p in w.split(", ")})
         emit(status, f"agentops/{fname}-normalized",
              f"{same} of {same + len(differing)} sessions equal after dropping volatile fields; differing: {differing}"
-             + (f"; first difference in {first[0]}: {first[1]}" if first else ""))
+             + (f"; differing paths: {paths[:20]}" if paths else ""))
 
 
 def main(argv):
