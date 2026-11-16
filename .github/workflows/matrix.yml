@@ -66,9 +66,75 @@ jobs:
         run: |
           ../airep-venv/bin/python -B adapters/airep_adapter.py ../ai-runtime-evidence-protocol > "$RUNNER_TEMP/airep-run.txt"
           diff adapters/airep-run.txt "$RUNNER_TEMP/airep-run.txt"
-      - name: A corrupted input must fail the replay
+      # A mutation that only trips the clean-checkout gate or the JSON parser exits 2 and
+      # proves nothing about the comparison. This one changes one hex digit of a signed
+      # field, so the artifact's tagged hash no longer verifies, and requires exit 1
+      # (regression evidence differed) with the named cell turning contradicted.
+      - name: A semantic mutation must change the verdict, not trip a setup gate
         run: |
-          printf '{' > ../ai-runtime-evidence-protocol/examples/v02/fixtures/complete.json
-          if ../airep-venv/bin/python -B adapters/airep_adapter.py ../ai-runtime-evidence-protocol > "$RUNNER_TEMP/airep-mut.txt" 2>&1; then
-            echo "replay passed on a corrupted fixture"; exit 1
-          fi
+          F=examples/v02/fixtures/complete.json
+          python3 -I - "../ai-runtime-evidence-protocol/$F" <<'PY'
+          import sys
+          p = sys.argv[1]
+          t = open(p, encoding="utf-8").read()
+          k = '"authorized_action_digest": "sha256:'
+          i = t.index(k) + len(k)
+          t = t[:i] + ("0" if t[i] != "0" else "1") + t[i + 1:]
+          open(p, "w", encoding="utf-8").write(t)
+          PY
+          set +e
+          ../airep-venv/bin/python -B adapters/airep_adapter.py --mutation "$F" ../ai-runtime-evidence-protocol > "$RUNNER_TEMP/airep-mut.txt" 2>&1
+          rc=$?
+          set -e
+          if [ "$rc" != 1 ]; then echo "expected exit 1 (comparison failed), got $rc"; cat "$RUNNER_TEMP/airep-mut.txt"; exit 1; fi
+          grep -q '^lifecycle/complete contradicted' "$RUNNER_TEMP/airep-mut.txt"
+      - name: The setup gate still refuses an unlisted modification
+        run: |
+          echo x >> ../ai-runtime-evidence-protocol/README.md
+          set +e
+          ../airep-venv/bin/python -B adapters/airep_adapter.py --mutation examples/v02/fixtures/complete.json ../ai-runtime-evidence-protocol > /dev/null 2>&1
+          rc=$?
+          set -e
+          test "$rc" = 2
+      # The signature sits outside the tagged-hash preimage, so admission and toctou still hold and
+      # only record_authentication of the Execution fails. An adapter that reads toctou alone as
+      # "authorized = executed" prints agrees here.
+      - name: An unauthenticated Execution must not read as authorized = executed
+        run: |
+          git -C ../ai-runtime-evidence-protocol checkout -q -- .
+          F=examples/v02/fixtures/complete.json
+          python3 -I - "../ai-runtime-evidence-protocol/$F" <<'PY'
+          import json, sys
+          p = sys.argv[1]
+          a = json.load(open(p, encoding="utf-8"))
+          s = next(x for x in a if x["artifact_type"] == "execution")["integrity"]["signature"]
+          s["value"] = ("1" if s["value"][0] != "1" else "2") + s["value"][1:]
+          open(p, "w", encoding="utf-8").write(json.dumps(a, indent=2) + "\n")
+          PY
+          set +e
+          ../airep-venv/bin/python -B adapters/airep_adapter.py --mutation "$F" ../ai-runtime-evidence-protocol > "$RUNNER_TEMP/airep-mut3.txt" 2>&1
+          rc=$?
+          set -e
+          if [ "$rc" != 1 ]; then echo "expected exit 1, got $rc"; cat "$RUNNER_TEMP/airep-mut3.txt"; exit 1; fi
+          grep -q '^lifecycle/complete contradicted' "$RUNNER_TEMP/airep-mut3.txt"
+          grep -q '^authorized-vs-executed/complete contradicted' "$RUNNER_TEMP/airep-mut3.txt"
+      # A byte-identical second copy of one Control drops both copies from the toctou group, which then
+      # still reads SATISFIED; equality over a group with a duplicated record id is not agreement.
+      - name: A duplicated record id must not read as authorized = executed
+        run: |
+          git -C ../ai-runtime-evidence-protocol checkout -q -- .
+          F=examples/v02/fixtures/complete.json
+          python3 -I - "../ai-runtime-evidence-protocol/$F" <<'PY'
+          import json, sys
+          p = sys.argv[1]
+          a = json.load(open(p, encoding="utf-8"))
+          a.append(dict(next(x for x in a if x["record_id"] == "demo.receipt")))
+          open(p, "w", encoding="utf-8").write(json.dumps(a, indent=2) + "\n")
+          PY
+          set +e
+          ../airep-venv/bin/python -B adapters/airep_adapter.py --mutation "$F" ../ai-runtime-evidence-protocol > "$RUNNER_TEMP/airep-mut4.txt" 2>&1
+          rc=$?
+          set -e
+          if [ "$rc" != 1 ]; then echo "expected exit 1, got $rc"; cat "$RUNNER_TEMP/airep-mut4.txt"; exit 1; fi
+          grep -q '^lifecycle/complete contradicted' "$RUNNER_TEMP/airep-mut4.txt"
+          grep -q '^authorized-vs-executed/complete cannot-tell' "$RUNNER_TEMP/airep-mut4.txt"
