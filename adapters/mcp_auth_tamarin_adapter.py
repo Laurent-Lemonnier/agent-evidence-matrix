@@ -5,8 +5,10 @@ usage: mcp_auth_tamarin_adapter.py <records dir holding tamarin-results.zip, pro
 The records are the project's own: the CI artifact of the pinned commit (one Tamarin transcript per model and
 variant) and scripts/prove.sh, whose expectation table states for each model, variant and lemma whether
 Tamarin must report verified or falsified. Both files are retained in records/mcp-auth-tamarin/ because the
-artifact expires; each is checked against DIGESTS before it is read, and a mismatch refuses the run (exit 2).
+artifact expires; each is checked against DIGESTS before it is read, and a mismatch, a file read with no
+DIGESTS line or a malformed DIGESTS line refuses the run (exit 2).
 A second argument reads a directory of transcripts instead of the zip (a re-proof run), with the same table.
+A transcript with no "summary of summaries:" section reports no lemma: its rows are not run.
 
 Lines ("PASS|DIFF|INFO  case: detail"):
   retention/<file>       the retained bytes equal the recorded digest
@@ -17,7 +19,8 @@ Lines ("PASS|DIFF|INFO  case: detail"):
   vacuity/<model>/<var>  a variant whose executable lemma is falsified: its verified rows hold vacuously, so
                          they are counted as not run rather than as agreement
   model/<model>          per model: rows matched, mismatched, not run
-Exit 0 when every table row is reported and matches, 1 when one differs or is missing, 2 on a setup error.
+Exit 0 when every table row is reported and matches, 1 when one differs or is missing, 2 on a setup error
+(any unexpected exception included, so a crash never reads as a comparison result).
 """
 import collections
 import hashlib
@@ -52,15 +55,25 @@ def main(argv):
         out.append(status)
         print(f"{status:4}  {case}: {detail}")
 
+    required = {"prove.sh"} | ({"tamarin-results.zip"} if len(argv) == 1 else set())
+    listed = set()
     for line in (records / "DIGESTS").read_text().splitlines():
         if not line.strip() or line.startswith("#"):
             continue
-        want, name = line.split()
+        fields = line.split()
+        if len(fields) != 2 or len(fields[0]) != 64 or fields[1] in listed or "/" in fields[1]:
+            print(f"setup: malformed or repeated DIGESTS line {line!r}", file=sys.stderr)
+            return 2
+        want, name = fields
+        listed.add(name)
         have = hashlib.sha256((records / name).read_bytes()).hexdigest()
         if have != want:
             print(f"setup: {name} sha256 {have} is not the recorded {want}", file=sys.stderr)
             return 2
         emit("PASS", f"retention/{name}", f"sha256 {want[:16]}... as recorded")
+    if required - listed:
+        print(f"setup: DIGESTS records no digest for {sorted(required - listed)}, which this run reads", file=sys.stderr)
+        return 2
     rows = ROW.findall((records / "prove.sh").read_text())
     if not rows or len({r[:3] for r in rows}) != len(rows):
         print("setup: the expectation table is empty or names a lemma twice", file=sys.stderr)
@@ -73,6 +86,8 @@ def main(argv):
         if name == "timings.tsv" or "." not in name[:-4]:
             continue
         stem, var = name[:-4].split(".", 1)
+        if "summary of summaries:" not in text:
+            continue
         for lemma, verdict in RESULT.findall(text.split("summary of summaries:")[-1]):
             got[(stem, var, lemma)] = verdict
     vacuous = {k[:2] for k, v in got.items() if k[2] == "executable" and v != "verified"}
@@ -106,4 +121,8 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1:]))
+    try:
+        sys.exit(main(sys.argv[1:]))
+    except Exception as exc:  # a crash is a setup error, never exit 1 (a comparison that failed)
+        print(f"setup: {type(exc).__name__}: {exc}", file=sys.stderr)
+        sys.exit(2)
