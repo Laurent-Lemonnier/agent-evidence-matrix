@@ -484,15 +484,80 @@
     },
     {
       "id": 10,
-      "name": "DNS Based Agent Discovery",
+      "name": "DNS-AID (dns-aid/dns-aid-core; draft-mozleywilliams-dawn-dnsaid-00, which replaced draft-mozleywilliams-dnsop-dnsaid-02)",
       "cells": [
         {
-          "cell": "whole",
+          "cell": "SVCB records emitted by dns-aid-core's own publisher (MockBackend) against draft-mozleywilliams-dnsop-dnsaid-02 and RFC 9460",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "22 of 22 emission checks agree: flat owner, ServiceMode target, one agent protocol in alpn, dnspython presentation parse and wire round trip, private-use keys, their own reader's round trip, mandatory keys, base64url SHA-256 cap-sha256 and the walkable AliasMode. Every emitted parameter name is a Table 1 name of -02. A byte flipped in the served descriptor after hashing makes their digest check refuse it. -02 is replaced, so this cell is the historical revision; the multi-protocol RRset is its own cell.",
+          "evidence": "adapters/dnsaid-run-02.txt (adapters/dnsaid_adapter.py)",
+          "read_their_code": true
+        },
+        {
+          "cell": "the same emission against draft-mozleywilliams-dawn-dnsaid-00 (Table 1: proto carries the agent protocol, alpn the transport suite; cap, cap-sha256, policy, realm and bap are gone)",
+          "source": "their records",
+          "verdict": "contradicted",
+          "basis": "revision-skew",
+          "divergence_in": "their code",
+          "declared_revision": "draft-mozleywilliams-dawn-dnsaid-00 (2 November 2026); dns-aid-core 825ccea emits the -02 shape",
+          "detail": "18 of 24 checks agree. The 6 that differ are the revision change itself, on both test agents: no proto parameter, the agent protocol in alpn instead of a transport suite (alpn=a2a, alpn=mcp), and parameter names that dawn-00 Table 1 no longer defines (cap, cap-sha256, policy, realm). The implementation follows the replaced revision; the project's draft-watch issue 194 tracks the update.",
+          "evidence": "adapters/dnsaid-run-00.txt (adapters/dnsaid_adapter.py)",
+          "read_their_code": true
+        },
+        {
+          "cell": "one SVCB record per agent protocol at one owner name (3.1.1 of both revisions)",
+          "source": "their records",
+          "verdict": "contradicted",
+          "basis": "defect",
+          "divergence_in": "their code",
+          "declared_revision": "draft-mozleywilliams-dawn-dnsaid-00 section 3.1.1 (the same MUST as -02 section 3.1.1)",
+          "detail": "after publishing mcp and then a2a for one owner, the RRset holds 1 record (a2a): the second publish replaces the first. The rule reads the agent protocol from proto when present and otherwise from alpn minus transports, and it accepts both drafts' own two-record examples and refuses a combined record (three controls in the run). The project's issue 246 reproduces the same replacement on Cloudflare and Route 53; this MockBackend run is consistent with those, not a third backend.",
+          "evidence": "adapters/dnsaid-run-02.txt and adapters/dnsaid-run-00.txt (adapters/dnsaid_adapter.py), case multi-protocol",
+          "read_their_code": true
+        },
+        {
+          "cell": "signed record bindings (sig, compact JWS over the record and the svcb1 digest): 11 rule cases signed by dns-aid-core's own signer, including the dawn-00 record shape and a malformed header",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "11 of 11 with our independent reader and 11 of 11 with the model of their live discoverer: valid, endpoint-only (cannot-tell), parameter and endpoint tamper, expiry, wrong key, alg none, a flipped signature bit, the svcb1 field boundary, the dawn-00 shape and a malformed header. The rule is dns-aid-core's jwks.py at 825ccea; neither draft defines sig, so the verdict binds the record to the key set it names (fingerprint per line), not to a draft section. Keys are fresh each run and the verdicts replay line for line.",
+          "evidence": "adapters/dnsaid-sig-run.txt (adapters/dnsaid_sig_run.sh: adapters/dnsaid_sig_cases.py, adapters/dnsaid_sig_reader.py, adapters/dnsaid_sig_theirs.py)",
+          "read_their_code": true
+        },
+        {
+          "cell": "key authority for a signed binding: a foreign key with no provenance, from the wrong host, or against a consumer pin, and the owner-key control",
+          "source": "our adapter",
+          "verdict": "agrees",
+          "detail": "4 of 4 with our reader: no key authority tops out at cannot-tell, a JWKS host other than dns-aid.<zone> or a pin mismatch is contradicted, the owner key under the pin agrees. Their live discoverer fetches the key from dns-aid.<zone> and so refuses all three foreign-key cases (it reads the no-provenance case as contradicted, which is stricter than expected). An offline triple without a key authority cannot say whose key signed.",
+          "evidence": "adapters/dnsaid-sig-run.txt (adapters/dnsaid_sig_run.sh: adapters/dnsaid_sig_cases.py, adapters/dnsaid_sig_reader.py, adapters/dnsaid_sig_theirs.py)"
+        },
+        {
+          "cell": "strict reading of the signed payload: a duplicate member, a float port and an iat a day in the future",
+          "source": "their records",
+          "verdict": "cannot-tell",
+          "detail": "our reader refuses all 3 (I-JSON, an integer port, iat beyond 300 s of skew); their live discoverer accepts all 3, so a last-wins and a first-wins parser can bind different fqdn values to one signature. No revision defines a payload profile, so there is no text to judge either reading by.",
+          "evidence": "adapters/dnsaid-sig-run.txt (adapters/dnsaid_sig_run.sh: adapters/dnsaid_sig_cases.py, adapters/dnsaid_sig_reader.py, adapters/dnsaid_sig_theirs.py)"
+        },
+        {
+          "cell": "capability descriptor digest input (Table 1: digest of the canonical descriptor)",
+          "source": "their records",
+          "verdict": "cannot-tell",
+          "detail": "neither revision defines the canonical form; dns-aid-core hashes the descriptor bytes as served",
+          "evidence": "adapters/dnsaid-run-00.txt (adapters/dnsaid_adapter.py), case cap-sha256/canonicalization"
+        },
+        {
+          "cell": "an SVCB RRset on its own, authenticated by its DNSSEC chain (dawn-00 section 6.1)",
           "source": "none",
-          "verdict": "unsupported",
-          "evidence": "discovery records, not evidence records"
+          "verdict": "not run",
+          "detail": "agent-evidence-verify has no DNSSEC chain reader yet, so an unsigned RRset gets no verdict here",
+          "evidence": "no DNSSEC chain reader yet"
         }
-      ]
+      ],
+      "upstream": {
+        "url": "https://github.com/dns-aid/dns-aid-core",
+        "sha": "825ccea1259267898df59b80e063317ec6900224"
+      },
+      "replay": "git clone https://github.com/dns-aid/dns-aid-core /tmp/dns-aid-core && git -C /tmp/dns-aid-core checkout 825ccea1259267898df59b80e063317ec6900224 && venv/bin/pip install /tmp/dns-aid-core && curl -so /tmp/02.txt https://www.ietf.org/archive/id/draft-mozleywilliams-dnsop-dnsaid-02.txt && curl -so /tmp/00.txt https://www.ietf.org/archive/id/draft-mozleywilliams-dawn-dnsaid-00.txt && venv/bin/python -I adapters/dnsaid_adapter.py /tmp/dns-aid-core /tmp/02.txt && venv/bin/python -I adapters/dnsaid_adapter.py /tmp/dns-aid-core /tmp/00.txt && sh adapters/dnsaid_sig_run.sh venv/bin/python /tmp/dns-aid-core /tmp/dnsaid-sig"
     },
     {
       "id": 11,

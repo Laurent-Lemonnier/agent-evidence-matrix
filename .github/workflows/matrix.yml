@@ -86,6 +86,39 @@ jobs:
           (cd "../icon/Hackathon/IETF 127/running code/agentops" && python3 -m agentops demo --out "$RUNNER_TEMP/ao-regen" > /dev/null)
           python -I adapters/icon_agentops.py "../icon/Hackathon/IETF 127/running code/agentops" --regenerated "$RUNNER_TEMP/ao-regen" | tee "$RUNNER_TEMP/regen.txt"
           grep -E "normalized" "$RUNNER_TEMP/regen.txt"
+  # Runs dns-aid-core's own publisher and signer at the pinned commit (their records), checks the
+  # emitted SVCB records against both draft revisions and the signed bindings with our reader, and
+  # requires every recorded run to replay line for line. Keys are fresh per run; verdicts are not.
+  dnsaid:
+    runs-on: ubuntu-latest
+    env:
+      DNSAID_COMMIT: 825ccea1259267898df59b80e063317ec6900224
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Fetch the pinned upstream and the two draft revisions
+        run: |
+          git clone -q https://github.com/dns-aid/dns-aid-core ../dns-aid-core
+          git -C ../dns-aid-core checkout -q "$DNSAID_COMMIT"
+          pip install ../dns-aid-core
+          mkdir ../drafts
+          curl -sfo ../drafts/02.txt https://www.ietf.org/archive/id/draft-mozleywilliams-dnsop-dnsaid-02.txt
+          curl -sfo ../drafts/00.txt https://www.ietf.org/archive/id/draft-mozleywilliams-dawn-dnsaid-00.txt
+          echo "aab6b8bbd3aa45f24a29702cf96854328dab51ef37c851d73c81daf4b6ced494  ../drafts/02.txt" | sha256sum -c
+          echo "8a77fc8d86415714a0f39506d09510ee20b966c244dd3230355ccd528a7fe2e6  ../drafts/00.txt" | sha256sum -c
+      - name: Emission against each revision equals the recorded runs
+        run: |
+          for r in 02 00; do
+            python -I adapters/dnsaid_adapter.py ../dns-aid-core "../drafts/$r.txt" | diff "adapters/dnsaid-run-$r.txt" -
+          done
+      - name: A descriptor byte flipped after hashing must fail the digest check
+        run: python -I adapters/dnsaid_adapter.py ../dns-aid-core ../drafts/00.txt --tamper | grep -q "^DIFF  cap-sha256/their-verifier-accepts-served-bytes"
+      - name: Signed bindings equal the recorded run
+        run: |
+          sh adapters/dnsaid_sig_run.sh python ../dns-aid-core "$RUNNER_TEMP/sig" > "$RUNNER_TEMP/sig.txt"
+          head -1 adapters/dnsaid-sig-run.txt | cat - "$RUNNER_TEMP/sig.txt" | diff adapters/dnsaid-sig-run.txt -
   adapter-tests:
     runs-on: ubuntu-latest
     steps:
