@@ -110,8 +110,24 @@ def lifecycle(root):
         if len(checks) != 1:
             raise ValueError("expected exactly one named TOCTOU comparison")
         state = checks[0]["state"]
+        # toctou compares digests over admitted artifacts, and admission is the keyless
+        # tagged hash: anyone can recompute it. Authentication is a separate check, so the
+        # predicate reads agrees only when every compared artifact, and the Decision they
+        # cite, is also authenticated.
+        auth = {(c["subject"]["chain_id"], c["subject"]["record_id"]): c["state"]
+                for c in results[name]["checks"] if c["check"] == "record_authentication"}
+        gate = [auth.get((r["chain_id"], r["record_id"]), "MISSING")
+                for r in checks[0]["evidence"] + [checks[0]["subject"]["decision_ref"]]]
         verdict = {"SATISFIED": "agrees", "FAILURE": "contradicted",
                    "NOT_EVALUATED": "cannot-tell"}[state]
+        # reconcile drops duplicate record ids from the toctou group, so a duplicated
+        # Execution reporting another action is never compared: no winner, no agrees.
+        dup = any(c["state"] != "SATISFIED" for c in results[name]["checks"]
+                  if c["check"] == "record_identity")
+        if "FAILURE" in gate:
+            verdict = "contradicted"
+        elif verdict == "agrees" and (dup or any(g != "SATISFIED" for g in gate)):
+            verdict = "cannot-tell"
         digest_verdicts.append(verdict)
         print(f"authorized-vs-executed/{name} {verdict} state={state} "
               f"detail={checks[0]['detail']}")
@@ -214,12 +230,20 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("airep_root", type=Path)
+    parser.add_argument("--mutation", metavar="PATH",
+                        help="CI mutation step only: tolerate exactly this one "
+                        "modified tracked file, so the comparison itself is tested")
     args = parser.parse_args()
     root = args.airep_root.resolve()
     git = ["git", "-c", f"safe.directory={root}", "-C", str(root)]
     head = subprocess.check_output(git + ["rev-parse", "HEAD"], text=True).strip()
-    if head != COMMIT or subprocess.check_output(git + ["status", "--porcelain"]):
-        raise ValueError("requires a clean checkout at the pinned AIREP commit")
+    status = subprocess.check_output(git + ["status", "--porcelain"], text=True)
+    allowed = f" M {args.mutation}\n" if args.mutation else ""
+    if head != COMMIT or status != allowed:
+        raise ValueError("requires a clean checkout at the pinned AIREP commit"
+                         + (f" with only {args.mutation} modified" if args.mutation else ""))
+    if args.mutation:
+        print(f"MUTATION {args.mutation} (not a recorded run)")
     print(f"source {SOURCE}\ncommit {COMMIT}\nwire-version 0.2")
     print("lifecycle-target v0.2.0-beta.1; external-target earlier r1 handoff corpus v0.1")
     print("command: python -B adapters/airep_adapter.py ../ai-runtime-evidence-protocol")

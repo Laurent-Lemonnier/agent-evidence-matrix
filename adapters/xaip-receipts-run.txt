@@ -6,10 +6,10 @@ AGREE empty_input_sentinel hash e3b0c44298fc1c14
 AGREE v1_canonical_payload payload 372 bytes
 AGREE toolmetadata_excluded_from_payload payload 372 bytes
 AGREE legacy_payload_nine_fields payload 351 bytes
-AGREE v1_cosigned_valid agentSignatureValid True (stated True); callerSignatureValid True (stated True)
-AGREE v1_failure_sentinel agentSignatureValid True (stated True)
-AGREE legacy_agent_only agentSignatureValid True (stated True)
-AGREE tampered_success_flip agentSignatureValid False (stated False); callerSignatureValid False (stated False); fail-closed format check also rejects: failureType is required when success is false
+AGREE v1_cosigned_valid agentSignatureValid True (stated True); callerSignatureValid True (stated True); receipt admitted
+AGREE v1_failure_sentinel agentSignatureValid True (stated True); receipt admitted
+AGREE legacy_agent_only agentSignatureValid True (stated True); receipt admitted
+AGREE tampered_success_flip agentSignatureValid False (stated False); callerSignatureValid False (stated False); receipt refused: failureType is required when success is false
 AGREE v1_truncated_hash rejects: taskHash is not 64 lowercase hex characters
 AGREE v1_uppercase_hash rejects: taskHash is not 64 lowercase hex characters
 AGREE v1_failuretype_inconsistent rejects: failureType must be "" when success is true
