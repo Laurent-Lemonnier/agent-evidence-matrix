@@ -10,7 +10,7 @@
     "unsupported",
     "not run"
   ],
-  "total_projects": 23,
+  "total_projects": 24,
   "projects": [
     {
       "id": 1,
@@ -496,15 +496,54 @@
     },
     {
       "id": 11,
-      "name": "DAWN ARD",
+      "name": "DAWN ARD (ards-project/ard-spec v0.91; IETF draft-bu-dawn-ard-discovery-00)",
       "cells": [
         {
-          "cell": "whole",
-          "source": "none",
+          "cell": "attestations[].digest over the vendored SARIF scan (conformance/examples/scan-attestation)",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "1 of 1: SHA-256 of invoice-reader.scan.sarif equals the stated digest. The pin is unsigned and nothing binds the attestation to the entry it sits in: an attestation moved onto another publisher's entry still matches (tests/test_ard_trust_manifest_check.py, transplant case).",
+          "evidence": "adapters/ard-examples-run.txt (adapters/ard_examples_adapter.py)",
+          "read_their_code": false
+        },
+        {
+          "cell": "the 7 trustManifest objects in the conformance examples (fda-ndc, local-business, nevermined, noaa-weather, scan-attestation) against draft-bu-dawn-ard-discovery-00 sections 3.5 and 3.5.2 item 1",
+          "source": "their records",
+          "verdict": "contradicted",
+          "basis": "revision-skew",
+          "divergence_in": "their spec",
+          "declared_revision": "draft-bu-dawn-ard-discovery-00 (the repository's spec/ard.md v0.91 section 4.5 constrains a trustManifest only by identity)",
+          "detail": "0 of 7 meet the draft's prose: none carries subject or signature (3.5: both MUST), the 4 url-referenced entries with attestations carry no top-level digest (3.5.2 item 1 MUST), and no attestation statement is signed or carries a signed subject claim. Under the repository's own spec v0.91 all 7 agree (identity present). The examples follow the repository spec; the IETF draft text is stricter, so the two revisions disagree, not the records with themselves.",
+          "evidence": "adapters/ard-examples-run.txt (adapters/ard_examples_adapter.py)",
+          "read_their_code": false
+        },
+        {
+          "cell": "artifact binding inside the SARIF scan (which artifact the scan covers)",
+          "source": "their records",
+          "verdict": "cannot-tell",
+          "detail": "the scanned artifact is not vendored beside the example, so the binding cannot be recomputed",
+          "evidence": "adapters/ard-examples-run.txt (adapters/ard_examples_adapter.py)"
+        },
+        {
+          "cell": "signed trust manifests: signing input (draft-bu-00 section 3.5 against the whole-entry practice), publisher rule and algorithm rule",
+          "source": "our adapter",
+          "verdict": "cannot-tell",
+          "detail": "no example in the repository is signed, so there is nothing of theirs to verify. The strict checker adapters/ard_trust_manifest_check.py is ready for the first signed record: strict I-JSON, RFC 8785 through the pinned rfc8785, the RFC 7515 and 7797 header rules, kid under the identity DID and listed under assertionMethod, and both signing inputs reported side by side; its nine constructed cases run in CI.",
+          "evidence": "adapters/ard_trust_manifest_check.py; tests/test_ard_trust_manifest_check.py"
+        },
+        {
+          "cell": "manifest-only entries (basic 4, local-business 1)",
+          "source": "their records",
           "verdict": "unsupported",
-          "evidence": "manifests, not evidence records"
+          "detail": "5 entries carry no trustManifest: no digest or signature to recompute",
+          "evidence": "adapters/ard-examples-run.txt (adapters/ard_examples_adapter.py)"
         }
-      ]
+      ],
+      "upstream": {
+        "url": "https://github.com/ards-project/ard-spec",
+        "sha": "f073b1ea9b01a5f068d0b0986426f2ea49fa30b2"
+      },
+      "replay": "git clone https://github.com/ards-project/ard-spec /tmp/ard-spec && git -C /tmp/ard-spec checkout f073b1ea9b01a5f068d0b0986426f2ea49fa30b2 && venv/bin/python -I adapters/ard_examples_adapter.py /tmp/ard-spec"
     },
     {
       "id": 12,
@@ -910,6 +949,23 @@
         "sha": "d479897af4ac21126a89b6ccf9723970590468e0"
       },
       "replay": "git clone https://github.com/jagmarques/asqav-registry /tmp/asqav && git -C /tmp/asqav checkout d479897af4ac21126a89b6ccf9723970590468e0 && python -I adapters/asqav_registry_adapter.py /tmp/asqav && python -m venv /tmp/asqv && /tmp/asqv/bin/pip install jsonschema==4.26.0 && (cd /tmp/asqav && /tmp/asqv/bin/python validate.py && /tmp/asqv/bin/python vocabulary/validate.py && /tmp/asqv/bin/python tools/wire_vocabulary.py --check)"
+    },
+    {
+      "id": 24,
+      "name": "AI Catalog (Agent-Card/ai-catalog; ADR 0027 did:web entry signature profile and ADR 0028 independent trust manifests, both Proposed)",
+      "cells": [
+        {
+          "cell": "entry signing input, did:web publisher rule (exact match) and algorithm rule of ADR 0027 and 0028",
+          "source": "none",
+          "verdict": "not run",
+          "detail": "the repository's example catalog carries no signed entry; the strict checker in adapters/ard_trust_manifest_check.py reads the ADR 0027 profile once a signed record exists",
+          "evidence": "adapters/ard_trust_manifest_check.py"
+        }
+      ],
+      "upstream": {
+        "url": "https://github.com/Agent-Card/ai-catalog",
+        "sha": "e2b425f9e7678a5e6497c5fcff4826d906a4a605"
+      }
     }
   ]
 }

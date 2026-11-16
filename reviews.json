@@ -143,6 +143,12 @@
       "review": "R-2026-11-15-23",
       "date": "2026-11-15",
       "state": "published"
+    },
+    {
+      "project": 24,
+      "review": "R-2026-11-15-24",
+      "date": "2026-11-15",
+      "state": "published"
     }
   ]
 }
