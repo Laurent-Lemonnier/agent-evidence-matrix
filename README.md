@@ -16,9 +16,9 @@ Rebuild the table and its coverage count:
 python build_matrix.py
 ```
 
-It prints `N of 23: 19` today and rewrites `MATRIX.md`, which ends with the replay command and upstream pin for each project. Each cell is marked "their records" (the project's own record bytes were read) or "our adapter" (code in `adapters/` carried their record to our reader, or their code to our corpus), and carries one of five verdicts: agrees, contradicted, cannot-tell, unsupported, not run.
+It prints `N of 23: 19; no record read yet: 4 of 23` today and rewrites `MATRIX.md` and `badges/`; `python build_matrix.py --check` refuses a stale table. `MATRIX.md` ends with the replay command and upstream pin for each project. Each cell is marked "their records" (the project's own record bytes were read) or "our adapter" (code in `adapters/` carried their record to our reader, or their code to our corpus), and carries one of five verdicts: agrees, contradicted, cannot-tell, unsupported, not run. A contradicted cell names its basis, where the divergence sits and the revision it was judged against; a refusal inside a profile the project declares is unsupported, with the profile named. The builder refuses a cell that breaks these rules and any evidence path that does not resolve in this repository.
 
-Status: first run from the IETF 127 Hackathon, 10 November 2026. Add a project by opening a pull request with a `matrix.json` entry, the adapter and its run output. CI rebuilds the table daily and replays the RFC 8785 corpus through `adapters/rfc8785_cli.py`.
+Status: first run from the IETF 127 Hackathon, 10 November 2026. Propose a project by opening an issue or a pull request with a `matrix.json` entry, the adapter and its run output; its row lands after a maintainer records the review in `reviews.json`. CI rebuilds the table daily and replays the RFC 8785 corpus through `adapters/rfc8785_cli.py`.
 
 | Page | What it holds |
 |---|---|

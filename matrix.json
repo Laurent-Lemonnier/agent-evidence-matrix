@@ -56,14 +56,20 @@
           "source": "their records",
           "verdict": "contradicted",
           "detail": "Maintainer errata of 15 Nov 2026 (https://github.com/zambodotdev/aer-1/blob/9ef5c5a64f5e1d396bb8ce81c198854b99f8e5c6/ERRATA.md, E-2026-11-15-1): the maintainer confirmed this finding against the live corpus and calls the tension real and inside the draft. His reading: Table 1 governs the verifier duty, a 0.4 receipt without metadata_hash is evaluated on its other checks with the absence reported, and a consumer that needs tamper-evident metadata requires the member (Section 13). Draft -26 is closed and its text is unchanged, so the verdict stays contradicted against the text. Under his reading the ten vectors agree: 57 of 58 single receipts, and 145 of 146 checks across the kit (adapters/aer1-errata-reading-run.txt); the one left is lowercase-timestamp, below. 48 of 58 with draft-zambo-aer1-26 read verbatim (the latest revision; -27 is 404). Differs: 10 valid vectors (bound-04, deep-nesting, edge-numbers, empty-members, input-hash-multikey-20, large-payload, maximum-offset-timestamp, optional-members-18, typographic-unicode, uuid-v1-core). Each declares receipt_schema_version \"0.4\", carries no metadata_hash, and sits in the kit's valid/ set, where every file MUST conform. Draft reading: Table 1 makes metadata_hash 'REQUIRED when receipt_schema_version is \"0.4\" or later', and Section 6 step 4 says 'A \"0.4\" receipt without metadata_hash MUST fail.' So all ten are rejected. Kit reading, from its runner: 'Absence of metadata_hash is not failed'. So all ten are accepted, and the kit's own runner returns accept on these bytes. The draft's conformance bar (Implementation Status; Section 11 SHOULD) is byte-identical verdicts to the runners, so the draft's procedure and its conformance bar disagree on exactly these ten. Controls: adding a correct metadata_hash flips our verdict on 10 of 10 (the kit accepts the same digests); removing it from valid/real-04 flips ours to reject, while the kit still accepts it, even after created_at is moved one minute. With the kit's rule, 57 of 58 agree, and the remaining one is invalid/lowercase-timestamp.json: the kit rejects lower-case t and z, but RFC 3339 section 5.6 allows them and -26 adds no case rule. Under the verbatim reading that vector agrees on outcome only, because it also lacks metadata_hash.",
-          "evidence": "adapters/aer1-run.txt and adapters/aer1-kit-reading-run.txt and adapters/aer1-errata-reading-run.txt (adapters/aer1_adapter.py); review with the kit's own runner, tampers and controls: adapters/aer1-review-run.txt (adapters/aer1_review.py)"
+          "evidence": "adapters/aer1-run.txt and adapters/aer1-kit-reading-run.txt and adapters/aer1-errata-reading-run.txt (adapters/aer1_adapter.py); review with the kit's own runner, tampers and controls: adapters/aer1-review-run.txt (adapters/aer1_review.py)",
+          "basis": "defect",
+          "divergence_in": "their spec",
+          "declared_revision": "draft-zambo-aer1-26"
         },
         {
           "cell": "chain commitments, Section 7.3 (8 vectors)",
           "source": "their records",
           "verdict": "contradicted",
           "detail": "Maintainer errata of 15 Nov 2026 (https://github.com/zambodotdev/aer-1/blob/9ef5c5a64f5e1d396bb8ce81c198854b99f8e5c6/ERRATA.md, E-2026-11-15-2): the maintainer confirmed this finding against the live corpus. His reading: entry_count in a standalone commitment is never canonicalized, so it MUST be encoded as a JSON integer, 5.0 is a mistyped member and the commitment check fails closed on it, and the corpus is normative on this member. Draft -26 is unchanged, so the verdict stays contradicted against the text. Under his reading 8 of 8 commitments agree (adapters/aer1-errata-reading-run.txt), while commit-valid-1 (entry_count 5) and the seq 1.0 vectors stay valid, as he states. 7 of 8 against draft-zambo-aer1-26 (the latest revision; -27 is 404). Differs: x-entry-count-float, whose entry_count is written 5.0 over a 5-entry chain. Kit reading: it expects invalid, and its runner says 'commitment entry_count is not an integer'. That is Python isinstance(int); the JavaScript runner regex-rewrites the file to mirror that check. Draft reading: Section 7.3 defines entry_count as 'a JSON number with an integer value', so 5.0 is valid. Section 7.1 uses the same phrase for seq and adds 'The representations 1 and 1.0 are equivalent; both are accepted'. No sentence in -26 restricts how entry_count is spelled. RFC 8259 section 6 allows a fraction part and has no separate integer type. The kit itself expects valid for v07-seq-float-valid (seq 1.0, 2.0). Controls: spelling 5.0 as 5 flips the kit's runner to valid, and the case agrees. Spelling commit-valid-1's 5 as 5.0 flips the kit's runner to invalid, while ours stays valid.",
-          "evidence": "adapters/aer1-run.txt and adapters/aer1-errata-reading-run.txt (adapters/aer1_adapter.py), family commitment; review with the kit's own runner, tampers and controls: adapters/aer1-review-run.txt (adapters/aer1_review.py)"
+          "evidence": "adapters/aer1-run.txt and adapters/aer1-errata-reading-run.txt (adapters/aer1_adapter.py), family commitment; review with the kit's own runner, tampers and controls: adapters/aer1-review-run.txt (adapters/aer1_review.py)",
+          "basis": "defect",
+          "divergence_in": "their records",
+          "declared_revision": "draft-zambo-aer1-26"
         }
       ],
       "upstream": {
@@ -80,9 +86,11 @@
         {
           "cell": "JCS function against vectors-a2a-jcs-v01 (rfc8785 target)",
           "source": "our adapter",
-          "verdict": "contradicted",
-          "detail": "2 of 53",
-          "evidence": "adapters/eatf-jcs-run.txt: A5-002 (1e21) and A5-012 (1e20) refused, 51 of 53 agree"
+          "verdict": "unsupported",
+          "detail": "51 of 53 agree; A5-002 (1e21) and A5-012 (1e20) are refused by the AEP metadata profile, which admits integer-valued numbers only below 2^53. RFC 8785 as written gives both an output, so the two are outside the profile the project declares, not a disagreement inside it.",
+          "evidence": "adapters/eatf-jcs-run.txt (adapters/eatf_jcs_cli.py): A5-002 and A5-012 refused, 51 of 53 agree",
+          "basis": "declared-profile",
+          "profile": "AEP metadata numbers: integer-valued numbers only within the safe-integer range (below 2^53)"
         },
         {
           "cell": "Hackathon Round 1, 22 vectors: ordered verdicts (hash, signatures, mandate chain, replay) against the answer key",
@@ -295,7 +303,12 @@
           "verdict": "unsupported",
           "evidence": "refused on shape: a different wrapper than report/v0.1"
         }
-      ]
+      ],
+      "upstream": {
+        "url": "https://github.com/tech4biz-yasha/agent-memory-integrity",
+        "sha": "801753831115b7934946c068485a4dc659f7658a"
+      },
+      "replay": "git clone https://github.com/tech4biz-yasha/agent-memory-integrity /tmp/agmi && git -C /tmp/agmi checkout 801753831115b7934946c068485a4dc659f7658a && R=$PWD/venv/bin/agent-evidence-vectors && (cd /tmp/agmi && for f in results/report-v01.json submissions/w3c-agent-conformance-v1.json; do echo \"== $f\"; \"$R\" --read-w3c-report \"$f\"; echo \"rc=$?\"; done)"
     },
     {
       "id": 6,
@@ -813,7 +826,10 @@
           "source": "our adapter",
           "verdict": "contradicted",
           "detail": "48 of 53 agree, 5 differ. Executed 53 of 53, 48 pass. The 5 failures are the lone-surrogate rejects A3-REJECT-011, A3-REJECT-012, A4-REJECT-013, A4-REJECT-014 and A4-REJECT-015: the function emits a \\udXXX escape and exits 0 where the corpus says no canonical form exists. RFC 8785 Section 3.2.2.2: 'occurrences of such data MUST cause a compliant JCS implementation to terminate with an appropriate error'; Section 3.1 requires I-JSON input and RFC 7493 Section 2.1 says string values 'MUST NOT include code points that identify Surrogates or Noncharacters'. Draft -03 says 'Implementations producing receipts MUST canonicalize using JCS as defined in [RFC8785]'. Control: the same function patched to refuse a lone surrogate passes 53 of 53, so the verdict follows that one behaviour. Second run byte-identical.",
-          "evidence": "adapters/xaip-jcs-a2a-run.txt (adapters/xaip_jcs_cli.mjs); adapters/xaip-jcs-a2a-control-run.txt"
+          "evidence": "adapters/xaip-jcs-a2a-run.txt (adapters/xaip_jcs_cli.mjs); adapters/xaip-jcs-a2a-control-run.txt",
+          "basis": "defect",
+          "divergence_in": "their code",
+          "declared_revision": "draft-xkumakichi-xaip-receipts-03"
         }
       ],
       "upstream": {

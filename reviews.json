@@ -1,0 +1,148 @@
+{
+  "about": "One entry per matrix project. A project's row lands only after a maintainer records its review here; pull requests from outside the maintainers cannot add or change entries (the intake check). A frozen review fixes the project's entry byte for byte (digest over its sorted compact JSON) until a maintainer records a new review.",
+  "reviews": [
+    {
+      "project": 1,
+      "review": "R-2026-11-15-01",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 2,
+      "review": "R-2026-11-15-02",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 3,
+      "review": "R-2026-11-15-03",
+      "date": "2026-11-15",
+      "state": "frozen",
+      "digest": "0f09f4793d445d35ace82508897b3cbe45489fa7508bd01bc7e5fda0e54c1435"
+    },
+    {
+      "project": 4,
+      "review": "R-2026-11-15-04",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 5,
+      "review": "R-2026-11-15-05",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 6,
+      "review": "R-2026-11-15-06",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 7,
+      "review": "R-2026-11-15-07",
+      "date": "2026-11-15",
+      "state": "frozen",
+      "digest": "2e6a643c0daa10b465c5771e4f363b8f4a309c3d0a813e76a8b0db934ebff4f6"
+    },
+    {
+      "project": 8,
+      "review": "R-2026-11-15-08",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 9,
+      "review": "R-2026-11-15-09",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 10,
+      "review": "R-2026-11-15-10",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 11,
+      "review": "R-2026-11-15-11",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 12,
+      "review": "R-2026-11-15-12",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 13,
+      "review": "R-2026-11-15-13",
+      "date": "2026-11-15",
+      "state": "frozen",
+      "digest": "e829ce39c18828d525065b0dd1839732186fe07a7ca2d8f978c0982a7a5be170"
+    },
+    {
+      "project": 14,
+      "review": "R-2026-11-15-14",
+      "date": "2026-11-15",
+      "state": "frozen",
+      "digest": "ee61cd291afd57140d50b9a049d64321001bbb4c173c8dbd72c461f7c2b4c984"
+    },
+    {
+      "project": 15,
+      "review": "R-2026-11-15-15",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 16,
+      "review": "R-2026-11-15-16",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 17,
+      "review": "R-2026-11-15-17",
+      "date": "2026-11-15",
+      "state": "frozen",
+      "digest": "981f94c0694a6c8378f48c2d92813c0dd0e11918234e7bd807c140b5cc054577"
+    },
+    {
+      "project": 18,
+      "review": "R-2026-11-15-18",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 19,
+      "review": "R-2026-11-15-19",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 20,
+      "review": "R-2026-11-15-20",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 21,
+      "review": "R-2026-11-15-21",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 22,
+      "review": "R-2026-11-15-22",
+      "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 23,
+      "review": "R-2026-11-15-23",
+      "date": "2026-11-15",
+      "state": "published"
+    }
+  ]
+}
