@@ -175,3 +175,21 @@ def test_a_did_document_naming_one_key_id_twice_is_refused_whatever_the_order(tm
     did["verificationMethod"].insert(1 if signer_first else 0, twin)
     out = run(tmp_path, "dup%s" % signer_first, {"entries": [e]}, did)
     assert "DOCUMENT REFUSED duplicate_verification_method" in out
+
+
+@pytest.mark.parametrize("stated,verdict", [("upper", "agrees"), ("short", "cannot-tell")])
+def test_an_attestation_digest_is_read_as_hex_without_case(tmp_path, stated, verdict):
+    """Counter-example: the right digest written in upper case read as contradicted, and a truncated one
+    as a plain mismatch rather than an unreadable digest."""
+    sarif = b'{"version":"2.1.0","runs":[]}'
+    folder = tmp_path / "conformance" / "examples" / "case"
+    folder.mkdir(parents=True)
+    (folder / "scan.sarif").write_bytes(sarif)
+    hexd = hashlib.sha256(sarif).hexdigest()
+    digest = hexd.upper() if stated == "upper" else hexd[:40]
+    e = {"identifier": "urn:air:x.example:server:r", "trustManifest": {"identity": "did:web:x.example", "attestations": [
+        {"type": "scan", "uri": "https://x.example/scan.sarif", "digest": "sha256:" + digest}]}}
+    (folder / "ard.json").write_text(json.dumps({"entries": [e]}))
+    out = subprocess.run([sys.executable, "-I", str(ADAPTERS / "ard_examples_adapter.py"), str(tmp_path)],
+                         capture_output=True, text=True).stdout
+    assert f"attestation-digest\t{verdict}" in out

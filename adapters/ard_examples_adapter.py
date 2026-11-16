@@ -7,7 +7,8 @@ member, NaN or Infinity refuses the document) and every entry in it, prints tab-
 
   <example>/<file>#<n>  attestation-digest  agrees|contradicted|cannot-tell  <detail>
       every attestations[] item with a digest whose uri names a file vendored beside the example:
-      SHA-256 of that file against the stated digest; a uri with no vendored file is cannot-tell
+      SHA-256 of that file against the stated digest (64 hex digits, read without case; anything else is
+      cannot-tell); a uri with no vendored file is cannot-tell
   <example>/<file>#<n>  draft-bu-00  agrees|contradicted  <missing parts>
       draft-bu-dawn-ard-discovery-00 sections 3.5 and 3.5.2 item 1, read as prose: a trustManifest
       MUST carry subject and signature; an entry referenced by url whose trustManifest carries
@@ -64,8 +65,11 @@ def entry_lines(where, entry, folder):
         if alg != "sha256":
             out.append((where, "attestation-digest", "cannot-tell", f"attestations[{i}] algorithm {alg} not read"))
             continue
+        if len(want) != 64 or any(c not in "0123456789abcdefABCDEF" for c in want):
+            out.append((where, "attestation-digest", "cannot-tell", f"attestations[{i}] digest is not 64 hex digits"))
+            continue
         have = hashlib.sha256(local.read_bytes()).hexdigest()
-        verdict = "agrees" if have == want else "contradicted"
+        verdict = "agrees" if have == want.lower() else "contradicted"  # hex is read without case
         out.append((where, "attestation-digest", verdict, f"attestations[{i}] {name} sha256 {have[:12]}"))
     missing = [m for m in ("subject", "signature") if m not in tm]
     if "url" in entry and atts and "digest" not in entry:
