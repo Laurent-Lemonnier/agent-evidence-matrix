@@ -45,15 +45,43 @@ def payload(fields):
     return rfc8785.dumps(obj)
 
 
-def violation(f):
+FULL = BASE + ("formatVersion",)
+
+
+def violation(f, full=False):
+    if full:
+        for k in FULL:
+            if k not in f:
+                return "%s is missing" % k
     for k in ("taskHash", "resultHash"):
-        if k in f and not (isinstance(f[k], str) and HEX64.fullmatch(f[k])):
+        if (full or k in f) and not (isinstance(f.get(k), str) and HEX64.fullmatch(f[k])):
             return "%s is not 64 lowercase hex characters" % k
+    if "failureType" in f and not isinstance(f["failureType"], str):
+        return "failureType must be a string"
     if f.get("success") is True and f.get("failureType", "") != "":
         return 'failureType must be "" when success is true'
     if f.get("success") is False and not f.get("failureType"):
         return "failureType is required when success is false"
+    lat = f.get("latencyMs")
+    if full and not (type(lat) is int and 0 <= lat <= 2**53 - 1):
+        return "latencyMs is not an integer in [0, 2^53-1]"
     return None
+
+
+def admit(r, keys):
+    fv = r.get("formatVersion")
+    if fv is not None and fv != "1":
+        return False, "unknown formatVersion %r" % fv
+    if fv == "1":
+        bad = violation(r, full=True)
+        if bad:
+            return False, bad
+    msg = payload(r)
+    if not verify(msg, r.get("signature"), keys["agent"]["publicKeySpkiHex"]):
+        return False, "agent signature does not verify"
+    if "callerSignature" in r and not verify(msg, r["callerSignature"], keys["caller"]["publicKeySpkiHex"]):
+        return False, "callerSignature is present and does not verify"
+    return True, None
 
 
 def verify(msg, sig_hex, spki_hex):
@@ -106,10 +134,12 @@ def main(argv):
             got["callerSignatureValid"] = verify(msg, r.get("callerSignature"), keys["caller"]["publicKeySpkiHex"])
         for k in got:
             parts.append("%s %s (stated %s)" % (k, got[k], e[k]))
-        fv = violation(r) if r.get("formatVersion") == "1" else None
-        if fv:
-            parts.append("fail-closed format check also rejects: " + fv)
-        out(v["name"], all(got[k] == e[k] for k in got), "; ".join(parts))
+        admitted, why = admit(r, keys)
+        parts.append("receipt %s%s" % ("admitted" if admitted else "refused", "" if admitted else ": " + why))
+        good = all(got[k] == e[k] for k in got)
+        if "admitted" in e:
+            good &= admitted == e["admitted"]
+        out(v["name"], good, "; ".join(parts))
     for v in d["rejectionVectors"]:
         got = violation(v["receiptFragment"])
         out(v["name"], got == v["mustReject"], "rejects: %s" % got)

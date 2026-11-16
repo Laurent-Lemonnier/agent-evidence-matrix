@@ -798,7 +798,7 @@
           "cell": "The 15 vectors of docs/spec/test-vectors/receipts-v1-vectors.json (5 preimage, 3 payload, 4 receipt, 3 rejection), recomputed from draft -03 Sections 3.1 to 3.5 with rfc8785 and Ed25519",
           "source": "their records",
           "verdict": "agrees",
-          "detail": "15 of 15 agree. tampered_success_flip is additionally refused by the Section 3.3 fail-closed check (failureType required when success is false). Second run from a second export is byte-identical; changing one byte of toolName in the v1_cosigned_valid receipt makes both signatures fail, 14 of 15.",
+          "detail": "15 of 15 agree. The adapter also decides admission for every signed receipt (full format check, caller signature when present): the three valid receipts are admitted and tampered_success_flip is refused (failureType required when success is false). Second run from a second export is byte-identical; changing one byte of toolName in the v1_cosigned_valid receipt makes both signatures fail, 14 of 15.",
           "evidence": "adapters/xaip-receipts-run.txt (adapters/xaip_receipts_adapter.py); adapters/xaip-receipts-tamper-run.txt"
         },
         {
