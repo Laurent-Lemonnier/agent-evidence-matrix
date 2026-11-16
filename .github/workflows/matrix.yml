@@ -119,6 +119,29 @@ jobs:
         run: |
           sh adapters/dnsaid_sig_run.sh python ../dns-aid-core "$RUNNER_TEMP/sig" > "$RUNNER_TEMP/sig.txt"
           head -1 adapters/dnsaid-sig-run.txt | cat - "$RUNNER_TEMP/sig.txt" | diff adapters/dnsaid-sig-run.txt -
+  # Replays the EATF canonicalizer of the pinned release through the RFC 8785 corpus, recording which
+  # code refused each vector; a crash exits 2 and fails the corpus run instead of scoring as a refusal.
+  eatf-jcs:
+    runs-on: ubuntu-latest
+    env:
+      EATF_COMMIT: fade5e0ac1223b7ff13339b7c9bcf973b699f9a7
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Fetch the pinned release and install its library
+        run: |
+          git clone -q https://github.com/tyche-institute/eatf-verifier ../eatf
+          git -C ../eatf checkout -q "$EATF_COMMIT"
+          pip install ../eatf/lib-python agent-evidence-vectors==0.36.3
+      - name: Corpus run equals the recorded run
+        run: |
+          set +e
+          A2A_JCS_TARGET=rfc8785 EATF_LIB_PYTHON=../eatf/lib-python EATF_CLASS_LOG="$RUNNER_TEMP/classes.log" \
+            agent-evidence-vectors --corpus vectors-a2a-jcs-v01 --verifier "python adapters/eatf_jcs_cli.py" > "$RUNNER_TEMP/run.txt" 2>&1
+          set -e
+          { head -1 adapters/eatf-jcs-run.txt; grep -v "^a2a-agent-card" "$RUNNER_TEMP/run.txt"; grep "^a2a-agent-card" "$RUNNER_TEMP/run.txt" | sed 's/; report .*//'; echo "# refusal path per vector (EATF_CLASS_LOG), sorted"; sort "$RUNNER_TEMP/classes.log"; } | diff adapters/eatf-jcs-run.txt -
   adapter-tests:
     runs-on: ubuntu-latest
     steps:

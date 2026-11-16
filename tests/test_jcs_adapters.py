@@ -43,3 +43,37 @@ def test_a_clean_object_still_canonicalizes(tmp_path):
 
 def test_a_target_the_adapter_does_not_implement_is_not_run(tmp_path):
     assert run(tmp_path, b'{"a":1}', "card-signing-input").returncode == 2
+
+
+def test_a_crash_is_errored_not_a_refusal(tmp_path, monkeypatch):
+    """A canonicalizer that raises an unexpected exception must exit 2, never score as a MUST-REJECT pass."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("rfc8785_cli", CLI)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    def boom(value):
+        raise AttributeError("api changed")
+    monkeypatch.setattr(mod.rfc8785, "dumps", boom)
+    path = tmp_path / "input.json"
+    path.write_bytes(b'{"a":1}')
+    assert mod.main(["rfc8785_cli.py", "rfc8785", str(path)]) == 2
+
+
+def test_the_eatf_adapter_separates_refusal_paths_from_crashes(tmp_path, monkeypatch):
+    import importlib.util
+    import types
+    lib = tmp_path / "lib"
+    (lib / "eatf_verifier").mkdir(parents=True)
+    (lib / "eatf_verifier" / "__init__.py").write_text("")
+    (lib / "eatf_verifier" / "canonical.py").write_text("import rfc8785\n\ndef jcs(v):\n    return rfc8785.dumps(v)\n")
+    monkeypatch.setenv("EATF_LIB_PYTHON", str(lib))
+    spec = importlib.util.spec_from_file_location("eatf_jcs_cli", CLI.parent / "eatf_jcs_cli.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    assert mod.outcome(b'{"a":1}')[0] == 0
+    assert mod.outcome(b'{"a":')[1].startswith("refused-by-parser")
+    assert mod.outcome(b'{"a":NaN}')[1].startswith("refused-by-profile")
+    assert mod.outcome(b'{"\\ud800":1}')[1].startswith("refused-by-encoder")
+    monkeypatch.setattr(mod, "jcs", lambda v: (_ for _ in ()).throw(AttributeError("api changed")))
+    assert mod.outcome(b'{"a":1}') == (2, "errored AttributeError", None)

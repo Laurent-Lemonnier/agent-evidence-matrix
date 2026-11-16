@@ -2,8 +2,9 @@
 
 Contract (agent-evidence-vectors docs/reference/corpus-readers.md):
   <verifier> rfc8785 <input.json>   exit 0 and {"canonical_utf8_hex": ...} on stdout,
-                                    exit 1 when the input has no canonical form.
-The canonicalizer is the Python rfc8785 package.
+                                    exit 1 when the input has no canonical form,
+                                    exit 2 for anything else (errored, never a refusal).
+The canonicalizer is the Python rfc8785 package; the parse refuses what I-JSON forbids.
 Nothing of ours is mixed in.
 """
 import json
@@ -22,10 +23,20 @@ def main(argv):
     raw = open(argv[2], "rb").read()
     try:
         value = json.loads(raw.decode("utf-8"), parse_constant=_refuse, object_pairs_hook=_no_duplicates)
-        out = rfc8785.dumps(value)
-    except Exception as exc:  # any refusal means: no canonical form
-        print(type(exc).__name__, file=sys.stderr)
+    except ValueError as exc:  # JSONDecodeError, UnicodeDecodeError, a duplicate member or a non-finite number
+        print("refused-by-parser", type(exc).__name__, file=sys.stderr)
         return 1
+    try:
+        out = rfc8785.dumps(value)
+    except rfc8785.CanonicalizationError as exc:
+        print("refused-by-canonicalizer", type(exc).__name__, file=sys.stderr)
+        return 1
+    except UnicodeEncodeError as exc:  # a lone surrogate reached the encoder
+        print("refused-by-encoder", type(exc).__name__, file=sys.stderr)
+        return 1
+    except Exception as exc:  # anything else is a crash, never a refusal
+        print("errored", type(exc).__name__, file=sys.stderr)
+        return 2
     print(json.dumps({"canonical_utf8_hex": out.hex()}))
     return 0
 

@@ -84,13 +84,14 @@
       "name": "Action Evidence Packages",
       "cells": [
         {
-          "cell": "JCS function against vectors-a2a-jcs-v01 (rfc8785 target)",
+          "cell": "JCS function (eatf_verifier.canonical.jcs, v0.7.4) against vectors-a2a-jcs-v01 (rfc8785 target)",
           "source": "our adapter",
           "verdict": "unsupported",
-          "detail": "51 of 53 agree; A5-002 (1e21) and A5-012 (1e20) are refused by the AEP metadata profile, which admits integer-valued numbers only below 2^53. RFC 8785 as written gives both an output, so the two are outside the profile the project declares, not a disagreement inside it.",
-          "evidence": "adapters/eatf-jcs-run.txt (adapters/eatf_jcs_cli.py): A5-002 and A5-012 refused, 51 of 53 agree",
+          "detail": "51 of 53 agree, with the refusing code named per vector and 0 errored. Of 45 MUST-ACCEPT, 43 match and A5-002 (1e21) and A5-012 (1e20) are refused by the project's declared profile (FloatDomainError from its own domain check); RFC 8785 as written gives both an output, so they sit outside the profile, not in disagreement inside it. Of 8 MUST-REJECT, 3 are refused by the profile's string checks (CanonicalizationError), 3 non-finite numbers by the profile (FloatDomainError, the project's parse unmodified) and 2 lone-surrogate keys by the encoder (UnicodeEncodeError, an undesigned path). A crash in the canonicalizer exits 2 and is never scored as a refusal.",
+          "evidence": "adapters/eatf-jcs-run.txt (adapters/eatf_jcs_cli.py)",
           "basis": "declared-profile",
-          "profile": "AEP metadata numbers: integer-valued numbers only within the safe-integer range (below 2^53)"
+          "profile": "the shared I-JSON profile of eatf_verifier.canonical: an integer, or an integer-valued double, beyond 2^53 - 1 in magnitude is refused; other numbers are canonicalized",
+          "read_their_code": true
         },
         {
           "cell": "Hackathon Round 1, 22 vectors: ordered verdicts (hash, signatures, mandate chain, replay) against the answer key",
@@ -124,7 +125,7 @@
           "cell": "Hackathon Round 0 (open practice set), 18 vectors: ordered verdicts against the published expectations",
           "source": "their records",
           "verdict": "agrees",
-          "detail": "13 of 13 scored vectors match verdict and reason. Of the 5 unscored probes, 4 match their stated 'ALLOW (both)'; r0-15 (float 1e-07) returns ALLOW, which is the Python reading the project lists, while the project records its JavaScript port returning DENY:content_mutated (the documented number-rendering divergence, outside the integer-only profile). Adapter written from the spec text, after reading the Round 0 cases.json notes; the project's verifier was not run.",
+          "detail": "13 of 13 scored vectors match verdict and reason. Of the 5 unscored probes, 4 match their stated 'ALLOW (both)'; r0-15 (float 1e-07) returns ALLOW, which is the Python reading the project lists, while the project records its JavaScript port returning DENY:content_mutated (the documented number-rendering divergence between the two ports; 1e-07 is inside the shared I-JSON profile, which refuses only integer values beyond 2^53 - 1). Adapter written from the spec text, after reading the Round 0 cases.json notes; the project's verifier was not run.",
           "evidence": "adapters/aep_sandbox_adapter-round0-run.txt (adapters/aep_sandbox_adapter.py)"
         },
         {
@@ -132,7 +133,8 @@
           "source": "their records",
           "verdict": "agrees",
           "detail": "7 of 7 packages with a stated receipt expectation: 5 valid pass; tampered-metadata fails with the project's own diagnostic (policy.decision allow vs metadata deny); tampered-overt-receipt fails on content_hash. Receipt signature (overt_receipt.sig) verified where metadata names it (minimal-roundtrip, hybrid-mldsa65). The field comparisons were written after reading lib-python/eatf_verifier/overt.py, so this layer is not an independent reading.",
-          "evidence": "adapters/aep_eatf_sigs-run.txt (adapters/aep_eatf_sigs.py)"
+          "evidence": "adapters/aep_eatf_sigs-run.txt (adapters/aep_eatf_sigs.py)",
+          "read_their_code": true
         },
         {
           "cell": ".aep packages: ML-DSA-65 signature layer",
@@ -152,7 +154,7 @@
           "cell": ".aep packages: whole verdict (hash, JCS form, RSA, receipt, ML-DSA, timestamp) against verify-expected.txt",
           "source": "their records",
           "verdict": "agrees",
-          "detail": "13 of 13: 5 valid accepted, 8 invalid rejected, matching the project's '5 verified, 8 rejected' contract. Per-layer tamper copies each flip only their own layer (aep_tamper_check-run.txt).",
+          "detail": "13 of 13: 5 valid accepted, 8 invalid rejected, matching the project's '5 verified, 8 rejected' contract at v0.7.4. Every signed vector now verifies under the strict RFC 8017 DigestInfo (with the NULL parameter); the NULL-less path this adapter also accepts is exercised by no vector at this release. Per-layer tamper copies each flip only their own layer (aep_tamper_check-run.txt).",
           "evidence": "adapters/aep_eatf_sigs-run.txt (adapters/aep_eatf_sigs.py); adapters/aep_tamper_check-run.txt (adapters/aep_tamper_check.py)"
         },
         {
@@ -179,10 +181,11 @@
         }
       ],
       "upstream": {
-        "url": "https://github.com/tyche-institute/aep-sandbox (hackathon pack) and https://github.com/tyche-institute/eatf-verifier (.aep packages)",
-        "sha": "aep-sandbox c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132; eatf-verifier dfb19bee9806b4fdda2831aac29f635dcb0baeb9"
+        "url": "https://github.com/tyche-institute/aep-sandbox (hackathon pack) and https://github.com/tyche-institute/eatf-verifier (.aep packages, release v0.7.4)",
+        "sha": "aep-sandbox c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132; eatf-verifier fade5e0ac1223b7ff13339b7c9bcf973b699f9a7"
       },
-      "replay": "git clone https://github.com/tyche-institute/aep-sandbox X && git -C X checkout c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132 && git clone https://github.com/tyche-institute/eatf-verifier E && git -C E checkout dfb19bee9806b4fdda2831aac29f635dcb0baeb9 && venv/bin/python -I adapters/aep_sandbox_adapter.py X/hackathon/ietf127/round1/vectors X/hackathon/ietf127/round1/trusted_issuers.json && venv/bin/python -I adapters/aep_sandbox_adapter.py X/interlab/round0/vectors X/interlab/round0/trusted_issuers.json && venv/bin/python -I adapters/aep_eatf_sigs.py E/test-vectors && venv/bin/python -I adapters/aep_seal_timestamps.py X/hackathon/ietf127/timestamps X/hackathon/ietf127/SEAL.sha256 && venv/bin/python -I adapters/aep_tamper_check.py E/test-vectors X/hackathon/ietf127/round1/vectors X/hackathon/ietf127/round1/trusted_issuers.json <scratch dir>"
+      "replay": "git clone https://github.com/tyche-institute/aep-sandbox X && git -C X checkout c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132 && git clone https://github.com/tyche-institute/eatf-verifier E && git -C E checkout fade5e0ac1223b7ff13339b7c9bcf973b699f9a7 && venv/bin/python -I adapters/aep_sandbox_adapter.py X/hackathon/ietf127/round1/vectors X/hackathon/ietf127/round1/trusted_issuers.json && venv/bin/python -I adapters/aep_sandbox_adapter.py X/interlab/round0/vectors X/interlab/round0/trusted_issuers.json && venv/bin/python -I adapters/aep_eatf_sigs.py E/test-vectors && venv/bin/python -I adapters/aep_seal_timestamps.py X/hackathon/ietf127/timestamps X/hackathon/ietf127/SEAL.sha256 && venv/bin/python -I adapters/aep_tamper_check.py E/test-vectors X/hackathon/ietf127/round1/vectors X/hackathon/ietf127/round1/trusted_issuers.json <scratch dir> && venv/bin/pip install E/lib-python && A2A_JCS_TARGET=rfc8785 EATF_LIB_PYTHON=E/lib-python EATF_CLASS_LOG=classes.log agent-evidence-vectors --corpus vectors-a2a-jcs-v01 --verifier \"venv/bin/python adapters/eatf_jcs_cli.py\"",
+      "independence": "non-author"
     },
     {
       "id": 3,
