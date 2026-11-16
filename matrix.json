@@ -282,6 +282,7 @@
     {
       "id": 4,
       "name": "Agent action evidence interop",
+      "independence": "non-author",
       "cells": [
         {
           "cell": "audit-record reader (ours, agent-evidence-vectors 0.36.3) on the 217 members their CI pins, against their per-member verdicts",
@@ -323,8 +324,7 @@
         "url": "https://github.com/Laurent-Lemonnier/dps-scitt-decision-layer",
         "sha": "00d748a63d96b13905dafb4100fb694c0715469f"
       },
-      "replay": "git clone https://github.com/Laurent-Lemonnier/dps-scitt-decision-layer ../dps-scitt-decision-layer && git -C ../dps-scitt-decision-layer checkout 00d748a63d96b13905dafb4100fb694c0715469f && venv/bin/python -I adapters/lemonnier_adapter.py ../dps-scitt-decision-layer",
-      "independence": "non-author"
+      "replay": "git clone https://github.com/Laurent-Lemonnier/dps-scitt-decision-layer ../dps-scitt-decision-layer && git -C ../dps-scitt-decision-layer checkout 00d748a63d96b13905dafb4100fb694c0715469f && venv/bin/python -I adapters/lemonnier_adapter.py ../dps-scitt-decision-layer"
     },
     {
       "id": 5,
