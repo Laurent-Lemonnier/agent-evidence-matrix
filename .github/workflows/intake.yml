@@ -1,7 +1,7 @@
 name: intake
-# A matrix row lands only after a maintainer records its review in reviews.json. This check reads the
-# pull request through the API and never checks out or runs its code, so it is safe under
-# pull_request_target. The held list lives in repository variables, never in a file or a log line.
+# A matrix row lands only after a maintainer records its review in reviews.json. tools/intake.py (from the
+# base branch) reads the pull request through the API and never checks out or runs its code, so it is safe
+# under pull_request_target. The held list lives in repository variables, never in a file or a log line.
 on:
   pull_request_target:
     types: [opened, synchronize, reopened, edited]
@@ -12,6 +12,10 @@ jobs:
   intake:
     runs-on: ubuntu-latest
     steps:
+      # pull_request_target checks out the BASE branch by default: only reviewed code runs here.
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Review gate
         env:
           GH_TOKEN: ${{ github.token }}
@@ -24,43 +28,4 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           HELD_LOGINS: ${{ vars.MATRIX_HELD_LOGINS }}
           HELD_OWNERS: ${{ vars.MATRIX_HELD_OWNERS }}
-        run: |
-          python3 -I - <<'PY'
-          import base64, json, os, re, subprocess, sys
-
-          def api(path):
-              out = subprocess.run(["gh", "api", path], capture_output=True, text=True)
-              if out.returncode != 0:
-                  sys.exit(f"intake: could not read {path.split('?')[0]}: {out.stderr.strip()}")
-              return json.loads(out.stdout)
-
-          def matrix_at(repo, sha):
-              doc = api(f"repos/{repo}/contents/matrix.json?ref={sha}")
-              return json.loads(base64.b64decode(doc["content"]))
-
-          env = os.environ
-          held_logins = {x.strip().lower() for x in env.get("HELD_LOGINS", "").split(",") if x.strip()}
-          held_owners = {x.strip().lower() for x in env.get("HELD_OWNERS", "").split(",") if x.strip()}
-          maintainer = env["ASSOCIATION"] in ("OWNER", "MEMBER", "COLLABORATOR")
-          files = [f["filename"] for f in api(f"repos/{env['REPO']}/pulls/{env['PR']}/files?per_page=100")]
-          refusals = []
-          if env["AUTHOR"].lower() in held_logins:
-              refusals.append("this account's rows are held for maintainer review; a maintainer will follow up")
-          if "reviews.json" in files and not maintainer:
-              refusals.append("reviews.json is written by maintainers only")
-          if "matrix.json" in files:
-              base = {p["id"]: p for p in matrix_at(env["REPO"], env["BASE_SHA"])["projects"]}
-              head = {p["id"]: p for p in matrix_at(env["HEAD_REPO"], env["HEAD_SHA"])["projects"]}
-              added = sorted(set(head) - set(base))
-              if added and not maintainer:
-                  refusals.append(f"project {added} has no review yet; a project lands after its review")
-              for pid, p in head.items():
-                  if base.get(pid) == p:
-                      continue
-                  owners = set(re.findall(r"github\.com/([\w.-]+)/", json.dumps(p.get("upstream") or {})))
-                  if {o.lower() for o in owners} & held_owners:
-                      refusals.append(f"project {pid} is held for maintainer review")
-          for r in refusals:
-              print(f"::error::{r}")
-          sys.exit(1 if refusals else 0)
-          PY
+        run: python3 -I tools/intake.py
