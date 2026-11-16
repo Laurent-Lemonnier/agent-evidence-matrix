@@ -20,7 +20,9 @@ The schema rules, each a refusal (exit 1 with every problem named):
   prose) and `sha` its 40-hex commit; further inputs go in `also` (each a url with a 40-hex `sha` for a
   repository or a 64-hex `sha256` for a fetched file) and free text in `note`;
 - two projects never share one upstream: compared without case, over every project, frozen ones included;
-- property columns use the listed names and verdict codes.
+- property columns use the listed names and verdict codes;
+- the reader the matrix names (matrix.json "reader") is the reader requirements.in pins, package for
+  package and version for version, so the stated reader and the installed one cannot drift apart.
 """
 from __future__ import annotations
 
@@ -240,6 +242,26 @@ def problems(data: dict, reviews: dict, root: pathlib.Path = ROOT) -> list[str]:
     return out
 
 
+def reader_problems(reader: dict, requirements_in: str) -> list[str]:
+    """Refusals when the reader matrix.json names differs from the exact pins in requirements.in."""
+    pins = {}
+    for line in requirements_in.splitlines():
+        line = line.split("#", 1)[0].strip()
+        if "==" in line:
+            name, version = (x.strip() for x in line.split("==", 1))
+            pins[name.lower().replace("_", "-")] = version
+    out = []
+    for name, version in sorted((reader or {}).items()):
+        pinned = pins.get(name.lower().replace("_", "-"))
+        if pinned is None:
+            out.append(f"matrix.json: reader {name} {version} is not pinned with == in requirements.in")
+        elif pinned != version:
+            out.append(f"matrix.json: reader {name} {version} but requirements.in pins {pinned}")
+    if not reader:
+        out.append("matrix.json: no reader named")
+    return out
+
+
 def _frozen(reviews: dict) -> set:
     return {r["project"] for r in reviews.get("reviews") or [] if r.get("state") == "frozen"}
 
@@ -412,7 +434,8 @@ def main(argv=None) -> int:
         for line in freshness(data):
             print(line)
         return 0
-    bad = problems(data, reviews)
+    bad = problems(data, reviews) + reader_problems(data.get("reader"),
+                                                    (ROOT / "requirements.in").read_text(encoding="utf-8"))
     if bad:
         print("\n".join(bad), file=sys.stderr)
         return 1
