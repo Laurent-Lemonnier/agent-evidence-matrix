@@ -18,7 +18,9 @@ NaN or Infinity refuses the file) and prints one line per check ("PASS|DIFF|INFO
   agentops/<file>-normalized  with --regenerated: the regenerated session files against the committed ones,
                               after dropping the fields that differ by design (times, ids, durations)
 
-Exit 1 when the evidence-hash check or a regenerated events or evidence file differs; 0 otherwise.
+A session file the strict parser refuses is reported by agentops/evidence-hash and left out of the other
+readings, which say how many sessions they read. Exit 1 when the evidence-hash check or a regenerated
+events or evidence file differs; 2 on a crash (never 1); 0 otherwise.
 """
 from __future__ import annotations
 
@@ -112,12 +114,19 @@ def evidence_hash(results_dir):
 
 
 def rfc8785_reading(results_dir):
-    total = match = no_form = empty = 0
+    total = match = no_form = empty = refused = missing = 0
     for sess in sessions(results_dir):
-        ev, events = load(sess / "evidence.json"), load(sess / "events.json")
+        try:
+            ev, events = load(sess / "evidence.json"), load(sess / "events.json")
+        except ValueError:
+            refused += 1
+            continue
         for e in events:
             for ref in e["evidence"]:
-                body = ev[ref["id"]]
+                body = ev.get(ref["id"])
+                if body is None:
+                    missing += 1
+                    continue
                 total += 1
                 empty += body == {}
                 try:
@@ -128,27 +137,37 @@ def rfc8785_reading(results_dir):
                 match += ref["hash"] == "sha256:" + hashlib.sha256(raw).hexdigest()
     emit("INFO", "agentops/rfc8785",
          f"{match} of {total} hashes equal SHA-256 of the RFC 8785 bytes of the body ({empty} bodies are empty objects); "
-         f"{no_form} bodies have no RFC 8785 form")
+         f"{no_form} bodies have no RFC 8785 form; {refused} sessions refused, {missing} refs with no body (not read)")
 
 
 def edit_detection(results_dir):
     root = results_dir / "clean"
-    events, ev = load(root / "events.json"), load(root / "evidence.json")
+    try:
+        events, ev = load(root / "events.json"), load(root / "evidence.json")
+    except ValueError as exc:
+        emit("DIFF", "agentops/edit-detection", f"the clean session is refused ({exc}); no edit was judged")
+        return
+    need = ("clean:e003", "clean:e004", "clean:e005", "clean:e008")
+    at = {e.get("event_id"): i for i, e in enumerate(events)}
+    absent = [n for n in need if n not in at] + ([] if "clean:e004:evidence" in ev else ["clean:e004:evidence"])
+    if absent:
+        emit("DIFF", "agentops/edit-detection", f"the clean session has no {absent}; no edit was judged")
+        return
     edits = []
     a = copy.deepcopy(events)
-    del a[5]
+    del a[at["clean:e005"]]
     edits.append(("drop event e005", a, ev))
     b = copy.deepcopy(events)
-    b[8]["status"] = "error"
-    edits.append(("flip e008 status ok to error", b, ev))
+    b[at["clean:e008"]]["status"] = "error" if b[at["clean:e008"]].get("status") != "error" else "ok"
+    edits.append(("flip e008 status", b, ev))
     c = copy.deepcopy(events)
-    c[3]["parent_event_ids"] = ["clean:e000"]
+    c[at["clean:e003"]]["parent_event_ids"] = ["clean:e000"]
     edits.append(("rewrite e003 parent_event_ids", c, ev))
     d = copy.deepcopy(ev)
     d["clean:e004:evidence"]["route"] = "A"
     edits.append(("edit evidence.json body of e004", events, d))
     f = copy.deepcopy(events)
-    next(e for e in f if e["event_id"] == "clean:e004")["attributes"]["route"] = "A"
+    f[at["clean:e004"]].setdefault("attributes", {})["route"] = "A"
     edits.append(("edit inline attributes of e004 (the copy analysis.py reads)", f, ev))
     if own_rule(events, ev) or bound_rule(events, ev):
         emit("DIFF", "agentops/edit-detection", "the unedited session already fails a rule")
@@ -231,4 +250,8 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1:]))
+    try:
+        sys.exit(main(sys.argv[1:]))
+    except Exception as exc:  # a crash is not a comparison result
+        print(f"setup: {type(exc).__name__}: {exc}", file=sys.stderr)
+        sys.exit(2)

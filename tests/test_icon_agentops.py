@@ -58,3 +58,32 @@ def test_a_duplicate_member_refuses_the_file(tmp_path):
     raw = json.dumps(events).replace('"status": "ok"', '"status": "ok", "status": "error"', 1)
     rc, out = run(tmp_path, events, evidence, raw_events=raw)
     assert rc == 1 and "1 files refused" in out
+
+
+def test_a_refused_session_is_reported_and_the_run_still_finishes(tmp_path):
+    """Counter-example: a duplicate member in one session crashed the later readings (traceback, no SUMMARY,
+    edit detection never ran), and the crash exited 1 like a comparison result."""
+    events, evidence = session()
+    run(tmp_path, events, evidence)
+    other = tmp_path / "agentops" / "examples" / "results" / "s2"
+    other.mkdir()
+    (other / "events.json").write_text(json.dumps(events[:1]))
+    (other / "evidence.json").write_text('{"clean:e000:evidence":{"route":"B","step":0},'
+                                         '"clean:e000:evidence":{"route":"B","step":0}}')
+    out = subprocess.run([sys.executable, "-I", str(ADAPTER), str(tmp_path / "agentops")], capture_output=True, text=True)
+    assert out.returncode == 1 and "Traceback" not in out.stderr
+    assert "1 files refused" in out.stdout and "1 sessions refused" in out.stdout
+    assert "agentops/edit-detection: the project's hash rule detects" in out.stdout
+    assert out.stdout.splitlines()[-1].startswith("SUMMARY")
+
+
+def test_no_events_is_a_reported_difference_not_a_crash(tmp_path):
+    """Counter-example: the empty session passed its test only because edit detection indexed events[5]
+    and crashed with exit 1; edit detection now finds its events by id and says which are missing."""
+    d = tmp_path / "agentops" / "examples" / "results" / "clean"
+    d.mkdir(parents=True)
+    (d / "events.json").write_text("[]")
+    (d / "evidence.json").write_text("{}")
+    out = subprocess.run([sys.executable, "-I", str(ADAPTER), str(tmp_path / "agentops")], capture_output=True, text=True)
+    assert out.returncode == 1 and "Traceback" not in out.stderr
+    assert "DIFF  agentops/edit-detection: the clean session has no" in out.stdout
