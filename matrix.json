@@ -556,8 +556,8 @@
           "cell": "ablation lattice (scripts/ablate.py: subsets of the checks, sufficiency and monotonicity)",
           "source": "none",
           "verdict": "not run",
-          "detail": "needs their ablate.py recomputed inside the same image; reading the published ablation table recomputes nothing",
-          "evidence": "no recomputed run yet"
+          "detail": "the ablation-tamarin workflow runs their ablate.py in their image at the pinned commit (200 runs over 9 models, one job per model) and our reader compares all 564 published cells of docs/ablation.md with the fresh runs and tests monotonicity with its own code; this cell takes its first recorded run",
+          "evidence": "adapters/mcp_auth_tamarin_ablation.py"
         }
       ],
       "upstream": {
