@@ -77,3 +77,37 @@ def test_the_eatf_adapter_separates_refusal_paths_from_crashes(tmp_path, monkeyp
     assert mod.outcome(b'{"\\ud800":1}')[1].startswith("refused-by-encoder")
     monkeypatch.setattr(mod, "jcs", lambda v: (_ for _ in ()).throw(AttributeError("api changed")))
     assert mod.outcome(b'{"a":1}') == (2, "errored AttributeError", None)
+
+
+# Counter-examples: an input that cannot be read, and one that runs the parser out of stack, exited 1 and
+# scored as "no canonical form" (a MUST-REJECT pass) in both adapters. Neither was judged.
+DEEP = b"[" * 200000 + b"]" * 200000
+
+
+def test_an_unreadable_input_is_errored_not_a_refusal(tmp_path):
+    out = subprocess.run([sys.executable, str(CLI), "rfc8785", str(tmp_path / "missing.json")],
+                         capture_output=True, text=True)
+    assert out.returncode == 2 and "errored" in out.stderr
+
+
+def test_a_parser_stack_overflow_is_errored_not_a_refusal(tmp_path):
+    out = run(tmp_path, DEEP)
+    assert out.returncode == 2 and "errored RecursionError" in out.stderr
+
+
+def test_the_eatf_adapter_does_not_score_an_unread_or_unparsed_input_as_refused(tmp_path, monkeypatch):
+    lib = tmp_path / "lib"
+    (lib / "eatf_verifier").mkdir(parents=True)
+    (lib / "eatf_verifier" / "__init__.py").write_text("")
+    (lib / "eatf_verifier" / "canonical.py").write_text("import rfc8785\n\ndef jcs(v):\n    return rfc8785.dumps(v)\n")
+    eatf = CLI.parent / "eatf_jcs_cli.py"
+    env = {"EATF_LIB_PYTHON": str(lib), "EATF_CLASS_LOG": str(tmp_path / "classes.log"), "PATH": "/usr/bin:/bin"}
+    missing = subprocess.run([sys.executable, str(eatf), "rfc8785", str(tmp_path / "missing.json")],
+                             capture_output=True, text=True, env=env)
+    assert missing.returncode == 2
+    deep = tmp_path / "deep.json"
+    deep.write_bytes(DEEP)
+    out = subprocess.run([sys.executable, str(eatf), "rfc8785", str(deep)], capture_output=True, text=True, env=env)
+    assert out.returncode == 2
+    assert (tmp_path / "classes.log").read_text().splitlines() == [
+        "missing.json\terrored FileNotFoundError", "deep.json\terrored RecursionError"]

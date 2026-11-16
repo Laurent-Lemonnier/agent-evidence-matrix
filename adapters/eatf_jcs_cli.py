@@ -23,6 +23,8 @@ def outcome(raw):
     """(exit code, class, canonical bytes or None) for one input."""
     try:
         value = json.loads(raw.decode("utf-8"))  # their parse, unmodified
+    except RecursionError as exc:  # the parser's stack, not the input, ran out: not a refusal
+        return 2, f"errored {type(exc).__name__}", None
     except ValueError as exc:  # JSONDecodeError and UnicodeDecodeError
         return 1, f"refused-by-parser {type(exc).__name__}", None
     try:
@@ -39,8 +41,12 @@ def main(argv):
     if len(argv) != 3 or argv[1] != "rfc8785":
         print("usage: eatf_jcs_cli.py rfc8785 <input.json>", file=sys.stderr)
         return 2
-    raw = open(argv[2], "rb").read()
-    code, cls, out = outcome(raw)
+    try:
+        raw = open(argv[2], "rb").read()
+    except OSError as exc:  # an input that cannot be read was never judged
+        code, cls, out = 2, f"errored {type(exc).__name__}", None
+    else:
+        code, cls, out = outcome(raw)
     if os.environ.get("EATF_CLASS_LOG"):
         with open(os.environ["EATF_CLASS_LOG"], "a", encoding="utf-8") as log:
             log.write(f"{os.path.basename(argv[2])}\t{cls}\n")

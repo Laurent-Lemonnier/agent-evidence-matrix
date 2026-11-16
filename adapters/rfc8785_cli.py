@@ -20,9 +20,16 @@ def main(argv):
     if len(argv) != 3 or argv[1] != "rfc8785":
         print("usage: rfc8785_cli.py rfc8785 <input.json>", file=sys.stderr)
         return 2
-    raw = open(argv[2], "rb").read()
+    try:
+        raw = open(argv[2], "rb").read()
+    except OSError as exc:  # an input that cannot be read was never judged
+        print("errored", type(exc).__name__, file=sys.stderr)
+        return 2
     try:
         value = json.loads(raw.decode("utf-8"), parse_constant=_refuse, object_pairs_hook=_no_duplicates)
+    except RecursionError as exc:  # the parser's stack, not the input, ran out: not a refusal
+        print("errored", type(exc).__name__, file=sys.stderr)
+        return 2
     except ValueError as exc:  # JSONDecodeError, UnicodeDecodeError, a duplicate member or a non-finite number
         print("refused-by-parser", type(exc).__name__, file=sys.stderr)
         return 1
