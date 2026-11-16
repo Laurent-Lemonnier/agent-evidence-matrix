@@ -127,3 +127,51 @@ def test_a_transplanted_unsigned_attestation_is_not_bound(tmp_path):
     assert "attestation-digest\tagrees" in out
     line = next(x for x in out.splitlines() if "\tdraft-bu-00\t" in x)
     assert "contradicted" in line and "top-level digest" in line and "signed attestation statement" in line
+
+
+# Counter-examples from the adversarial read: altered signature strings verified, a malformed header
+# crashed the whole run, and a DID document carrying one key id twice was read last-wins.
+
+def _signed():
+    sk, pk = key("break-11-victim")
+    return sign(sk, entry(), {"alg": "EdDSA", "kid": KID}), did_doc(VICTIM, KID, pk)
+
+
+@pytest.mark.parametrize("alter", [lambda s: s[:10] + "!!!!" + s[10:], lambda s: s + "==",
+                                   lambda s: s[:10] + "!" + s[10:], lambda s: s.replace("-", "+").replace("_", "/")
+                                   if ("-" in s or "_" in s) else s[:5] + "+" + s[6:]])
+def test_a_signature_string_outside_strict_base64url_is_refused(tmp_path, alter):
+    e, did = _signed()
+    h, _, s = e["trustManifest"]["signature"].split(".")
+    e["trustManifest"]["signature"] = h + ".." + alter(s)
+    out = run(tmp_path, "alt", {"entries": [e]}, did)
+    assert "REFUSED not_base64url" in out and "L=True" not in out
+
+
+def test_a_malformed_entry_is_one_refusal_line_and_the_others_are_still_read(tmp_path):
+    e, did = _signed()
+    bad = copy.deepcopy(e)
+    bad["trustManifest"]["signature"] = b64u(b"[]") + ".." + e["trustManifest"]["signature"].split(".")[2]
+    out = run(tmp_path, "hdr", {"entries": [bad, "not an object", {"trustManifest": []}, e]}, did)
+    lines = out.splitlines()
+    assert lines[0].endswith("REFUSED header_not_object")
+    assert lines[1].endswith("REFUSED object_not_json_object")
+    assert lines[2].endswith("REFUSED trust_manifest_not_object")
+    assert "L=True" in lines[3]
+
+
+def test_a_non_boolean_b64_is_refused(tmp_path):
+    sk, pk = key("break-11-victim")
+    e = sign(sk, entry(), {"alg": "EdDSA", "kid": KID, "b64": "false", "crit": ["b64"]})
+    assert "REFUSED b64_not_boolean" in run(tmp_path, "b64s", {"entries": [e]}, did_doc(VICTIM, KID, pk))
+
+
+@pytest.mark.parametrize("signer_first", [True, False])
+def test_a_did_document_naming_one_key_id_twice_is_refused_whatever_the_order(tmp_path, signer_first):
+    e, did = _signed()
+    _, other = key("break-11-other")
+    twin = {"id": KID, "type": "JsonWebKey2020", "controller": VICTIM,
+            "publicKeyJwk": {"kty": "OKP", "crv": "Ed25519", "x": b64u(other)}}
+    did["verificationMethod"].insert(1 if signer_first else 0, twin)
+    out = run(tmp_path, "dup%s" % signer_first, {"entries": [e]}, did)
+    assert "DOCUMENT REFUSED duplicate_verification_method" in out

@@ -5,7 +5,11 @@ usage: ard_trust_manifest_check.py catalog.json did.json
 Prints one line per signed object (the catalog host and each entry). Each rule below is pinned by a
 case in tests/test_ard_trust_manifest_check.py:
   * strict I-JSON parse: a duplicate member, NaN or Infinity refuses the document (a last-wins
-    parser lets a record carrying two `identifier` members verify);
+    parser lets a record carrying two `identifier` members verify); a DID document naming one
+    verification method id twice is refused (a last-wins reader picks whichever key came last);
+  * base64url is the strict RFC 7515 alphabet with no padding and a canonical final character
+    (a lenient decoder drops stray characters, so altered signature strings still verify);
+  * the protected header is a JSON object and `b64`, when present, is a JSON boolean;
   * RFC 8785 through the pinned rfc8785 package (members in UTF-16 order, ECMAScript number form,
     an integer that is not an exact double refused), never json.dumps(sort_keys=True);
   * JWS header: alg is EdDSA or ES256 and matches the key type; `crit` may name only `b64`; `b64`
@@ -20,6 +24,7 @@ section 3.5). A refusal before the signature check is reported once.
 import base64
 import copy
 import json
+import re
 import sys
 
 import rfc8785
@@ -34,8 +39,17 @@ class Refusal(ValueError):
     pass
 
 
+B64URL = re.compile(r"[A-Za-z0-9_-]*")
+
+
 def b64u(s):
-    return base64.urlsafe_b64decode(s + "=" * (-len(s) % 4))
+    """Strict base64url (RFC 7515 section 2): the url-safe alphabet, no padding, canonical last character."""
+    if not isinstance(s, str) or not B64URL.fullmatch(s) or len(s) % 4 == 1:
+        raise Refusal("not_base64url")
+    raw = base64.urlsafe_b64decode(s + "=" * (-len(s) % 4))
+    if base64.urlsafe_b64encode(raw).rstrip(b"=").decode() != s:
+        raise Refusal("not_base64url:non_canonical")
+    return raw
 
 
 def strict_loads(text):
@@ -65,6 +79,11 @@ def did_of(kid):
 
 
 def load_keys(did):
+    ids = [vm.get("id") for vm in did.get("verificationMethod", []) if isinstance(vm, dict)]
+    ids += [m.get("id") for m in did.get("assertionMethod", []) if isinstance(m, dict)]
+    dup = sorted({i for i in ids if i is not None and ids.count(i) > 1})
+    if dup:
+        raise Refusal("duplicate_verification_method:%s" % dup[0])
     assertion = set()
     for item in did.get("assertionMethod", []):
         assertion.add(item if isinstance(item, str) else item.get("id"))
@@ -101,6 +120,10 @@ def verify_raw(alg, key, sig, msg):
 
 
 def header_checks(hdr, tm, did, methods, assertion):
+    if not isinstance(hdr, dict):
+        raise Refusal("header_not_object")
+    if "b64" in hdr and not isinstance(hdr["b64"], bool):
+        raise Refusal("b64_not_boolean")
     alg = hdr.get("alg")
     if alg not in ("EdDSA", "ES256"):
         raise Refusal("alg_not_allowed:%s" % alg)
@@ -145,7 +168,11 @@ def publisher_of_urn(urn):
 
 
 def check_object(name, obj, did, methods, assertion):
-    tm = obj.get("trustManifest") or {}
+    if not isinstance(obj, dict):
+        return "%s REFUSED object_not_json_object" % name
+    tm = obj.get("trustManifest", {})
+    if not isinstance(tm, dict):
+        return "%s REFUSED trust_manifest_not_object" % name
     sig = tm.get("signature")
     if sig is None:
         return "%s UNSIGNED" % name
@@ -177,10 +204,10 @@ def main(cat_path, did_path):
     try:
         cat = strict_loads(open(cat_path, encoding="utf-8").read())
         did = strict_loads(open(did_path, encoding="utf-8").read())
+        methods, assertion = load_keys(did)
     except Refusal as exc:
         print("DOCUMENT REFUSED", exc)
         return 3
-    methods, assertion = load_keys(did)
     objs = [("host", cat["host"])] if "host" in cat else []
     objs += [("entries[%d]" % i, e) for i, e in enumerate(cat.get("entries", []))]
     for name, obj in objs:
