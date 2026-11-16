@@ -81,11 +81,15 @@ jobs:
         run: |
           python -I adapters/icon_agentops.py "../icon/Hackathon/IETF 127/running code/agentops" > "$RUNNER_TEMP/body.txt"
           head -1 adapters/icon-agentops-run.txt | cat - "$RUNNER_TEMP/body.txt" | diff adapters/icon-agentops-run.txt -
+      # bash with pipefail, so a regenerated events or evidence file that differs (adapter exit 1) fails the
+      # step; analysis.json carries measured durations and is reported, not compared.
       - name: Regenerate with their code and compare
+        shell: bash
         run: |
           (cd "../icon/Hackathon/IETF 127/running code/agentops" && python3 -m agentops demo --out "$RUNNER_TEMP/ao-regen" > /dev/null)
           python -I adapters/icon_agentops.py "../icon/Hackathon/IETF 127/running code/agentops" --regenerated "$RUNNER_TEMP/ao-regen" | tee "$RUNNER_TEMP/regen.txt"
-          grep -E "normalized" "$RUNNER_TEMP/regen.txt"
+          grep -q "^PASS  agentops/events.json-normalized: 9 of 9" "$RUNNER_TEMP/regen.txt"
+          grep -q "^PASS  agentops/evidence.json-normalized: 9 of 9" "$RUNNER_TEMP/regen.txt"
   # Runs dns-aid-core's own publisher and signer at the pinned commit (their records), checks the
   # emitted SVCB records against both draft revisions and the signed bindings with our reader, and
   # requires every recorded run to replay line for line. Keys are fresh per run; verdicts are not.

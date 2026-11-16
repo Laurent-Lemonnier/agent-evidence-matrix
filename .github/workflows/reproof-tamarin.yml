@@ -9,6 +9,11 @@ on:
     - cron: "41 6 3 * *"
 permissions:
   contents: read
+# bash with pipefail: a step that pipes the adapter into tee fails when the adapter does (the runner's
+# default bash -e takes the exit status of tee).
+defaults:
+  run:
+    shell: bash
 jobs:
   reproof:
     runs-on: ubuntu-latest
