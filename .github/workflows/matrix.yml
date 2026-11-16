@@ -15,6 +15,15 @@ jobs:
           python-version: "3.12"
       - run: python build_matrix.py
       - run: git diff --exit-code MATRIX.md
+  adapter-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install pytest==8.3.5 rfc8785==0.1.4
+      - run: python -m pytest -q tests
   corpus-jcs:
     runs-on: ubuntu-latest
     steps:
