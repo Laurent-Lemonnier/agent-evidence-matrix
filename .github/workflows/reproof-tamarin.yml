@@ -1,0 +1,44 @@
+name: reproof-tamarin
+# Re-proves the formal model of MCP authorization (matrix project 9) from its pinned commit with the
+# project's own Dockerfile (Tamarin and Maude release binaries, checked by digest inside the build),
+# prints the digests of the two binaries that ran, and reads the fresh transcripts against the
+# retained expectation table. About 70 CPU minutes, so it runs on demand and monthly, not per push.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "41 6 3 * *"
+permissions:
+  contents: read
+jobs:
+  reproof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      MODEL_COMMIT: f2b59e17dc91fe451b225f70aca43a5243a70c9b
+    steps:
+      - uses: actions/checkout@v7
+      - name: Fetch the pinned model
+        run: |
+          git clone -q https://github.com/HarshThumar/mcp-auth-tamarin ../model
+          git -C ../model checkout -q "$MODEL_COMMIT"
+          cmp ../model/scripts/prove.sh records/mcp-auth-tamarin/prove.sh
+      - run: docker build -t model-reproof ../model
+      - name: Digests of the prover binaries that run
+        run: docker run --rm model-reproof sh -c 'sha256sum /opt/tools/bin/tamarin-prover /opt/tools/maude/maude' | tee "$RUNNER_TEMP/binaries.txt"
+      - name: Prove every variant
+        run: |
+          mkdir -p "$RUNNER_TEMP/results"
+          docker run --rm -e JOBS=4 -v "$RUNNER_TEMP/results:/work/results" model-reproof > "$RUNNER_TEMP/prove.log" 2>&1 || echo "prove.sh exit $?" >> "$RUNNER_TEMP/prove.log"
+          tail -5 "$RUNNER_TEMP/prove.log"
+      - name: Read the fresh transcripts against the retained table
+        run: |
+          python3 -I adapters/mcp_auth_tamarin_adapter.py records/mcp-auth-tamarin "$RUNNER_TEMP/results" | tee "$RUNNER_TEMP/reproof-run.txt"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reproof
+          path: |
+            ${{ runner.temp }}/binaries.txt
+            ${{ runner.temp }}/prove.log
+            ${{ runner.temp }}/reproof-run.txt
+            ${{ runner.temp }}/results/timings.tsv

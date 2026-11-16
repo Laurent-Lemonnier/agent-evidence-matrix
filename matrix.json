@@ -472,15 +472,56 @@
     },
     {
       "id": 9,
-      "name": "Formal model of MCP Authorization",
+      "name": "Formal model of MCP authorization (Tamarin, nine models; HarshThumar/mcp-auth-tamarin)",
       "cells": [
         {
-          "cell": "Tamarin model",
+          "cell": "the 376-row expectation table of scripts/prove.sh (294 expected verified, 82 expected falsified: attacks the model is built to find) against the transcript of the pinned commit's CI run",
+          "source": "their records",
+          "verdict": "cannot-tell",
+          "detail": "372 of 376 rows match the transcript and the other 4 match only vacuously (next cells); none mismatches and none is missing. The transcript comes from the project's CI, which records no digest of the Tamarin and Maude binaries that produced it, so the matrix cannot say which verifier bytes stand behind the result. The re-proof cell below binds them; this cell moves to agrees only on a full match there.",
+          "evidence": "adapters/mcp-auth-tamarin-run.txt (adapters/mcp_auth_tamarin_adapter.py; records/mcp-auth-tamarin/)",
+          "read_their_code": true
+        },
+        {
+          "cell": "coverage: lemmas the transcript reports that the table pins",
+          "source": "their records",
+          "verdict": "cannot-tell",
+          "detail": "376 of 378 reported lemmas are pinned; 2 in the AUD_TOKEN_ENDPOINT variant of model 06 (client_key_secret, injection_via_revocation) have no row, so a change in either would not fail the project's check. A coverage gap, not a disagreement.",
+          "evidence": "adapters/mcp-auth-tamarin-run.txt (adapters/mcp_auth_tamarin_adapter.py; records/mcp-auth-tamarin/)"
+        },
+        {
+          "cell": "vacuity: variants whose executable lemma is falsified (model 06 AUD_TOKEN_ENDPOINT, model 08 PASSTHROUGH)",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "2 of 2: the table expects executable falsified in both variants and the transcript reports it, so the honest run cannot complete there and the 4 verified rows in those variants hold vacuously; they are counted as not run, not as agreement. docs/results.md says client_key_secret and executable are verified in every variant of model 06; the transcript reports executable falsified in AUD_TOKEN_ENDPOINT, which the same page's table marks vacuous.",
+          "evidence": "adapters/mcp-auth-tamarin-run.txt (adapters/mcp_auth_tamarin_adapter.py; records/mcp-auth-tamarin/)"
+        },
+        {
+          "cell": "re-proven by us: the project's Dockerfile at the pinned commit (Tamarin 1.12.0, Maude 3.5.1), every variant, binary digests recorded",
+          "source": "our adapter",
+          "verdict": "not run",
+          "detail": "the reproof-tamarin workflow builds their image, records the sha256 of the two binaries that run, proves every variant and reads the fresh transcripts against the retained table; this cell takes its first recorded run",
+          "evidence": "adapters/mcp_auth_tamarin_adapter.py"
+        },
+        {
+          "cell": "ablation lattice (scripts/ablate.py: subsets of the checks, sufficiency and monotonicity)",
           "source": "none",
-          "verdict": "unsupported",
-          "evidence": "no records emitted"
+          "verdict": "not run",
+          "detail": "needs their ablate.py recomputed inside the same image; reading the published ablation table recomputes nothing",
+          "evidence": "no recomputed run yet"
         }
-      ]
+      ],
+      "upstream": {
+        "url": "https://github.com/HarshThumar/mcp-auth-tamarin",
+        "sha": "f2b59e17dc91fe451b225f70aca43a5243a70c9b"
+      },
+      "replay": "venv/bin/python -I adapters/mcp_auth_tamarin_adapter.py records/mcp-auth-tamarin  # retained artifact 14175059232 and prove.sh at the pin; a full re-proof is the reproof-tamarin workflow",
+      "columns": {
+        "re-proven by us": {
+          "verdict": "not run",
+          "detail": "reproof-tamarin workflow, first run pending"
+        }
+      }
     },
     {
       "id": 10,
