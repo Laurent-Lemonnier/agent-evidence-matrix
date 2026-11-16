@@ -173,18 +173,49 @@ def norm(v):
     return v
 
 
+def first_diff(a, b, path="$"):
+    """The first JSON path where two values differ, with both values, or None."""
+    if type(a) is not type(b):
+        return f"{path}: {a!r:.40} vs {b!r:.40}"
+    if isinstance(a, dict):
+        for k in sorted(set(a) | set(b)):
+            if k not in a or k not in b:
+                return f"{path}.{k}: present on one side only"
+            d = first_diff(a[k], b[k], f"{path}.{k}")
+            if d:
+                return d
+        return None
+    if isinstance(a, list):
+        if len(a) != len(b):
+            return f"{path}: {len(a)} vs {len(b)} items"
+        for i, (x, y) in enumerate(zip(a, b)):
+            d = first_diff(x, y, f"{path}[{i}]")
+            if d:
+                return d
+        return None
+    return None if a == b else f"{path}: {a!r:.40} vs {b!r:.40}"
+
+
 def regenerated(results_dir, regen):
     for fname in ("events.json", "evidence.json", "analysis.json"):
-        same, differing = 0, []
+        same, differing, where = 0, [], {}
         for sess in sessions(results_dir):
             a, b = sess / fname, regen / sess.name / fname
-            if b.exists() and norm(load(a)) == norm(load(b)):
+            if not b.exists():
+                differing.append(sess.name)
+                where[sess.name] = "missing"
+                continue
+            d = first_diff(norm(load(a)), norm(load(b)))
+            if d is None:
                 same += 1
             else:
                 differing.append(sess.name)
+                where[sess.name] = d
         status = "PASS" if not differing else ("INFO" if fname == "analysis.json" else "DIFF")
+        first = next(iter(where.items()), None)
         emit(status, f"agentops/{fname}-normalized",
-             f"{same} of {same + len(differing)} sessions equal after dropping volatile fields; differing: {differing}")
+             f"{same} of {same + len(differing)} sessions equal after dropping volatile fields; differing: {differing}"
+             + (f"; first difference in {first[0]}: {first[1]}" if first else ""))
 
 
 def main(argv):
