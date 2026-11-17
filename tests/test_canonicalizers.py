@@ -63,14 +63,83 @@ STRICT_BYTES = ("function canon(b) {\n"
                 "}\n")
 
 
-@pytest.mark.parametrize("source,flags,want", [(LENIENT, [], "accepted"), (STRICT_BYTES, ["--bytes"], "refused")])
-def test_scorer_tells_a_refusing_canonicalizer_from_a_lenient_one(source, flags, want, tmp_path):
+def _corpus(tmp_path):
+    """A two-case corpus: one MUST-ACCEPT object and the bare-NaN MUST-REJECT, which is not JSON."""
+    corpus = tmp_path / "corpus"
+    (corpus / "a3-x").mkdir(parents=True, exist_ok=True)
+    (corpus / "a3-x" / "A3-001.json").write_text(json.dumps({
+        "id": "A3-001", "disposition": "MUST-ACCEPT", "input": {"b": 1, "a": 2},
+        "expected": {"canonical_utf8_hex": b'{"a":2,"b":1}'.hex()}}), encoding="utf-8")
+    (corpus / "a3-x" / "A5-REJECT-016.json").write_text(json.dumps({
+        "id": "A5-REJECT-016", "disposition": "MUST-REJECT", "rejection_layer": "canonicalization",
+        "input_raw": '{"n": NaN}'}), encoding="utf-8")
+    return corpus
+
+
+def _score(tmp_path, source, *flags, corpus=None, entry="canon"):
     src = tmp_path / "canon.mjs"
     src.write_text(source, encoding="utf-8")
-    corpus = tmp_path / "corpus"
-    (corpus / "a3-x").mkdir(parents=True)
-    run = subprocess.run(["node", str(ROOT / "adapters" / "jcs_function_score.mjs"), "--source", str(src),
-                          "--entry", "canon", *flags, str(corpus)], capture_output=True, text=True, check=False)
+    corpus = _corpus(tmp_path) if corpus is None else corpus
+    return subprocess.run(["node", str(ROOT / "adapters" / "jcs_function_score.mjs"), "--source", str(src),
+                           "--entry", entry, *flags, str(corpus)], capture_output=True, text=True, check=False)
+
+
+@pytest.mark.parametrize("source,flags,want", [(LENIENT, [], "accepted"), (STRICT_BYTES, ["--bytes"], "refused")])
+def test_scorer_tells_a_refusing_canonicalizer_from_a_lenient_one(source, flags, want, tmp_path):
+    run = _score(tmp_path, source, *flags)
     assert run.returncode == 0, run.stdout + run.stderr
     outcomes = {m.group(1): m.group(3).split()[0] for m in PROBE.finditer(run.stdout)}
     assert outcomes["duplicate-member"] == want and outcomes["duplicate-member-name"] == want, run.stdout
+
+
+SORTED = ("function canon(v) {\n"
+          "  if (v === null || typeof v !== 'object') return JSON.stringify(v);\n"
+          "  return '{' + Object.keys(v).sort().map((k) => JSON.stringify(k) + ':' + canon(v[k])).join(',') + '}';\n"
+          "}\n")
+FINITE = SORTED.replace("return JSON.stringify(v);",
+                        "{ if (typeof v === 'number' && !Number.isFinite(v)) throw new Error('non-finite'); "
+                        "return JSON.stringify(v); }")
+
+
+def test_a_non_json_reject_is_given_to_the_function_not_refused_by_the_harness_parse(tmp_path):
+    # JSON.parse cannot read {"n": NaN}. Before this was fixed the harness's SyntaxError counted as the function
+    # refusing, so a function that writes NaN as null passed. It must now receive the number and fail.
+    run = _score(tmp_path, SORTED)
+    assert run.returncode == 0, run.stdout + run.stderr
+    assert "FAIL A5-REJECT-016 MUST-REJECT got=" + b'{"n":null}'.hex() in run.stdout, run.stdout
+    assert "scored=2 pass=1 fail=1 " in run.stdout, run.stdout
+    fixed = _score(tmp_path, FINITE)
+    assert "scored=2 pass=2 fail=0 " in fixed.stdout, fixed.stdout
+
+
+def test_a_run_that_scores_nothing_is_a_setup_failure(tmp_path):
+    empty = tmp_path / "empty"
+    (empty / "a3-x").mkdir(parents=True)
+    run = _score(tmp_path, SORTED, corpus=empty)
+    assert run.returncode == 2 and "SETUP no rfc8785 case" in run.stdout, run.stdout + run.stderr
+
+
+def test_the_entry_runs_in_strict_mode_and_a_promise_is_awaited(tmp_path):
+    # Copied out of an ES module, the declarations keep its strict semantics: a write to a frozen object throws.
+    frozen = ("function canon(v) {\n"
+              "  const f = Object.freeze({});\n"
+              "  if (typeof v.n === 'number' && !Number.isFinite(v.n)) f.x = 1;\n"
+              "  return JSON.stringify(v, Object.keys(v).sort());\n"
+              "}\n")
+    run = _score(tmp_path, frozen)
+    assert "scored=2 pass=2 fail=0 " in run.stdout, run.stdout
+    later = ("async function canon(v) {\n"
+             "  await null;\n"
+             "  if (v === null || typeof v !== 'object') return JSON.stringify(v);\n"
+             "  const parts = [];\n"
+             "  for (const k of Object.keys(v).sort()) parts.push(JSON.stringify(k) + ':' + (await canon(v[k])));\n"
+             "  return '{' + parts.join(',') + '}';\n"
+             "}\n")
+    run = _score(tmp_path, later)
+    # awaited, the object comes out canonical (a promise written as text would fail A3-001) and NaN as null fails
+    assert "FAIL A3-001" not in run.stdout and "scored=2 pass=1 fail=1 " in run.stdout, run.stdout
+
+
+def test_an_entry_name_that_is_not_an_identifier_is_refused(tmp_path):
+    run = _score(tmp_path, SORTED, entry="canon|x")
+    assert run.returncode == 2 and "is not an identifier" in run.stdout, run.stdout

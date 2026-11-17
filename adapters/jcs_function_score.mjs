@@ -12,10 +12,15 @@
 // --bytes   the entry takes the received bytes (a Uint8Array); otherwise it takes JSON.parse of the bytes read as UTF-8,
 //           which is how every caller on this matrix that canonicalizes a parsed value reads its input
 //
+// A parsed-value entry is given the value each case denotes. Three MUST-REJECT inputs are not JSON (a bare NaN,
+// Infinity or -Infinity); JSON.parse cannot read them, so they are given the JavaScript number they name. Their refusal
+// is then the function's own: a harness parse that throws is never counted as the function refusing. The entry runs in
+// strict mode, as the module it was copied from does, and a returned promise is awaited.
+//
 // A case passes when a MUST-ACCEPT input gives exactly expected.canonical_utf8_hex, or a MUST-REJECT input at the
 // canonicalization layer throws. A probe line says `refused` or `accepted <hex>`; an input with no canonical form that
 // is accepted is the finding. Exit 0 when the run completed (whatever it found), 2 when the setup failed.
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -51,25 +56,56 @@ if (opt.module) {
   }
   // A top-level declaration runs from its first line to the first line that closes it at column 0.
   const grab = (name) => {
-    const start = new RegExp(`^(?:export )?(?:(?:async )?function\\*? ${name}\\b|const ${name}\\b|let ${name}\\b|class ${name}\\b)`, "m");
+    const id = name.replace(/[$]/g, "\\$&");
+    if (!/^[A-Za-z_$][\w$]*$/.test(name)) die(`declaration name ${JSON.stringify(name)} is not an identifier`);
+    const start = new RegExp(`^(?:export )?(?:(?:async )?function\\*? ${id}(?![\\w$])|const ${id}(?![\\w$])|let ${id}(?![\\w$])|class ${id}(?![\\w$]))`, "m");
     const m = start.exec(text);
     if (!m) die(`declaration ${name} not found`);
     const rest = text.slice(m.index);
     const oneLine = rest.match(/^[^\n]*;[ \t]*(?:\/\/[^\n]*)?\n/);
     if (/^(?:export )?(?:const|let) /.test(rest) && oneLine && !/[{([]\s*$/.test(oneLine[0].split("//")[0])) return oneLine[0].replace(/^export /, "");
+    // A declaration whose braces open and close on its first line is that line (a one-line function or class).
+    const first = rest.slice(0, rest.indexOf("\n") + 1 || rest.length);
+    const opens = (first.match(/{/g) || []).length;
+    if (opens > 0 && opens === (first.match(/}/g) || []).length && /}[;)]*[ \t]*(?:\/\/[^\n]*)?\n?$/.test(first)) return first.replace(/^export /, "");
     const end = rest.search(/\n[}\]][;)]*[ \t]*\n/);
     if (end < 0) die(`declaration ${name} has no closing line`);
     return rest.slice(0, rest.indexOf("\n", end + 1) + 1).replace(/^export /, "");
   };
-  const body = [...opt.decl.map(grab), grab(opt.entry), `return ${opt.entry};`].join("\n");
+  const body = ['"use strict";', ...opt.decl.map(grab), grab(opt.entry), `return ${opt.entry};`].join("\n");
   fn = new Function(body)();
 }
 if (typeof fn !== "function") die(`${opt.entry} is not a function`);
 
-const call = (buf) => {
-  const out = opt.bytes ? fn(new Uint8Array(buf)) : fn(JSON.parse(buf.toString("utf8")));
+// The value a parsed-value entry is given. JSON.parse reads every JSON input; a bare NaN, Infinity or -Infinity outside
+// a string (the three non-JSON MUST-REJECT inputs) is read as the number it names. Anything else the harness cannot read
+// is a setup failure, never a case the function refused.
+const NON_JSON = { NaN: NaN, Infinity: Infinity, "-Infinity": -Infinity };
+const MARK = `\u0000${randomUUID()}:`; // no corpus string can collide with it
+const denoted = (text) => {
+  try { return JSON.parse(text); } catch (first) {
+    let out = "", inString = false, marked = false;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (inString) { out += ch; if (ch === "\\") out += text[++i] ?? ""; else if (ch === '"') inString = false; continue; }
+      if (ch === '"') { inString = true; out += ch; continue; }
+      const tok = /^(?:-Infinity|Infinity|NaN)(?![\w$])/.exec(text.slice(i));
+      if (tok) { out += JSON.stringify(MARK + tok[0]); i += tok[0].length - 1; marked = true; continue; }
+      out += ch;
+    }
+    if (!marked) throw new HarnessError(first.message);
+    try {
+      return JSON.parse(out, (k, v) => (typeof v === "string" && v.startsWith(MARK) && v.slice(MARK.length) in NON_JSON ? NON_JSON[v.slice(MARK.length)] : v));
+    } catch (e) { throw new HarnessError(e.message); }
+  }
+};
+class HarnessError extends Error {}
+const call = async (buf) => {
+  const arg = opt.bytes ? new Uint8Array(buf) : denoted(buf.toString("utf8"));
+  const out = await fn(arg);
   return Buffer.isBuffer(out) || out instanceof Uint8Array ? Buffer.from(out) : Buffer.from(String(out), "utf8");
 };
+const errText = (e) => { try { return (e && e.message) || String(e); } catch { return "an unprintable value was thrown"; } };
 
 const files = [];
 (function walk(d) {
@@ -92,12 +128,16 @@ for (const f of files.sort()) {
   // parsed input re-serialized.
   const input = Buffer.from("input_raw" in c ? c.input_raw : JSON.stringify(c.input), "utf8");
   let out = null, err = null;
-  try { out = call(input).toString("hex"); } catch (e) { err = (e && e.message) || String(e); }
+  try { out = (await call(input)).toString("hex"); } catch (e) {
+    if (e instanceof HarnessError) die(`case ${c.id}: the harness cannot read its input as a parsed value (${e.message})`);
+    err = errText(e);
+  }
   const ok = accept ? out === c.expected.canonical_utf8_hex : err !== null;
   if (ok) pass++;
   else fails.push(`FAIL ${c.id} ${accept ? "MUST-ACCEPT" : "MUST-REJECT"} got=${err !== null ? "REFUSED " + err : out}`);
 }
 for (const line of fails) console.log(line);
+if (scored === 0) die(`no rfc8785 case found under ${opt.corpus}: a run that scored nothing is not a result`);
 console.log(`scored=${scored} pass=${pass} fail=${scored - pass} (rfc8785 cases of ${opt.corpus.replace(/.*\//, "")})`);
 
 const PROBES = [
@@ -109,7 +149,10 @@ const PROBES = [
 let refusedAll = true;
 for (const [name, buf] of PROBES) {
   let line;
-  try { line = `accepted ${call(buf).toString("hex")}`; refusedAll = false; } catch (e) { line = "refused"; }
+  try { line = `accepted ${(await call(buf)).toString("hex")}`; refusedAll = false; } catch (e) {
+    if (e instanceof HarnessError) die(`probe ${name}: the harness cannot read it as a parsed value (${e.message})`);
+    line = "refused";
+  }
   console.log(`PROBE ${name} input=${buf.toString("hex")} ${line}`);
 }
 console.log(`PROBES ${refusedAll ? "all 4 refused" : "an input with no canonical form was accepted"}`);
