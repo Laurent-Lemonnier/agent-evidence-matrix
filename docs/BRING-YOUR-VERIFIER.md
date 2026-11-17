@@ -10,7 +10,7 @@ How a project puts its own verifier or canonicalizer on the matrix, what we run 
 | Their verifier, our corpus | the project ships a verifier or a canonicalizer | their code behind one of the contracts below, on our corpus | "our adapter" |
 | Producer mode | the project emits no records of its own, but its code can produce them | their own producer, run here; the records it writes are then read as in the first route | "their records", with the producer run committed |
 
-A cell whose evidence is `no records emitted` must name its producer route: `"producer": "cell N"` (the cell of the same project that reads records its own code produced) or `"producer": "none: <reason>"` when no producer exists (a requirements draft with no code, a format nobody implements yet). `build_matrix.py` refuses the cell otherwise, so "nothing to read" is never the end of a row while running their code would give us something.
+A cell whose evidence says `no records emitted` (in any capitalisation) must name its producer route: `"producer": "cell N"` (another cell of the same project that reads records its own code produced, so never a cell that itself says no records emitted) or `"producer": "none: <reason>"` with the reason written out, when no producer exists (a requirements draft with no code, a format nobody implements yet). `build_matrix.py` refuses the cell otherwise, so "nothing to read" is never the end of a row while running their code would give us something.
 
 ## The verifier contracts
 

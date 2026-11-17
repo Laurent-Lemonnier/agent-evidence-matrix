@@ -300,6 +300,9 @@ def test_readme_counts_are_rewritten_and_a_missing_block_is_refused():
     assert "N of 2: 1; no record read yet: 1 of 2" in text and "(project 2)" in text and "old" not in text
     with pytest.raises(ValueError):
         bm.readme_with_counts("no markers", data)
+    twice = "a\n<!-- counts:start -->\nold\n<!-- counts:end -->\n<!-- counts:start -->\nstale\n<!-- counts:end -->\n"
+    with pytest.raises(ValueError):
+        bm.readme_with_counts(twice, data)
 
 
 def test_two_no_records_cells_cannot_name_each_other_as_producer():

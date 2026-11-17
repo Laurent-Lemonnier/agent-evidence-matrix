@@ -545,8 +545,9 @@ def counts_text(data: dict) -> str:
 def readme_with_counts(readme: str, data: dict) -> str:
     """README text with the counts block rewritten; ValueError when the markers are missing."""
     a, b = readme.find(COUNTS_START), readme.find(COUNTS_END)
-    if a < 0 or b < a:
-        raise ValueError(f"README.md has no {COUNTS_START} ... {COUNTS_END} block")
+    if readme.count(COUNTS_START) != 1 or readme.count(COUNTS_END) != 1 or b < a:
+        # a second block would never be rewritten or checked, so a stale count could sit in it
+        raise ValueError(f"README.md needs exactly one {COUNTS_START} ... {COUNTS_END} block")
     return readme[: a + len(COUNTS_START)] + "\n" + counts_text(data) + "\n" + readme[b:]
 
 
