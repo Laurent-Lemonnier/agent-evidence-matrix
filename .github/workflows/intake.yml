@@ -22,6 +22,7 @@ jobs:
           REPO: ${{ github.repository }}
           PR: ${{ github.event.pull_request.number }}
           AUTHOR: ${{ github.event.pull_request.user.login }}
+          SENDER: ${{ github.event.sender.login }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
