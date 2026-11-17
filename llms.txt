@@ -1,0 +1,21 @@
+# Agent evidence conformance matrix
+
+> One table of which agent-evidence projects shared open verifiers and conformance corpora can read, with a verdict, its basis and a replay command for every cell.
+
+Each cell is marked "their records" or "our adapter" and carries one of five verdicts: agrees, contradicted, cannot-tell, unsupported, not run. `python build_matrix.py --check` refuses a stale table.
+
+## Read the matrix
+
+- [MATRIX.md](https://github.com/probityai/agent-evidence-matrix/blob/main/MATRIX.md): the table, the properties table and the replay command for each project
+- [matrix.json](https://github.com/probityai/agent-evidence-matrix/blob/main/matrix.json): the cells, source of the table, with the revision each verdict was judged against
+- [reviews.json](https://github.com/probityai/agent-evidence-matrix/blob/main/reviews.json): one review entry per project
+
+## Reproduce a cell
+
+- [adapters/](https://github.com/probityai/agent-evidence-matrix/tree/main/adapters): the adapters and their recorded runs
+- [records/](https://github.com/probityai/agent-evidence-matrix/tree/main/records): project records kept here because their source expires
+- [libraries/RESULTS.md](https://github.com/probityai/agent-evidence-matrix/blob/main/libraries/RESULTS.md): RFC 8785 and DSSE cross-library runs
+
+## Add a project
+
+- [README](https://github.com/probityai/agent-evidence-matrix/blob/main/README.md): propose a project with a matrix.json entry, its adapter and its run output, and link its row with a badge

@@ -1,0 +1,26 @@
+{
+  "title": "agent-evidence-matrix: outside agent-evidence formats read against their own specifications",
+  "upload_type": "software",
+  "license": "Apache-2.0",
+  "creators": [
+    {
+      "name": "Gilda, Sankalp",
+      "orcid": "0000-0002-3645-4501"
+    }
+  ],
+  "description": "<p>A matrix of outside agent-evidence formats, each read against the text of its own specification and its own test kit at a pinned revision. Every cell carries the adapter that produced it, the recorded run and the command that replays it, so a reader can recompute a verdict instead of trusting it.</p>",
+  "keywords": [
+    "conformance testing",
+    "agent evidence",
+    "interoperability",
+    "Internet-Drafts",
+    "agentic systems"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/probityai/agent-evidence-matrix",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}

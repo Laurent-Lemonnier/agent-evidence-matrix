@@ -21,7 +21,7 @@ python build_matrix.py
 It rewrites `MATRIX.md`, `badges/` and the counts below; `python build_matrix.py --check` refuses a stale table or a stale count.
 
 <!-- counts:start -->
-`python build_matrix.py` prints `N of 26: 25; no record read yet: 1 of 26` today. Rows with no record we can open: 1 of 26 (project 24): every cell is unsupported or not run. Rows whose source is withheld under the small-project rule: 1 (project 21); their inputs are named by SHA-256 under Replay in MATRIX.md.
+`python build_matrix.py` prints `N of 27: 26; no record read yet: 1 of 27` today. Rows with no record we can open: 1 of 27 (project 24): every cell is unsupported or not run. Rows whose source is withheld under the small-project rule: 1 (project 21); their inputs are named by SHA-256 under Replay in MATRIX.md.
 <!-- counts:end -->
  Each cell is marked "their records" (the project's own record bytes were read) or "our adapter" (code in `adapters/` carried their record to our reader, or their code to our corpus), and carries one of five verdicts: agrees, contradicted, cannot-tell, unsupported, not run. A contradicted cell names its basis, where the divergence sits and the revision it was judged against; a refusal inside a profile the project declares is unsupported, with the profile named. The builder refuses a cell that breaks these rules and any evidence path that does not resolve in this repository. A properties table beside the cells records independence, edit detection, declared digest inputs and the other cross-project checks.
 
