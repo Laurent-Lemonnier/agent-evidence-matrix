@@ -1,9 +1,11 @@
-"""Duplicates and invalid UTF-8 are refused before canonicalization, and every recorded canonicalizer agrees with its run.
+"""Duplicates and invalid UTF-8 are refused before canonicalization, and every recorded canonicalizer agrees with its
+run.
 
 A canonicalizer that takes a parsed value cannot see a duplicate member: the parse already kept one of the two values.
-The matrix's own reader therefore has to refuse those inputs on the received bytes. These tests hold it to that, hold the
-recorded `canonicalizer` fields of matrix.json to the probe lines of the runs they cite, and check that the scorer that
-writes those runs can tell a canonicalizer that refuses from one that does not.
+The matrix's own reader therefore has to refuse those inputs on the received bytes. These tests hold it to that, hold
+the recorded `canonicalizer` fields of matrix.json to the probe lines of the runs they cite, and check that the scorer
+that writes those runs can tell a canonicalizer that refuses from one that does not, and never credits the harness
+with a refusal.
 """
 import json
 import pathlib
@@ -190,8 +192,8 @@ def test_the_python_scorer_reads_the_same_cases_and_bytes_as_the_javascript_one(
     # a directory that starts with "a" but is not a case group, and the card-signing group, are both left out
     for other in ("archive", "a2-signatures-exclusion"):
         (corpus / other).mkdir()
-        (corpus / other / "X.json").write_text(json.dumps({"id": other, "disposition": "MUST-ACCEPT", "input": {},
-                                                           "expected": {"canonical_utf8_hex": "7b7d"}}), encoding="utf-8")
+        case = {"id": other, "disposition": "MUST-ACCEPT", "input": {}, "expected": {"canonical_utf8_hex": "7b7d"}}
+        (corpus / other / "X.json").write_text(json.dumps(case), encoding="utf-8")
     assert [c["id"] for c, _, _ in py_jcs_score.cases(corpus)] == ["A3-001", "A5-REJECT-016"]
     # a lone surrogate in a parsed input comes out as the escape JSON.stringify writes, not a crash
     assert py_jcs_score.case_bytes({"input": {"a": "\ud800"}}) == b'{"a": "\\ud800"}'

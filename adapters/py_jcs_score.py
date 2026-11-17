@@ -4,8 +4,8 @@ parse-layer probes (two duplicate members, a surrogate written as UTF-8 bytes, a
 
     python -I adapters/py_jcs_score.py CORPUS_DIR
 
-The reader receives text, so the bytes are decoded first with strict UTF-8, as every caller of it does; a decode error is
-a refusal. Exit 0 when the run completed, 2 when the setup failed.
+The reader receives text, so the bytes are decoded first with strict UTF-8, as every caller of it does; a decode
+error is a refusal. Exit 0 when the run completed, 2 when the setup failed.
 """
 import hashlib
 import json
@@ -31,7 +31,10 @@ def cases(corpus: pathlib.Path):
 
 
 def case_bytes(case: dict) -> bytes:
-    """input_raw as UTF-8, else the parsed input re-serialized; a lone surrogate stays a \\u escape, as in JSON.stringify."""
+    """input_raw as UTF-8, else the parsed input re-serialized.
+
+    A lone surrogate stays a \\u escape, as JSON.stringify writes it.
+    """
     text = case["input_raw"] if "input_raw" in case else json.dumps(case["input"], ensure_ascii=False)
     return text.encode("utf-8", "backslashreplace")
 
@@ -57,7 +60,8 @@ def main(argv):
         return 2
     src = pathlib.Path(jcs_canonical.__file__).read_bytes()
     print(f"python {sys.version.split()[0]}")
-    print(f"agent-evidence-verify {version('agent-evidence-verify')} jcs_canonical.py sha256 {hashlib.sha256(src).hexdigest()}"
+    digest = hashlib.sha256(src).hexdigest()
+    print(f"agent-evidence-verify {version('agent-evidence-verify')} jcs_canonical.py sha256 {digest}"
           " entry canonical input strict UTF-8 decode of the bytes")
 
     def call(raw: bytes) -> bytes:
@@ -74,7 +78,8 @@ def main(argv):
         if ok:
             passed += 1
         else:
-            print(f"FAIL {case['id']} {'MUST-ACCEPT' if accept else 'MUST-REJECT'} got={'REFUSED ' + err if err else out}")
+            got = "REFUSED " + err if err else out
+            print(f"FAIL {case['id']} {'MUST-ACCEPT' if accept else 'MUST-REJECT'} got={got}")
     if scored == 0:
         print(f"SETUP no rfc8785 case found under {argv[1]}: a run that scored nothing is not a result")
         return 2

@@ -306,12 +306,15 @@ def test_readme_counts_are_rewritten_and_a_missing_block_is_refused():
 
 
 def test_two_no_records_cells_cannot_name_each_other_as_producer():
-    empty = lambda producer: cell(verdict="unsupported", source="none", evidence="no records emitted", producer=producer)
+    def empty(producer):
+        return cell(verdict="unsupported", source="none", evidence="no records emitted", producer=producer)
+
     out = bm.problems(matrix(project(1, cells=[empty("cell 2"), empty("cell 1")])), reviews(1))
     assert sum("itself says" in line for line in out) == 2, out
 
 
-@pytest.mark.parametrize("evidence", ["No records emitted.", "no records were emitted by the build", "  NO RECORDS EMITTED"])
+@pytest.mark.parametrize("evidence", ["No records emitted.", "no records were emitted by the build",
+                                      "  NO RECORDS EMITTED"])
 def test_no_records_emitted_is_caught_however_it_is_written(evidence):
     empty = cell(verdict="unsupported", source="none", evidence=evidence)
     out = bm.problems(matrix(project(1, cells=[cell(), empty])), reviews(1))
