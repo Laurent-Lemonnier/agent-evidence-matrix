@@ -178,3 +178,22 @@ def test_the_entry_runs_in_strict_mode_and_a_promise_is_awaited(tmp_path):
 def test_an_entry_name_that_is_not_an_identifier_is_refused(tmp_path):
     run = _score(tmp_path, SORTED, entry="canon|x")
     assert run.returncode == 2 and "is not an identifier" in run.stdout, run.stdout
+
+
+def test_the_python_scorer_reads_the_same_cases_and_bytes_as_the_javascript_one(tmp_path):
+    sys.path.insert(0, str(ROOT / "adapters"))
+    try:
+        import py_jcs_score
+    finally:
+        sys.path.pop(0)
+    corpus = _corpus(tmp_path)
+    # a directory that starts with "a" but is not a case group, and the card-signing group, are both left out
+    for other in ("archive", "a2-signatures-exclusion"):
+        (corpus / other).mkdir()
+        (corpus / other / "X.json").write_text(json.dumps({"id": other, "disposition": "MUST-ACCEPT", "input": {},
+                                                           "expected": {"canonical_utf8_hex": "7b7d"}}), encoding="utf-8")
+    assert [c["id"] for c, _, _ in py_jcs_score.cases(corpus)] == ["A3-001", "A5-REJECT-016"]
+    # a lone surrogate in a parsed input comes out as the escape JSON.stringify writes, not a crash
+    assert py_jcs_score.case_bytes({"input": {"a": "\ud800"}}) == b'{"a": "\\ud800"}'
+    run = _score(tmp_path, SORTED, corpus=corpus)
+    assert "scored=2 " in run.stdout, run.stdout

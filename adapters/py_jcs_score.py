@@ -10,7 +10,31 @@ a refusal. Exit 0 when the run completed, 2 when the setup failed.
 import hashlib
 import json
 import pathlib
+import re
 import sys
+
+# The same cases adapters/jcs_function_score.mjs scores: a file directly under a directory named a<digit>..., the
+# card-signing-input group a2-signatures-exclusion left out.
+CASE_DIR = re.compile(r"a\d")
+
+
+def cases(corpus: pathlib.Path):
+    """The (case, input bytes) pairs scored on the rfc8785 target, in path order."""
+    for path in sorted(corpus.rglob("*.json")):
+        if not CASE_DIR.match(path.parent.name) or path.parent.name.startswith("a2-signatures-exclusion"):
+            continue
+        case = json.loads(path.read_text(encoding="utf-8"))
+        accept = case.get("disposition") == "MUST-ACCEPT" and (case.get("expected") or {}).get("canonical_utf8_hex")
+        reject = case.get("disposition") == "MUST-REJECT" and case.get("rejection_layer") == "canonicalization"
+        if accept or reject:
+            yield case, bool(accept), case_bytes(case)
+
+
+def case_bytes(case: dict) -> bytes:
+    """input_raw as UTF-8, else the parsed input re-serialized; a lone surrogate stays a \\u escape, as in JSON.stringify."""
+    text = case["input_raw"] if "input_raw" in case else json.dumps(case["input"], ensure_ascii=False)
+    return text.encode("utf-8", "backslashreplace")
+
 
 PROBES = [
     ("duplicate-member", b'{"a":1,"a":2}'),
@@ -40,16 +64,8 @@ def main(argv):
         return jcs_canonical.canonical("rfc8785", raw.decode("utf-8"))
 
     scored = passed = 0
-    for path in sorted(pathlib.Path(argv[1]).rglob("*.json")):
-        if not path.parent.name.startswith("a") or path.parent.name.startswith("a2-"):
-            continue
-        case = json.loads(path.read_text(encoding="utf-8"))
-        accept = case.get("disposition") == "MUST-ACCEPT" and (case.get("expected") or {}).get("canonical_utf8_hex")
-        reject = case.get("disposition") == "MUST-REJECT" and case.get("rejection_layer") == "canonicalization"
-        if not (accept or reject):
-            continue
+    for case, accept, raw in cases(pathlib.Path(argv[1])):
         scored += 1
-        raw = (case["input_raw"] if "input_raw" in case else json.dumps(case["input"], ensure_ascii=False)).encode("utf-8")
         try:
             out, err = call(raw).hex(), None
         except (ValueError, UnicodeError) as exc:
@@ -59,6 +75,9 @@ def main(argv):
             passed += 1
         else:
             print(f"FAIL {case['id']} {'MUST-ACCEPT' if accept else 'MUST-REJECT'} got={'REFUSED ' + err if err else out}")
+    if scored == 0:
+        print(f"SETUP no rfc8785 case found under {argv[1]}: a run that scored nothing is not a result")
+        return 2
     print(f"scored={scored} pass={passed} fail={scored - passed} (rfc8785 cases of {pathlib.Path(argv[1]).name})")
     refused_all = True
     for name, raw in PROBES:
