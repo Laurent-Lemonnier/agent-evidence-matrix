@@ -1,0 +1,65 @@
+{
+  "issue_title": "[draft-watch] Internet-Draft state for the matrix rows",
+  "drafts": [
+    {
+      "slug": "draft-zambo-aer1",
+      "known_rev": "26",
+      "why": "row 1 (AER-1 execution receipts) reads the conformance kit against this revision"
+    },
+    {
+      "slug": "draft-fassbender-scitt-time-anchor",
+      "known_rev": "08",
+      "why": "row 6 (independent time anchoring) reads the anchors against this revision"
+    },
+    {
+      "slug": "draft-mozleywilliams-dawn-dnsaid",
+      "known_rev": "00",
+      "why": "row 10 (DNS-AID) reads the publisher's SVCB records against this revision, which replaced draft-mozleywilliams-dnsop-dnsaid-02",
+      "author_person_id": 137653,
+      "watched_keywords": [
+        "dnsaid",
+        "dns-aid",
+        "ai discovery",
+        "agent discovery",
+        "bandaid"
+      ]
+    },
+    {
+      "slug": "draft-bu-dawn-ard-discovery",
+      "known_rev": "00",
+      "why": "row 11 (DAWN ARD) reads the trust manifests against sections 3.5 and 3.5.2 of this revision"
+    },
+    {
+      "slug": "draft-mcw-opsawg-icon-requirements",
+      "known_rev": "02",
+      "why": "row 12 (ICON observability) reads the running code against this revision"
+    },
+    {
+      "slug": "draft-pei-opsawg-agentops-observability",
+      "known_rev": "00",
+      "why": "row 12 (ICON observability) reads the record hash against this revision"
+    },
+    {
+      "slug": "draft-thaha-scitt-agent-execution-evidence",
+      "known_rev": "02",
+      "why": "row 15 (Agent Execution Evidence) reads the records against this revision"
+    },
+    {
+      "slug": "draft-wright-verdict-record",
+      "known_rev": "02",
+      "why": "row 16 (Verdict Records) reads the records against this revision"
+    },
+    {
+      "slug": "draft-sokolov-rats-aep-composition",
+      "known_rev": "06",
+      "why": "row 18 (AEP over RATS) reads the composition against this revision"
+    }
+  ],
+  "unwatched_sha256": [
+    "031763f33a93028d9ca3fd38a9d322b92feb2a720e9209267adc54299b1d2f82",
+    "d30b090f1a96c292f1856b5232bee2a2c479728f58e967b0625182546d59750d",
+    "d37014b37b1c0db44f854daeed5b2db6882020483d2f93c449f939accac30cc9",
+    "d52b574243e74ea6ae1138e2dac3af7138e4bf3d9f3fe106e355065d33c129be"
+  ],
+  "unwatched_why": "cited by a row whose upstream this repository does not follow, or a predecessor that a pinned draft replaced"
+}
