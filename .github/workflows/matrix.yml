@@ -156,7 +156,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: pip install rfc8785==0.1.4 cryptography==46.0.3
+      - run: pip install --require-hashes -r requirements.txt
       - name: Fetch the pinned pack
         run: |
           git clone -q https://github.com/tyche-institute/aep-sandbox ../sandbox
@@ -175,7 +175,9 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: pip install pytest==8.3.5 rfc8785==0.1.4 cryptography==46.0.3
+      # The readers under test run on the hash-locked requirements, the same bytes the reader job installs.
+      - run: pip install --require-hashes -r requirements.txt
+      - run: pip install pytest==8.3.5
       - run: python -m pytest -q tests
   corpus-jcs:
     runs-on: ubuntu-latest
