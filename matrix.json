@@ -95,7 +95,7 @@
         "function": "AER-1 ser(), written from draft Sections 3.1 and 7.1 (adapters/aer1_ser_cli.py)",
         "kind": "own serialization, not RFC 8785",
         "input": "parsed value",
-        "duplicates": "not probed"
+        "parse_layer": "not probed"
       }
     },
     {
@@ -216,7 +216,7 @@
         "function": "eatf_verifier.canonical.jcs (v0.7.4) after json.loads",
         "kind": "hand-rolled",
         "input": "parsed value",
-        "duplicates": "not probed"
+        "parse_layer": "not probed"
       }
     },
     {
@@ -1182,7 +1182,7 @@
         "function": "canonicalize() of the draft's reference checker",
         "kind": "hand-rolled",
         "input": "parsed value",
-        "duplicates": "accepted",
+        "parse_layer": "parsed before it",
         "evidence": "adapters/row21-jcs-run.txt"
       }
     },
@@ -1329,7 +1329,7 @@
         "function": "jcsStringify (src/signature.ts)",
         "kind": "hand-rolled",
         "input": "parsed value",
-        "duplicates": "accepted",
+        "parse_layer": "parsed before it",
         "evidence": "adapters/a2a-js-jcs-run.txt"
       }
     },
@@ -1369,7 +1369,7 @@
         "function": "canonicalize (src/offer-receipt/signing.ts)",
         "kind": "hand-rolled",
         "input": "parsed value",
-        "duplicates": "accepted",
+        "parse_layer": "parsed before it",
         "evidence": "adapters/x402-jcs-run.txt"
       }
     }

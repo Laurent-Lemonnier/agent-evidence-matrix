@@ -247,19 +247,27 @@ def test_a_withheld_project_is_refused_when_it_still_points_at_the_project(chang
 
 
 @pytest.mark.parametrize("rec,needle", [
-    ({"function": "f", "kind": "magic", "input": "parsed value", "duplicates": "not probed"}, "kind"),
-    ({"function": "f", "kind": "hand-rolled", "input": "bytes", "duplicates": "not probed"}, "input"),
-    ({"function": "f", "kind": "hand-rolled", "input": "parsed value", "duplicates": "accepted"}, "names no run"),
-    ({"function": "f", "kind": "hand-rolled", "input": "parsed value", "duplicates": "refused",
+    ({"function": "f", "kind": "magic", "input": "parsed value", "parse_layer": "not probed"}, "kind"),
+    ({"function": "f", "kind": "hand-rolled", "input": "bytes", "parse_layer": "not probed"}, "input"),
+    ({"function": "f", "kind": "hand-rolled", "input": "text", "parse_layer": "accepted"}, "names no run"),
+    ({"function": "f", "kind": "hand-rolled", "input": "text", "parse_layer": "refused",
       "evidence": "adapters/no-such-run.txt"}, "no-such-run"),
+    # a function that takes a parsed value never sees the parse layer, so it can neither refuse nor accept it
+    ({"function": "f", "kind": "hand-rolled", "input": "parsed value", "parse_layer": "accepted",
+      "evidence": "adapters/rfc8785_cli.py"}, "never sees the parse layer"),
+    ({"function": "f", "kind": "hand-rolled", "input": "received bytes", "parse_layer": "parsed before it",
+      "evidence": "adapters/rfc8785_cli.py"}, "the parse layer reaches it"),
+    ({"function": "f", "kind": "hand-rolled", "input": "text", "parse_layer": "not probed",
+      "evidence": "adapters/rfc8785_cli.py"}, "not probed and cites a run"),
+    ({"function": "f", "kind": "hand-rolled", "input": "text", "duplicates": "refused"}, "unknown keys"),
 ])
-def test_a_canonicalizer_record_states_kind_input_and_the_run_behind_its_duplicates_claim(rec, needle):
+def test_a_canonicalizer_record_states_kind_input_and_the_run_behind_its_parse_layer_claim(rec, needle):
     out = bm.problems(matrix(project(1, canonicalizer=rec)), reviews(1))
     assert any(needle in line for line in out), out
 
 
 def test_a_canonicalizer_record_with_its_run_passes():
-    rec = {"function": "f", "kind": "rfc8785 library", "input": "received bytes", "duplicates": "refused",
+    rec = {"function": "f", "kind": "rfc8785 library", "input": "received bytes", "parse_layer": "refused",
            "evidence": "adapters/rfc8785_cli.py"}
     assert bm.problems(matrix(project(1, canonicalizer=rec)), reviews(1)) == []
 

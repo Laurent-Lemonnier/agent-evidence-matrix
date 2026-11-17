@@ -167,15 +167,15 @@ One verdict per project and property, for every project whose review is not froz
 
 ## Canonicalizers
 
-The function each project canonicalizes with, and what it does with an input that has no RFC 8785 canonical form at the parse or decode layer: two duplicate members, a surrogate written as UTF-8 bytes and a raw 0xFF byte. A canonicalizer that takes a parsed value cannot see a duplicate member: the parse already kept one of the two values, so the refusal has to happen on the received bytes, before canonicalization. CI holds the matrix's own reader to that (tests/test_canonicalizers.py).
+The function each project canonicalizes with, and what it does with an input that has no RFC 8785 canonical form at the parse or decode layer: two duplicate members, a surrogate written as UTF-8 bytes and a raw 0xFF byte. A canonicalizer that takes a parsed value cannot see them: the parse already kept one of two duplicate values and decoded the bytes, so the column says "parsed before it" and the refusal has to happen on the received bytes, before canonicalization. CI holds the matrix's own reader to that, and every recorded column to the probe lines of its run (tests/test_canonicalizers.py).
 
 | # | Project | Function | Kind | Takes | Parse-layer inputs |
 |---|---|---|---|---|---|
 | 1 | AER-1 execution receipts | AER-1 ser(), written from draft Sections 3.1 and 7.1 (adapters/aer1_ser_cli.py) | own serialization, not RFC 8785 | parsed value | not probed |
 | 2 | Action Evidence Packages | eatf_verifier.canonical.jcs (v0.7.4) after json.loads | hand-rolled | parsed value | not probed |
-| 21 | Receipts draft with a hand-rolled JavaScript canonicalizer (project withheld under the small-project rule) | canonicalize() of the draft's reference checker | hand-rolled | parsed value | accepted (adapters/row21-jcs-run.txt) |
-| 26 | A2A JS SDK (a2aproject/a2a-js; Agent Card signing, canonicalizeAgentCard) | jcsStringify (src/signature.ts) | hand-rolled | parsed value | accepted (adapters/a2a-js-jcs-run.txt) |
-| 27 | x402 offer and receipt extension (x402-foundation/x402, typescript/packages/extensions) | canonicalize (src/offer-receipt/signing.ts) | hand-rolled | parsed value | accepted (adapters/x402-jcs-run.txt) |
+| 21 | Receipts draft with a hand-rolled JavaScript canonicalizer (project withheld under the small-project rule) | canonicalize() of the draft's reference checker | hand-rolled | parsed value | parsed before it (adapters/row21-jcs-run.txt) |
+| 26 | A2A JS SDK (a2aproject/a2a-js; Agent Card signing, canonicalizeAgentCard) | jcsStringify (src/signature.ts) | hand-rolled | parsed value | parsed before it (adapters/a2a-js-jcs-run.txt) |
+| 27 | x402 offer and receipt extension (x402-foundation/x402, typescript/packages/extensions) | canonicalize (src/offer-receipt/signing.ts) | hand-rolled | parsed value | parsed before it (adapters/x402-jcs-run.txt) |
 
 ## Replay
 

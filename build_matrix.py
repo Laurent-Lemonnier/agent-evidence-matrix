@@ -25,8 +25,10 @@ The schema rules, each a refusal (exit 1 with every problem named):
   carries `withheld` instead of an upstream: the reason and the SHA-256 of every input its cells read, and a replay
   that runs on a copy of those bytes; it carries no upstream, and its name and cells must not name the project;
 - a `canonicalizer` record names the function a project canonicalizes with, its kind, what it takes (a parsed value,
-  text or the received bytes) and what it does with an input that has no canonical form at the parse layer (duplicate
-  members, invalid UTF-8): refused, accepted, or not probed; refused or accepted needs the run that showed it;
+  text or the received bytes) and, in `parse_layer`, what it did with the four probes that have no canonical form at
+  the parse or decode layer (two duplicate members, a surrogate written as UTF-8 bytes, a raw 0xFF byte): refused
+  (all four), accepted (any one), "parsed before it" (a function that takes a parsed value never sees them, so their
+  outcome belongs to whatever parses before it), or not probed; anything but not probed needs the run that showed it;
 - a cell whose evidence is "no records emitted" names its producer route: `producer` is the cell of this project that
   reads records the project's own code produced (producer mode), or "none" with the reason no producer exists;
 - README.md carries the coverage counts between its counts markers, and --check refuses a README that disagrees.
@@ -64,7 +66,7 @@ FILE_URL = re.compile(r"https://[a-z0-9.-]+\.[a-z]{2,}/\S+")
 SHA1 = re.compile(r"[0-9a-f]{40}")
 CANON_KINDS = ("rfc8785 library", "vendored rfc8785", "hand-rolled", "own serialization, not RFC 8785")
 CANON_INPUTS = ("parsed value", "text", "received bytes")
-CANON_DUPLICATES = ("refused", "accepted", "not probed")
+CANON_PARSE_LAYER = ("refused", "accepted", "parsed before it", "not probed")
 NO_RECORDS = "no records emitted"
 COUNTS_START, COUNTS_END = "<!-- counts:start -->", "<!-- counts:end -->"
 SHA256 = re.compile(r"[0-9a-f]{64}")
@@ -207,13 +209,26 @@ def _canonicalizer_problems(pid, rec, root: pathlib.Path) -> list[str]:
         out.append(f"{where} kind {rec.get('kind')!r} is not one of {list(CANON_KINDS)}")
     if rec.get("input") not in CANON_INPUTS:
         out.append(f"{where} input {rec.get('input')!r} is not one of {list(CANON_INPUTS)}")
-    if rec.get("duplicates") not in CANON_DUPLICATES:
-        out.append(f"{where} duplicates {rec.get('duplicates')!r} is not one of {list(CANON_DUPLICATES)}")
-    elif rec["duplicates"] != "not probed":
-        if not isinstance(rec.get("evidence"), str) or not rec["evidence"].strip():
-            out.append(f"{where} says {rec['duplicates']} and names no run that showed it")
-        else:
-            out += _evidence_problems(where, rec["evidence"], root)
+    unknown = set(rec) - {"function", "kind", "input", "parse_layer", "evidence"}
+    if unknown:
+        out.append(f"{where} has unknown keys {sorted(unknown)}")
+    layer = rec.get("parse_layer")
+    if layer not in CANON_PARSE_LAYER:
+        out.append(f"{where} parse_layer {layer!r} is not one of {list(CANON_PARSE_LAYER)}")
+        return out
+    if rec.get("input") == "parsed value" and layer in ("refused", "accepted"):
+        out.append(f"{where} takes a parsed value, so it never sees the parse layer: parse_layer is "
+                   "\"parsed before it\" or \"not probed\", never " + repr(layer))
+    if layer == "parsed before it" and rec.get("input") in CANON_INPUTS and rec["input"] != "parsed value":
+        out.append(f"{where} takes {rec['input']}, so the parse layer reaches it: parse_layer is refused, accepted or "
+                   "not probed")
+    if layer == "not probed":
+        if rec.get("evidence"):
+            out.append(f"{where} is not probed and cites a run")
+    elif not isinstance(rec.get("evidence"), str) or not rec["evidence"].strip():
+        out.append(f"{where} says {layer} and names no run that showed it")
+    else:
+        out += _evidence_problems(where, rec["evidence"], root)
     return out
 
 
@@ -431,13 +446,14 @@ def render(data: dict, reviews: dict) -> tuple[str, dict[str, str]]:
         lines = []
         for p in canon:
             r = p["canonicalizer"]
-            dup = r["duplicates"] + (f" ({esc(r['evidence'])})" if r.get("evidence") else "")
+            dup = r["parse_layer"] + (f" ({esc(r['evidence'])})" if r.get("evidence") else "")
             lines.append(f"| {p['id']} | {esc(p['name'])} | {esc(r['function'])} | {r['kind']} | {r['input']} | {dup} |")
         text += ("\n## Canonicalizers\n\nThe function each project canonicalizes with, and what it does with an input that "
                  "has no RFC 8785 canonical form at the parse or decode layer: two duplicate members, a surrogate written "
-                 "as UTF-8 bytes and a raw 0xFF byte. A canonicalizer that takes a parsed value cannot see a duplicate "
-                 "member: the parse already kept one of the two values, so the refusal has to happen on the received "
-                 "bytes, before canonicalization. CI holds the matrix's own reader to that (tests/test_canonicalizers.py).\n\n"
+                 "as UTF-8 bytes and a raw 0xFF byte. A canonicalizer that takes a parsed value cannot see them: the parse "
+                 "already kept one of two duplicate values and decoded the bytes, so the column says \"parsed before it\" "
+                 "and the refusal has to happen on the received bytes, before canonicalization. CI holds the matrix's own "
+                 "reader to that, and every recorded column to the probe lines of its run (tests/test_canonicalizers.py).\n\n"
                  "| # | Project | Function | Kind | Takes | Parse-layer inputs |\n|---|---|---|---|---|---|\n"
                  + "\n".join(lines) + "\n")
     if replay:

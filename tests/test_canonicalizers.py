@@ -40,18 +40,53 @@ def _recorded():
     return [(p["id"], p["canonicalizer"]) for p in data["projects"] if p.get("canonicalizer")]
 
 
-@pytest.mark.parametrize("pid,rec", _recorded(), ids=lambda v: str(v) if isinstance(v, int) else "")
-def test_recorded_duplicates_field_matches_its_run(pid, rec):
-    if rec["duplicates"] == "not probed":
-        assert "evidence" not in rec or not rec["evidence"], f"project {pid}: not probed cites a run"
-        return
-    run = (ROOT / rec["evidence"].split()[0]).read_text(encoding="utf-8")
+HEADER_INPUT = {"JSON.parse of the bytes as UTF-8": "parsed value", "received bytes": "received bytes",
+                "strict UTF-8 decode of the bytes": "text"}
+
+
+def _run_probes(run: str):
     probes = {m.group(1): (m.group(2), m.group(3)) for m in PROBE.finditer(run)}
+    header = re.search(r"^.* input (.+)$", run, re.M)
+    return probes, HEADER_INPUT.get(header.group(1)) if header else None
+
+
+@pytest.mark.parametrize("pid,rec", _recorded(), ids=lambda v: str(v) if isinstance(v, int) else "")
+def test_recorded_parse_layer_matches_its_run(pid, rec):
+    if rec["parse_layer"] == "not probed":
+        assert not rec.get("evidence"), f"project {pid}: not probed cites a run"
+        return
+    probes, took = _run_probes((ROOT / rec["evidence"].split()[0]).read_text(encoding="utf-8"))
     assert set(probes) == set(NO_FORM), f"project {pid}: the run has probes {sorted(probes)}"
-    for name, (hexin, outcome) in probes.items():
+    for name, (hexin, _) in probes.items():
         assert bytes.fromhex(hexin) == NO_FORM[name], f"project {pid}: probe {name} ran on other bytes"
-    dup = {probes[n][1].split()[0] for n in ("duplicate-member", "duplicate-member-name")}
-    assert dup == {rec["duplicates"]}, f"project {pid}: recorded {rec['duplicates']}, the run shows {dup}"
+    assert took == rec["input"], f"project {pid}: recorded input {rec['input']!r}, the run gave the function {took!r}"
+    outcomes = {o.split()[0] for _, o in probes.values()}
+    want = {"parsed before it": rec["input"] == "parsed value",
+            "refused": outcomes == {"refused"},
+            "accepted": "accepted" in outcomes}[rec["parse_layer"]]
+    assert want, f"project {pid}: recorded {rec['parse_layer']!r}, the run shows {sorted(outcomes)} on {took}"
+
+
+@pytest.mark.parametrize("layer,outcomes,took,ok", [
+    ("refused", ["refused"] * 4, "received bytes", True),
+    # refusing both duplicates while a raw 0xFF byte is accepted is not refused: all four count, not two
+    ("refused", ["refused", "refused", "refused", "accepted 7b7d"], "received bytes", False),
+    ("accepted", ["refused", "refused", "refused", "accepted 7b7d"], "received bytes", True),
+    ("parsed before it", ["accepted 7b7d"] * 4, "JSON.parse of the bytes as UTF-8", True),
+    ("parsed before it", ["accepted 7b7d"] * 4, "received bytes", False),
+])
+def test_the_parse_layer_check_reads_all_four_probes_and_the_input(layer, outcomes, took, ok, tmp_path, monkeypatch):
+    run = f"source sha256 {'0' * 64} entry f input {took}\n" + "".join(
+        f"PROBE {n} input={NO_FORM[n].hex()} {o}\n" for n, o in zip(sorted(NO_FORM), outcomes))
+    (tmp_path / "adapters").mkdir()
+    (tmp_path / "adapters" / "run.txt").write_text(run, encoding="utf-8")
+    monkeypatch.setattr(sys.modules[__name__], "ROOT", tmp_path)
+    rec = {"input": HEADER_INPUT[took], "parse_layer": layer, "evidence": "adapters/run.txt"}
+    if ok:
+        test_recorded_parse_layer_matches_its_run(0, rec)
+    else:
+        with pytest.raises(AssertionError):
+            test_recorded_parse_layer_matches_its_run(0, rec)
 
 
 LENIENT = "function canon(v) { return JSON.stringify(v, Object.keys(v).sort()); }\n"
