@@ -219,3 +219,64 @@ def test_freshness_reads_every_pinned_repository_of_a_project():
     p["upstream"]["also"] = [{"url": "https://github.com/example/other", "sha": "c" * 40}]
     lines = bm.freshness(matrix(p), lambda o, r: "a" * 40)
     assert lines == ["project 1: upstream-moved, pinned cccccccccccc, example/other head aaaaaaaaaaaa"]
+
+
+def _withheld(**kw):
+    p = project(21, cells=[cell(verdict="contradicted", basis="defect", divergence_in="their code",
+                                declared_revision="r")], replay="node x.mjs CHECKER.mjs")
+    del p["upstream"]
+    p["withheld"] = {"reason": "below the size line", "inputs": [{"what": "checker", "sha256": "b" * 64}]}
+    p.update(kw)
+    return p
+
+
+def test_a_withheld_project_with_a_result_passes_without_an_upstream():
+    assert bm.problems(matrix(_withheld()), reviews(21)) == []
+
+
+@pytest.mark.parametrize("change,needle", [
+    ({"withheld": {"reason": "", "inputs": []}}, "withheld needs a reason"),
+    ({"withheld": {"reason": "r", "inputs": [{"what": "x", "sha256": "short"}]}}, "64-hex sha256"),
+    ({"upstream": {"url": "https://github.com/example/p21", "sha": "a" * 40}}, "carries no upstream"),
+    ({"name": "named after https://github.com/someone/project"}, "names no repository URL"),
+    ({"replay": ""}, "needs a replay over the withheld bytes"),
+])
+def test_a_withheld_project_is_refused_when_it_still_points_at_the_project(change, needle):
+    out = bm.problems(matrix(_withheld(**change)), reviews(21))
+    assert any(needle in line for line in out), out
+
+
+@pytest.mark.parametrize("rec,needle", [
+    ({"function": "f", "kind": "magic", "input": "parsed value", "duplicates": "not probed"}, "kind"),
+    ({"function": "f", "kind": "hand-rolled", "input": "bytes", "duplicates": "not probed"}, "input"),
+    ({"function": "f", "kind": "hand-rolled", "input": "parsed value", "duplicates": "accepted"}, "names no run"),
+    ({"function": "f", "kind": "hand-rolled", "input": "parsed value", "duplicates": "refused",
+      "evidence": "adapters/no-such-run.txt"}, "no-such-run"),
+])
+def test_a_canonicalizer_record_states_kind_input_and_the_run_behind_its_duplicates_claim(rec, needle):
+    out = bm.problems(matrix(project(1, canonicalizer=rec)), reviews(1))
+    assert any(needle in line for line in out), out
+
+
+def test_a_canonicalizer_record_with_its_run_passes():
+    rec = {"function": "f", "kind": "rfc8785 library", "input": "received bytes", "duplicates": "refused",
+           "evidence": "adapters/rfc8785_cli.py"}
+    assert bm.problems(matrix(project(1, canonicalizer=rec)), reviews(1)) == []
+
+
+@pytest.mark.parametrize("producer,ok", [(None, False), ("cell 1", True), ("cell 2", False), ("cell 9", False),
+                                         ("none: the drafts define no format and no code", True), ("later", False)])
+def test_no_records_emitted_names_its_producer_route(producer, ok):
+    empty = cell(verdict="unsupported", source="none", evidence="no records emitted")
+    if producer is not None:
+        empty["producer"] = producer
+    out = bm.problems(matrix(project(1, cells=[cell(), empty])), reviews(1))
+    assert (out == []) is ok, out
+
+
+def test_readme_counts_are_rewritten_and_a_missing_block_is_refused():
+    data = matrix(project(1), project(2, cells=[cell(verdict="not run", source="none")]))
+    text = bm.readme_with_counts("a\n<!-- counts:start -->\nold\n<!-- counts:end -->\nb\n", data)
+    assert "N of 2: 1; no record read yet: 1 of 2" in text and "(project 2)" in text and "old" not in text
+    with pytest.raises(ValueError):
+        bm.readme_with_counts("no markers", data)

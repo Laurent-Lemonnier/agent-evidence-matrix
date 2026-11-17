@@ -20,7 +20,16 @@ The schema rules, each a refusal (exit 1 with every problem named):
   prose) and `sha` its 40-hex commit; further inputs go in `also` (each a url with a 40-hex `sha` for a
   repository or a 64-hex `sha256` for a fetched file) and free text in `note`;
 - two projects never share one upstream: compared without case, over every project, frozen ones included;
-- property columns use the listed names and verdict codes.
+- property columns use the listed names and verdict codes;
+- a project that withholds its source (the small-project rule: a project far below the citation line is never named)
+  carries `withheld` instead of an upstream: the reason and the SHA-256 of every input its cells read, and a replay
+  that runs on a copy of those bytes; it carries no upstream, and its name and cells must not name the project;
+- a `canonicalizer` record names the function a project canonicalizes with, its kind, what it takes (a parsed value,
+  text or the received bytes) and what it does with an input that has no canonical form at the parse layer (duplicate
+  members, invalid UTF-8): refused, accepted, or not probed; refused or accepted needs the run that showed it;
+- a cell whose evidence is "no records emitted" names its producer route: `producer` is the cell of this project that
+  reads records the project's own code produced (producer mode), or "none" with the reason no producer exists;
+- README.md carries the coverage counts between its counts markers, and --check refuses a README that disagrees.
 """
 from __future__ import annotations
 
@@ -53,6 +62,11 @@ ONE_MACHINE = re.compile(r"(?:^|[\s(])(?:/home/|/Users/|~/|/tmp/)|_raw/|probity-
 REPO_URL = re.compile(r"https://[a-z0-9.-]+\.[a-z]{2,}/[\w.-]+/[\w.-]+")
 FILE_URL = re.compile(r"https://[a-z0-9.-]+\.[a-z]{2,}/\S+")
 SHA1 = re.compile(r"[0-9a-f]{40}")
+CANON_KINDS = ("rfc8785 library", "vendored rfc8785", "hand-rolled", "own serialization, not RFC 8785")
+CANON_INPUTS = ("parsed value", "text", "received bytes")
+CANON_DUPLICATES = ("refused", "accepted", "not probed")
+NO_RECORDS = "no records emitted"
+COUNTS_START, COUNTS_END = "<!-- counts:start -->", "<!-- counts:end -->"
 SHA256 = re.compile(r"[0-9a-f]{64}")
 
 
@@ -162,6 +176,47 @@ def _cell_problems(where: str, cell: dict, codes: set[str], root: pathlib.Path) 
     return out
 
 
+def _withheld_problems(pid, project: dict) -> list[str]:
+    held = project["withheld"]
+    out = []
+    if not isinstance(held, dict) or not isinstance(held.get("reason"), str) or not held["reason"].strip():
+        return [f"project {pid}: withheld needs a reason"]
+    inputs = held.get("inputs")
+    if not isinstance(inputs, list) or not inputs:
+        out.append(f"project {pid}: withheld needs the inputs its cells read")
+    for i, item in enumerate(inputs or []):
+        if not (isinstance(item, dict) and isinstance(item.get("what"), str) and item["what"].strip()
+                and isinstance(item.get("sha256"), str) and SHA256.fullmatch(item["sha256"])):
+            out.append(f"project {pid}: withheld.inputs[{i}] needs what and a 64-hex sha256")
+    if project.get("upstream"):
+        out.append(f"project {pid}: a withheld project carries no upstream")
+    text = json.dumps({k: v for k, v in project.items() if k != "withheld"}, ensure_ascii=False)
+    if REPO_URL.search(text):
+        out.append(f"project {pid}: a withheld project names no repository URL")
+    return out
+
+
+def _canonicalizer_problems(pid, rec, root: pathlib.Path) -> list[str]:
+    where = f"project {pid}: canonicalizer"
+    if not isinstance(rec, dict):
+        return [f"{where} is an object"]
+    out = []
+    if not isinstance(rec.get("function"), str) or not rec["function"].strip():
+        out.append(f"{where} needs the function it names")
+    if rec.get("kind") not in CANON_KINDS:
+        out.append(f"{where} kind {rec.get('kind')!r} is not one of {list(CANON_KINDS)}")
+    if rec.get("input") not in CANON_INPUTS:
+        out.append(f"{where} input {rec.get('input')!r} is not one of {list(CANON_INPUTS)}")
+    if rec.get("duplicates") not in CANON_DUPLICATES:
+        out.append(f"{where} duplicates {rec.get('duplicates')!r} is not one of {list(CANON_DUPLICATES)}")
+    elif rec["duplicates"] != "not probed":
+        if not isinstance(rec.get("evidence"), str) or not rec["evidence"].strip():
+            out.append(f"{where} says {rec['duplicates']} and names no run that showed it")
+        else:
+            out += _evidence_problems(where, rec["evidence"], root)
+    return out
+
+
 def _project_problems(project: dict, codes: set[str], root: pathlib.Path) -> list[str]:
     pid = project.get("id")
     out = []
@@ -170,10 +225,25 @@ def _project_problems(project: dict, codes: set[str], root: pathlib.Path) -> lis
         out.append(f"project {pid}: no cells")
     for i, cell in enumerate(cells, 1):
         out += _cell_problems(f"project {pid} cell {i}", cell, codes, root)
+        if cell.get("evidence", "").strip() == NO_RECORDS:
+            producer = cell.get("producer")
+            if not isinstance(producer, str) or not producer.strip():
+                out.append(f"project {pid} cell {i}: \"{NO_RECORDS}\" names its producer route (a cell reading "
+                           "records the project's own code produced, or none with the reason)")
+            elif not (re.fullmatch(r"cell \d+", producer) and 1 <= int(producer.split()[1]) <= len(cells)
+                      and int(producer.split()[1]) != i) and not producer.startswith("none: "):
+                out.append(f"project {pid} cell {i}: producer {producer!r} is neither another cell of this project "
+                           "nor \"none: <reason>\"")
     has_result = any(c.get("verdict") in RESULT for c in cells)
     up = project.get("upstream") or {}
-    if has_result and not (up.get("url") and up.get("sha") and project.get("replay")):
+    if "withheld" in project:
+        out += _withheld_problems(pid, project)
+        if has_result and not project.get("replay"):
+            out.append(f"project {pid}: a withheld project with a result needs a replay over the withheld bytes")
+    elif has_result and not (up.get("url") and up.get("sha") and project.get("replay")):
         out.append(f"project {pid}: a project with a result needs upstream.url, upstream.sha and replay")
+    if "canonicalizer" in project:
+        out += _canonicalizer_problems(pid, project["canonicalizer"], root)
     out += _upstream_problems(pid, up)
     if project.get("independence") is not None and project["independence"] not in INDEPENDENCE:
         out.append(f"project {pid}: independence {project['independence']!r} is not one of {list(INDEPENDENCE)}")
@@ -310,6 +380,11 @@ def render(data: dict, reviews: dict) -> tuple[str, dict[str, str]]:
             if rel:
                 same = "the same bytes as the pinned source" if rel["same_as_source"] else "different bytes from the pinned source"
                 pin += f"Released: {rel['registry']} {rel['version']}, {same}.\n\n"
+            held = p.get("withheld")
+            if held:
+                pin += f"Withheld: {held['reason']}\n\n"
+                for item in held["inputs"]:
+                    pin += f"Input: {item['what']}, sha256 {item['sha256']}\n\n"
             replay.append(f"### {p['id']}. {p['name']}\n\n{pin}```\n{p['replay']}\n```\n")
     props = []
     for p in data["projects"]:
@@ -351,6 +426,20 @@ def render(data: dict, reviews: dict) -> tuple[str, dict[str, str]]:
                  "Re-proven by us: the project's own proof or test run repeated here with the binaries' digests recorded.\n\n"
                  "| # | Project | Independence | " + " | ".join(COLUMNS) + " |\n|---|---|---|"
                  + "---|" * len(COLUMNS) + "\n" + "\n".join(props) + "\n")
+    canon = [p for p in data["projects"] if p.get("canonicalizer") and p["id"] not in frozen]
+    if canon:
+        lines = []
+        for p in canon:
+            r = p["canonicalizer"]
+            dup = r["duplicates"] + (f" ({esc(r['evidence'])})" if r.get("evidence") else "")
+            lines.append(f"| {p['id']} | {esc(p['name'])} | {esc(r['function'])} | {r['kind']} | {r['input']} | {dup} |")
+        text += ("\n## Canonicalizers\n\nThe function each project canonicalizes with, and what it does with an input that "
+                 "has no RFC 8785 canonical form at the parse or decode layer: two duplicate members, a surrogate written "
+                 "as UTF-8 bytes and a raw 0xFF byte. A canonicalizer that takes a parsed value cannot see a duplicate "
+                 "member: the parse already kept one of the two values, so the refusal has to happen on the received "
+                 "bytes, before canonicalization. CI holds the matrix's own reader to that (tests/test_canonicalizers.py).\n\n"
+                 "| # | Project | Function | Kind | Takes | Parse-layer inputs |\n|---|---|---|---|---|---|\n"
+                 + "\n".join(lines) + "\n")
     if replay:
         text += ("\n## Replay\n\nEach command runs from the repository root with the pinned reader installed "
                  "(`pip install -r requirements.txt` into `venv/`).\n\n" + "\n".join(replay))
@@ -401,6 +490,29 @@ def freshness(data: dict, fetch=None) -> list[str]:
     return lines
 
 
+def counts_text(data: dict) -> str:
+    """The README's coverage sentence, between its counts markers."""
+    c = counts(data)
+    unread = ", ".join(str(i) for i in sorted(c["unread"])) or "none"
+    held = sorted(p["id"] for p in data["projects"] if "withheld" in p)
+    text = (f"`python build_matrix.py` prints `N of {c['total']}: {len(c['run'])}; no record read yet: "
+            f"{len(c['unread'])} of {c['total']}` today. Rows with no record we can open: {len(c['unread'])} of "
+            f"{c['total']} ({'project' if len(c['unread']) == 1 else 'projects'} {unread}): every cell is unsupported or not run.")
+    if held:
+        text += (f" Rows whose source is withheld under the small-project rule: {len(held)} "
+                 f"({'project' if len(held) == 1 else 'projects'} {', '.join(map(str, held))}); their inputs are named by SHA-256 "
+                 "under Replay in MATRIX.md.")
+    return text
+
+
+def readme_with_counts(readme: str, data: dict) -> str:
+    """README text with the counts block rewritten; ValueError when the markers are missing."""
+    a, b = readme.find(COUNTS_START), readme.find(COUNTS_END)
+    if a < 0 or b < a:
+        raise ValueError(f"README.md has no {COUNTS_START} ... {COUNTS_END} block")
+    return readme[: a + len(COUNTS_START)] + "\n" + counts_text(data) + "\n" + readme[b:]
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--check", action="store_true", help="refuse when the rendered files differ")
@@ -417,8 +529,15 @@ def main(argv=None) -> int:
         print("\n".join(bad), file=sys.stderr)
         return 1
     text, badges = render(data, reviews)
+    readme_now = (ROOT / "README.md").read_text(encoding="utf-8")
+    try:
+        readme = readme_with_counts(readme_now, data)
+    except ValueError as exc:
+        print(exc, file=sys.stderr)
+        return 1
     if args.check:
         stale = [] if (ROOT / "MATRIX.md").read_text(encoding="utf-8") == text else ["MATRIX.md"]
+        stale += [] if readme_now == readme else ["README.md (counts)"]
         on_disk = {f"badges/{f.name}" for f in (ROOT / "badges").glob("*.json")} if (ROOT / "badges").is_dir() else set()
         stale += sorted(on_disk ^ set(badges))
         stale += [k for k, v in badges.items() if (ROOT / k).exists() and (ROOT / k).read_text(encoding="utf-8") != v]
@@ -427,6 +546,7 @@ def main(argv=None) -> int:
             return 1
     else:
         (ROOT / "MATRIX.md").write_text(text, encoding="utf-8")
+        (ROOT / "README.md").write_text(readme, encoding="utf-8")
         (ROOT / "badges").mkdir(exist_ok=True)
         for f in (ROOT / "badges").glob("*.json"):
             if f"badges/{f.name}" not in badges:

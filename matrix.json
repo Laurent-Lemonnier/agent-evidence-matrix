@@ -10,7 +10,7 @@
     "unsupported",
     "not run"
   ],
-  "total_projects": 24,
+  "total_projects": 26,
   "projects": [
     {
       "id": 1,
@@ -90,6 +90,12 @@
           "detail": "Section 7.1 names SHA-256 over its own serialization of the entry fields",
           "evidence": "adapters/aer1-run.txt (adapters/aer1_adapter.py)"
         }
+      },
+      "canonicalizer": {
+        "function": "AER-1 ser(), written from draft Sections 3.1 and 7.1 (adapters/aer1_ser_cli.py)",
+        "kind": "own serialization, not RFC 8785",
+        "input": "parsed value",
+        "duplicates": "not probed"
       }
     },
     {
@@ -205,7 +211,13 @@
         "note": "eatf-verifier carries the .aep packages (release v0.7.4); aep-sandbox carries the hackathon pack"
       },
       "replay": "git clone https://github.com/tyche-institute/aep-sandbox X && git -C X checkout c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132 && git clone https://github.com/tyche-institute/eatf-verifier E && git -C E checkout fade5e0ac1223b7ff13339b7c9bcf973b699f9a7 && venv/bin/python -I adapters/aep_sandbox_adapter.py X/hackathon/ietf127/round1/vectors X/hackathon/ietf127/round1/trusted_issuers.json && venv/bin/python -I adapters/aep_sandbox_adapter.py X/interlab/round0/vectors X/interlab/round0/trusted_issuers.json && venv/bin/python -I adapters/aep_eatf_sigs.py E/test-vectors && venv/bin/python -I adapters/aep_seal_timestamps.py X/hackathon/ietf127/timestamps X/hackathon/ietf127/SEAL.sha256 && venv/bin/python -I adapters/aep_tamper_check.py E/test-vectors X/hackathon/ietf127/round1/vectors X/hackathon/ietf127/round1/trusted_issuers.json <scratch dir> && venv/bin/pip install E/lib-python && A2A_JCS_TARGET=rfc8785 EATF_LIB_PYTHON=E/lib-python EATF_CLASS_LOG=classes.log agent-evidence-vectors --corpus vectors-a2a-jcs-v01 --verifier \"venv/bin/python adapters/eatf_jcs_cli.py\"",
-      "independence": "non-author"
+      "independence": "non-author",
+      "canonicalizer": {
+        "function": "eatf_verifier.canonical.jcs (v0.7.4) after json.loads",
+        "kind": "hand-rolled",
+        "input": "parsed value",
+        "duplicates": "not probed"
+      }
     },
     {
       "id": 3,
@@ -765,8 +777,9 @@
           "cell": "the ICON drafts (problem statement, requirements, agentops observability)",
           "source": "none",
           "verdict": "unsupported",
-          "detail": "requirements text with no record format a reader can open; the test-vector appendix of the requirements draft is where vectors would land",
-          "evidence": "no records emitted"
+          "detail": "requirements text with no record format a reader can open; producer mode: the agentops running code is the producer, and cell 1 reads the records it committed. The test-vector appendix of the requirements draft is where vectors would land",
+          "evidence": "no records emitted",
+          "producer": "cell 1"
         }
       ],
       "upstream": {
@@ -1103,39 +1116,37 @@
     },
     {
       "id": 21,
-      "name": "XAIP receipts (draft-xkumakichi-xaip-receipts-03, xkumakichi/xaip-protocol)",
+      "name": "Receipts draft with a hand-rolled JavaScript canonicalizer (project withheld under the small-project rule)",
       "cells": [
         {
-          "cell": "The 15 vectors of docs/spec/test-vectors/receipts-v1-vectors.json (5 preimage, 3 payload, 4 receipt, 3 rejection), recomputed from draft -03 Sections 3.1 to 3.5 with rfc8785 and Ed25519",
-          "source": "their records",
-          "verdict": "agrees",
-          "detail": "15 of 15 agree. The adapter also decides admission for every signed receipt (full format check, caller signature when present): the three valid receipts are admitted and tampered_success_flip is refused (failureType required when success is false). Second run from a second export is byte-identical; changing one byte of toolName in the v1_cosigned_valid receipt makes both signatures fail, 14 of 15.",
-          "evidence": "adapters/xaip-receipts-run.txt (adapters/xaip_receipts_adapter.py); adapters/xaip-receipts-tamper-run.txt"
-        },
-        {
-          "cell": "Their checker docs/spec/test-vectors/check.mjs (node:crypto only) on their own 15 vectors",
-          "source": "their records",
-          "verdict": "agrees",
-          "detail": "All 15 vectors verified, exit 0, node 24.19.0; the second run is byte-identical. With the same one-byte toolName change it prints FAIL for v1_cosigned_valid and exits 1.",
-          "evidence": "adapters/xaip-theirs-check-run.txt; adapters/xaip-theirs-check-tamper-run.txt"
-        },
-        {
-          "cell": "Their canonicalize() function (read verbatim from check.mjs, labelled 'JCS (RFC 8785) canonical serialization') against vectors-a2a-jcs-v01, rfc8785 target",
+          "cell": "The draft's own canonicalize() function, labelled 'JCS (RFC 8785) canonical serialization' in its reference checker, against vectors-a2a-jcs-v01, rfc8785 target",
           "source": "our adapter",
           "verdict": "contradicted",
-          "detail": "48 of 53 agree, 5 differ. Executed 53 of 53, 48 pass. The 5 failures are the lone-surrogate rejects A3-REJECT-011, A3-REJECT-012, A4-REJECT-013, A4-REJECT-014 and A4-REJECT-015: the function emits a \\udXXX escape and exits 0 where the corpus says no canonical form exists. RFC 8785 Section 3.2.2.2: 'occurrences of such data MUST cause a compliant JCS implementation to terminate with an appropriate error'; Section 3.1 requires I-JSON input and RFC 7493 Section 2.1 says string values 'MUST NOT include code points that identify Surrogates or Noncharacters'. Draft -03 says 'Implementations producing receipts MUST canonicalize using JCS as defined in [RFC8785]'. Control: the same function patched to refuse a lone surrogate passes 53 of 53, so the verdict follows that one behaviour. Second run byte-identical.",
-          "evidence": "adapters/xaip-jcs-a2a-run.txt (adapters/xaip_jcs_cli.mjs); adapters/xaip-jcs-a2a-control-run.txt",
+          "detail": "48 of 53 agree, 5 differ: the lone-surrogate rejects A3-REJECT-011, A3-REJECT-012, A4-REJECT-013, A4-REJECT-014 and A4-REJECT-015, where the function emits a \\udXXX escape and returns where the corpus says no canonical form exists. RFC 8785 Section 3.2.2.2: 'occurrences of such data MUST cause a compliant JCS implementation to terminate with an appropriate error'; Section 3.1 requires I-JSON input and RFC 7493 Section 2.1 says string values 'MUST NOT include code points that identify Surrogates or Noncharacters'. The draft says receipts MUST be canonicalized with RFC 8785. The failure class is a parse, sort and JSON.stringify canonicalizer that cannot refuse: it also accepts both duplicate-member probes and both invalid-UTF-8 probes. Its output on the 53 cases is byte-identical with the A2A JS SDK's jcsStringify (row 25), so the class replays in public there.",
+          "evidence": "adapters/row21-jcs-run.txt (adapters/jcs_function_score.mjs)",
           "basis": "defect",
           "divergence_in": "their code",
-          "declared_revision": "draft-xkumakichi-xaip-receipts-03"
+          "declared_revision": "the draft's own requirement to canonicalize with RFC 8785 (revision withheld)"
         }
       ],
-      "upstream": {
-        "url": "https://github.com/xkumakichi/xaip-protocol",
-        "sha": "287d77654ea504d8dc0f1feaa9bbb5db4e43271a"
+      "withheld": {
+        "reason": "the project is far below the size line the matrix cites at, so it is not named (no name, repository link or fix pointer); the cell and its failure class stay",
+        "inputs": [
+          {
+            "what": "the reference checker source file canonicalize() was read from",
+            "sha256": "d6f5a35af5873719c4b46b53a7111ae5cb8decba67b0ccde1ceb6149ecf7e482"
+          }
+        ]
       },
-      "replay": "git clone https://github.com/xkumakichi/xaip-protocol /tmp/xaip && git -C /tmp/xaip checkout 287d77654ea504d8dc0f1feaa9bbb5db4e43271a && python -I adapters/xaip_receipts_adapter.py /tmp/xaip && (cd /tmp/xaip/docs/spec/test-vectors && node check.mjs) && XAIP_ROOT=/tmp/xaip A2A_JCS_TARGET=rfc8785 agent-evidence-vectors --corpus vectors-a2a-jcs-v01 --verifier \"node adapters/xaip_jcs_cli.mjs\"",
-      "independence": "non-author"
+      "replay": "node --no-warnings=ExperimentalWarning adapters/jcs_function_score.mjs --source CHECKER.mjs --entry canonicalize ../aev/corpora/vectors-a2a-jcs-v01   # CHECKER.mjs: a copy of the withheld input, sha256 above (../aev: agent-evidence-vectors v0.36.3, cloned as in the replay of project 25)",
+      "independence": "non-author",
+      "canonicalizer": {
+        "function": "canonicalize() of the draft's reference checker",
+        "kind": "hand-rolled",
+        "input": "parsed value",
+        "duplicates": "accepted",
+        "evidence": "adapters/row21-jcs-run.txt"
+      }
     },
     {
       "id": 22,
@@ -1211,6 +1222,82 @@
           "verdict": "not run",
           "detail": "needs a signed catalog entry and a recorded run"
         }
+      }
+    },
+    {
+      "id": 25,
+      "name": "A2A JS SDK (a2aproject/a2a-js; Agent Card signing, canonicalizeAgentCard)",
+      "cells": [
+        {
+          "cell": "jcsStringify() of src/signature.ts, the canonicalizer under canonicalizeAgentCard, against vectors-a2a-jcs-v01, rfc8785 target",
+          "source": "our adapter",
+          "verdict": "contradicted",
+          "detail": "48 of 53 agree, 5 differ: the lone-surrogate rejects A3-REJECT-011, A3-REJECT-012 and A4-REJECT-013 to 015 come out as \\udXXX escapes instead of a refusal (RFC 8785 Section 3.2.2.2, RFC 7493 Section 2.1). It also accepts all four parse-layer probes: {\"a\":1,\"a\":2} becomes {\"a\":2}, {\"name\":\"Good\",\"name\":\"Evil\"} becomes {\"name\":\"Evil\"}, and invalid UTF-8 becomes U+FFFD, so the signed bytes are not the received bytes. signature.ts is byte-identical at 41335e66 and at the pin. Open pull request a2aproject/a2a-js#804 adds the lone-surrogate refusal and a CI job running agent-evidence-vectors; this cell flips to agrees on the five when it merges. The function is measured alone, without the AgentCard round trip before it.",
+          "evidence": "adapters/a2a-js-jcs-run.txt (adapters/jcs_function_score.mjs)",
+          "basis": "defect",
+          "divergence_in": "their code",
+          "declared_revision": "A2A specification 8.4.1 (canonicalize with RFC 8785) at a2a-js 3f5cb54f"
+        }
+      ],
+      "upstream": {
+        "url": "https://github.com/a2aproject/a2a-js",
+        "sha": "3f5cb54fa94f81e3d1ff58f852c53fcb7135934c",
+        "also": [
+          {
+            "url": "https://github.com/probityai/agent-evidence-vectors",
+            "sha": "13247ea551e470fb57413fdfab4f2738147613a1"
+          }
+        ],
+        "note": "the corpus is agent-evidence-vectors v0.36.3 (the pinned reader); node 24.19.0"
+      },
+      "replay": "git clone --filter=blob:none https://github.com/probityai/agent-evidence-vectors ../aev && git -C ../aev checkout 13247ea551e470fb57413fdfab4f2738147613a1 && git clone https://github.com/a2aproject/a2a-js ../a2a-js && git -C ../a2a-js checkout 3f5cb54fa94f81e3d1ff58f852c53fcb7135934c && node --no-warnings=ExperimentalWarning adapters/jcs_function_score.mjs --source ../a2a-js/src/signature.ts --entry jcsStringify --decl MAX_CANONICALIZATION_DEPTH --decl CanonicalizationError --decl isContainer --decl assertNestingDepth ../aev/corpora/vectors-a2a-jcs-v01",
+      "independence": "non-author",
+      "canonicalizer": {
+        "function": "jcsStringify (src/signature.ts)",
+        "kind": "hand-rolled",
+        "input": "parsed value",
+        "duplicates": "accepted",
+        "evidence": "adapters/a2a-js-jcs-run.txt"
+      }
+    },
+    {
+      "id": 27,
+      "name": "x402 offer and receipt extension (x402-foundation/x402, typescript/packages/extensions)",
+      "cells": [
+        {
+          "cell": "canonicalize() of src/offer-receipt/signing.ts, the canonical JSON its JWS offers and receipts are signed over, against vectors-a2a-jcs-v01, rfc8785 target",
+          "source": "our adapter",
+          "verdict": "agrees",
+          "detail": "53 of 53 agree, the five lone-surrogate rejects included. Second run byte-identical.",
+          "evidence": "adapters/x402-jcs-run.txt (adapters/jcs_function_score.mjs)"
+        },
+        {
+          "cell": "the same function on four inputs with no canonical form at the parse or decode layer (two duplicate members, a surrogate written as UTF-8 bytes, a raw 0xFF byte)",
+          "source": "our adapter",
+          "verdict": "cannot-tell",
+          "detail": "all four come out as bytes: the duplicates keep the last value and invalid UTF-8 becomes U+FFFD. The function takes a parsed value, so the refusal belongs to whatever parses the received bytes before it; the extension's readers (extractReceiptPayload) were not run here, so whether a duplicate member in a signed payload is refused is not known from this cell.",
+          "evidence": "adapters/x402-jcs-run.txt (adapters/jcs_function_score.mjs)"
+        }
+      ],
+      "upstream": {
+        "url": "https://github.com/x402-foundation/x402",
+        "sha": "b38d3becc5a05234008506a42f62c3b2186510ce",
+        "also": [
+          {
+            "url": "https://github.com/probityai/agent-evidence-vectors",
+            "sha": "13247ea551e470fb57413fdfab4f2738147613a1"
+          }
+        ],
+        "note": "the corpus is agent-evidence-vectors v0.36.3 (the pinned reader); node 24.19.0"
+      },
+      "replay": "git clone --filter=blob:none https://github.com/probityai/agent-evidence-vectors ../aev && git -C ../aev checkout 13247ea551e470fb57413fdfab4f2738147613a1 && git clone --filter=blob:none https://github.com/x402-foundation/x402 ../x402 && git -C ../x402 checkout b38d3becc5a05234008506a42f62c3b2186510ce && node --no-warnings=ExperimentalWarning adapters/jcs_function_score.mjs --source ../x402/typescript/packages/extensions/src/offer-receipt/signing.ts --entry canonicalize --decl serializeValue --decl serializeNumber --decl serializeString --decl serializeArray --decl serializeObject ../aev/corpora/vectors-a2a-jcs-v01",
+      "independence": "non-author",
+      "canonicalizer": {
+        "function": "canonicalize (src/offer-receipt/signing.ts)",
+        "kind": "hand-rolled",
+        "input": "parsed value",
+        "duplicates": "accepted",
+        "evidence": "adapters/x402-jcs-run.txt"
       }
     }
   ]
