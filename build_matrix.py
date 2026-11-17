@@ -70,6 +70,12 @@ CANON_PARSE_LAYER = ("refused", "accepted", "parsed before it", "not probed")
 NO_RECORDS = "no records emitted"
 COUNTS_START, COUNTS_END = "<!-- counts:start -->", "<!-- counts:end -->"
 SHA256 = re.compile(r"[0-9a-f]{64}")
+# Anything that locates a repository or a site: a scheme URL, an scp-style git remote, or host.tld/path with no scheme.
+# A withheld project carries none of them anywhere in its entry, its withheld block included; only our own corpus
+# (github.com/probityai/...) may be named, because a replay clones it.
+ANY_LOCATOR = re.compile(r"(?i)(?:\b[a-z][a-z0-9+.-]*://[^\s)\]\"']+|\b[\w.-]+@[a-z0-9.-]+\.[a-z]{2,}:[\w./-]+"
+                         r"|(?<![\w@/.-])(?:[a-z0-9-]+\.)+[a-z]{2,}/[^\s)\]\"']*)")
+OWN_LOCATOR = re.compile(r"(?i)^(?:https://)?github\.com/probityai/")
 
 
 def project_digest(project: dict) -> str:
@@ -192,9 +198,11 @@ def _withheld_problems(pid, project: dict) -> list[str]:
             out.append(f"project {pid}: withheld.inputs[{i}] needs what and a 64-hex sha256")
     if project.get("upstream"):
         out.append(f"project {pid}: a withheld project carries no upstream")
-    text = json.dumps({k: v for k, v in project.items() if k != "withheld"}, ensure_ascii=False)
-    if REPO_URL.search(text):
-        out.append(f"project {pid}: a withheld project names no repository URL")
+    text = json.dumps(project, ensure_ascii=False)
+    found = sorted({m.group(0) for m in ANY_LOCATOR.finditer(text) if not OWN_LOCATOR.match(m.group(0))})
+    if found:
+        out.append(f"project {pid}: a withheld project names no repository URL or site, its withheld block included "
+                   f"(found {found[:3]})")
     return out
 
 

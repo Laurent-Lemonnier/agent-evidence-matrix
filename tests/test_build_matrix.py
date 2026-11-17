@@ -232,6 +232,9 @@ def _withheld(**kw):
 
 def test_a_withheld_project_with_a_result_passes_without_an_upstream():
     assert bm.problems(matrix(_withheld()), reviews(21)) == []
+    # our own corpus may be named, because the replay clones it
+    ok = _withheld(replay="git clone https://github.com/probityai/agent-evidence-vectors ../aev && node x.mjs C.mjs")
+    assert bm.problems(matrix(ok), reviews(21)) == []
 
 
 @pytest.mark.parametrize("change,needle", [
@@ -239,6 +242,14 @@ def test_a_withheld_project_with_a_result_passes_without_an_upstream():
     ({"withheld": {"reason": "r", "inputs": [{"what": "x", "sha256": "short"}]}}, "64-hex sha256"),
     ({"upstream": {"url": "https://github.com/example/p21", "sha": "a" * 40}}, "carries no upstream"),
     ({"name": "named after https://github.com/someone/project"}, "names no repository URL"),
+    # the withheld block itself renders into MATRIX.md, so it is held to the same rule
+    ({"withheld": {"reason": "see https://github.com/someone/project", "inputs": [{"what": "x", "sha256": "b" * 64}]}},
+     "names no repository URL"),
+    ({"withheld": {"reason": "r", "inputs": [{"what": "checker from github.com/someone/project", "sha256": "b" * 64}]}},
+     "names no repository URL"),
+    ({"name": "the gitlab.com/someone/project receipts"}, "names no repository URL"),
+    ({"name": "git@github.com:someone/project.git"}, "names no repository URL"),
+    ({"name": "the site https://someone.dev"}, "names no repository URL"),
     ({"replay": ""}, "needs a replay over the withheld bytes"),
 ])
 def test_a_withheld_project_is_refused_when_it_still_points_at_the_project(change, needle):
