@@ -155,6 +155,47 @@ jobs:
           python-version: "3.12"
       - run: pip install pytest==8.3.5 rfc8785==0.1.4 cryptography==46.0.3
       - run: python -m pytest -q tests
+  canonicalizers:
+    # Rows 26 and 27: each project's canonicalization function, read from its pinned commit, scored again on the pinned
+    # corpus and probed with the four parse-layer inputs; the output must equal the committed run line for line.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24.19.0"
+      - name: Fetch the corpus and the pinned upstreams
+        run: |
+          git clone -q --filter=blob:none https://github.com/probityai/agent-evidence-vectors ../aev && git -C ../aev checkout -q 13247ea551e470fb57413fdfab4f2738147613a1
+          git clone -q --filter=blob:none https://github.com/a2aproject/a2a-js ../a2a-js && git -C ../a2a-js checkout -q 3f5cb54fa94f81e3d1ff58f852c53fcb7135934c
+          git clone -q --filter=blob:none https://github.com/x402-foundation/x402 ../x402 && git -C ../x402 checkout -q b38d3becc5a05234008506a42f62c3b2186510ce
+      - name: Each run equals its recorded run
+        run: |
+          S="node --no-warnings=ExperimentalWarning adapters/jcs_function_score.mjs"
+          C=../aev/corpora/vectors-a2a-jcs-v01
+          $S --source ../a2a-js/src/signature.ts --entry jcsStringify --decl MAX_CANONICALIZATION_DEPTH --decl CanonicalizationError --decl isContainer --decl assertNestingDepth $C > a2a.txt
+          diff adapters/a2a-js-jcs-run.txt a2a.txt
+          $S --source ../x402/typescript/packages/extensions/src/offer-receipt/signing.ts --entry canonicalize --decl serializeValue --decl serializeNumber --decl serializeString --decl serializeArray --decl serializeObject $C > x402.txt
+          diff adapters/x402-jcs-run.txt x402.txt
+      - name: Each control edit must flip exactly the cases it fixes
+        # Lone-surrogate refusal alone flips the five lone-surrogate cases and leaves the three non-finite cases failing,
+        # which proves those three reach the function as the numbers they name rather than being refused by the harness
+        # parse; adding the non-finite refusal flips them too. The duplicate probes stay accepted: the function takes a
+        # parsed value.
+        run: |
+          D=(--decl MAX_CANONICALIZATION_DEPTH --decl CanonicalizationError --decl isContainer --decl assertNestingDepth)
+          sed -e 's/^  assertNestingDepth(value, depth);$/  assertNestingDepth(value, depth); if (typeof value === "string" \&\& !value.isWellFormed()) throw new Error("lone surrogate");/' \
+              -e 's/^  const keys = Object.keys(record).sort();$/  const keys = Object.keys(record).sort(); for (const k of keys) if (!k.isWellFormed()) throw new Error("lone surrogate");/' \
+              ../a2a-js/src/signature.ts > surrogates.ts
+          sed -e 's/^    return JSON.stringify(value);$/    if (typeof value === "number" \&\& !Number.isFinite(value)) throw new Error("non-finite"); return JSON.stringify(value);/' \
+              surrogates.ts > fixed.ts
+          if cmp -s surrogates.ts ../a2a-js/src/signature.ts || cmp -s fixed.ts surrogates.ts; then echo "::error::a control edit did not apply"; exit 1; fi
+          node --no-warnings=ExperimentalWarning adapters/jcs_function_score.mjs --source surrogates.ts --entry jcsStringify "${D[@]}" ../aev/corpora/vectors-a2a-jcs-v01 > surrogates.txt
+          grep -q "^scored=53 pass=50 fail=3 " surrogates.txt || { cat surrogates.txt; exit 1; }
+          [ "$(grep -c '^FAIL A5-REJECT-01[678] MUST-REJECT got=7b226e223a6e756c6c7d$' surrogates.txt)" = 3 ] || { cat surrogates.txt; exit 1; }
+          node --no-warnings=ExperimentalWarning adapters/jcs_function_score.mjs --source fixed.ts --entry jcsStringify "${D[@]}" ../aev/corpora/vectors-a2a-jcs-v01 > fixed.txt
+          grep -q "^scored=53 pass=53 fail=0 " fixed.txt || { cat fixed.txt; exit 1; }
+          grep -q "^PROBE duplicate-member input=7b2261223a312c2261223a327d accepted " fixed.txt || { cat fixed.txt; exit 1; }
   corpus-jcs:
     runs-on: ubuntu-latest
     steps:
