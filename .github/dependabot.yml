@@ -1,10 +1,21 @@
 version: 2
+
+# One weekly pull request per ecosystem. requirements.txt is compiled from requirements.in
+# with hashes, and Dependabot recompiles it. github/codeql-action's init, analyze and
+# upload-sarif must stay at one version: analyze refuses a database another version wrote.
+
 updates:
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      python:
+        patterns: ["*"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      actions:
+        patterns: ["*"]

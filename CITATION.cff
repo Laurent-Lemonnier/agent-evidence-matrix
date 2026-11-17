@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: >-
+  agent-evidence-matrix: outside agent-evidence formats read against their own specifications
+message: >-
+  Cite the commit you read: each cell is a reading of one pinned revision of a specification and its code.
+type: software
+authors:
+  - family-names: Gilda
+    given-names: Sankalp
+    email: sankalp.gilda@gmail.com
+    orcid: 'https://orcid.org/0000-0002-3645-4501'
+repository-code: https://github.com/probityai/agent-evidence-matrix
+abstract: >-
+  A matrix of outside agent-evidence formats, each read against the text of its own specification and its own test kit at a pinned revision, with the adapter, the run and the replay command for every cell.
+keywords:
+  - conformance testing
+  - agent evidence
+  - interoperability
+  - Internet-Drafts
+  - agentic systems
+license: Apache-2.0
