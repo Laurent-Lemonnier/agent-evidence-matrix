@@ -135,3 +135,13 @@ def test_a_measured_value_that_is_not_a_clock_reading_is_compared(tmp_path):
         a["assertions"][1]["measured_value"] = "C"
     rc, out = regen_run(tmp_path, change)
     assert rc == 1 and "$.assertions[*].measured_value" in out
+
+
+def test_a_regenerated_slow_call_that_was_fast_differs(tmp_path):
+    """Second break pass: with the measured value dropped and the verdict copied, a regeneration whose slow call took
+    3 ms still read as equal. The regenerated result must follow from the regenerated reading by the pinned rule."""
+    def change(a):
+        a["assertions"][0]["measured_value"] = 3
+    rc, out = regen_run(tmp_path, change)
+    assert rc == 1 and "DIFF  agentops/analysis.json-normalized: 0 of 1" in out
+    assert "result (does not follow measured_value 3)" in out

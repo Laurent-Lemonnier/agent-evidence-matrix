@@ -186,8 +186,33 @@ VOLATILE = {"timestamp", "trace_id", "span_id", "detected_at", "duration_ms", "l
 
 # Assertions whose measured_value is a copy of a volatile field. agentops/analysis.py at the pinned commit sets
 # call-latency's measured_value to the event's action.duration_ms, a wall-clock reading that differs on every run.
-# Its result (pass, approaching, violation) is still compared: that is the analyzer's verdict.
+# Its result (pass, approaching, violation) is still compared: that is the analyzer's verdict. Because the reading
+# itself is dropped, the regenerated result must also follow from the regenerated reading by the pinned rule, or a
+# regeneration whose slow call was fast (the slow_call scenario's latency gone) would read as equal.
 VOLATILE_MEASUREMENT = {"call-latency"}
+
+
+def latency_rule(measured, boundary):
+    """agentops/analysis.py at the pin: violation above the limit, approaching from 80 percent of it, else pass."""
+    if isinstance(measured, bool) or not isinstance(measured, (int, float)) or \
+            isinstance(boundary, bool) or not isinstance(boundary, (int, float)):
+        return None
+    return "violation" if measured > boundary else "approaching" if measured >= .8 * boundary else "pass"
+
+
+def rule_breaks(v, path="$"):
+    """Paths of call-latency assertions whose result does not follow from their own measured and boundary values."""
+    out = []
+    if isinstance(v, dict):
+        if v.get("assertion_id") in VOLATILE_MEASUREMENT and \
+                latency_rule(v.get("measured_value"), v.get("boundary_value")) != v.get("result"):
+            out.append(f"{path}.result (does not follow measured_value {v.get('measured_value')!r})")
+        for k, x in v.items():
+            out += rule_breaks(x, f"{path}.{k}")
+    elif isinstance(v, list):
+        for x in v:
+            out += rule_breaks(x, f"{path}[*]")
+    return out
 
 
 def norm(v):
@@ -230,7 +255,11 @@ def regenerated(results_dir, regen):
                 differing.append(sess.name)
                 where[sess.name] = "missing"
                 continue
-            d = first_diff(norm(load(a)), norm(load(b)))
+            got = load(b)
+            d = first_diff(norm(load(a)), norm(got))
+            broken = rule_breaks(got) if fname == "analysis.json" else []
+            if broken:
+                d = ", ".join(([d] if d else []) + sorted(set(broken)))
             if d is None:
                 same += 1
             else:
