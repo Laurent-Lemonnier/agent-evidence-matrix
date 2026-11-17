@@ -240,6 +240,12 @@ def _canonicalizer_problems(pid, rec, root: pathlib.Path) -> list[str]:
     return out
 
 
+def _says_no_records(cell) -> bool:
+    """A cell whose evidence says the project emitted no records, however it is capitalised or punctuated."""
+    ev = cell.get("evidence") if isinstance(cell, dict) else None
+    return isinstance(ev, str) and re.match(r"(?i)\s*no records (?:were )?emitted\b", ev) is not None
+
+
 def _project_problems(project: dict, codes: set[str], root: pathlib.Path) -> list[str]:
     pid = project.get("id")
     out = []
@@ -248,13 +254,20 @@ def _project_problems(project: dict, codes: set[str], root: pathlib.Path) -> lis
         out.append(f"project {pid}: no cells")
     for i, cell in enumerate(cells, 1):
         out += _cell_problems(f"project {pid} cell {i}", cell, codes, root)
-        if cell.get("evidence", "").strip() == NO_RECORDS:
+        if _says_no_records(cell):
             producer = cell.get("producer")
+            target = re.fullmatch(r"cell (\d+)", producer) if isinstance(producer, str) else None
+            n = int(target.group(1)) if target else 0
             if not isinstance(producer, str) or not producer.strip():
                 out.append(f"project {pid} cell {i}: \"{NO_RECORDS}\" names its producer route (a cell reading "
                            "records the project's own code produced, or none with the reason)")
-            elif not (re.fullmatch(r"cell \d+", producer) and 1 <= int(producer.split()[1]) <= len(cells)
-                      and int(producer.split()[1]) != i) and not producer.startswith("none: "):
+            elif target and (n == i or not 1 <= n <= len(cells)):
+                out.append(f"project {pid} cell {i}: producer {producer!r} is not another cell of this project")
+            elif target and _says_no_records(cells[n - 1]):
+                # two "no records" cells naming each other would each claim a producer route and neither reads one
+                out.append(f"project {pid} cell {i}: producer {producer!r} itself says \"{NO_RECORDS}\"; the "
+                           "producer cell reads records the project's own code produced")
+            elif not target and not re.fullmatch(r"none: \S.*", producer.strip()):
                 out.append(f"project {pid} cell {i}: producer {producer!r} is neither another cell of this project "
                            "nor \"none: <reason>\"")
     has_result = any(c.get("verdict") in RESULT for c in cells)

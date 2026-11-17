@@ -284,7 +284,8 @@ def test_a_canonicalizer_record_with_its_run_passes():
 
 
 @pytest.mark.parametrize("producer,ok", [(None, False), ("cell 1", True), ("cell 2", False), ("cell 9", False),
-                                         ("none: the drafts define no format and no code", True), ("later", False)])
+                                         ("none: the drafts define no format and no code", True), ("later", False),
+                                         ("none: ", False), ("none:   ", False), ("cell 0", False)])
 def test_no_records_emitted_names_its_producer_route(producer, ok):
     empty = cell(verdict="unsupported", source="none", evidence="no records emitted")
     if producer is not None:
@@ -299,3 +300,22 @@ def test_readme_counts_are_rewritten_and_a_missing_block_is_refused():
     assert "N of 2: 1; no record read yet: 1 of 2" in text and "(project 2)" in text and "old" not in text
     with pytest.raises(ValueError):
         bm.readme_with_counts("no markers", data)
+
+
+def test_two_no_records_cells_cannot_name_each_other_as_producer():
+    empty = lambda producer: cell(verdict="unsupported", source="none", evidence="no records emitted", producer=producer)
+    out = bm.problems(matrix(project(1, cells=[empty("cell 2"), empty("cell 1")])), reviews(1))
+    assert sum("itself says" in line for line in out) == 2, out
+
+
+@pytest.mark.parametrize("evidence", ["No records emitted.", "no records were emitted by the build", "  NO RECORDS EMITTED"])
+def test_no_records_emitted_is_caught_however_it_is_written(evidence):
+    empty = cell(verdict="unsupported", source="none", evidence=evidence)
+    out = bm.problems(matrix(project(1, cells=[cell(), empty])), reviews(1))
+    assert any("names its producer route" in line for line in out), out
+
+
+@pytest.mark.parametrize("evidence", [None, ["adapters/x.txt"], 7])
+def test_a_cell_whose_evidence_is_not_text_is_named_not_a_crash(evidence):
+    out = bm.problems(matrix(project(1, cells=[cell(), cell(evidence=evidence)])), reviews(1))
+    assert any("evidence is missing" in line for line in out), out
