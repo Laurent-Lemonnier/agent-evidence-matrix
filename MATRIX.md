@@ -2,7 +2,7 @@
 
 Reader: agent-evidence-vectors 0.36.3, agent-evidence-verify 0.5.1.
 
-Coverage: 23 of 24 projects have at least one cell with a result (agrees, contradicted or cannot-tell). No record read yet: 1 of 24 (every cell unsupported or not run: projects 24).
+Coverage: 24 of 25 projects have at least one cell with a result (agrees, contradicted or cannot-tell). No record read yet: 1 of 25 (every cell unsupported or not run: projects 24).
 
 Source: "their records" = the project's own record bytes were read; "our adapter" = code in adapters/ carried their record to our reader or their code to our corpus.
 
@@ -131,6 +131,9 @@ A contradicted cell names its basis (defect, adapter, upstream-moved, revision-s
 | <a id="project-23"></a>23 | Compliance Receipts registries (draft-marques-asqav-compliance-receipts, jagmarques/asqav-registry) | Registry contents re-derived from REGISTRATION.md and CHANGELOG.md: MANIFEST.sha256, entry name and scope rules, protectmcp reservation and parent inheritance, never-removed-never-renamed against previous.json, changelog counts, wire.json receipt types | their records | agrees (6 of 6 checks agree on 49 extension fields (47 signed-payload, 1 envelope-level, 1 signing-time declaration) and 9 type namespaces at version 1.3.0: the 4 manifest digests match, every name fits its pattern, previous.json (1.1.0) survives with the same scope and change controller, CHANGELOG 1.3.0 states 49 fields and the file's date, and wire.json receipt_types equals the 9 registered namespaces. Observation, not scored: wire.json describes 43 field names of which 41 are registered; user_intent and user_intent_verified are not, and neither document says a wire.json field must be registered. Second run from a second export is byte-identical; flipping the scope of nonce in a copy fails the stability check and the manifest check.) | adapters/asqav-registry-run.txt (adapters/asqav_registry_adapter.py); adapters/asqav-registry-tamper-run.txt |
 | 23 | Compliance Receipts registries (draft-marques-asqav-compliance-receipts, jagmarques/asqav-registry) | Their validate.py, vocabulary/validate.py and tools/wire_vocabulary.py --check on the pinned tree (jsonschema 4.26.0) | their records | agrees (All three exit 0 (49 extension fields, 9 type namespaces, version 1.3.0; wire vocabulary shape and generated files). The same validate.py on the nonce-scope copy exits 1 with 'compat: extension-fields.json: nonce: scope changed signed-payload -> envelope-level'. Their wire unit tests were not scored: one renderer test needs the TypeScript consumer installed with npm ci, which was not run.) | adapters/asqav-theirs-validate-run.txt; adapters/asqav-theirs-validate-tamper-run.txt |
 | <a id="project-24"></a>24 | AI Catalog (Agent-Card/ai-catalog; ADR 0027 did:web entry signature profile and ADR 0028 independent trust manifests, both Proposed) | entry signing input, did:web publisher rule (exact match) and algorithm rule of ADR 0027 and 0028 | none | not run (the repository's example catalog carries no signed entry; the strict checker in adapters/ard_trust_manifest_check.py reads the ADR 0027 profile once a signed record exists) | adapters/ard_trust_manifest_check.py |
+| <a id="project-25"></a>25 | Proofable authority-at-dispatch evidence (proofable/docs; CAIP-380 portable proofs) | SHA256SUMS of the 2026-11-02 packet (public/evidence/aaif/authority-at-dispatch/2026-11-02-suite), recomputed with hashlib | their records | agrees (7 of 7 listed files match. Second run byte-identical.) | adapters/proofable-aad-run.txt (adapters/proofable_aad_adapter.py) |
+| 25 | Proofable authority-at-dispatch evidence (proofable/docs; CAIP-380 portable proofs) | Their offline verifier verify-portable-proofs.mjs (@proofable/sdk 0.1.11) on their 15 CAIP-380 envelopes: 10 authority decisions and 5 job receipts | their records | agrees (15 of 15 verify (signature and qHash), each signed by 0xa41494e1e5f9e5eaf786961e6ef84cd1a3071eec as the packet README states. Changing one digit of one envelope's signed content makes the verifier refuse that envelope, and only that one, with exit 1: 15 of 15. Second run byte-identical. The signer is the Proofable service key, so each envelope is a service-attested statement, not one signed by the controller.) | adapters/proofable-aad-run.txt (adapters/proofable_aad_adapter.py) |
+| 25 | Proofable authority-at-dispatch evidence (proofable/docs; CAIP-380 portable proofs) | the authority-at-dispatch/v1 reader of agent-evidence-vectors 0.36.3 (the reader of the corpus vectors-authority-at-dispatch) on the 8 case records of trace.jsonl, which name that contract | our adapter | unsupported [profile: authority-at-dispatch/v1 record shape: decisionTime, approvedAction, dispatch (with the dispatched bytes), delegation grants with notBefore and expiresAt, authorityEvidence with observedAt] (contractId is present and equal to the reader's on 8 of 8 records, and the 8 records cite all 15 envelopes. The reader returns no decision on any of the 8 (0 of 8): the records carry none of decisionTime, approvedAction, dispatch, delegation or authorityEvidence, which the reader's checks 3 to 8 read, and trace.jsonl states evidenceAgeSeconds as not_emitted. A refusal on shape, so no verdict on the packet's expected outcomes: they are the project's statements, read by the cells above through the project's own verifier only.) | adapters/proofable-reader-cell-run.txt (adapters/proofable_reader_cell.py) |
 
 ## Properties
 
@@ -140,7 +143,7 @@ One verdict per project and property, for every project whose review is not froz
 |---|---|---|---|---|---|---|---|---|
 | 1 | AER-1 execution receipts | non-author | agrees (6 of 6 edits to the kit's valid five-entry timeline detected by the Section 7 chain reading); adapters/edit-detection-aer1-run.txt (adapters/edit_detection.py) | agrees (Section 7.1 names SHA-256 over its own serialization of the entry fields); adapters/aer1-run.txt (adapters/aer1_adapter.py) | not run | not run | not run | not run |
 | 2 | Action Evidence Packages | non-author | not run | not run | not run | not run | not run | not run |
-| 4 | Agent action evidence interop | non-author | not run | not run | not run | not run | not run | not run |
+| 4 | Agent action evidence interop | co-author | not run | not run | not run | not run | not run | not run |
 | 5 | Agent memory integrity | non-author | not run | not run | not run | not run | not run | not run |
 | 6 | Independent time anchoring | non-author | not run | not run | not run | not run | not run | not run |
 | 8 | WEXP Appraisal Core with SCITT | non-author | not run | not run | not run | not run | not run | not run |
@@ -157,6 +160,7 @@ One verdict per project and property, for every project whose review is not froz
 | 22 | Seal records ATTESTATION-v1 and ACTION-v1 (Aqta-ai/attestation-spec) | non-author | not run | not run | not run | not run | not run | not run |
 | 23 | Compliance Receipts registries (draft-marques-asqav-compliance-receipts, jagmarques/asqav-registry) | non-author | not run | not run | not run | not run | not run | not run |
 | 24 | AI Catalog (Agent-Card/ai-catalog; ADR 0027 did:web entry signature profile and ADR 0028 independent trust manifests, both Proposed) | non-author | not run | not run | not run | not run (needs a signed catalog entry and a recorded run) | not run | not run |
+| 25 | Proofable authority-at-dispatch evidence (proofable/docs; CAIP-380 portable proofs) | co-author | not run | not run | not run | not run | not run | not run |
 
 ## Replay
 
@@ -348,4 +352,14 @@ Upstream: https://github.com/jagmarques/asqav-registry at d479897af4ac21126a89b6
 
 ```
 git clone https://github.com/jagmarques/asqav-registry /tmp/asqav && git -C /tmp/asqav checkout d479897af4ac21126a89b6ccf9723970590468e0 && python -I adapters/asqav_registry_adapter.py /tmp/asqav && python -m venv /tmp/asqv && /tmp/asqv/bin/pip install jsonschema==4.26.0 && (cd /tmp/asqav && /tmp/asqv/bin/python validate.py && /tmp/asqv/bin/python vocabulary/validate.py && /tmp/asqv/bin/python tools/wire_vocabulary.py --check)
+```
+
+### 25. Proofable authority-at-dispatch evidence (proofable/docs; CAIP-380 portable proofs)
+
+Upstream: https://github.com/proofable/docs at 513cd308c9f943e5cb4b096912806ad6fa3146e8
+
+Note: verifier dependency @proofable/sdk@0.1.11 from npm, as the packet README pins it
+
+```
+git clone https://github.com/proofable/docs ../proofable-docs && git -C ../proofable-docs checkout 513cd308c9f943e5cb4b096912806ad6fa3146e8 && (cd ../proofable-docs/public/evidence/aaif/authority-at-dispatch/2026-11-02-suite && npm install --no-save @proofable/sdk@0.1.11) && python -I adapters/proofable_aad_adapter.py ../proofable-docs && python -I adapters/proofable_reader_cell.py ../proofable-docs
 ```

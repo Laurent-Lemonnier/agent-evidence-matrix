@@ -52,8 +52,9 @@ def main() -> int:
         print("usage: proofable_aad_adapter.py <proofable/docs checkout>")
         return 2
     packet = pathlib.Path(sys.argv[1]) / PACKET
-    if not (packet / "node_modules" / "@proofable" / "sdk").is_dir():
-        print(f"setup error: install the SDK first: (cd {packet} && npm install @proofable/sdk@0.1.11)")
+    # npm installs into the nearest package.json root, which in a full proofable/docs checkout is above the packet.
+    if not any((d / "node_modules" / "@proofable" / "sdk").is_dir() for d in (packet, *packet.parents)):
+        print(f"setup error: install the SDK first: (cd {packet} && npm install --no-save @proofable/sdk@0.1.11)")
         return 2
     ok = True
 
