@@ -23,7 +23,13 @@ in order, stop at the first one that does not pass:
   pins          every attestations[].digest equals SHA-256 of the bytes at its uri (3.5.2 2)
   binding       every attestation is a COSE_Sign1 record (RFC 9052, tag 18 or untagged) whose EdDSA signature
                 verifies under the key its kid names, and whose CBOR payload carries a subject claim whose
-                identifier and digest (each one present, at least one) equal the entry's (3.5.2 1, anti-transplant)
+                identifier and digest (each one present, at least one) equal the entry's (3.5.2 1, anti-transplant);
+                a label in both header buckets, a kid that is not a bstr, or CBOR nested deeper than 64 levels
+                is malformed (RFC 9052 sections 3 and 3.1): failed
+
+A malformed value is an outcome for its entry, never a crash of the run: a JWS header that is not JSON, a time that
+is not a calendar time (a leap second, which the comparison cannot represent, is unverified) and a non-string
+identifier each name the check they fail.
 
 Bytes at a URL come from context.json local_files; a URL it does not map cannot be fetched offline and makes the
 entry unverified, as does a digest algorithm other than sha256 or an attestation media type other than COSE_Sign1.
@@ -64,7 +70,12 @@ class Unverified(Exception):
 
 # ---- CBOR (RFC 8949): definite lengths only, which COSE_Sign1 records use
 
-def cbor_item(b, i):
+MAX_DEPTH = 64  # nesting of arrays, maps and tags; a COSE_Sign1 record and its claims need a handful
+
+
+def cbor_item(b, i, depth=0):
+    if depth > MAX_DEPTH:
+        raise Failed("cose-malformed:nesting-too-deep")
     if i >= len(b):
         raise Failed("cose-malformed:truncated")
     ib = b[i]
@@ -97,20 +108,20 @@ def cbor_item(b, i):
     if major == 4:
         out = []
         for _ in range(arg):
-            v, i = cbor_item(b, i)
+            v, i = cbor_item(b, i, depth + 1)
             out.append(v)
         return out, i
     if major == 5:
         out = {}
         for _ in range(arg):
-            k, i = cbor_item(b, i)
-            v, i = cbor_item(b, i)
+            k, i = cbor_item(b, i, depth + 1)
+            v, i = cbor_item(b, i, depth + 1)
             if isinstance(k, (list, dict)) or k in out:
                 raise Failed("cose-malformed:map-key")
             out[k] = v
         return out, i
     if major == 6:
-        v, i = cbor_item(b, i)
+        v, i = cbor_item(b, i, depth + 1)
         return ("tag", arg, v), i
     simple = {20: False, 21: True, 22: None}
     if info in simple:
@@ -180,7 +191,13 @@ def digest_ok(spec, data, what):
 def when(s, what):
     if not (isinstance(s, str) and RFC3339_UTC.fullmatch(s)):
         raise Failed(f"{what}-not-rfc3339-utc")
-    return datetime.fromisoformat(s.replace("Z", "+00:00"))
+    if s[17:19] == "60":
+        # RFC 3339 5.6 allows a leap second; the comparison below cannot represent one.
+        raise Unverified(f"{what}-leap-second-not-implemented")
+    try:
+        return datetime.fromisoformat(s.replace("Z", "+00:00"))
+    except ValueError:
+        raise Failed(f"{what}-not-a-calendar-time")
 
 
 # ---- the checks
@@ -216,6 +233,8 @@ def check_signature(tm, did_docs):
         raise Failed(f"jws-refused:{exc}")
     except UnicodeDecodeError:
         raise Failed("jws-header-not-utf8")
+    except RecursionError:
+        raise Failed("jws-refused:nested_too_deep")
     if not ok:
         raise Failed("signature-invalid")
 
@@ -251,12 +270,21 @@ def check_binding(data, entry, att_keys):
     hdr = cbor_decode(protected) if protected else {}
     if not isinstance(hdr, dict):
         raise Failed("cose-malformed:protected-not-map")
+    both = sorted(set(hdr) & set(unprotected), key=repr)
+    if both:
+        # RFC 9052 section 3: a label never occurs in both buckets, and a message where one does is malformed.
+        raise Failed(f"cose-malformed:label-in-both-buckets:{both[0]}")
     if hdr.get(1) != -8:
         raise Unverified(f"alg-not-implemented:{hdr.get(1)}")
     if 2 in hdr:
         raise Failed("crit-not-understood")
     kid = hdr.get(4, unprotected.get(4))
-    kid = kid.decode("utf-8", "replace") if isinstance(kid, bytes) else kid
+    if kid is not None and not isinstance(kid, bytes):
+        raise Failed("cose-malformed:kid-not-bstr")  # RFC 9052 section 3.1, label 4: bstr
+    try:
+        kid = kid.decode("utf-8") if kid is not None else None
+    except UnicodeDecodeError:
+        raise Unverified("attestation-key-unknown:kid-not-utf8")
     key = att_keys.get(kid)
     if key is None:
         raise Unverified(f"attestation-key-unknown:{kid}")
@@ -293,7 +321,7 @@ def judge(path, ctx, did_docs, att_keys, ard, now):
             check_signature(tm, did_docs)
             check_time(tm, now)
             check_subject(tm, entry)
-        pub = atm.publisher_of_urn(entry.get("identifier"))
+        pub = atm.publisher_of_urn(entry.get("identifier"))  # None for a non-string identifier
         if pub is None:
             raise Failed("identifier-not-urn-air")
         if not any(tm["identity"] == "did:web:" + pub for tm in mans):

@@ -167,3 +167,63 @@ def test_a_control_that_does_not_verify_fails_the_run(tmp_path):
     rc, lines, out = run(d, {"ok": entry})
     assert rc == 1 and "NOT all verified" in out.stdout
     assert lines["example"] == ["failed", "entry-digest-mismatch"]
+
+
+def with_record(d, es, entry, name, rec):
+    """A copy of the entry whose one attestation is `rec`, stored under its own URL so the control is untouched."""
+    (d / "files" / (name + ".cose")).write_bytes(rec)
+    ctx = json.loads((d / "context.json").read_text())
+    ctx["local_files"]["https://example.org/" + name + ".cose"] = "files/" + name + ".cose"
+    (d / "context.json").write_text(json.dumps(ctx))
+    out = copy.deepcopy(entry)
+    att = out["trustManifest"]["attestations"][0]
+    att["uri"], att["digest"] = "https://example.org/" + name + ".cose", "sha256:" + hashlib.sha256(rec).hexdigest()
+    sign_manifest(out["trustManifest"], es, "did:web:example.org#k1")
+    return out
+
+
+def cose(ed, protected, unprotected, subject):
+    payload = cbor({"subject": subject})
+    sig = ed.sign(cbor(["Signature1", protected, b"", payload]))
+    return bytes([0xD2]) + cbor([protected, unprotected, payload, sig])
+
+
+def test_malformed_input_is_an_outcome_for_that_entry_never_a_crash_or_a_pass(tmp_path):
+    """Second break pass: each of these was verified, or crashed the whole run (exit 2), before the fix."""
+    d, es, ed, entry = pack(tmp_path)
+    subject = {"identifier": ID, "digest": entry["digest"]}
+    vectors = {
+        # RFC 9052 section 3: a label in both buckets makes the message malformed (was verified)
+        "kid_both": with_record(d, es, entry, "kb", cose(ed, cbor({1: -8, 4: b"rec-key"}), {4: b"other"}, subject)),
+        "alg_both": with_record(d, es, entry, "ab", cose(ed, cbor({1: -8, 4: b"rec-key"}), {1: -7}, subject)),
+        # RFC 9052 section 3.1: kid is a bstr (a text kid was verified)
+        "kid_text": with_record(d, es, entry, "kt", cose(ed, cbor({1: -8, 4: "rec-key"}), {}, subject)),
+        # 200000 nested arrays (RecursionError, exit 2)
+        "deep_cbor": with_record(d, es, entry, "dc", b"\x81" * 200000 + b"\x00"),
+    }
+    for name, field, value in (("bad_month", "issuedAt", "2026-13-01T00:00:00Z"),
+                               ("leap", "expiresAt", "2026-12-31T23:59:60Z")):
+        v = copy.deepcopy(entry)
+        v["trustManifest"][field] = value
+        sign_manifest(v["trustManifest"], es, "did:web:example.org#k1")
+        vectors[name] = v
+    v = copy.deepcopy(entry)
+    v["identifier"] = v["trustManifest"]["subject"]["identifier"] = 5
+    sign_manifest(v["trustManifest"], es, "did:web:example.org#k1")
+    vectors["identifier_int"] = v
+    for name, header in (("header_not_json", b"not json"), ("header_deep", b"[" * 100000 + b"]" * 100000)):
+        v = copy.deepcopy(entry)
+        _, p, s = v["trustManifest"]["signature"].split(".")
+        v["trustManifest"]["signature"] = b64u(header) + "." + p + "." + s
+        vectors[name] = v
+    rc, lines, out = run(d, vectors)
+    assert rc == 0, out.stdout + out.stderr
+    assert lines["kid_both"] == ["failed", "cose-malformed:label-in-both-buckets:4"]
+    assert lines["alg_both"] == ["failed", "cose-malformed:label-in-both-buckets:1"]
+    assert lines["kid_text"] == ["failed", "cose-malformed:kid-not-bstr"]
+    assert lines["deep_cbor"] == ["failed", "cose-malformed:nesting-too-deep"]
+    assert lines["bad_month"] == ["failed", "issuedAt-not-a-calendar-time"]
+    assert lines["leap"] == ["unverified", "expiresAt-leap-second-not-implemented"]
+    assert lines["identifier_int"] == ["failed", "identifier-not-urn-air"]
+    assert lines["header_not_json"][:1] == ["failed"] and lines["header_not_json"][1].startswith("jws-refused:not_json")
+    assert lines["header_deep"] == ["failed", "jws-refused:nested_too_deep"]
