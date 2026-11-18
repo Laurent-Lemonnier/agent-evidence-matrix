@@ -162,3 +162,21 @@ def test_a_push_by_a_non_maintainer_to_a_maintainers_pull_request_is_judged_as_t
     monkeypatch.setenv("SENDER", "pusher")
     assert intake.main() == 1
     assert "reviews.json is written by maintainers only" in capsys.readouterr().out
+
+
+@pytest.mark.parametrize("spelling", [
+    "https://github.com/​heldowner/x",            # zero-width space before the name
+    "https://github.com/held­owner/x",            # soft hyphen inside it
+    "https://github.com/held⁠owner/x",            # word joiner
+    "ｇｉｔｈｕｂ．ｃｏｍ／heldowner",  # fullwidth github.com/heldowner
+    "https://github.com/%E2%80%8Bheldowner/x",          # the zero-width space percent-encoded
+    "https://github.com/ＨＥＬＤOWNER/x",  # fullwidth capitals in the name
+])
+def test_a_held_owner_hidden_by_an_invisible_or_fullwidth_character_is_found(spelling):
+    # Each renders in MATRIX.md as the held owner's name; the inline gate read the raw characters and passed them.
+    assert intake.held_owner_named(proj(9, note=spelling), HELD)
+
+
+def test_folding_does_not_invent_a_held_owner():
+    assert not intake.held_owner_named(proj(9, note="https://github.com/someone/heldowner"), HELD)
+    assert not intake.held_owner_named(proj(9, note="https://github.com/heldowners/x"), HELD)

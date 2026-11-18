@@ -14,6 +14,12 @@ jobs:
         with:
           python-version: "3.12"
       - run: python build_matrix.py --check
+      # The review gate (intake.yml) only holds if main requires it: refuse a run in which it is advisory.
+      - name: Main requires the review gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: python3 -I tools/required_checks.py
       # The daily run reports every pinned upstream whose default branch moved past its pin.
       - name: Upstream freshness (warnings only)
         if: github.event_name == 'schedule'

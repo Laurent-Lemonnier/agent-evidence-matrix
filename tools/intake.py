@@ -18,7 +18,8 @@ Refusals:
 - any project the pull request adds or changes names a held owner anywhere in its entry, in any GitHub
   URL spelling (https://github.com/<owner>, git@github.com:<owner>/..., api.github.com/repos|users|orgs/<owner>,
   github.com/orgs/<owner>, raw.githubusercontent.com/<owner>, <owner>.github.io, ghcr.io/<owner>), percent-encoded
-  or not;
+  or not, and read after NFKC folding with invisible format characters dropped (a zero-width space or a fullwidth
+  letter inside the name still renders as the name);
 - the changed-file list could not be read whole (every page, and as many files as the pull request says
   it changes).
 Exit 0 when nothing is refused, 1 with one ::error:: line per refusal, 2 when the API could not be read.
@@ -31,6 +32,7 @@ import os
 import re
 import subprocess
 import sys
+import unicodedata
 import urllib.parse
 
 MAINTAINER = ("admin", "maintain", "write")
@@ -70,14 +72,24 @@ def matrix_at(repo: str, sha: str, read=gh) -> dict:
     return json.loads(base64.b64decode(doc["content"]))
 
 
+def fold(text: str) -> str:
+    """The text as a reader sees it: compatibility forms folded (NFKC) and invisible format characters dropped.
+
+    A zero-width space, a soft hyphen or a fullwidth letter inside an owner name renders as that name in
+    MATRIX.md while a pattern over the raw characters misses it.
+    """
+    text = unicodedata.normalize("NFKC", text)
+    return "".join(c for c in text if unicodedata.category(c) != "Cf")
+
+
 def held_owner_named(project: dict, owners: set[str]) -> bool:
     text = json.dumps(project, ensure_ascii=False)
     for _ in range(4):  # %2568 is %68 is h: decode until nothing changes
-        decoded = urllib.parse.unquote(text)
+        decoded = fold(urllib.parse.unquote(text))
         if decoded == text:
             break
         text = decoded
-    text = text.lower()
+    text = fold(text).casefold()
     for owner in owners:
         spelled = re.escape(owner)
         after = r"(?![\w.-])"

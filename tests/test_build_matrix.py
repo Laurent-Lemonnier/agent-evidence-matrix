@@ -325,3 +325,51 @@ def test_no_records_emitted_is_caught_however_it_is_written(evidence):
 def test_a_cell_whose_evidence_is_not_text_is_named_not_a_crash(evidence):
     out = bm.problems(matrix(project(1, cells=[cell(), cell(evidence=evidence)])), reviews(1))
     assert any("evidence is missing" in line for line in out), out
+
+
+# Counter-examples from the adversarial read of 17 Nov 2026 (each was accepted before the fix).
+
+@pytest.mark.parametrize("evidence", ["run `/home/someone/x.json`", "see:/home/someone/x", '"/tmp/run.txt"',
+                                      "$HOME/run.txt", "${HOME}/run.txt", "/root/run.txt", "(/Users/a/run.txt)",
+                                      "/var/folders/xy/run.txt", "C:\\Users\\a\\run.txt"])
+def test_a_one_machine_path_after_punctuation_is_refused(evidence):
+    assert any("one machine" in line for line in check(project(1, [cell(evidence=evidence)])))
+
+
+@pytest.mark.parametrize("evidence", ["https://github.com/home/x", "records/tmp/../../adapters/rfc8785_cli.py"])
+def test_a_url_or_tree_path_that_contains_a_machine_word_is_not_one_machine(evidence):
+    assert not any("one machine" in line for line in check(project(1, [cell(evidence=evidence)])))
+
+
+def test_a_dot_slash_evidence_path_is_resolved_not_skipped():
+    out = check(project(1, [cell(evidence="see ./records/no-such-run.txt")]))
+    assert any("does not resolve" in line for line in out)
+    out = check(project(1, [cell(evidence="see ../records/x.txt")]))
+    assert any("leaves this tree" in line for line in out)
+
+
+def test_a_project_with_no_id_is_refused_even_with_a_review_that_names_none():
+    p = project(1)
+    del p["id"]
+    rv = {"reviews": [{"review": "R", "date": "2026-11-17", "state": "published"}]}
+    out = bm.problems(matrix(p), rv, ROOT)
+    assert any("not positive integers" in line for line in out)
+    assert any("a project id is a positive integer" in line for line in out)
+
+
+@pytest.mark.parametrize("bad", ["1", 0, -2, True, 1.0])
+def test_a_project_id_is_a_positive_integer(bad):
+    a, b = project(1), project(2)
+    b["id"] = bad
+    rv = {"reviews": [{"project": 1, "review": "R", "date": "d", "state": "published"},
+                      {"project": bad, "review": "R", "date": "d", "state": "published"}]}
+    out = bm.problems(matrix(a, b), rv, ROOT)
+    assert any("not positive integers" in line for line in out)
+
+
+def test_a_frozen_project_whose_cited_file_is_gone_is_refused():
+    p = project(3, [cell(evidence="records/no-such-frozen-record.json")])
+    out = check(p, frozen=[p])
+    assert any("(frozen): evidence path records/no-such-frozen-record.json does not resolve" in line for line in out)
+    kept = project(3)
+    assert check(kept, frozen=[kept]) == []
