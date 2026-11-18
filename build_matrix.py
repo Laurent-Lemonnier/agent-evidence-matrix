@@ -7,8 +7,9 @@
 
 The schema rules, each a refusal (exit 1 with every problem named):
 
-- every project has a review entry in reviews.json; a project under a frozen review must keep the
-  exact bytes its review recorded (its digest), and the rules below are not applied to it;
+- every project has a review entry in reviews.json, and every project id (in matrix.json and in reviews.json) is a
+  positive integer; a project under a frozen review must keep the exact bytes its review recorded (its digest), and of
+  the rules below only one applies to it: every repository path it cites still resolves inside this tree;
 - a verdict is one of the listed codes and a source one of "their records", "our adapter", "none";
 - a contradicted cell carries basis, divergence_in and declared_revision; a refusal inside a declared
   profile is not a contradiction, so basis "declared-profile" requires verdict unsupported and a profile;
@@ -59,8 +60,9 @@ COLUMNS = (
     "re-proven by us",
 )
 REVIEW_STATES = ("published", "frozen")
-PATH = re.compile(r"(?<![\w/.-])((?:adapters|records|libraries|tests|tools|badges)/[\w.@+/-]*[\w@+-])")
-ONE_MACHINE = re.compile(r"(?:^|[\s(])(?:/home/|/Users/|~/|/tmp/)|_raw/|probity-lanes")
+PATH = re.compile(r"(?<![\w/.-])((?:\.{1,2}/)*(?:adapters|records|libraries|tests|tools|badges)/[\w.@+/-]*[\w@+-])")
+ONE_MACHINE = re.compile(r"(?<![\w.~/-])(?:/home/|/Users/|/root/|/tmp/|/private/|/var/folders/|/mnt/|~/)"
+                         r"|\$HOME\b|\$\{HOME\}|(?i:\b[a-z]:\\users\\)|_raw/|probity-lanes")
 REPO_URL = re.compile(r"https://[a-z0-9.-]+\.[a-z]{2,}/[\w.-]+/[\w.-]+")
 FILE_URL = re.compile(r"https://[a-z0-9.-]+\.[a-z]{2,}/\S+")
 SHA1 = re.compile(r"[0-9a-f]{40}")
@@ -308,6 +310,8 @@ def problems(data: dict, reviews: dict, root: pathlib.Path = ROOT) -> list[str]:
     by_project = {}
     for entry in reviews.get("reviews") or []:
         pid = entry.get("project")
+        if not _is_id(pid):
+            out.append(f"reviews.json: a review names project {pid!r}; a project id is a positive integer")
         if pid in by_project:
             out.append(f"reviews.json: project {pid} reviewed twice")
         by_project[pid] = entry
@@ -316,6 +320,10 @@ def problems(data: dict, reviews: dict, root: pathlib.Path = ROOT) -> list[str]:
         if not entry.get("review") or not entry.get("date"):
             out.append(f"reviews.json: project {pid} needs a review id and a date")
     ids = [p.get("id") for p in data.get("projects") or []]
+    bad_ids = [i for i in ids if not _is_id(i)]
+    if bad_ids:
+        out.append(f"matrix.json: project ids {bad_ids!r} are not positive integers (a missing id, or \"1\" beside 1, "
+                   "renders as a second row under one number)")
     if len(ids) != len(set(ids)):
         out.append("matrix.json: two projects share an id")
     if data.get("total_projects") != len(ids):
@@ -341,8 +349,28 @@ def problems(data: dict, reviews: dict, root: pathlib.Path = ROOT) -> list[str]:
             if review.get("digest") != project_digest(project):
                 out.append(f"project {pid}: its review is frozen and the entry changed "
                            f"(recorded {str(review.get('digest'))[:12]}, now {project_digest(project)[:12]})")
+            # The digest pins the entry's bytes, not the files it cites: a frozen row still needs its evidence.
+            out += _frozen_path_problems(pid, project, root)
             continue
         out += _project_problems(project, codes, root)
+    return out
+
+
+def _is_id(value) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool) and value > 0
+
+
+def _frozen_path_problems(pid, project: dict, root: pathlib.Path) -> list[str]:
+    """Every repository path a frozen entry cites, anywhere in it, must still resolve inside this tree."""
+    top = root.resolve()
+    out = []
+    for path in sorted(set(PATH.findall(json.dumps(project, ensure_ascii=False)))):
+        target = (root / path).resolve()
+        if not target.is_relative_to(top):
+            out.append(f"project {pid} (frozen): evidence path {path} leaves this tree")
+        elif not target.exists():
+            out.append(f"project {pid} (frozen): evidence path {path} does not resolve in this tree; the review "
+                       "froze the entry, and the file it cites was removed or renamed")
     return out
 
 
