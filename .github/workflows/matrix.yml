@@ -388,9 +388,11 @@ jobs:
           python -I adapters/b7n0de_verifiers_adapter.py records/b7n0de-verifiers "$RUNNER_TEMP/aev.git" --mutation > "$RUNNER_TEMP/mut.txt" || rc=$?
           test "$rc" = 1
           diff <(tail -n +3 adapters/b7n0de-verifiers-mutation-run.txt) "$RUNNER_TEMP/mut.txt"
+      # No -I on the runner: it takes the agent_evidence_vectors of its own checkout from the script directory,
+      # which -I would drop in favour of the pinned release in site-packages (that release lacks the PR 575 modules).
       - name: The contract run equals the recorded run
         run: |
           rc=0
-          (cd records/b7n0de-verifiers && python -I "$RUNNER_TEMP/pr575/packaging/run_vectors.py" --vectors "$RUNNER_TEMP/pr575/corpora/vectors-agent-audit-record" --verifier "python -I contract-adapter/contract_adapter.py audit-record/agent_evidence_01/tools" --report "$RUNNER_TEMP/contract-report.json") > "$RUNNER_TEMP/contract.txt" || rc=$?
+          (cd records/b7n0de-verifiers && python "$RUNNER_TEMP/pr575/packaging/run_vectors.py" --vectors "$RUNNER_TEMP/pr575/corpora/vectors-agent-audit-record" --verifier "python -I contract-adapter/contract_adapter.py audit-record/agent_evidence_01/tools" --report "$RUNNER_TEMP/contract-report.json") > "$RUNNER_TEMP/contract.txt" || rc=$?
           test "$rc" = 1
           diff <(tail -n +5 adapters/b7n0de-contract-run.txt) "$RUNNER_TEMP/contract.txt"
