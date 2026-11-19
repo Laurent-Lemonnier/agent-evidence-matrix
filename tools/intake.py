@@ -36,6 +36,8 @@ import unicodedata
 import urllib.parse
 
 MAINTAINER = ("admin", "maintain", "write")
+# The labelling a contradicted cell carries: where the divergence sits and the revision it was judged against.
+LABELS = ("basis", "divergence_in", "declared_revision")
 
 
 class ReadError(RuntimeError):
@@ -108,6 +110,28 @@ def is_maintainer(repo: str, author: str, read=gh) -> bool:
     return perm in MAINTAINER
 
 
+def label_changes(old, new):
+    """The values a maintainer's edit puts in the labelling fields of contradicted cells, or None when the edit
+    changes anything else of the entry (another field, another cell, a cell's verdict, the cell count)."""
+    if not (isinstance(old, dict) and isinstance(new, dict)):
+        return None
+    if {k: v for k, v in old.items() if k != "cells"} != {k: v for k, v in new.items() if k != "cells"}:
+        return None
+    old_cells, new_cells = old.get("cells"), new.get("cells")
+    if not (isinstance(old_cells, list) and isinstance(new_cells, list) and len(old_cells) == len(new_cells)):
+        return None
+    values = []
+    for a, b in zip(old_cells, new_cells):
+        if not (isinstance(a, dict) and isinstance(b, dict)):
+            return None
+        strip = b.get("verdict") == "contradicted"
+        keep = lambda cell: {k: v for k, v in cell.items() if not (strip and k in LABELS)}  # noqa: E731
+        if keep(a) != keep(b):
+            return None
+        values += [b[k] for k in LABELS if strip and k in b and b.get(k) != a.get(k)]
+    return values
+
+
 def refusals(files, base, head, author, maintainer, held_logins, held_owners) -> list[str]:
     """Every refusal for one pull request; base and head are matrix.json documents (or None if unchanged)."""
     out = []
@@ -139,7 +163,11 @@ def refusals(files, base, head, author, maintainer, held_logins, held_owners) ->
         for p in (head or {}).get("projects", []):  # every copy, so a second entry with one id is read too
             pid = p.get("id") if isinstance(p, dict) else None
             if (pid in changed or p != before.get(pid)) and held_owner_named(p, held_owners):
-                out.append(f"project {pid} is held for maintainer review")
+                # A maintainer may add or change only the labelling of a contradicted cell on a held row, and the
+                # new labels may not name a held owner; every other change to a held row stays held.
+                labels = label_changes(before.get(pid), p) if maintainer else None
+                if labels is None or held_owner_named({"labels": labels}, held_owners):
+                    out.append(f"project {pid} is held for maintainer review")
     return out
 
 
