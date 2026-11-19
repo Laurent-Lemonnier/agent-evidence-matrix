@@ -1,0 +1,28 @@
+{
+ "draftId": "EV12",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "evaluation-malformed"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v9f8391827088b3b9.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "evaluation-malformed",
+   "section": "5.4",
+   "text": "evaluation carries undefined member reason"
+  },
+  "payloadSha256": "1a1da3ba1d04eeba2071d0d9b1af149be10165d43bacc426d016a608248b8d77",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

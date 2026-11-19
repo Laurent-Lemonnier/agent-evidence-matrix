@@ -1,0 +1,23 @@
+{
+ "draftId": "T3",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "duplicate-member"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/veed919afc952cff7.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "duplicate-member",
+   "section": "4.1.2",
+   "text": "member name repeated: 'id'"
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

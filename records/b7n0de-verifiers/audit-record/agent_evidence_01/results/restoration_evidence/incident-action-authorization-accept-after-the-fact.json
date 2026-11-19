@@ -1,0 +1,18 @@
+{
+ "expected": {
+  "reason": "authorization-recorded",
+  "verdict": "accept"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "incident-action-authorization-accept-after-the-fact",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "reason": "authorization-recorded",
+  "type": "R1",
+  "verdict": "accept"
+ },
+ "reasonMatch": true,
+ "rule": null,
+ "shape": "record"
+}

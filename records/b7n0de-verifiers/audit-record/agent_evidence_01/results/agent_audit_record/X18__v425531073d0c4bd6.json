@@ -1,0 +1,67 @@
+{
+ "draftId": "X18",
+ "draftRevision": null,
+ "draftSection": "4.9",
+ "expected": {
+  "codes": [
+   "issued-before-sealed"
+  ],
+  "set": {
+   "codes": [
+    "set-record-malformed"
+   ],
+   "verdict": "malformed"
+  },
+  "verdict": "malformed"
+ },
+ "file": "sets/v425531073d0c4bd6.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "derivedTier": null,
+  "records": [
+   {
+    "failure": {
+     "code": "issued-before-sealed",
+     "section": "5.1",
+     "text": "issuedAt earlier than effect.interval.sealedAt"
+    },
+    "payloadSha256": "145d7438342d38be53b6c29478bbd20811de8bec85517e92b2d60f482c949aca",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "malformed"
+   },
+   {
+    "failure": {
+     "code": "issued-before-sealed",
+     "section": "5.1",
+     "text": "issuedAt earlier than effect.interval.sealedAt"
+    },
+    "payloadSha256": "10b33737da49fd71c6c4021a2dbe3b393c5e9f3de5bbd1e7b0c8fe70d4b12814",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "malformed"
+   }
+  ],
+  "set": {
+   "conflicts": [],
+   "consumptionFailures": [],
+   "missing": [],
+   "verdict": "malformed",
+   "withinLimit": [
+    null,
+    null
+   ]
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {
+  "set.verdict": true
+ }
+}

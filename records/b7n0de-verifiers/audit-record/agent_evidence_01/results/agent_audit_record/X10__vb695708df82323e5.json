@@ -1,0 +1,28 @@
+{
+ "draftId": "X10",
+ "draftRevision": null,
+ "draftSection": "4.6",
+ "expected": {
+  "codes": [
+   "statement-shape"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/vb695708df82323e5.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "statement-shape",
+   "section": "4",
+   "text": "predicate not an object"
+  },
+  "payloadSha256": "342adcadbc8de93e9ea395df89ca616f1f388cb4ab61e9edf6b2cee12943ac4c",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

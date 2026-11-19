@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "authorization-expired",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "incident-action-authorization-authorization-expired",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "authorization-expired",
+  "section": "5.1",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "9",
+ "shape": "record"
+}

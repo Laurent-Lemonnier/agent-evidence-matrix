@@ -1,0 +1,30 @@
+{
+ "draftId": "PS4",
+ "draftRevision": "draft-gilda-audit-agent-audit-record-04",
+ "draftSection": null,
+ "expected": {
+  "codes": [],
+  "derivedTier": "authoritative",
+  "verdict": "valid"
+ },
+ "file": "statements/vce2b9385988cdaa2.json",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "derivedAgreement": "agree",
+  "derivedObserved": "none",
+  "derivedTier": "authoritative",
+  "derivedUnavailable": [],
+  "failure": null,
+  "payloadSha256": "37ef670130dcfee0a70e8106d54d2f3adefc7b92c24bf84d94a3d4fc4cdefdb6",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v2/agent-audit-record",
+  "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "valid"
+ },
+ "subMatch": {
+  "derivedTier": true
+ }
+}

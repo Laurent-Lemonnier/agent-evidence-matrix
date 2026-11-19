@@ -1,0 +1,87 @@
+{
+ "by_kind": {
+  "aar": {
+   "control": [
+    152,
+    0
+   ],
+   "field": [
+    228,
+    0
+   ],
+   "jcs": [
+    152,
+    0
+   ],
+   "key": [
+    228,
+    0
+   ],
+   "profile": [
+    760,
+    0
+   ],
+   "reference": [
+    457,
+    0
+   ],
+   "required": [
+    1976,
+    0
+   ],
+   "retained": [
+    3,
+    0
+   ],
+   "signature-byte": [
+    76,
+    0
+   ],
+   "time": [
+    1064,
+    0
+   ]
+  },
+  "rer": {
+   "control": [
+    15,
+    0
+   ],
+   "field": [
+    15,
+    0
+   ],
+   "jcs": [
+    30,
+    0
+   ],
+   "key": [
+    15,
+    0
+   ],
+   "profile": [
+    130,
+    0
+   ],
+   "reference": [
+    9,
+    0
+   ],
+   "required": [
+    178,
+    0
+   ],
+   "signature-byte": [
+    15,
+    0
+   ],
+   "time": [
+    117,
+    0
+   ]
+  }
+ },
+ "deviating": 0,
+ "note": "counts per data type and fault kind as [as expected, deviating]; the test key exists only in memory during the run and is not recorded here",
+ "total": 5620
+}

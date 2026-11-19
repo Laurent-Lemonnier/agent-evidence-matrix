@@ -1,0 +1,28 @@
+{
+ "draftId": "E3",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "empty-tree-constant-mismatch"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v6fdd759b8221a56d.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "digest-malformed",
+   "section": "1",
+   "text": "interval.beforeRoot is not lowercase hex under sha256"
+  },
+  "payloadSha256": "f9bf748d7682b3c1f351c7ba89405ceaa2164d210979d02a25afdb097eba9f6e",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

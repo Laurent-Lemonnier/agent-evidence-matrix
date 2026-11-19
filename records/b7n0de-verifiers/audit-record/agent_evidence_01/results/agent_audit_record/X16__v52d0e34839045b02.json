@@ -1,0 +1,50 @@
+{
+ "draftId": "X16",
+ "draftRevision": null,
+ "draftSection": "4.7",
+ "expected": {
+  "codes": [
+   "retained-unreadable"
+  ],
+  "dating": {
+   "codes": [
+    "retained-unreadable"
+   ],
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "malformed"
+  },
+  "verdict": "malformed"
+ },
+ "file": "retained/v52d0e34839045b02.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "dating": {
+   "datedAt": null,
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "malformed",
+   "failure": {
+    "code": "retained-unreadable",
+    "section": "4.7",
+    "text": "no envelope beside entry"
+   },
+   "receipt": null
+  },
+  "derivedTier": null,
+  "failure": {
+   "code": "retained-unreadable",
+   "section": "4.7",
+   "text": "no envelope beside entry"
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {
+  "dating.datedAt": true,
+  "dating.delegationRoot": true,
+  "dating.entry": true
+ }
+}

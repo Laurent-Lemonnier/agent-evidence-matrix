@@ -1,0 +1,23 @@
+{
+ "draftId": "T5",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "unsafe-integer"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v22b6571144ed3b2f.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "unsafe-integer",
+   "section": "4.1.1",
+   "text": "integer magnitude >= 2^53"
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

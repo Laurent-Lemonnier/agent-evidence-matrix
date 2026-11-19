@@ -1,0 +1,28 @@
+{
+ "draftId": "SQ2",
+ "draftRevision": "draft-gilda-audit-agent-audit-record-01",
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "sequence-malformed"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/vca142e8033b749a4.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "sequence-malformed",
+   "section": "5.10",
+   "text": "sequence must carry exactly boundary and seq"
+  },
+  "payloadSha256": "55f6fa6d1e8a636f0bf0fd51c7de7e11efc228581db9fbc2173c91f92f329cb6",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

@@ -1,0 +1,28 @@
+{
+ "draftId": "V1",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "value-outside-vocabulary"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v17ee6427b3f0099c.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "value-outside-vocabulary",
+   "section": "5.6",
+   "text": "remediation.enforcement='quarantined' outside closed set"
+  },
+  "payloadSha256": "ce9c5fbb275e6ac8da7675c39f3866393031c5a8aff553fb17dd4e017ee6a726",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

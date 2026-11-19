@@ -1,0 +1,28 @@
+{
+ "draftId": "OV2",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "oversight-malformed"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v7fefd5ad112e7924.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "oversight-malformed",
+   "section": "5.5",
+   "text": "oversight carries undefined member overseer"
+  },
+  "payloadSha256": "e407f56d6956a7cff412ba45fa0bf8a248abb82b87ab461ab072fcabebbf1745",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

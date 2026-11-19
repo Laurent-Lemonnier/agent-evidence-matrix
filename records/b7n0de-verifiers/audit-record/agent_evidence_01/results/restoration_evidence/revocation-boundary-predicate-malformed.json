@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "predicate-malformed",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "revocation-boundary-predicate-malformed",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "predicate-malformed",
+  "section": "5.5",
+  "text": "counts.attempts not a non-negative integer",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "2",
+ "shape": "record"
+}

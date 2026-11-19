@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "no-approver",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "re-enable-decision-no-approver",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "no-approver",
+  "section": "5.3",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "6",
+ "shape": "record"
+}

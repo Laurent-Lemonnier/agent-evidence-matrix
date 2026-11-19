@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "induced-effects-unobserved",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "incident-action-authorization-induced-effects-unobserved",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "induced-effects-unobserved",
+  "section": "5.1",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "10",
+ "shape": "record"
+}

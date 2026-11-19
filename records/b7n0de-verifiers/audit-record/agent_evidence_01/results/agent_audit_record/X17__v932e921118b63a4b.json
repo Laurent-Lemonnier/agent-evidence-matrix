@@ -1,0 +1,32 @@
+{
+ "draftId": "X17",
+ "draftRevision": null,
+ "draftSection": "4.9",
+ "expected": {
+  "codes": [],
+  "set": {
+   "codes": [
+    "set-unreadable"
+   ],
+   "verdict": "malformed"
+  },
+  "verdict": "malformed"
+ },
+ "file": "sets/v932e921118b63a4b.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "records": [],
+  "set": {
+   "conflicts": [],
+   "consumptionFailures": [],
+   "missing": [],
+   "verdict": "malformed",
+   "withinLimit": []
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {
+  "set.verdict": true
+ }
+}

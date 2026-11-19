@@ -1,0 +1,23 @@
+{
+ "draftId": "T2",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "signature-invalid"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v72b13def52f2f4a6.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "signature-invalid",
+   "section": "4.6",
+   "text": "no signature verifies under a pinned key over the RFC 8785 bytes"
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

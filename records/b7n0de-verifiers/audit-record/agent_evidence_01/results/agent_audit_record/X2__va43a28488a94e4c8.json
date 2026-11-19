@@ -1,0 +1,23 @@
+{
+ "draftId": "X2",
+ "draftRevision": null,
+ "draftSection": "4.6",
+ "expected": {
+  "codes": [
+   "not-parseable"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/va43a28488a94e4c8.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "not-parseable",
+   "section": "4.6",
+   "text": "payload is not JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

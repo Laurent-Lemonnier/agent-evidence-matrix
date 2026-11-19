@@ -1,0 +1,28 @@
+{
+ "draftId": "FR16",
+ "draftRevision": null,
+ "draftSection": "5.4",
+ "expected": {
+  "codes": [
+   "member-missing"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v42877a6a363ded00.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "member-missing",
+   "section": "5.4",
+   "text": "decision.reportedAt absent"
+  },
+  "payloadSha256": "37e7958e47097e7e32d5d5bf801e9e40922d0ac4fe6cd6691c5c26ada1d64280",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

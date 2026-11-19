@@ -1,0 +1,18 @@
+{
+ "expected": {
+  "reason": "assignment-recorded",
+  "verdict": "accept"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "joint-authority-control",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "reason": "assignment-recorded",
+  "type": "R4",
+  "verdict": "accept"
+ },
+ "reasonMatch": true,
+ "rule": null,
+ "shape": "record"
+}

@@ -1,0 +1,23 @@
+{
+ "draftId": "X1",
+ "draftRevision": null,
+ "draftSection": "4.1.1",
+ "expected": {
+  "codes": [
+   "value-not-representable"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/vb3a1cd46d33b8b3c.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "signature-invalid",
+   "section": "4.6",
+   "text": "no signature verifies under a pinned key over the RFC 8785 bytes"
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

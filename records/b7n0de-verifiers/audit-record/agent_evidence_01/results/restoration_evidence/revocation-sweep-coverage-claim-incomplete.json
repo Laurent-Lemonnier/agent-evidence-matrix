@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "coverage-claim-incomplete",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "revocation-sweep-coverage-claim-incomplete",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "coverage-claim-incomplete",
+  "section": "5.2",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "7",
+ "shape": "record"
+}

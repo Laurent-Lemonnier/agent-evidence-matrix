@@ -1,0 +1,28 @@
+{
+ "draftId": "EV3",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "member-missing"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/vded6715a80437cfb.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "member-missing",
+   "section": "4",
+   "text": "required predicate member evaluation absent"
+  },
+  "payloadSha256": "ddea74b7315e52d240a13484c99fc4f57bf85784e75da79e046009f06f6cf26d",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "intent-not-committed-before",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "incident-action-authorization-intent-not-committed-before",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "intent-not-committed-before",
+  "section": "5.1",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "8",
+ "shape": "record"
+}

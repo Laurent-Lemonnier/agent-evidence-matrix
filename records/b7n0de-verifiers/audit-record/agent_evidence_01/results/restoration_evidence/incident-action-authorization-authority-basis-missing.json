@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "authority-basis-missing",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "incident-action-authorization-authority-basis-missing",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "authority-basis-missing",
+  "section": "5.1",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "6",
+ "shape": "record"
+}

@@ -1,0 +1,27 @@
+{
+ "draftId": "X5",
+ "draftRevision": null,
+ "draftSection": "4.8",
+ "expected": {
+  "codes": [
+   "predicate-type-mismatch"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v0260a7415403fee4.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "predicate-type-mismatch",
+   "section": "4",
+   "text": "predicateType not the v1 or v2 URI"
+  },
+  "payloadSha256": "8742894da39c82e4143ed30ebae7feba350cc4a598aad2d3e9bf7d3799e35159",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

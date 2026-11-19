@@ -1,0 +1,27 @@
+{
+ "draftId": "X4",
+ "draftRevision": null,
+ "draftSection": "4.8",
+ "expected": {
+  "codes": [
+   "statement-type-unexpected"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/ve84f8df9e1887b14.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "statement-type-unexpected",
+   "section": "4",
+   "text": "_type is not in-toto Statement v1"
+  },
+  "payloadSha256": "e2c7362187826c667ac2ef6e5e7049f8c045d681cda26c9ab4f3e8ba300a6108",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

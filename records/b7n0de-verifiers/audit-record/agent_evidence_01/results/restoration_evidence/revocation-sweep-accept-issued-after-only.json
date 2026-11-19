@@ -1,0 +1,18 @@
+{
+ "expected": {
+  "reason": "sweep-recorded",
+  "verdict": "accept"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "revocation-sweep-accept-issued-after-only",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "reason": "sweep-recorded",
+  "type": "R2",
+  "verdict": "accept"
+ },
+ "reasonMatch": true,
+ "rule": null,
+ "shape": "record"
+}

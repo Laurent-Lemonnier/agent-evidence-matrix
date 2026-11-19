@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "result-contradicts-counts",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "revocation-boundary-result-contradicts-counts",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "result-contradicts-counts",
+  "section": "5.5",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "6",
+ "shape": "record"
+}

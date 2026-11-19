@@ -1,0 +1,29 @@
+{
+ "draftId": "TI3",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "tier-overclaim-scope"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v76e481d2b6f468ab.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "write-scope-mismatch",
+   "section": "5.3",
+   "text": "writes[0].inScope not derived from path"
+  },
+  "payloadSha256": "1ceadc4b1afbb442d52d9a7826b2ca9cf5d5e1ad685c0b244a0bda6e38b728d4",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

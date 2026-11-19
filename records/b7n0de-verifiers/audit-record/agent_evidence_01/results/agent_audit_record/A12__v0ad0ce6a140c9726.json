@@ -1,0 +1,32 @@
+{
+ "draftId": "A12",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [],
+  "derivedTier": "authoritative",
+  "verdict": "valid"
+ },
+ "file": "statements/v0ad0ce6a140c9726.json",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "derivedAgreement": "agree",
+  "derivedObserved": "none",
+  "derivedTier": "authoritative",
+  "derivedUnavailable": [
+   "key-source"
+  ],
+  "failure": null,
+  "payloadSha256": "50e796c2fe961dc08b8f3b06bb8a6306e4b124566e94f2b2b6172af72641f498",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "valid"
+ },
+ "subMatch": {
+  "derivedTier": true
+ }
+}

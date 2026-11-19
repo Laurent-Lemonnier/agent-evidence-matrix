@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "evidence-slot-missing",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "re-enable-decision-evidence-slot-missing",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "evidence-slot-missing",
+  "section": "5.3",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "4",
+ "shape": "record"
+}

@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "partial-without-scope",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "re-enable-decision-partial-without-scope",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "partial-without-scope",
+  "section": "5.3",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "7",
+ "shape": "record"
+}

@@ -1,0 +1,18 @@
+{
+ "expected": {
+  "reason": "decision-recorded",
+  "verdict": "accept"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "re-enable-decision-accept-remain-restricted",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "reason": "decision-recorded",
+  "type": "R3",
+  "verdict": "accept"
+ },
+ "reasonMatch": true,
+ "rule": null,
+ "shape": "record"
+}
