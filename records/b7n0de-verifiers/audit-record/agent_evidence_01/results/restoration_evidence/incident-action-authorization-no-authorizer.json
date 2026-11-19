@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "no-authorizer",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "incident-action-authorization-no-authorizer",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "no-authorizer",
+  "section": "5.1",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "4",
+ "shape": "record"
+}

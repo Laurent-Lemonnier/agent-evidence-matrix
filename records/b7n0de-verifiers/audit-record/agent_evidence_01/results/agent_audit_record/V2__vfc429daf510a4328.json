@@ -1,0 +1,29 @@
+{
+ "draftId": "V2",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "path-scope-glob"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/vfc429daf510a4328.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "path-scope-glob",
+   "section": "5.3",
+   "text": "pathScope member '/srv/ledger/*' carries a glob metacharacter"
+  },
+  "payloadSha256": "d04fcb83430636c1948e21132bc723e44b96a67ccc1ebf62042c1dd57786e623",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

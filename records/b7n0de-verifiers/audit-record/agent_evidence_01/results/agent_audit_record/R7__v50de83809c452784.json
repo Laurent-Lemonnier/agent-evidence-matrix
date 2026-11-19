@@ -1,0 +1,47 @@
+{
+ "draftId": "R7",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [],
+  "dating": {
+   "codes": [
+    "entry-anchor-late"
+   ],
+   "datedAt": "2026-09-19T11:14:12Z",
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "malformed"
+  },
+  "derivedTier": "authoritative",
+  "verdict": "valid"
+ },
+ "file": "retained/v50de83809c452784.json",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "dating": {
+   "datedAt": "2026-09-19T11:14:12Z",
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "malformed",
+   "failure": {
+    "code": "entry-anchor-late",
+    "section": "4.7.1",
+    "text": "retention time later than issuedAt + anchorWithin + tolerance"
+   },
+   "receipt": null
+  },
+  "derivedTier": "authoritative",
+  "failure": null,
+  "verdict": "valid"
+ },
+ "subMatch": {
+  "dating.datedAt": true,
+  "dating.delegationRoot": true,
+  "dating.entry": true,
+  "derivedTier": true
+ }
+}

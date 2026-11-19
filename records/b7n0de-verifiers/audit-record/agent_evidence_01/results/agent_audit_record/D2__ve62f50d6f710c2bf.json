@@ -1,0 +1,30 @@
+{
+ "draftId": "D2",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "agreement-reserved-value"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/ve62f50d6f710c2bf.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "derivedObserved": "occurred",
+  "failure": {
+   "code": "agreement-reserved-value",
+   "section": "5.3",
+   "text": "one-sided is never produced by this version"
+  },
+  "payloadSha256": "11c86f1d277aac555067e47b671c90fcc92472c9132144ad67c36d621e4a77c7",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

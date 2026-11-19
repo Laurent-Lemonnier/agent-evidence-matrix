@@ -1,0 +1,17 @@
+{
+ "expected": {
+  "reason": "bundle-consistent",
+  "verdict": "accept"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "bundle-consistent",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "reason": "bundle-consistent",
+  "verdict": "accept"
+ },
+ "reasonMatch": true,
+ "rule": null,
+ "shape": "bundle"
+}

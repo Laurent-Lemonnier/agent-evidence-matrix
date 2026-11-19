@@ -1,0 +1,28 @@
+{
+ "draftId": "EV11",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "value-outside-vocabulary"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v7b22d3b2bddb9995.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "value-outside-vocabulary",
+   "section": "5.4",
+   "text": "evaluation.status='partially-evaluated' outside closed set"
+  },
+  "payloadSha256": "802feff236cf2862feba320ec62dbae451cca233370a1877844b255ebd39d303",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

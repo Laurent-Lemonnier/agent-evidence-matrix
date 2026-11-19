@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "predicate-malformed",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "re-enable-decision-predicate-malformed",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "predicate-malformed",
+  "section": "5.3",
+  "text": "approvers.roles='approver' outside the set this document lists",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "2",
+ "shape": "record"
+}

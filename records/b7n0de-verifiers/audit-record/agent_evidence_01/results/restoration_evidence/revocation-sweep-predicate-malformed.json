@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "predicate-malformed",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "revocation-sweep-predicate-malformed",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "predicate-malformed",
+  "section": "5.2",
+  "text": "population.credentials not sorted",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "2",
+ "shape": "record"
+}

@@ -1,0 +1,28 @@
+{
+ "draftId": "FR13b",
+ "draftRevision": null,
+ "draftSection": "5.4",
+ "expected": {
+  "codes": [
+   "evaluation-entry-malformed"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/vb77aea332a4eb3df.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "evaluation-entry-malformed",
+   "section": "5.4",
+   "text": "inputs[1].maxAge not a non-negative integer"
+  },
+  "payloadSha256": "74aefc792bea41bbc51fb820c19cd397ee868dfd9ecd99c26a001bd2941e37c8",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

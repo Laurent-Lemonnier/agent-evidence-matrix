@@ -1,0 +1,31 @@
+{
+ "draftId": "F6",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "posture-agreement-underivable"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/vcb76f8c77ca50244.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "derivedAgreement": "agree",
+  "derivedObserved": "occurred",
+  "failure": {
+   "code": "posture-agreement-underivable",
+   "section": "5.3",
+   "text": "posture.agreement agree, derived disagree"
+  },
+  "payloadSha256": "30f12f084a3596ef2028196b98460418f1822fbc16caa6746d654382fce06835",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

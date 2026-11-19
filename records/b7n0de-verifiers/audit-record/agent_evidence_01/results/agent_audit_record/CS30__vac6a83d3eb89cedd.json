@@ -1,0 +1,90 @@
+{
+ "draftId": "CS30",
+ "draftRevision": "draft-gilda-audit-agent-audit-record-01",
+ "draftSection": null,
+ "expected": {
+  "codes": [],
+  "derivedTier": "authoritative",
+  "set": {
+   "codes": [
+    "consumption-set-release-unshown"
+   ],
+   "verdict": "malformed",
+   "withinLimit": [
+    true,
+    true,
+    true
+   ]
+  },
+  "verdict": "valid"
+ },
+ "file": "sets/vac6a83d3eb89cedd.json",
+ "kind": "accept",
+ "match": false,
+ "own": {
+  "records": [
+   {
+    "derivedAgreement": "agree",
+    "derivedObserved": "occurred",
+    "derivedTier": "authoritative",
+    "derivedUnavailable": [],
+    "failure": null,
+    "payloadSha256": "b98bbf2ca989909c0b86ceca1cd667f0fc3fd2e04e48ae2219777624de5b49ad",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "bec9c80a8ab5c0b5f32fcc9ae11cb5479f2f571e32780c6919b0f81adada402a",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "valid",
+    "withinLimit": true
+   },
+   {
+    "derivedAgreement": "indeterminate",
+    "derivedObserved": "unknown",
+    "derivedTier": "authoritative",
+    "derivedUnavailable": [],
+    "failure": null,
+    "payloadSha256": "eb396c1859ab62c9002deaba8bf112e41e95c9b82db2a088796ee727a28c3e9a",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "valid",
+    "withinLimit": true
+   },
+   {
+    "derivedAgreement": "agree",
+    "derivedObserved": "occurred",
+    "derivedUnavailable": [],
+    "failure": {
+     "code": "consumption-malformed",
+     "section": "5.9",
+     "text": "consumption carries supersedes"
+    },
+    "payloadSha256": "5526185754099f73f5cbefc3fda00372c3f5e2028b43f2fbb5f0666f9d5bbd60",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "bec9c80a8ab5c0b5f32fcc9ae11cb5479f2f571e32780c6919b0f81adada402a",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "malformed"
+   }
+  ],
+  "set": {
+   "conflicts": [],
+   "consumptionFailures": [],
+   "missing": [],
+   "verdict": "malformed",
+   "withinLimit": [
+    true,
+    true,
+    null
+   ]
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {
+  "set.verdict": true
+ }
+}

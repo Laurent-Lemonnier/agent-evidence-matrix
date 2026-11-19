@@ -1,0 +1,18 @@
+{
+ "expected": {
+  "reason": "boundary-recorded",
+  "verdict": "accept"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "revocation-boundary-accept-not-established",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "reason": "boundary-recorded",
+  "type": "RB",
+  "verdict": "accept"
+ },
+ "reasonMatch": true,
+ "rule": null,
+ "shape": "record"
+}

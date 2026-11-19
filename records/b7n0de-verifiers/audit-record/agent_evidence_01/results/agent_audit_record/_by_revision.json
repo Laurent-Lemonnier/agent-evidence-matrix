@@ -1,0 +1,1822 @@
+{
+ "table": {
+  "draft-gilda-audit-agent-audit-record-00": {
+   "n": 125,
+   "match": 124
+  },
+  "draft-gilda-audit-agent-audit-record-01": {
+   "n": 58,
+   "match": 43
+  },
+  "draft-gilda-audit-agent-audit-record-04": {
+   "n": 38,
+   "match": 16
+  },
+  "draft-gilda-audit-agent-audit-record-03": {
+   "n": 4,
+   "match": 4
+  }
+ },
+ "vectors": [
+  {
+   "draftId": "A1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A3",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A4",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A5",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A6",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A7",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A8",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A9",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A10",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A11",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A12",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A13",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A14",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A15",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A16",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A17",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A18",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A19",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "A20",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "F1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "F2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "F3",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "F3b",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "F3c",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "F4",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "F5",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "F6",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "F7",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "T1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "T2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "T3",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "T4",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "T5",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "D1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "D2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "D3",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "S1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "S2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "I1r",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "TI1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "TI2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "TI3",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "TI4",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "TI5",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "C1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "C2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "C3",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "E1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "E2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "E3",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "E4",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "E5",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "E6",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "V1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "V2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "V3",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FE1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FE2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FR1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "FR2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "FR3",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "FR4",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "FR5",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FR6",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FR7",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FR8",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FR9",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FR10",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FR11",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FR12",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FR13",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "EV1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "EV2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "EV3",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "EV4",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "EV5",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "EV6",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "EV7",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "EV8",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "EV9",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "EV10",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "EV11",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "EV12",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "EV13",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "OV1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "OV2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "OV3",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "N1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "N2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "indeterminate",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R3",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R4",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R5",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R6",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R7",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R8",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R9",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "FR13b",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "5.4",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FR16",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "5.4",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FR17a",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "5.4",
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "FR17b",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "5.4",
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "FR17c",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "5.4",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FR18",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "5.4",
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "EV14",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "5.4",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "TI6",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "V4",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "V5",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "FR14",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "FR15",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS1",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "CS2",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "CS3",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS4",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "CS5",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS6",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS7",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "CS8",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "CS9",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS10",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS11",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "CS12",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "CS13",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS14",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS15",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "CS16",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "CS17",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "CS18",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS19",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS20",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS21",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS22",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS23",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS24",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS25",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "CS26",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS27",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS28",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS29",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS30",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS31",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS32",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "CS33",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "CS34",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS35",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS36",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS37",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS38",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS39",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS40",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS41",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS42",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS43",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS44",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS45",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS46",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS47",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS48",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS49",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS50",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS51",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS52",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "CS53",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "CS54",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": "5.9",
+   "expected": "valid",
+   "own": "malformed",
+   "match": false
+  },
+  {
+   "draftId": "A21",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "SQ1",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "SQ2",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "SQ3",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "SQ4",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "SQ5",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R10",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R11",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R12",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R13",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R14",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R15",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "R16",
+   "revision": "draft-gilda-audit-agent-audit-record-01",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "IS1",
+   "revision": "draft-gilda-audit-agent-audit-record-03",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "IS2",
+   "revision": "draft-gilda-audit-agent-audit-record-03",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "PS1",
+   "revision": "draft-gilda-audit-agent-audit-record-03",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "PS2",
+   "revision": "draft-gilda-audit-agent-audit-record-03",
+   "section": null,
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "PS1b",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "5.4",
+   "expected": "indeterminate",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "PS3",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "PS4",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "PS5",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "PR1",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "PR2",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "PR3",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "PR4",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "PR5",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "PR6",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "PR7",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "PR8",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "PR9",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "PR10",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "PR11",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "DS1",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "DS2",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "DS3",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "DS4",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "DS5",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "DS6",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "DS7",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "DS8",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "DS9",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "DS10",
+   "revision": "draft-gilda-audit-agent-audit-record-04",
+   "section": null,
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "X1",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.1.1",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "X2",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.6",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "X3",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.3",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "X4",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.8",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "X5",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.8",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "X6",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "5.9",
+   "expected": "malformed",
+   "own": "valid",
+   "match": false
+  },
+  {
+   "draftId": "X7",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "5.9",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "X8",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.2",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "X9",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.4",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "X10",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.6",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "X11",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.7",
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "X12",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.7",
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "X13",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.7",
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "X14",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.7",
+   "expected": "valid",
+   "own": "valid",
+   "match": true
+  },
+  {
+   "draftId": "X15",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.6",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "X16",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.7",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "X17",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.9",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  },
+  {
+   "draftId": "X18",
+   "revision": "draft-gilda-audit-agent-audit-record-00",
+   "section": "4.9",
+   "expected": "malformed",
+   "own": "malformed",
+   "match": true
+  }
+ ]
+}

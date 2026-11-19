@@ -1,0 +1,28 @@
+{
+ "draftId": "X3",
+ "draftRevision": null,
+ "draftSection": "4.3",
+ "expected": {
+  "codes": [
+   "timestamp-malformed"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v8e7e0c83386e4498.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "timestamp-malformed",
+   "section": "4.3",
+   "text": "issuedAt not RFC 3339: '2026-09-19T11:04:06'"
+  },
+  "payloadSha256": "ee615922ca9f8c34e1c43b1bda07a169f5de6f8a203a19826ea1a9215409ce31",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

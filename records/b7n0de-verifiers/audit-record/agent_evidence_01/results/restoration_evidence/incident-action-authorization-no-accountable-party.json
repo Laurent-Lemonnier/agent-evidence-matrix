@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "no-accountable-party",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "incident-action-authorization-no-accountable-party",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "no-accountable-party",
+  "section": "5.1",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "5",
+ "shape": "record"
+}

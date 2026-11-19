@@ -1,0 +1,29 @@
+{
+ "draftId": "S1",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "subject-interval-mismatch"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v5c9e19f61617f5ad.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "subject-interval-mismatch",
+   "section": "4.2",
+   "text": "second subject present iff interval violated"
+  },
+  "payloadSha256": "6e7786ad8609416b7ce8a30db57101b3acc97f9a381071995680a284196eba9b",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

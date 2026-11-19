@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "closed-vocabulary-violation",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "re-enable-decision-closed-vocabulary-violation",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "closed-vocabulary-violation",
+  "section": "4.3",
+  "text": "setSufficiency='adequate' outside the registry set",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "3",
+ "shape": "record"
+}

@@ -1,0 +1,32 @@
+{
+ "draftId": "CS36",
+ "draftRevision": "draft-gilda-audit-agent-audit-record-01",
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "consumption-value-invalid"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/vbb79dddb4241fe3f.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "derivedAgreement": "agree",
+  "derivedObserved": "occurred",
+  "derivedUnavailable": [],
+  "failure": {
+   "code": "member-missing",
+   "section": "5.9",
+   "text": "consumption.unit absent"
+  },
+  "payloadSha256": "fac1475054b85573e33e4a4e27662bc993e0144c0f6c53a02c4cd0ca41440513",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

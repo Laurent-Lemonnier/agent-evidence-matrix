@@ -1,0 +1,6 @@
+# Retained copy of Konrad Gruszka's (b7n0de) two verifiers and his published results, received by email on 15 Nov 2026
+# (Gmail message 1a1e1a6452f0f726) with his written permission to use the results in the matrix; the code is Apache-2.0
+# (LICENSE in this directory). The source exists only as that archive, so it is kept here; this directory is the extracted
+# archive unchanged, plus results-20261115/ (the results package, extracted unchanged).
+a81ab5af84a8da9cce6f64b65a911a83cc3a09973bb34bfce08da79f65cbd8fa  b7n0de-verifier-source-20261115.tar.gz
+0d6abe0e54f6b7119ef1f6fae9c6c21508714039156d4e5ee2d3c571525f464e  b7n0de-verifier-results-20261115.tar.gz

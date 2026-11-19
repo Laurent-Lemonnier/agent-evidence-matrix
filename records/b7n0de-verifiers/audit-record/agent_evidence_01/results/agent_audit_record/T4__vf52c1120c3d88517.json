@@ -1,0 +1,23 @@
+{
+ "draftId": "T4",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "nesting-too-deep"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/vf52c1120c3d88517.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "nesting-too-deep",
+   "section": "4.1.2",
+   "text": "nesting deeper than 128"
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "party-acts-outside-assignment",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "joint-authority-party-acts-outside-assignment",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "party-acts-outside-assignment",
+  "section": "5.4",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "6",
+ "shape": "record"
+}

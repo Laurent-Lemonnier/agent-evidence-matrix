@@ -1,0 +1,104 @@
+# external-verifier contract run: packaging/run_vectors.py at probityai/agent-evidence-vectors pull request 575, head 34704695b763814f2f56d7926939131553465208, over corpora/vectors-agent-audit-record (member files byte-equal to commit 250de75575a945d00211415d7af41894d15427fa)
+# command: venv/bin/python <pr575>/packaging/run_vectors.py --vectors <pr575>/corpora/vectors-agent-audit-record --verifier "venv/bin/python -I contract-adapter/contract_adapter.py audit-record/agent_evidence_01/tools" --report <report.json>, run from records/b7n0de-verifiers; exit 1
+# report totals: vectors 225, conform 180, fail 45, reasonParityMismatch 32, suiteRefusals 0 (re-run on HiPerGator, 19 Nov 2026: identical to the totals in his results package)
+# the 45 failing members: 38 verdict differences, CS32 (set verdict), and CS7, CS8, CS17, SQ5, X17, X18 on set codes only; the lines below are the runner's output
+CS7 v149c4a717d5c0797: set codes: expected ['consumption-set-stale-revision'], got ['stale-revision']
+CS8 v2c9175c6a76c19fa: set codes: expected ['consumption-set-release-unshown'], got ['release-without-settlement']
+CS17 vbc0faef3ecca56e2: set codes: expected ['consumption-set-stale-revision'], got ['stale-revision']
+CS18 v9e5e5b109c1df383: expected ['valid'], got 'malformed'
+CS18 v9e5e5b109c1df383: set verdict: expected 'valid', got 'malformed'
+CS19 v3bbdd9a943178d70: expected ['valid'], got 'malformed'
+CS19 v3bbdd9a943178d70: set verdict: expected 'valid', got 'malformed'
+CS20 v725bbaa885960ac8: expected ['valid'], got 'malformed'
+CS20 v725bbaa885960ac8: set codes: expected ['consumption-set-release-unshown'], got []
+CS21 vb3571235ae17709f: expected ['valid'], got 'malformed'
+CS21 vb3571235ae17709f: set codes: expected ['consumption-set-stale-revision'], got []
+CS22 v808afcc67df1b53a: expected ['valid'], got 'malformed'
+CS22 v808afcc67df1b53a: set verdict: expected 'valid', got 'malformed'
+CS26 vcd25bd185157ec57: expected ['valid'], got 'malformed'
+CS26 vcd25bd185157ec57: set verdict: expected 'valid', got 'malformed'
+CS27 v0940ca40dc4db85c: expected ['valid'], got 'malformed'
+CS27 v0940ca40dc4db85c: set verdict: expected 'valid', got 'malformed'
+CS28 vbb73d1139d98888d: expected ['valid'], got 'malformed'
+CS28 vbb73d1139d98888d: set verdict: expected 'valid', got 'malformed'
+CS29 v1436cb1bd7305b8b: expected ['valid'], got 'malformed'
+CS29 v1436cb1bd7305b8b: set verdict: expected 'valid', got 'malformed'
+CS30 vac6a83d3eb89cedd: expected ['valid'], got 'malformed'
+CS30 vac6a83d3eb89cedd: set codes: expected ['consumption-set-release-unshown'], got []
+CS31 v792d3e64b071293b: expected ['valid'], got 'malformed'
+CS31 v792d3e64b071293b: set codes: expected ['consumption-set-retry-as-new'], got []
+CS32 v852d5f9a104bb585: set verdict: expected 'malformed', got 'valid'
+CS34 v8fa7a7183c96762f: expected ['valid'], got 'malformed'
+CS34 v8fa7a7183c96762f: withinLimit: expected True, got None
+CS38 vdb9556d48947ef84: expected ['valid'], got 'malformed'
+CS38 vdb9556d48947ef84: set codes: expected ['consumption-set-asset-mismatch'], got []
+CS39 v38c2a8727af3b997: expected ['valid'], got 'malformed'
+CS39 v38c2a8727af3b997: set codes: expected ['consumption-set-asset-mismatch'], got []
+CS40 v1135206646a3a25c: expected ['valid'], got 'malformed'
+CS40 v1135206646a3a25c: set verdict: expected 'valid', got 'malformed'
+CS41 vc4129376086b1771: expected ['valid'], got 'malformed'
+CS41 vc4129376086b1771: withinLimit: expected True, got None
+CS43 v1f427d459a92a6db: expected ['valid'], got 'malformed'
+CS43 v1f427d459a92a6db: withinLimit: expected True, got None
+CS48 v685ca6e0fe677df5: expected ['valid'], got 'malformed'
+CS48 v685ca6e0fe677df5: set verdict: expected 'valid', got 'malformed'
+CS49 veba2beabdf39da6b: expected ['valid'], got 'malformed'
+CS49 veba2beabdf39da6b: set codes: expected ['consumption-set-settled-uncounted'], got []
+CS50 vc5944d012d8f4ad0: expected ['valid'], got 'malformed'
+CS50 vc5944d012d8f4ad0: withinLimit: expected True, got None
+CS53 v1e6e19e24a868a89: expected ['valid'], got 'malformed'
+CS53 v1e6e19e24a868a89: set codes: expected ['consumption-set-release-unshown'], got []
+CS54 v2f0df6d2793c22c8: expected ['valid'], got 'malformed'
+CS54 v2f0df6d2793c22c8: set verdict: expected 'valid', got 'malformed'
+SQ5 va885bfbdaf7a4920: set codes: expected ['sequence-duplicate'], got ['conflicts']
+PR4 v1a2a14e3c671f2c7: expected ['malformed'], got 'valid'
+PR5 va10144e3bbdce77d: expected ['malformed'], got 'valid'
+PR6 v84cecdd82e8e9656: expected ['malformed'], got 'valid'
+PR7 v147d091f7b537b8c: expected ['malformed'], got 'valid'
+PR8 v2e761c4d4f358c4b: expected ['malformed'], got 'valid'
+PR9 v92a15ff9860863bd: expected ['malformed'], got 'valid'
+PR10 vd5d17c5df6a3ba94: expected ['malformed'], got 'valid'
+PR11 v9a3eb534e69f04b4: expected ['malformed'], got 'valid'
+DS4 v013c59cf51774951: expected ['malformed'], got 'valid'
+DS5 v64fb7d2b269d916c: expected ['malformed'], got 'valid'
+DS6 v6b83c9a51a68e9d6: expected ['malformed'], got 'valid'
+DS7 v112d8474d423174f: expected ['malformed'], got 'valid'
+DS8 ve8a6caabb2b9be75: expected ['malformed'], got 'valid'
+DS9 vb7249b0ebaf69f97: expected ['malformed'], got 'valid'
+DS10 ved1e86ff17b0b12b: expected ['malformed'], got 'valid'
+X6 v460418d6fe1a5ba2: expected ['malformed'], got 'valid'
+X17 v932e921118b63a4b: set codes: expected ['set-unreadable'], got []
+X18 v425531073d0c4bd6: set codes: expected ['set-record-malformed'], got []
+note (codes, not scored): TI1 v705078d88d27d6b7: no emitted code ['field-evidence-self-substrate'] is among the declared codes ['tier-overclaim-vantage']
+note (codes, not scored): TI3 v76e481d2b6f468ab: no emitted code ['write-scope-mismatch'] is among the declared codes ['tier-overclaim-scope']
+note (codes, not scored): E3 v6fdd759b8221a56d: no emitted code ['digest-malformed'] is among the declared codes ['empty-tree-constant-mismatch']
+note (codes, not scored): CS23 v9412d4c36ebf693f: no emitted code ['consumption-malformed'] is among the declared codes ['consumption-supersedes-self']
+note (codes, not scored): CS24 v690cf565d5d3ab58: no emitted code ['consumption-malformed'] is among the declared codes ['consumption-value-invalid']
+note (codes, not scored): CS35 v5f0ad7836909a477: no emitted code ['member-missing'] is among the declared codes ['consumption-value-invalid']
+note (codes, not scored): CS36 vbb79dddb4241fe3f: no emitted code ['member-missing'] is among the declared codes ['consumption-value-invalid']
+note (codes, not scored): CS37 v1714ffa1d3efa663: no emitted code ['consumption-malformed'] is among the declared codes ['consumption-unit-ambiguous']
+note (codes, not scored): CS42 v39082a228cbf2c32: no emitted code ['member-missing'] is among the declared codes ['consumption-key-reused']
+note (codes, not scored): CS44 v906dd39fe5dd0ed7: no emitted code ['member-missing'] is among the declared codes ['consumption-settled-exceeds']
+note (codes, not scored): CS45 ve332b7a9eb477ad5: no emitted code ['member-missing'] is among the declared codes ['consumption-settled-differs']
+note (codes, not scored): CS46 va3507e84a41f4de5: no emitted code ['member-missing'] is among the declared codes ['consumption-settled-differs']
+note (codes, not scored): CS47 vc4f77810767e7130: no emitted code ['member-missing'] is among the declared codes ['consumption-value-invalid']
+note (codes, not scored): CS51 v8168d7d02f8610fb: no emitted code ['member-missing'] is among the declared codes ['consumption-value-invalid']
+note (codes, not scored): CS52 v4614faef7282aaee: no emitted code ['member-missing'] is among the declared codes ['consumption-value-invalid']
+note (codes, not scored): PR4 v1a2a14e3c671f2c7: no emitted code [] is among the declared codes ['principal-thumbprint-mismatch']
+note (codes, not scored): PR5 va10144e3bbdce77d: no emitted code [] is among the declared codes ['principal-expired']
+note (codes, not scored): PR6 v84cecdd82e8e9656: no emitted code [] is among the declared codes ['principal-credential-unbound']
+note (codes, not scored): PR7 v147d091f7b537b8c: no emitted code [] is among the declared codes ['principal-member-missing']
+note (codes, not scored): PR8 v2e761c4d4f358c4b: no emitted code [] is among the declared codes ['principal-subject-mismatch']
+note (codes, not scored): PR9 v92a15ff9860863bd: no emitted code [] is among the declared codes ['principal-kid-mismatch']
+note (codes, not scored): PR10 vd5d17c5df6a3ba94: no emitted code [] is among the declared codes ['principal-not-yet-valid']
+note (codes, not scored): PR11 v9a3eb534e69f04b4: no emitted code [] is among the declared codes ['principal-member-unknown']
+note (codes, not scored): DS4 v013c59cf51774951: no emitted code [] is among the declared codes ['data-subject-member-missing']
+note (codes, not scored): DS5 v64fb7d2b269d916c: no emitted code [] is among the declared codes ['data-subject-member-unknown']
+note (codes, not scored): DS6 v6b83c9a51a68e9d6: no emitted code [] is among the declared codes ['data-subject-malformed']
+note (codes, not scored): DS7 v112d8474d423174f: no emitted code [] is among the declared codes ['data-subject-merged']
+note (codes, not scored): DS8 ve8a6caabb2b9be75: no emitted code [] is among the declared codes ['data-subject-relation-mismatch']
+note (codes, not scored): DS9 vb7249b0ebaf69f97: no emitted code [] is among the declared codes ['data-subject-purpose-undeclared']
+note (codes, not scored): DS10 ved1e86ff17b0b12b: no emitted code [] is among the declared codes ['data-subject-purposes-digest-mismatch']
+note (codes, not scored): X1 vb3a1cd46d33b8b3c: no emitted code ['signature-invalid'] is among the declared codes ['value-not-representable']
+note (codes, not scored): X6 v460418d6fe1a5ba2: no emitted code [] is among the declared codes ['consumption-malformed']
+agent-audit-record-conformance: venv/bin/python -I contract-adapter/contract_adapter.py audit-record/agent_evidence_01/tools answered 225 of 225 members, 67 disagreement(s)

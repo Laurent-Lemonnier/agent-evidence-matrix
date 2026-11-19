@@ -1,0 +1,47 @@
+{
+ "draftId": "X12",
+ "draftRevision": null,
+ "draftSection": "4.7",
+ "expected": {
+  "codes": [],
+  "dating": {
+   "codes": [
+    "entry-envelope-digest-mismatch"
+   ],
+   "datedAt": "2026-09-19T11:05:00Z",
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "malformed"
+  },
+  "derivedTier": "authoritative",
+  "verdict": "valid"
+ },
+ "file": "retained/ve9350800b1486fbb.json",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "dating": {
+   "datedAt": "2026-09-19T11:05:00Z",
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "malformed",
+   "failure": {
+    "code": "entry-envelope-digest-mismatch",
+    "section": "4.7",
+    "text": "envelopeDigest is not the digest of the envelope"
+   },
+   "receipt": null
+  },
+  "derivedTier": "authoritative",
+  "failure": null,
+  "verdict": "valid"
+ },
+ "subMatch": {
+  "dating.datedAt": true,
+  "dating.delegationRoot": true,
+  "dating.entry": true,
+  "derivedTier": true
+ }
+}

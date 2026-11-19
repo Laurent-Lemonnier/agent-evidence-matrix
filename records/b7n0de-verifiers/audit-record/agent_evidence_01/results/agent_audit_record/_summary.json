@@ -1,0 +1,38 @@
+{
+ "n": 225,
+ "match": 187,
+ "sub": {
+  "derivedTier": [
+   76,
+   0
+  ],
+  "dating.entry": [
+   22,
+   0
+  ],
+  "dating.datedAt": [
+   22,
+   0
+  ],
+  "dating.delegationRoot": [
+   22,
+   0
+  ],
+  "dating.receipt": [
+   3,
+   0
+  ],
+  "withinLimit": [
+   7,
+   0
+  ],
+  "set.verdict": [
+   17,
+   11
+  ],
+  "set.missing": [
+   1,
+   0
+  ]
+ }
+}

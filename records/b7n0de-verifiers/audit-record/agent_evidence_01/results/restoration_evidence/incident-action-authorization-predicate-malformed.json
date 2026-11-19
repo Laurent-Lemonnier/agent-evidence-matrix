@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "predicate-malformed",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "incident-action-authorization-predicate-malformed",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "predicate-malformed",
+  "section": "4.2",
+  "text": "predicate carries undefined member note",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "2",
+ "shape": "record"
+}

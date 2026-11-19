@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "predicate-malformed",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "joint-authority-predicate-malformed",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "predicate-malformed",
+  "section": "5.4",
+  "text": "fewer than two parties",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "2",
+ "shape": "record"
+}
