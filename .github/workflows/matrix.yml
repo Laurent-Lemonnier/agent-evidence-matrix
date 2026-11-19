@@ -395,4 +395,5 @@ jobs:
           rc=0
           (cd records/b7n0de-verifiers && python "$RUNNER_TEMP/pr575/packaging/run_vectors.py" --vectors "$RUNNER_TEMP/pr575/corpora/vectors-agent-audit-record" --verifier "python -I contract-adapter/contract_adapter.py audit-record/agent_evidence_01/tools" --report "$RUNNER_TEMP/contract-report.json") > "$RUNNER_TEMP/contract.txt" || rc=$?
           test "$rc" = 1
-          diff <(tail -n +5 adapters/b7n0de-contract-run.txt) "$RUNNER_TEMP/contract.txt"
+          # the runner echoes the verifier command; the recorded run was made from a venv
+          diff <(tail -n +5 adapters/b7n0de-contract-run.txt) <(sed 's#^\(agent-audit-record-conformance: \)python #\1venv/bin/python #' "$RUNNER_TEMP/contract.txt")
