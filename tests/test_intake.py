@@ -180,3 +180,51 @@ def test_a_held_owner_hidden_by_an_invisible_or_fullwidth_character_is_found(spe
 def test_folding_does_not_invent_a_held_owner():
     assert not intake.held_owner_named(proj(9, note="https://github.com/someone/heldowner"), HELD)
     assert not intake.held_owner_named(proj(9, note="https://github.com/heldowners/x"), HELD)
+
+
+def held_row(pid, **kw):
+    """A row naming a held owner, with one contradicted cell and one supported cell."""
+    cells = [{"id": "a", "verdict": "contradicted"}, {"id": "b", "verdict": "supported"}]
+    return proj(pid, url="https://github.com/heldowner/x", cells=cells, **kw)
+
+
+def labelled(row, **labels):
+    cells = [dict(c) for c in row["cells"]]
+    cells[0].update(labels)
+    return {**row, "cells": cells}
+
+
+LABELS = {"basis": "the maintainer's stated reason", "divergence_in": "spec", "declared_revision": "v1.2"}
+
+
+def test_a_maintainer_may_label_a_contradicted_cell_of_a_held_row():
+    row = held_row(1)
+    out = intake.refusals({"matrix.json": "modified"}, {"projects": [row]}, {"projects": [labelled(row, **LABELS)]},
+                          "m", True, set(), HELD)
+    assert out == []
+
+
+def test_a_maintainer_may_change_only_the_labels_of_a_held_row():
+    row = held_row(1)
+    changed = labelled(row, **LABELS)
+    changed["name"] = "renamed"
+    out = intake.refusals({"matrix.json": "modified"}, {"projects": [row]}, {"projects": [changed]}, "m", True, set(), HELD)
+    assert out == ["project 1 is held for maintainer review"]
+    flipped = labelled(row, **LABELS)
+    flipped["cells"][1]["verdict"] = "contradicted"
+    out = intake.refusals({"matrix.json": "modified"}, {"projects": [row]}, {"projects": [flipped]}, "m", True, set(), HELD)
+    assert out == ["project 1 is held for maintainer review"]
+
+
+def test_a_non_maintainer_may_not_label_a_held_row():
+    row = held_row(1)
+    out = intake.refusals({"matrix.json": "modified"}, {"projects": [row]}, {"projects": [labelled(row, **LABELS)]},
+                          "outsider", False, set(), HELD)
+    assert "project 1 is held for maintainer review" in out
+
+
+def test_labels_that_name_a_held_owner_are_refused():
+    row = held_row(1)
+    named = labelled(row, **{**LABELS, "basis": "see https://github.com/heldowner/x/issues/1"})
+    out = intake.refusals({"matrix.json": "modified"}, {"projects": [row]}, {"projects": [named]}, "m", True, set(), HELD)
+    assert out == ["project 1 is held for maintainer review"]
