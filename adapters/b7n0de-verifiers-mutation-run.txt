@@ -1,0 +1,4 @@
+# One signature character of the first valid audit-record changed in memory: his verdict must turn from valid to malformed (exit 1, comparison failed as it must).
+# command: venv/bin/python -I adapters/b7n0de_verifiers_adapter.py records/b7n0de-verifiers <bare clone of probityai/agent-evidence-vectors holding 250de75575a945d00211415d7af41894d15427fa> --mutation
+audit-record/A1	valid	unmutated
+audit-record/A1	malformed	signature character changed	signature-invalid

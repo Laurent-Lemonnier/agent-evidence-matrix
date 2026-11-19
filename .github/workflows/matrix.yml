@@ -359,3 +359,38 @@ jobs:
         run: python -I adapters/proofable_aad_adapter.py ../proofable-docs | diff adapters/proofable-aad-run.txt -
       - name: The pinned reader's answer on the packet's records equals the recorded run
         run: python -I adapters/proofable_reader_cell.py ../proofable-docs | diff adapters/proofable-reader-cell-run.txt -
+  # Row 28: Konrad Gruszka's two verifiers (retained source, run by his own runner) on the pinned
+  # agent-evidence-vectors corpora, then the audit-record verifier through the external-verifier contract of
+  # the open pull request 575. Each run must equal the committed one; one changed signature character must
+  # turn his verdict from valid to malformed (exit 1, comparison failed as it must).
+  b7n0de-verifiers:
+    runs-on: ubuntu-latest
+    env:
+      VECTORS_COMMIT: 250de75575a945d00211415d7af41894d15427fa
+      PR575_COMMIT: 34704695b763814f2f56d7926939131553465208
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install --require-hashes -r requirements.txt
+      - name: Fetch the pinned corpora and the contract runner
+        run: |
+          git clone -q --bare https://github.com/probityai/agent-evidence-vectors "$RUNNER_TEMP/aev.git"
+          git -C "$RUNNER_TEMP/aev.git" cat-file -e "$VECTORS_COMMIT^{commit}"
+          git -C "$RUNNER_TEMP/aev.git" fetch -q origin "$PR575_COMMIT"
+          git -C "$RUNNER_TEMP/aev.git" worktree add -q "$RUNNER_TEMP/pr575" "$PR575_COMMIT"
+      - name: His runner's verdicts on the corpus members equal the recorded run
+        run: python -I adapters/b7n0de_verifiers_adapter.py records/b7n0de-verifiers "$RUNNER_TEMP/aev.git" | diff <(tail -n +3 adapters/b7n0de-verifiers-run.txt) -
+      - name: One changed signature character turns his verdict
+        run: |
+          rc=0
+          python -I adapters/b7n0de_verifiers_adapter.py records/b7n0de-verifiers "$RUNNER_TEMP/aev.git" --mutation > "$RUNNER_TEMP/mut.txt" || rc=$?
+          test "$rc" = 1
+          diff <(tail -n +3 adapters/b7n0de-verifiers-mutation-run.txt) "$RUNNER_TEMP/mut.txt"
+      - name: The contract run equals the recorded run
+        run: |
+          rc=0
+          (cd records/b7n0de-verifiers && python -I "$RUNNER_TEMP/pr575/packaging/run_vectors.py" --vectors "$RUNNER_TEMP/pr575/corpora/vectors-agent-audit-record" --verifier "python -I contract-adapter/contract_adapter.py audit-record/agent_evidence_01/tools" --report "$RUNNER_TEMP/contract-report.json") > "$RUNNER_TEMP/contract.txt" || rc=$?
+          test "$rc" = 1
+          diff <(tail -n +5 adapters/b7n0de-contract-run.txt) "$RUNNER_TEMP/contract.txt"
