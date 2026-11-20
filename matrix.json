@@ -10,7 +10,7 @@
     "unsupported",
     "not run"
   ],
-  "total_projects": 28,
+  "total_projects": 29,
   "projects": [
     {
       "id": 1,
@@ -1457,6 +1457,26 @@
       },
       "replay": "git clone --bare https://github.com/probityai/agent-evidence-vectors /tmp/aev.git && venv/bin/python -I adapters/b7n0de_verifiers_adapter.py records/b7n0de-verifiers /tmp/aev.git && venv/bin/python -I adapters/b7n0de_verifiers_adapter.py records/b7n0de-verifiers /tmp/aev.git --mutation  # exit 1; the contract run (open pull request 575): git -C /tmp/aev.git fetch origin 34704695b763814f2f56d7926939131553465208 && git -C /tmp/aev.git worktree add /tmp/pr575 34704695b763814f2f56d7926939131553465208 && cd records/b7n0de-verifiers && ../../venv/bin/python /tmp/pr575/packaging/run_vectors.py --vectors /tmp/pr575/corpora/vectors-agent-audit-record --verifier '../../venv/bin/python -I contract-adapter/contract_adapter.py audit-record/agent_evidence_01/tools' --report /tmp/contract-report.json  # exit 1, 180 of 225 conform",
       "independence": "non-author"
+    },
+    {
+      "id": 29,
+      "name": "Praxis Policy Engine OCSF decision records (praxis-proxy/policy, reference/plugins/ocsf-audit; AID-EMIT-1)",
+      "upstream": {
+        "url": "https://github.com/praxis-proxy/policy",
+        "sha": "82ff511b1b512d2421e3d3a179416b061197c462",
+        "note": "The three SAMPLE-OUTPUT*.md files next to the sink's README, which it names as AID-EMIT-1's conformance vectors. The two records of SAMPLE-OUTPUT.md are signed with the published demo key, the P-256 scalar of 32 bytes 0x42."
+      },
+      "replay": "git clone https://github.com/praxis-proxy/policy ../praxis-policy && git -C ../praxis-policy checkout 82ff511b1b512d2421e3d3a179416b061197c462 && venv/bin/python -m pip install 'agent-evidence-verify @ git+https://github.com/probityai/probity@dc0a5620587a4c467cce3e8f960dd61115d77a25#subdirectory=packages/agent-evidence-verify' && venv/bin/python -I adapters/ocsf_decision_reader.py ../praxis-policy && venv/bin/python -I adapters/ocsf_decision_reader.py --mutation ../praxis-policy  # exit 1",
+      "independence": "non-author",
+      "cells": [
+        {
+          "cell": "OCSF decision-record reader (ours, agent-evidence-verify at probityai/probity dc0a5620587a) on the 11 records of the sink's three published sample outputs",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "11 of 11. Both signed records of SAMPLE-OUTPUT.md read with structure, ruling, fingerprint, DSSE signature and key binding verified under the published demo key, and they form one chain (links, gaps and opening verified); the tail reads not_checked, since no record can show that later records were not deleted and the samples carry no independent head. The nine decision records of SAMPLE-OUTPUT-DECISIONS.md and SAMPLE-OUTPUT-PROVENANCE.md read with every ruling consistent (ids, captions, verdict, steps, deny_ignored flag, status code) and stream_seq 41 to 49 dense with emission_seq in order; they are unchained and unsigned, so no fingerprint or signature cell is claimed for them. The reader was written from the sink's README and the samples, not its code. Second angle: one changed byte of each signed record fails its fingerprint (2 of 2), and with --mutation an earlier duplicate disposition injected into the first signed record reads differs (structural_validity failed).",
+          "evidence": "adapters/ocsf-decision-reader-run.txt (adapters/ocsf_decision_reader.py)"
+        }
+      ]
     }
   ]
 }
