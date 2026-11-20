@@ -1,4 +1,4 @@
-# agent-evidence-verify 0.5.1, claim jcs_canonical/v1 (target rfc8785), over every *.jcs file of b7n0de/proofbundle at 53d1eafe8eaf7c558ed394e01d1b29d132c2fd47 and tyche-institute/aep-sandbox at c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132
+# agent-evidence-verify 0.6.0, claim jcs_canonical/v1 (target rfc8785), over every *.jcs file of b7n0de/proofbundle at 53d1eafe8eaf7c558ed394e01d1b29d132c2fd47 and tyche-institute/aep-sandbox at c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132
 # command: python -I adapters/reader_cells.py proofbundle=<proofbundle> aep-sandbox=<aep-sandbox>
 proofbundle/conformance/action_chain_content_roots/cross-predicate-ref-predicates-path/decision.jcs	supported	canonical_bytes_match
 proofbundle/conformance/action_chain_content_roots/cross-predicate-ref-predicates-path/evidence.jcs	supported	canonical_bytes_match

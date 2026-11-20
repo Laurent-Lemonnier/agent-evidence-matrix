@@ -7,7 +7,7 @@ For people who maintain a project that records what an AI agent did and want to 
 Install the reader as a pinned dependency:
 
 ```
-pip install agent-evidence-vectors==0.36.3 agent-evidence-verify==0.5.1
+pip install agent-evidence-vectors==0.36.3 agent-evidence-verify==0.6.0
 ```
 
 or the whole hash-locked environment the CI uses: `pip install --require-hashes -r requirements.txt`.

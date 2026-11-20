@@ -4,9 +4,9 @@ agent-evidence-vectors==0.36.3 \
     --hash=sha256:210e42172511495bca47a20c88903800cf405126d7f956bb4be839f354052764 \
     --hash=sha256:c2a8c01e6e5f777405b6102511b2ce147a6fdae7a2a13ca80fbe9c6bdbac2a34
     # via -r requirements.in
-agent-evidence-verify==0.5.1 \
-    --hash=sha256:373342b9dfb7b32d1779ff2cdf4a27ade981fead9393b75a88ffbd1f729a7284 \
-    --hash=sha256:c12710089e6abc559ca79b8c15e3b2982f368ec5392d66dd1dd00d835aabf3ec
+agent-evidence-verify==0.6.0 \
+    --hash=sha256:15d546123c1f78f51700d3bccce358c1108b343bf19d79da51f733d2dda9c368 \
+    --hash=sha256:c3600fc53e35b8b3d11ac20454efd45129bc83b2f4e8b706cd0b7c166c2f27c8
     # via -r requirements.in
 agent-evidence-vocabulary==0.9.0 \
     --hash=sha256:9958330e3f67a25d9625395078c8335af61b716ca897090386e597d1134a9c9f \
