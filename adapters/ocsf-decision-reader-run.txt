@@ -1,4 +1,4 @@
-# venv/bin/python -I adapters/ocsf_decision_reader.py ../praxis-policy  (praxis-proxy/policy at 82ff511b1b512d2421e3d3a179416b061197c462; reader agent-evidence-verify at probityai/probity dc0a5620587a)
+# venv/bin/python -I adapters/ocsf_decision_reader.py ../praxis-policy  (praxis-proxy/policy at 82ff511b1b512d2421e3d3a179416b061197c462; reader agent-evidence-verify 0.6.0)
 SAMPLE-OUTPUT.md#1	agrees	structural_validity verified, decision_consistency verified, fingerprint verified, signature verified, key_binding verified
 SAMPLE-OUTPUT.md#2	agrees	structural_validity verified, decision_consistency verified, fingerprint verified, signature verified, key_binding verified
 chain	chain_links verified, chain_gaps verified, chain_head verified; tail not_checked

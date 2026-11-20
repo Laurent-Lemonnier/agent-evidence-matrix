@@ -1,7 +1,7 @@
 {
   "reader": {
     "agent-evidence-vectors": "0.36.3",
-    "agent-evidence-verify": "0.5.1"
+    "agent-evidence-verify": "0.6.0"
   },
   "verdicts": [
     "agrees",
@@ -184,7 +184,7 @@
           "evidence": "adapters/aep_seal_timestamps-run.txt (adapters/aep_seal_timestamps.py)"
         },
         {
-          "cell": "IETF 127 cell 1, JSON side: payload/payload.jcs through the shared reader agent-evidence-verify 0.5.1, claim jcs_canonical/v1, target rfc8785",
+          "cell": "IETF 127 cell 1, JSON side: payload/payload.jcs through the shared reader agent-evidence-verify 0.6.0, claim jcs_canonical/v1, target rfc8785",
           "source": "their records",
           "verdict": "agrees",
           "detail": "1 of 1 supported (canonical_bytes_match): the 312 bytes are the RFC 8785 form of the payload. This reads the encoded payload only; the 12 COSE_Sign1 vectors of the cell are the next cell.",
@@ -352,7 +352,7 @@
           "evidence": "adapters/lemonnier-own-records-run.txt (adapters/lemonnier_own_records_adapter.py), section H"
         },
         {
-          "cell": "decision-record reader (ours, agent-evidence-verify at probityai/probity 96b302de87a3) on the 131 published binding cases of DPS action-binding 0.3.0, against their expected values",
+          "cell": "decision-record reader (ours, agent-evidence-verify 0.6.0) on the 131 published binding cases of DPS action-binding 0.3.0, against their expected values",
           "source": "their records",
           "verdict": "agrees",
           "detail": "131 of 131: every binding dimension (specification digests and statements, record statements, action binding, stage order, recheck, observed results, rationale provenance), the execution state and the carried observed, executed, reviews and standing-approval lists equal each case's expected values, with each case's published patch applied to the published attachments. The reader was written from the extension's text and schemas, not its reference check. The published signed attachments A0 and B0 verify under the published trust policy on the stated time, and one changed byte of each fails the seal. Timestamps beside an attachment are reported not_supported by this reader, so no time_assurance cell is claimed. Second angle: with --mutation L01 the first stage of L01 names a specification the attachment does not carry, and L01 reads differs (action_binding failed), 130 of 131.",
@@ -362,7 +362,7 @@
           "cell": "Agent Action Capsule and passkey-signed approval records, and the refund chain across four drafts: our reader",
           "source": "none",
           "verdict": "unsupported",
-          "detail": "The project's capsule, WebAuthn approval and one-chain records are formats of other drafts that agent-evidence-vectors 0.36.3 and agent-evidence-verify 0.5.1 have no reader for (the DPS action-binding attachment now has one: the cell before this); the shipped corpora cover the audit record and approval binding only. Not attempted, so no verdict on their 8/8, 10-join or 22/22 figures. The aac cases are in aac/cases of the upstream repository at the pinned commit.",
+          "detail": "The project's capsule, WebAuthn approval and one-chain records are formats of other drafts that agent-evidence-vectors 0.36.3 and agent-evidence-verify 0.6.0 have no reader for (the DPS action-binding attachment now has one: the cell before this); the shipped corpora cover the audit record and approval binding only. Not attempted, so no verdict on their 8/8, 10-join or 22/22 figures. The aac cases are in aac/cases of the upstream repository at the pinned commit.",
           "evidence": "upstream interop/README.md and interop/aac/README.md at the pinned commit; no adapter"
         }
       ],
@@ -384,7 +384,7 @@
           }
         ]
       },
-      "replay": "git clone https://github.com/Laurent-Lemonnier/dps-scitt-decision-layer ../dps-scitt-decision-layer && git -C ../dps-scitt-decision-layer checkout 00d748a63d96b13905dafb4100fb694c0715469f && venv/bin/python -I adapters/lemonnier_adapter.py ../dps-scitt-decision-layer\n# cells on the project's own records (refund chain, passkey approval, second log, signed-size receipt), at project commit 615c0e07039fab5503feed330bf3ff4f1f5ef68e:\ngit -C ../dps-scitt-decision-layer checkout 615c0e07039fab5503feed330bf3ff4f1f5ef68e && git clone https://github.com/decision-provenance-standard/standard ../dps-standard && git -C ../dps-standard checkout 007f8c99ec910564bac1c508b76c8ce8391fa11e && venv/bin/python -m pip install cbor2 cryptography jsonschema asn1crypto==1.5.1 && venv/bin/python -I adapters/lemonnier_own_records_adapter.py ../dps-scitt-decision-layer ../dps-standard\n# the decision-record reader cell, on the published action-binding cases at standard commit 729cdfcbbd98:\ngit -C ../dps-standard fetch origin 729cdfcbbd9802182769dc19dacecb0a905dcc45 && git -C ../dps-standard checkout 729cdfcbbd9802182769dc19dacecb0a905dcc45 && venv/bin/python -m pip install 'agent-evidence-verify @ git+https://github.com/probityai/probity@96b302de87a32d3d4d414e7b62d41a2ece2d668f#subdirectory=packages/agent-evidence-verify' && venv/bin/python -I adapters/decision_record_reader.py ../dps-standard | diff adapters/decision-record-reader-run.txt -",
+      "replay": "git clone https://github.com/Laurent-Lemonnier/dps-scitt-decision-layer ../dps-scitt-decision-layer && git -C ../dps-scitt-decision-layer checkout 00d748a63d96b13905dafb4100fb694c0715469f && venv/bin/python -I adapters/lemonnier_adapter.py ../dps-scitt-decision-layer\n# cells on the project's own records (refund chain, passkey approval, second log, signed-size receipt), at project commit 615c0e07039fab5503feed330bf3ff4f1f5ef68e:\ngit -C ../dps-scitt-decision-layer checkout 615c0e07039fab5503feed330bf3ff4f1f5ef68e && git clone https://github.com/decision-provenance-standard/standard ../dps-standard && git -C ../dps-standard checkout 007f8c99ec910564bac1c508b76c8ce8391fa11e && venv/bin/python -m pip install cbor2 cryptography jsonschema asn1crypto==1.5.1 && venv/bin/python -I adapters/lemonnier_own_records_adapter.py ../dps-scitt-decision-layer ../dps-standard\n# the decision-record reader cell, on the published action-binding cases at standard commit 729cdfcbbd98:\ngit -C ../dps-standard fetch origin 729cdfcbbd9802182769dc19dacecb0a905dcc45 && git -C ../dps-standard checkout 729cdfcbbd9802182769dc19dacecb0a905dcc45 && venv/bin/python -m pip install agent-evidence-verify==0.6.0 && venv/bin/python -I adapters/decision_record_reader.py ../dps-standard | diff adapters/decision-record-reader-run.txt -",
       "independence": "co-author"
     },
     {
@@ -1143,7 +1143,7 @@
           "evidence": "adapters/proofbundle-theirs-conformance-run.txt (their conformance/run_conformance.py at the pinned commit)"
         },
         {
-          "cell": "every *.jcs record (16: content-root statements, evidence and decision bodies, decision receipts and evaluation results) through the shared reader agent-evidence-verify 0.5.1, claim jcs_canonical/v1, target rfc8785",
+          "cell": "every *.jcs record (16: content-root statements, evidence and decision bodies, decision receipts and evaluation results) through the shared reader agent-evidence-verify 0.6.0, claim jcs_canonical/v1, target rfc8785",
           "source": "their records",
           "verdict": "agrees",
           "detail": "16 of 16 supported (canonical_bytes_match): each file is the RFC 8785 form of the JSON value it encodes. CI replays the run from the pinned commit with the hash-locked reader, and a copy with two members swapped turns that one line contradicted (canonical_bytes_differ) and the exit code to 1.",
@@ -1466,11 +1466,11 @@
         "sha": "82ff511b1b512d2421e3d3a179416b061197c462",
         "note": "The three SAMPLE-OUTPUT*.md files next to the sink's README, which it names as AID-EMIT-1's conformance vectors. The two records of SAMPLE-OUTPUT.md are signed with the published demo key, the P-256 scalar of 32 bytes 0x42."
       },
-      "replay": "git clone https://github.com/praxis-proxy/policy ../praxis-policy && git -C ../praxis-policy checkout 82ff511b1b512d2421e3d3a179416b061197c462 && venv/bin/python -m pip install 'agent-evidence-verify @ git+https://github.com/probityai/probity@dc0a5620587a4c467cce3e8f960dd61115d77a25#subdirectory=packages/agent-evidence-verify' && venv/bin/python -I adapters/ocsf_decision_reader.py ../praxis-policy && venv/bin/python -I adapters/ocsf_decision_reader.py --mutation ../praxis-policy  # exit 1",
+      "replay": "git clone https://github.com/praxis-proxy/policy ../praxis-policy && git -C ../praxis-policy checkout 82ff511b1b512d2421e3d3a179416b061197c462 && venv/bin/python -m pip install agent-evidence-verify==0.6.0 && venv/bin/python -I adapters/ocsf_decision_reader.py ../praxis-policy && venv/bin/python -I adapters/ocsf_decision_reader.py --mutation ../praxis-policy  # exit 1",
       "independence": "non-author",
       "cells": [
         {
-          "cell": "OCSF decision-record reader (ours, agent-evidence-verify at probityai/probity dc0a5620587a) on the 11 records of the sink's three published sample outputs",
+          "cell": "OCSF decision-record reader (ours, agent-evidence-verify 0.6.0) on the 11 records of the sink's three published sample outputs",
           "source": "their records",
           "verdict": "agrees",
           "detail": "11 of 11. Both signed records of SAMPLE-OUTPUT.md read with structure, ruling, fingerprint, DSSE signature and key binding verified under the published demo key, and they form one chain (links, gaps and opening verified); the tail reads not_checked, since no record can show that later records were not deleted and the samples carry no independent head. The nine decision records of SAMPLE-OUTPUT-DECISIONS.md and SAMPLE-OUTPUT-PROVENANCE.md read with every ruling consistent (ids, captions, verdict, steps, deny_ignored flag, status code) and stream_seq 41 to 49 dense with emission_seq in order; they are unchained and unsigned, so no fingerprint or signature cell is claimed for them. The reader was written from the sink's README and the samples, not its code. Second angle: one changed byte of each signed record fails its fingerprint (2 of 2), and with --mutation an earlier duplicate disposition injected into the first signed record reads differs (structural_validity failed).",
