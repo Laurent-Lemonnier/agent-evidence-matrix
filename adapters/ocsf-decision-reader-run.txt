@@ -1,0 +1,30 @@
+# venv/bin/python -I adapters/ocsf_decision_reader.py ../praxis-policy  (praxis-proxy/policy at 82ff511b1b512d2421e3d3a179416b061197c462; reader agent-evidence-verify at probityai/probity dc0a5620587a)
+SAMPLE-OUTPUT.md#1	agrees	structural_validity verified, decision_consistency verified, fingerprint verified, signature verified, key_binding verified
+SAMPLE-OUTPUT.md#2	agrees	structural_validity verified, decision_consistency verified, fingerprint verified, signature verified, key_binding verified
+chain	chain_links verified, chain_gaps verified, chain_head verified; tail not_checked
+stream#1	agrees	structural_validity verified, decision_consistency verified
+stream#2	agrees	structural_validity verified, decision_consistency verified
+stream#3	agrees	structural_validity verified, decision_consistency verified
+stream#4	agrees	structural_validity verified, decision_consistency verified
+stream#5	agrees	structural_validity verified, decision_consistency verified
+stream#6	agrees	structural_validity verified, decision_consistency verified
+stream#7	agrees	structural_validity verified, decision_consistency verified
+stream#8	agrees	structural_validity verified, decision_consistency verified
+stream#9	agrees	structural_validity verified, decision_consistency verified
+stream	stream_sequence verified, stream_head unavailable
+summary	records 11 of 11 agree, 0 differ; chain verified; one changed byte fails the fingerprint 2 of 2
+# --mutation (an earlier duplicate disposition injected into the first signed record):
+SAMPLE-OUTPUT.md#1	differs	structural_validity: expected verified, read failed; decision_consistency: expected verified, read not_checked; fingerprint: expected verified, read not_checked; signature: expected verified, read not_checked; key_binding: expected verified, read not_checked
+SAMPLE-OUTPUT.md#2	agrees	structural_validity verified, decision_consistency verified, fingerprint verified, signature verified, key_binding verified
+chain	chain_links verified, chain_gaps verified, chain_head unavailable; tail not_checked
+stream#1	agrees	structural_validity verified, decision_consistency verified
+stream#2	agrees	structural_validity verified, decision_consistency verified
+stream#3	agrees	structural_validity verified, decision_consistency verified
+stream#4	agrees	structural_validity verified, decision_consistency verified
+stream#5	agrees	structural_validity verified, decision_consistency verified
+stream#6	agrees	structural_validity verified, decision_consistency verified
+stream#7	agrees	structural_validity verified, decision_consistency verified
+stream#8	agrees	structural_validity verified, decision_consistency verified
+stream#9	agrees	structural_validity verified, decision_consistency verified
+stream	stream_sequence verified, stream_head unavailable
+summary	records 10 of 11 agree, 1 differ; chain not verified; one changed byte fails the fingerprint 1 of 1
