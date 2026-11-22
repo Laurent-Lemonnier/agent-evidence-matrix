@@ -4,10 +4,10 @@ One table of which agent-evidence projects can be read by shared open verifiers 
 
 For people who maintain a project that records what an AI agent did and want to see how its records and canonicalization compare with the others.
 
-Install the reader as a pinned dependency:
+Install the reader:
 
 ```
-pip install agent-evidence-vectors==0.36.3 agent-evidence-verify==0.7.0
+pip install agent-evidence-vectors agent-evidence-verify
 ```
 
 or the whole hash-locked environment the CI uses: `pip install --require-hashes -r requirements.txt`.
