@@ -35,7 +35,7 @@ jobs:
           docker run --rm -e JOBS=4 -e TIMEOUT=1800 -v "$RUNNER_TEMP/results:/work/results" model-ablate \
             python3 scripts/ablate.py "${{ matrix.model }}" | tee "$RUNNER_TEMP/ablate-${{ matrix.model }}.log"
           mv "$RUNNER_TEMP/results/ablation.json" "$RUNNER_TEMP/results/ablation-${{ matrix.model }}.json"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: ablation-${{ matrix.model }}
@@ -51,7 +51,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           pattern: ablation-*
           path: ${{ runner.temp }}/runs
@@ -72,7 +72,7 @@ jobs:
         run: |
           python3 -I adapters/mcp_auth_tamarin_ablation.py ../model/docs/ablation.md "$RUNNER_TEMP/ablation.json" \
             | tee "$RUNNER_TEMP/ablation-run.txt"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: ablation-read

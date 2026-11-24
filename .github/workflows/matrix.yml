@@ -191,7 +191,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: "24.19.0"
       - name: Fetch the corpus and the pinned upstreams
@@ -235,7 +235,7 @@ jobs:
           python-version: "3.12"
       # The Action runs its own Python, so the canonicalizer is installed beside the adapter and found through PYTHONPATH.
       - run: pip install --target vendor rfc8785==0.1.4
-      - uses: probityai/agent-evidence-vectors@v0.36.3
+      - uses: probityai/agent-evidence-vectors@v0.37.1
         env:
           A2A_JCS_TARGET: rfc8785
           PYTHONPATH: ${{ github.workspace }}/vendor
