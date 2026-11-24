@@ -1,0 +1,5787 @@
+{
+ "license": "Apache-2.0",
+ "measuredAt": "2026-11-15",
+ "schema": "b7n0de.verifier-results.v1",
+ "verifiers": [
+  {
+   "commit": "250de75575a945d00211415d7af41894d15427fa",
+   "contractRun": {
+    "classes": {
+     "conform": 180,
+     "field not provided (set codes)": 6,
+     "secondary result differs": 1,
+     "verdict differs": 38
+    },
+    "contract": "https://probityai.github.io/agent-evidence-vectors/contract/agent-audit-record/v1",
+    "pullRequestHead": "34704695b763814f2f56d7926939131553465208",
+    "totals": {
+     "conform": 180,
+     "fail": 45,
+     "reasonParityMismatch": 32,
+     "suiteRefusals": 0,
+     "vectors": 225
+    }
+   },
+   "corpus": "corpora/vectors-agent-audit-record",
+   "corpusDigest": "4e23b2657679aab1484add84ef82e6e5c2a8d681a8d93e4fe11981206efb767f",
+   "describe": "v0.36.3-201-g250de755",
+   "different": 38,
+   "equal": 187,
+   "manifestSha256": "362175b54c95ae06181dfa953cca23003c7bd4ce699a73effb9fe6884e37c828",
+   "members": 225,
+   "release": "MANIFEST.json differs from the one in agent-evidence-vectors 0.36.3 on PyPI",
+   "repository": "https://github.com/probityai/agent-evidence-vectors",
+   "results": [
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A1",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v22ea7615379eecca.json",
+     "id": "v22ea7615379eecca",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "22ea7615379eecca2366d9b510264f6a1455b4d1ed9f2250576601af7a9e57ed",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A2",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v1b93fc88a4955cd7.json",
+     "id": "v1b93fc88a4955cd7",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "1b93fc88a4955cd7164f91be615dc90e8de2e1fc452c859fb8dd8848399dbc86",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A3",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v3bd72e787df68698.json",
+     "id": "v3bd72e787df68698",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "3bd72e787df68698d1f4cb52b56aa5c284b4b94ebf90e830a7a6f1ee653d45cc",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A4",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v0edf4d1f43ddd89c.json",
+     "id": "v0edf4d1f43ddd89c",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "0edf4d1f43ddd89caa03d71e5d7f2ba3d586986b4d1b79ca3cf65d98f665f6e7",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A5",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v257a2e36bcabff14.json",
+     "id": "v257a2e36bcabff14",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "257a2e36bcabff145194bc09bac653a1f89b58926efc785f11c625c12746c192",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A6",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vec6dc7cdca0015d2.json",
+     "id": "vec6dc7cdca0015d2",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "ec6dc7cdca0015d2d2ba01c06dcacb273a5f2e31aea836e77e5b3793f8825ddc",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A7",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v2fda52ec84946279.json",
+     "id": "v2fda52ec84946279",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "2fda52ec849462796159b738b8f9bfcb0d1efb8db44b86fb14384d4b1cdb3310",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A8",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v56657747b46bf45f.json",
+     "id": "v56657747b46bf45f",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "56657747b46bf45fe7e3e6074879ce6e77c57048329358fa5c183b43edd6a382",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A9",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v612fdc579507ed2c.json",
+     "id": "v612fdc579507ed2c",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "612fdc579507ed2c4ddb13b3b4ba6911b238efa432eee340fbf7671abf836221",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A10",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v446171dd39c66656.json",
+     "id": "v446171dd39c66656",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "446171dd39c66656fd2b5009896f10b9041d3827a6ebfd7d04c7ccb759323d6a",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A11",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vd54ac5784ae22f50.json",
+     "id": "vd54ac5784ae22f50",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "d54ac5784ae22f5037cf318a76c2c22273045960edea197471d12f5d97916b3b",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A12",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v0ad0ce6a140c9726.json",
+     "id": "v0ad0ce6a140c9726",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "0ad0ce6a140c97267795ff7955bec47238be25275b3f58257bbf30801c44dd6e",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A13",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v77f0dab1cd010414.json",
+     "id": "v77f0dab1cd010414",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "77f0dab1cd01041434cff68f4f2aa564e0d46d5a4c09e02030d90af5690aa868",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A14",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v6b8430de68c17a47.json",
+     "id": "v6b8430de68c17a47",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "6b8430de68c17a47749e5d872ad33a7753cdb5fe05d4730f1a53bf65b596d0b9",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A15",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vcbd5d67e0cc2d143.json",
+     "id": "vcbd5d67e0cc2d143",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "cbd5d67e0cc2d1439c4205b13ec53c3d72ba132c052ca4bb2120fc156d2984a2",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A16",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vae3cdcf39aa2bde6.json",
+     "id": "vae3cdcf39aa2bde6",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "ae3cdcf39aa2bde616bc7b20035e9056fc637189e7f3282f23ab2b160299e985",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A17",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vffdc36339ac2278b.json",
+     "id": "vffdc36339ac2278b",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "ffdc36339ac2278bc2f543ca8bb8b6f7815889512b3fb7a58aa2031e9e598c47",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A18",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vf7dac5c39835423a.json",
+     "id": "vf7dac5c39835423a",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "f7dac5c39835423ae8fde94da5b3ac03492ea56cf05a519f6e63e29498a9a457",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A19",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v5d77b1af50960b15.json",
+     "id": "v5d77b1af50960b15",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "5d77b1af50960b15e92ff5da8124f3bae86157cc29af69be07326d79383c8ad2",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A20",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v9845b8ed23c39e36.json",
+     "id": "v9845b8ed23c39e36",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "9845b8ed23c39e3691a8e994a8e9cd5b736191746f865db7489605624ab3bedf",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "F1",
+     "draftRevision": null,
+     "expectedCodes": [
+      "member-missing"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v83b1d42a708ad661.json",
+     "id": "v83b1d42a708ad661",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "83b1d42a708ad661cfc86aac97c1251e05d8c7be793c01743fae6d04b671b788",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "F2",
+     "draftRevision": null,
+     "expectedCodes": [
+      "delegation-subject-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/va862b2ef7296801f.json",
+     "id": "va862b2ef7296801f",
+     "kind": "reject",
+     "ourFirstCode": "delegation-subject-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "a862b2ef7296801fbe97b1b91f14ff443303e17dfa8c7e30785226945c7059e1",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "F3",
+     "draftRevision": null,
+     "expectedCodes": [
+      "arguments-digest-missing"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v29c1ff80a884a210.json",
+     "id": "v29c1ff80a884a210",
+     "kind": "reject",
+     "ourFirstCode": "arguments-digest-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "29c1ff80a884a2102fa56b16beb35642220ab8d7ed5d9c9e19c1f6b7b78f016a",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "F3b",
+     "draftRevision": null,
+     "expectedCodes": [
+      "arguments-digest-forbidden"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v5786c34f9de3d739.json",
+     "id": "v5786c34f9de3d739",
+     "kind": "reject",
+     "ourFirstCode": "arguments-digest-forbidden",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "5786c34f9de3d73992a35c7aaa6618377834e4b720e942753451542936475d0e",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "F3c",
+     "draftRevision": null,
+     "expectedCodes": [
+      "arguments-digest-forbidden"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v7f4a2a46a824bd57.json",
+     "id": "v7f4a2a46a824bd57",
+     "kind": "reject",
+     "ourFirstCode": "arguments-digest-forbidden",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "7f4a2a46a824bd575c0fb473fddcdb58cbdd075b08e3fbaf11c00be8e5141b01",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "F4",
+     "draftRevision": null,
+     "expectedCodes": [
+      "request-digest-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v17e215cb0d25c03a.json",
+     "id": "v17e215cb0d25c03a",
+     "kind": "reject",
+     "ourFirstCode": "request-digest-mismatch",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "17e215cb0d25c03a1665f4d5462829ddba108b168c1e998eec4509ad8549a741",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "F5",
+     "draftRevision": null,
+     "expectedCodes": [
+      "external-anchor-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v0f2a4658412f758b.json",
+     "id": "v0f2a4658412f758b",
+     "kind": "reject",
+     "ourFirstCode": "external-anchor-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "0f2a4658412f758b3ad6e1cdf27660fb69e12f48b74503f3e0b8f82c32d9d7f5",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "F6",
+     "draftRevision": null,
+     "expectedCodes": [
+      "posture-agreement-underivable"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vcb76f8c77ca50244.json",
+     "id": "vcb76f8c77ca50244",
+     "kind": "reject",
+     "ourFirstCode": "posture-agreement-underivable",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "cb76f8c77ca50244b432299999beebd91a9a3053a3ee7029500667e773c89807",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "F7",
+     "draftRevision": null,
+     "expectedCodes": [
+      "remediation-order"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vdba46e31da9f873e.json",
+     "id": "vdba46e31da9f873e",
+     "kind": "reject",
+     "ourFirstCode": "remediation-order",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "dba46e31da9f873e388393f0166cabe1a12056ff1f292bccbaa6d2546b724769",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "T1",
+     "draftRevision": null,
+     "expectedCodes": [
+      "effect-observed-underivable"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vc102c57c0afcec35.json",
+     "id": "vc102c57c0afcec35",
+     "kind": "reject",
+     "ourFirstCode": "effect-observed-underivable",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "c102c57c0afcec35a5b6474cad3d8b1b07b7b18ed8a8b69eafd78cf9eff7e0ad",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "T2",
+     "draftRevision": null,
+     "expectedCodes": [
+      "signature-invalid"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v72b13def52f2f4a6.json",
+     "id": "v72b13def52f2f4a6",
+     "kind": "reject",
+     "ourFirstCode": "signature-invalid",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "72b13def52f2f4a64b0c55e35bcfb57a35ce90c557755690178b103b02158c75",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "T3",
+     "draftRevision": null,
+     "expectedCodes": [
+      "duplicate-member"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/veed919afc952cff7.json",
+     "id": "veed919afc952cff7",
+     "kind": "reject",
+     "ourFirstCode": "duplicate-member",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "eed919afc952cff728282691ac2a4d5d919f5981a6a863fa931b17c8d1a43bc8",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "T4",
+     "draftRevision": null,
+     "expectedCodes": [
+      "nesting-too-deep"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vf52c1120c3d88517.json",
+     "id": "vf52c1120c3d88517",
+     "kind": "reject",
+     "ourFirstCode": "nesting-too-deep",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "f52c1120c3d88517b531b2ebc3530fbfb57f632c4ef610c4b5725be858be1668",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "T5",
+     "draftRevision": null,
+     "expectedCodes": [
+      "unsafe-integer"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v22b6571144ed3b2f.json",
+     "id": "v22b6571144ed3b2f",
+     "kind": "reject",
+     "ourFirstCode": "unsafe-integer",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "22b6571144ed3b2f00c86ef4e1241cd0ddc5ce78c6e429db88e7c667c11d32f8",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "D1",
+     "draftRevision": null,
+     "expectedCodes": [
+      "agreement-underivable"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vc954125fcb4728c9.json",
+     "id": "vc954125fcb4728c9",
+     "kind": "reject",
+     "ourFirstCode": "agreement-underivable",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "c954125fcb4728c930aec74ece674661960a48d5016e2e9ebf819f2636782e6e",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "D2",
+     "draftRevision": null,
+     "expectedCodes": [
+      "agreement-reserved-value"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/ve62f50d6f710c2bf.json",
+     "id": "ve62f50d6f710c2bf",
+     "kind": "reject",
+     "ourFirstCode": "agreement-reserved-value",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "e62f50d6f710c2bfe2c5aebd2bb10e099962d321fecd05beff7097c090ea1484",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "D3",
+     "draftRevision": null,
+     "expectedCodes": [
+      "agreement-underivable"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vca163feab2bde0ad.json",
+     "id": "vca163feab2bde0ad",
+     "kind": "reject",
+     "ourFirstCode": "agreement-underivable",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "ca163feab2bde0ad931cf3b485fad91b13d5a749834fa0b1804e0231d0b5a8c7",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "S1",
+     "draftRevision": null,
+     "expectedCodes": [
+      "subject-interval-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v5c9e19f61617f5ad.json",
+     "id": "v5c9e19f61617f5ad",
+     "kind": "reject",
+     "ourFirstCode": "subject-interval-mismatch",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "5c9e19f61617f5add7b2c845ff6629ef61f531f8f38a772711d69db61c98ccc5",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "S2",
+     "draftRevision": null,
+     "expectedCodes": [
+      "subject-after-root-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v4e4fce6d284f4414.json",
+     "id": "v4e4fce6d284f4414",
+     "kind": "reject",
+     "ourFirstCode": "subject-after-root-mismatch",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "4e4fce6d284f4414b42cd31ecf53a2d0619f4d4dec0a5c4aea22aaea46e6ff48",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "I1r",
+     "draftRevision": null,
+     "expectedCodes": [
+      "subject-interval-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vac9b5120455e19e3.json",
+     "id": "vac9b5120455e19e3",
+     "kind": "reject",
+     "ourFirstCode": "subject-interval-mismatch",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "ac9b5120455e19e3f9d77ab34e52ab2e857ffecb12d18e69de58c868bb549dee",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "TI1",
+     "draftRevision": null,
+     "expectedCodes": [
+      "tier-overclaim-vantage"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v705078d88d27d6b7.json",
+     "id": "v705078d88d27d6b7",
+     "kind": "reject",
+     "ourFirstCode": "field-evidence-self-substrate",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "705078d88d27d6b7480998c7f93ecc907c9deb5be6f94e15a61c74ccb3e56994",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "TI2",
+     "draftRevision": null,
+     "expectedCodes": [
+      "tier-overclaim-commitment"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vde47541a08d9e77a.json",
+     "id": "vde47541a08d9e77a",
+     "kind": "reject",
+     "ourFirstCode": "tier-overclaim-commitment",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "de47541a08d9e77a85e9d6eeb73839e615d52ea89eb777e9baf3001006bf7503",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "TI3",
+     "draftRevision": null,
+     "expectedCodes": [
+      "tier-overclaim-scope"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v76e481d2b6f468ab.json",
+     "id": "v76e481d2b6f468ab",
+     "kind": "reject",
+     "ourFirstCode": "write-scope-mismatch",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "76e481d2b6f468abadfbeb3e9200e02352b2999ec91e209326d0ef6ce99b0306",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "TI4",
+     "draftRevision": null,
+     "expectedCodes": [
+      "tier-overclaim-coverage"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v5e1bf3158dda9533.json",
+     "id": "v5e1bf3158dda9533",
+     "kind": "reject",
+     "ourFirstCode": "tier-overclaim-coverage",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "5e1bf3158dda9533302cc64419e1d77c3761bdcd746fa6e05044901604a9611b",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "TI5",
+     "draftRevision": null,
+     "expectedCodes": [
+      "tier-overclaim-binding"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v3d95bec395b8c30b.json",
+     "id": "v3d95bec395b8c30b",
+     "kind": "reject",
+     "ourFirstCode": "tier-overclaim-binding",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "3d95bec395b8c30bd0aad9e1a467d3d4162c439dc1a6091906c8865809c12bcd",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "C1",
+     "draftRevision": null,
+     "expectedCodes": [
+      "commitment-key-is-agent-signer"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v584d8280efa6463b.json",
+     "id": "v584d8280efa6463b",
+     "kind": "reject",
+     "ourFirstCode": "commitment-key-is-agent-signer",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "584d8280efa6463b252105ac9b8478b5c11547f63a1edae4d6b45f02bdbb9047",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "C2",
+     "draftRevision": null,
+     "expectedCodes": [
+      "commitment-order"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v824f1c2ce38e1da8.json",
+     "id": "v824f1c2ce38e1da8",
+     "kind": "reject",
+     "ourFirstCode": "commitment-order",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "824f1c2ce38e1da8bf293564b10985f81a9e3f15a96757065b8c241d1bdba6b7",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "C3",
+     "draftRevision": null,
+     "expectedCodes": [
+      "commitment-digest-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v871d79b2d61a437c.json",
+     "id": "v871d79b2d61a437c",
+     "kind": "reject",
+     "ourFirstCode": "commitment-digest-mismatch",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "871d79b2d61a437cdff557194cdee94f8ac2934372595e4964c59a84216613dc",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "E1",
+     "draftRevision": null,
+     "expectedCodes": [
+      "effect-observed-underivable"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v8c47f871db76cf64.json",
+     "id": "v8c47f871db76cf64",
+     "kind": "reject",
+     "ourFirstCode": "effect-observed-underivable",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "8c47f871db76cf64d0e35273d90f50a9c8278213eab42a78959ea66bf0785efe",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "E2",
+     "draftRevision": null,
+     "expectedCodes": [
+      "write-chain-broken"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v403ff538dc8d8d9a.json",
+     "id": "v403ff538dc8d8d9a",
+     "kind": "reject",
+     "ourFirstCode": "write-chain-broken",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "403ff538dc8d8d9a99240ae89eef3cce03cd7cff0f1fb17403ef351a9cbc8b17",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "E3",
+     "draftRevision": null,
+     "expectedCodes": [
+      "empty-tree-constant-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v6fdd759b8221a56d.json",
+     "id": "v6fdd759b8221a56d",
+     "kind": "reject",
+     "ourFirstCode": "digest-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "6fdd759b8221a56daaa478792e0a8b0e54ff97111211c4b613ed7e90950bba89",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "E4",
+     "draftRevision": null,
+     "expectedCodes": [
+      "write-chain-broken"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v904a604687aaba39.json",
+     "id": "v904a604687aaba39",
+     "kind": "reject",
+     "ourFirstCode": "write-chain-broken",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "904a604687aaba3975fe66fc401d9fc26872e0598871ecfb64979cc91049e11a",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "E5",
+     "draftRevision": null,
+     "expectedCodes": [
+      "write-chain-broken"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v3ee5dcd7391243c8.json",
+     "id": "v3ee5dcd7391243c8",
+     "kind": "reject",
+     "ourFirstCode": "write-chain-broken",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "3ee5dcd7391243c8c308098a61b4e365b3a519dcc8b2873fe1f6454a02d8d3d8",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "E6",
+     "draftRevision": null,
+     "expectedCodes": [
+      "write-chain-broken"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v7b494b5a9ee1bed7.json",
+     "id": "v7b494b5a9ee1bed7",
+     "kind": "reject",
+     "ourFirstCode": "write-chain-broken",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "7b494b5a9ee1bed70e643440812142a99f2e4304c2a6d6237e979fa5232120ab",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "V1",
+     "draftRevision": null,
+     "expectedCodes": [
+      "value-outside-vocabulary"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v17ee6427b3f0099c.json",
+     "id": "v17ee6427b3f0099c",
+     "kind": "reject",
+     "ourFirstCode": "value-outside-vocabulary",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "17ee6427b3f0099c381e4a6bd0b149429f6094fb95b5b681ae84c684e7f899f5",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "V2",
+     "draftRevision": null,
+     "expectedCodes": [
+      "path-scope-glob"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vfc429daf510a4328.json",
+     "id": "vfc429daf510a4328",
+     "kind": "reject",
+     "ourFirstCode": "path-scope-glob",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "fc429daf510a43287aed7f9661b88326fb37947879d44a89f26ae664d4696688",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "V3",
+     "draftRevision": null,
+     "expectedCodes": [
+      "write-scope-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v213426319fa2c38c.json",
+     "id": "v213426319fa2c38c",
+     "kind": "reject",
+     "ourFirstCode": "write-scope-mismatch",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "213426319fa2c38ca5f05dd74383744cd68e78de3d3748cd3db2529913ede455",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FE1",
+     "draftRevision": null,
+     "expectedCodes": [
+      "field-evidence-keys"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vc0255c3e52251e4c.json",
+     "id": "vc0255c3e52251e4c",
+     "kind": "reject",
+     "ourFirstCode": "field-evidence-keys",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "c0255c3e52251e4c27287a3a0ea16b79281a27d0a15bbd548ca12accea76dff0",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FE2",
+     "draftRevision": null,
+     "expectedCodes": [
+      "field-evidence-self-substrate"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v103935e7dd9f5267.json",
+     "id": "v103935e7dd9f5267",
+     "kind": "reject",
+     "ourFirstCode": "field-evidence-self-substrate",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "103935e7dd9f5267a2bc338140e6122a4d9eb29e90054e9aa952acbd2052e1de",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR1",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vc500431013be1967.json",
+     "id": "vc500431013be1967",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "c500431013be19672d9a3d63fa576a83aad2450c719f21f4fd601671b928bd07",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR2",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vb2d65dfff88bebcf.json",
+     "id": "vb2d65dfff88bebcf",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "b2d65dfff88bebcfe203df8add24e25d17504bae5e36851df7c11a6e06275449",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR3",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v861d88b6e00bcbb3.json",
+     "id": "v861d88b6e00bcbb3",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "861d88b6e00bcbb391ef34be2e35ce4480865a83a7d7590e9cc39cc2b0428caa",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR4",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vb471b6ff0c0bb34f.json",
+     "id": "vb471b6ff0c0bb34f",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "b471b6ff0c0bb34fafd98ecfb4cd876f83d26f3c4e4ebb39c03b3d5739a02271",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR5",
+     "draftRevision": null,
+     "expectedCodes": [
+      "member-missing"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vb58784bb5ae72b86.json",
+     "id": "vb58784bb5ae72b86",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "b58784bb5ae72b8647ad2095336024cd215b17d316cc99c678f28b0a49f95e97",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR6",
+     "draftRevision": null,
+     "expectedCodes": [
+      "member-missing"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v82736958b79163b7.json",
+     "id": "v82736958b79163b7",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "82736958b79163b716ccccae903cfe3bca77a3ad1153d411c6ac87281f4f9bd9",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR7",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v985ab080181b5588.json",
+     "id": "v985ab080181b5588",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "985ab080181b5588bf459d7ac9114c891ce0157800698be6482029600dc1fe74",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR8",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vf8ec82bba69a76fe.json",
+     "id": "vf8ec82bba69a76fe",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "f8ec82bba69a76fedd2799fa00d9b8bc39f126b8812371b8f4092876c2117378",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR9",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-result-after-decision"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v8ebedab048c39e59.json",
+     "id": "v8ebedab048c39e59",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-result-after-decision",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "8ebedab048c39e590a50dea08fe5a5ea9365941727a6e2e4488d15b7899bc489",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR10",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-input-repeated"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vf2a45daf3287037a.json",
+     "id": "vf2a45daf3287037a",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-input-repeated",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "f2a45daf3287037af48077b0414ac6cacda363ffdcfeea50fa62ea8b818b218b",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR11",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-entry-malformed"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v3834d059d3fbf8a6.json",
+     "id": "v3834d059d3fbf8a6",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-entry-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "3834d059d3fbf8a6df011a991268b4a7ea24b0f55ddee950e4c77f505ae77ab4",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR12",
+     "draftRevision": null,
+     "expectedCodes": [
+      "value-outside-vocabulary"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vab6e4f378ed26cd2.json",
+     "id": "vab6e4f378ed26cd2",
+     "kind": "reject",
+     "ourFirstCode": "value-outside-vocabulary",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "ab6e4f378ed26cd227783dc8b88cecc76ec8cdb0493af763382db14089771c0c",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR13",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-entry-malformed"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v853fd2a80653b56e.json",
+     "id": "v853fd2a80653b56e",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-entry-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "853fd2a80653b56e0e5e5e1eb559118e48f98be62c7a7526370b565eafbbff0c",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV1",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v2674ec79d8338cd4.json",
+     "id": "v2674ec79d8338cd4",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "2674ec79d8338cd4344c0cbd14b5b0bcce1e799d6c55032c226e4b6ce3e28892",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV2",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vc8abb0c5724a7eb8.json",
+     "id": "vc8abb0c5724a7eb8",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "c8abb0c5724a7eb80484335d9823e57633d8f4da1abe1ae85fa3cfabc2563c8d",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV3",
+     "draftRevision": null,
+     "expectedCodes": [
+      "member-missing"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vded6715a80437cfb.json",
+     "id": "vded6715a80437cfb",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "ded6715a80437cfbdb0b2f112a10dbb9ce3e3d15cb401e4b35ca61d41d6cdc87",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV4",
+     "draftRevision": null,
+     "expectedCodes": [
+      "value-outside-vocabulary"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v9b1e3894fdb69a99.json",
+     "id": "v9b1e3894fdb69a99",
+     "kind": "reject",
+     "ourFirstCode": "value-outside-vocabulary",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "9b1e3894fdb69a991dc3863277942c47552e59bb5d895156a7fe413e82d82f14",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV5",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v3e1b86494a46f7e5.json",
+     "id": "v3e1b86494a46f7e5",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "3e1b86494a46f7e56577d2214298eed0f24b84162a436491a512dea444af3755",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV6",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v845809fa534f80a4.json",
+     "id": "v845809fa534f80a4",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "845809fa534f80a4c74e8953d36a4a17139ef2724e0057721175c58841c12e1c",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV7",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v174d7cef3162e7bc.json",
+     "id": "v174d7cef3162e7bc",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "174d7cef3162e7bc3d718e78841ae8330595983216a41248a342b1b8c59e2703",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV8",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v4ed66671d952168b.json",
+     "id": "v4ed66671d952168b",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "4ed66671d952168bbffbd01859eb39a914d98655b0db51efcbd044c2a4e6bc66",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV9",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v812dbcfb4234eeae.json",
+     "id": "v812dbcfb4234eeae",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "812dbcfb4234eeaeeaa750c39fa808309f98e14938bea929493021e5ac1a0368",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV10",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v3f52fef29328df30.json",
+     "id": "v3f52fef29328df30",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "3f52fef29328df302176ea0c9c2d86f81a71bd3dd003c4d163be437ff73eb622",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV11",
+     "draftRevision": null,
+     "expectedCodes": [
+      "value-outside-vocabulary"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v7b22d3b2bddb9995.json",
+     "id": "v7b22d3b2bddb9995",
+     "kind": "reject",
+     "ourFirstCode": "value-outside-vocabulary",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "7b22d3b2bddb99953fb1dd9feb177677194671ae8e9306f9bafb722eb6da98de",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV12",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-malformed"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v9f8391827088b3b9.json",
+     "id": "v9f8391827088b3b9",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "9f8391827088b3b9c9194d2c3f1571517d4eea7f3613763ec1307a291e182cfe",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV13",
+     "draftRevision": null,
+     "expectedCodes": [
+      "member-missing"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v0d65a70ec5288821.json",
+     "id": "v0d65a70ec5288821",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "0d65a70ec528882170927d08c9396a7efa7cef211d047626be7dc0736a6fc09b",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "OV1",
+     "draftRevision": null,
+     "expectedCodes": [
+      "value-outside-vocabulary"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v13eac1a76b8e34db.json",
+     "id": "v13eac1a76b8e34db",
+     "kind": "reject",
+     "ourFirstCode": "value-outside-vocabulary",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "13eac1a76b8e34db4423db63218dd26326346256c00ff4ac648b6f6b24496a12",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "OV2",
+     "draftRevision": null,
+     "expectedCodes": [
+      "oversight-malformed"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v7fefd5ad112e7924.json",
+     "id": "v7fefd5ad112e7924",
+     "kind": "reject",
+     "ourFirstCode": "oversight-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "7fefd5ad112e7924336a0558d8dc47030458fac84d10ca6e8de7e23ec84c7ecf",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "OV3",
+     "draftRevision": null,
+     "expectedCodes": [
+      "member-missing"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vb05bbf53ae375bf4.json",
+     "id": "vb05bbf53ae375bf4",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "b05bbf53ae375bf47855c8ca1280081268a825aa5388422871b3aea0a4fab3e6",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "N1",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vc29dbb6d741e7b8f.json",
+     "id": "vc29dbb6d741e7b8f",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "c29dbb6d741e7b8f782e86113126c729af2608914ed4139b72091780db62b9c4",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "N2",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "any of valid|indeterminate",
+     "file": "corpora/vectors-agent-audit-record/statements/v51909a1c98df19b0.json",
+     "id": "v51909a1c98df19b0",
+     "kind": "indeterminate",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "51909a1c98df19b07233058fae1dada6a86ba6db39baebb62d62959596bcf4b2",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R1",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/vcca72e0d016c5db3.json",
+     "id": "vcca72e0d016c5db3",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "cca72e0d016c5db3dffd6e2aa34848a8e6bd2f26e977cb8db966f465ba55ec5d",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R2",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/v90581da25d334bc5.json",
+     "id": "v90581da25d334bc5",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "dating.receipt": true,
+      "derivedTier": true
+     },
+     "sha256": "90581da25d334bc5e1aa985e75cf55cd9a67a8e09aeb57406cfacc313a055018",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R3",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/v63c3424f10553015.json",
+     "id": "v63c3424f10553015",
+     "kind": "accept",
+     "ourFirstCode": "dating:entry-received-after-anchor",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "63c3424f10553015e5b077ef3f1ae27d82030020fe3cd1a8fb8ac9abc4692cc1",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R4",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/v87c7ddc3f1d1682c.json",
+     "id": "v87c7ddc3f1d1682c",
+     "kind": "accept",
+     "ourFirstCode": "dating:entry-retainer-anchor-missing",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "87c7ddc3f1d1682c77f80225af69da48d3fe25a677e24cd3b6c593106dbc4a6a",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R5",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/vd879ae9157235091.json",
+     "id": "vd879ae9157235091",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "dating.receipt": true,
+      "derivedTier": true
+     },
+     "sha256": "d879ae9157235091d384ddbc7f59ebbcd3babe99d0cbc13905ce6e9e907c5246",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R6",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/vc656fb9dfeb30b7a.json",
+     "id": "vc656fb9dfeb30b7a",
+     "kind": "accept",
+     "ourFirstCode": "dating:entry-received-before-issued",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "c656fb9dfeb30b7ac4b2c43d65a861aa04ef33555b0412dedb8785a8c81a33a9",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R7",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/v50de83809c452784.json",
+     "id": "v50de83809c452784",
+     "kind": "accept",
+     "ourFirstCode": "dating:entry-anchor-late",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "50de83809c45278423bf840093c0136cfa9dbab2248883da72e61800c1d7eaab",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R8",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/v107686579d652300.json",
+     "id": "v107686579d652300",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "107686579d652300c801fd542f7a2ca99bb8ac74e5e669a1e8f883dbaf5f127e",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R9",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/v19a03d92c4cbec3c.json",
+     "id": "v19a03d92c4cbec3c",
+     "kind": "accept",
+     "ourFirstCode": "dating:entry-received-at-inconsistent",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "19a03d92c4cbec3cbc6f3821f21df250f3de95fec7057cbdcb3545eeda62ae78",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR13b",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-entry-malformed"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vb77aea332a4eb3df.json",
+     "id": "vb77aea332a4eb3df",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-entry-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "b77aea332a4eb3df210736d5f15e0efcc98887a7df23d239ad988dffeb4682c1",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR16",
+     "draftRevision": null,
+     "expectedCodes": [
+      "member-missing"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v42877a6a363ded00.json",
+     "id": "v42877a6a363ded00",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "42877a6a363ded00f8d57eda98f9550ebeb04ac2d09ad589bf4287b684319aa3",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR17a",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v417e26c919283a75.json",
+     "id": "v417e26c919283a75",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "417e26c919283a75640bcc4f847aaa7c3930d957db14338f9331ef5ce5d6eee5",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR17b",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vf0eac30344ab74d2.json",
+     "id": "vf0eac30344ab74d2",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "f0eac30344ab74d264b165fe4348a83d9a010c351776b75130bb3ea3eccf1f1f",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR17c",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v9403ce70be1f6056.json",
+     "id": "v9403ce70be1f6056",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "9403ce70be1f605642ea607d4b5978b46953bfd4c9a434c0d71eb8b0b4571e10",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR18",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v8685b6576fbd0c04.json",
+     "id": "v8685b6576fbd0c04",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "8685b6576fbd0c045f6de30a7dddfaa9625b873735d015af131a7d693c680f0c",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "EV14",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vc6a2a10ae5ac5b15.json",
+     "id": "vc6a2a10ae5ac5b15",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "c6a2a10ae5ac5b152549b6ba35cf37c42f9926eafca847afd8bf0836aa0cd7d4",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "TI6",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "tier-overclaim-coverage"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v3ca484096743a01b.json",
+     "id": "v3ca484096743a01b",
+     "kind": "reject",
+     "ourFirstCode": "tier-overclaim-coverage",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "3ca484096743a01bda0f9b916ff69e291acbecad34e7cdf0da603395529b8db3",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "V4",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "coverage-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v5fb1106ca638aaca.json",
+     "id": "v5fb1106ca638aaca",
+     "kind": "reject",
+     "ourFirstCode": "coverage-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "5fb1106ca638aaca9867d7c7cd614593ac33bf8bc83880479a0427afb04248dc",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "V5",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "coverage-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v7eb62c3c7df1a8b7.json",
+     "id": "v7eb62c3c7df1a8b7",
+     "kind": "reject",
+     "ourFirstCode": "coverage-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "7eb62c3c7df1a8b7f11786d2158da1bf6928a70bf633eaf9b226c71f7730566a",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR14",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vaad17bc9d25a70eb.json",
+     "id": "vaad17bc9d25a70eb",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "aad17bc9d25a70eb0a73eec8bf5b87f97109d18f09e04d76c2af7c4752a04c1b",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "FR15",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v1fe964af5ec88f9a.json",
+     "id": "v1fe964af5ec88f9a",
+     "kind": "reject",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "1fe964af5ec88f9ac7b90050efcc4cf3f68ba86c07b54a6ad79898769e9a9cec",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS1",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vd831202c1ad2f50c.json",
+     "id": "vd831202c1ad2f50c",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "withinLimit": true
+     },
+     "sha256": "d831202c1ad2f50cb689c5c269737d66dcdc20600605bc4ef129a465eae2c453",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS2",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v6cc2e68d93e92dda.json",
+     "id": "v6cc2e68d93e92dda",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "withinLimit": true
+     },
+     "sha256": "6cc2e68d93e92dda8e283824ea58d8655760a2d9ee35d3590167995be081f692",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS3",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "consumption-reserved-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v10ba3fc4188f0e39.json",
+     "id": "v10ba3fc4188f0e39",
+     "kind": "reject",
+     "ourFirstCode": "consumption-reserved-mismatch",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "10ba3fc4188f0e39886320eb168e412798a98677f9e1c5013c6eb8e76b60b306",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS4",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v9b00b354248b297c.json",
+     "id": "v9b00b354248b297c",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "withinLimit": true
+     },
+     "sha256": "9b00b354248b297ceda791ba93073b0246c2d130cc9a813bdeee2292bd7b15e6",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS5",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "consumption-value-invalid"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vb67f7ec106141463.json",
+     "id": "vb67f7ec106141463",
+     "kind": "reject",
+     "ourFirstCode": "consumption-value-invalid",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "b67f7ec1061414638dec2003e73cc2ab5a3d96ce04b5a62b375afd911986922f",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS6",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "consumption-misplaced"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vbb2c8162ef6a8d03.json",
+     "id": "vbb2c8162ef6a8d03",
+     "kind": "reject",
+     "ourFirstCode": "consumption-misplaced",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "bb2c8162ef6a8d036e12026a0169003b5e15886c6a44b8e12120805eb35ea631",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "field not provided (set codes)",
+      "conformance": "fail",
+      "reasons": [
+       "set codes: expected ['consumption-set-stale-revision'], got ['stale-revision']"
+      ]
+     },
+     "draftId": "CS7",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v149c4a717d5c0797.json",
+     "id": "v149c4a717d5c0797",
+     "kind": "accept",
+     "ourFirstCode": "set:stale-revision",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "set.verdict": true
+     },
+     "sha256": "149c4a717d5c0797d231b2a9a1aa69a429e04bbec96d913c8dd6f33e356d43bd",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "field not provided (set codes)",
+      "conformance": "fail",
+      "reasons": [
+       "set codes: expected ['consumption-set-release-unshown'], got ['release-without-settlement']"
+      ]
+     },
+     "draftId": "CS8",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v2c9175c6a76c19fa.json",
+     "id": "v2c9175c6a76c19fa",
+     "kind": "accept",
+     "ourFirstCode": "set:release-without-settlement",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "set.verdict": true
+     },
+     "sha256": "2c9175c6a76c19fa308b2023dd5b6075b32378aa943a9524012db82766d8ce5a",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS9",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "member-missing"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vcc73d61ebdee4655.json",
+     "id": "vcc73d61ebdee4655",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "cc73d61ebdee46556b189971c8733d13720297271153b1794329c0d76ccbd5f2",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS10",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "consumption-key-reused"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v39dcf1038e2b1c48.json",
+     "id": "v39dcf1038e2b1c48",
+     "kind": "reject",
+     "ourFirstCode": "consumption-key-reused",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "39dcf1038e2b1c48db2adb2fc615e41df7b7182be99969de4ed90d1bd9dc1ee4",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS11",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v48738ecf3d62a507.json",
+     "id": "v48738ecf3d62a507",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "withinLimit": true
+     },
+     "sha256": "48738ecf3d62a507551df5a17b2df9a86e8d3ab23a07359a4c6828044a6e1ad8",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS12",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v8ed304e3129736a6.json",
+     "id": "v8ed304e3129736a6",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "withinLimit": true
+     },
+     "sha256": "8ed304e3129736a6ab9ebc10a849394573bb6b4f968af4868e9cd147ef3da77f",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS13",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "consumption-held-key-repeated"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v8602d00da9dff937.json",
+     "id": "v8602d00da9dff937",
+     "kind": "reject",
+     "ourFirstCode": "consumption-held-key-repeated",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "8602d00da9dff9376b2549aa62d5ce47291f581b6819280b382d301dd5fa412a",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS14",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "member-missing"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v4cdf02dcf7e21dcb.json",
+     "id": "v4cdf02dcf7e21dcb",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "4cdf02dcf7e21dcb0bcab7577b4556804ae24c31239509cae4c886c871208ab8",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS15",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v45d917b447e398f5.json",
+     "id": "v45d917b447e398f5",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "withinLimit": true
+     },
+     "sha256": "45d917b447e398f5f441a338d42fddc3a4ca7216845c945c7f8a6ed37557275b",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS16",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v7f27584250e068d1.json",
+     "id": "v7f27584250e068d1",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "withinLimit": true
+     },
+     "sha256": "7f27584250e068d18164a10e53998bd1cd98f627305170e929b8b3fffd1ba219",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "field not provided (set codes)",
+      "conformance": "fail",
+      "reasons": [
+       "set codes: expected ['consumption-set-stale-revision'], got ['stale-revision']"
+      ]
+     },
+     "draftId": "CS17",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/vbc0faef3ecca56e2.json",
+     "id": "vbc0faef3ecca56e2",
+     "kind": "accept",
+     "ourFirstCode": "set:stale-revision",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "set.verdict": true
+     },
+     "sha256": "bc0faef3ecca56e2fed79ab7658503f1a760083acea8a004a1e40b762648da6e",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set verdict: expected 'valid', got 'malformed'"
+      ]
+     },
+     "draftId": "CS18",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v9e5e5b109c1df383.json",
+     "id": "v9e5e5b109c1df383",
+     "kind": "accept",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": false
+     },
+     "sha256": "9e5e5b109c1df38354bf33b540ef88f1775be7ec6fabc962b671f9f6fe0247d9",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set verdict: expected 'valid', got 'malformed'"
+      ]
+     },
+     "draftId": "CS19",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v3bbdd9a943178d70.json",
+     "id": "v3bbdd9a943178d70",
+     "kind": "accept",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": false
+     },
+     "sha256": "3bbdd9a943178d70cf17cebdb50acd22f9153f046f64f518cfcecccfcdeb227a",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set codes: expected ['consumption-set-release-unshown'], got []"
+      ]
+     },
+     "draftId": "CS20",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v725bbaa885960ac8.json",
+     "id": "v725bbaa885960ac8",
+     "kind": "accept",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": true
+     },
+     "sha256": "725bbaa885960ac89a78ba95e3c9f74bf35b4c16b96d9c9b5eada987ff4109bf",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set codes: expected ['consumption-set-stale-revision'], got []"
+      ]
+     },
+     "draftId": "CS21",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/vb3571235ae17709f.json",
+     "id": "vb3571235ae17709f",
+     "kind": "accept",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": true
+     },
+     "sha256": "b3571235ae17709fbb1bf18d450ac4d16f6d41e92d8decb32746e7cae9793e23",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set verdict: expected 'valid', got 'malformed'"
+      ]
+     },
+     "draftId": "CS22",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v808afcc67df1b53a.json",
+     "id": "v808afcc67df1b53a",
+     "kind": "accept",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": false
+     },
+     "sha256": "808afcc67df1b53a08c14027c904ed1d923e2be406fc489426b5fddcb6a7f963",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS23",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "consumption-supersedes-self"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v9412d4c36ebf693f.json",
+     "id": "v9412d4c36ebf693f",
+     "kind": "reject",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "9412d4c36ebf693f6a671072514eb5f0f79432a024f4af7e68b37f2bd135b3d6",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS24",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "consumption-value-invalid"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v690cf565d5d3ab58.json",
+     "id": "v690cf565d5d3ab58",
+     "kind": "reject",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "690cf565d5d3ab58bb58d65d1cbf9b1170269cec373802869a866ed05c789bd4",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS25",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/vb4f981221d5baa57.json",
+     "id": "vb4f981221d5baa57",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "set.verdict": true
+     },
+     "sha256": "b4f981221d5baa5750cf966bfb66c1948e163426559c0c739a11931dc9eb2124",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set verdict: expected 'valid', got 'malformed'"
+      ]
+     },
+     "draftId": "CS26",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/vcd25bd185157ec57.json",
+     "id": "vcd25bd185157ec57",
+     "kind": "accept",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": false
+     },
+     "sha256": "cd25bd185157ec57f1cc868d0a4122c203dd8767751e4f6cc78e58ebfe5207e8",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set verdict: expected 'valid', got 'malformed'"
+      ]
+     },
+     "draftId": "CS27",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v0940ca40dc4db85c.json",
+     "id": "v0940ca40dc4db85c",
+     "kind": "accept",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": false
+     },
+     "sha256": "0940ca40dc4db85cbd97b011faf2fc3590ab0bf8470351b40b71e4e98e59e1b0",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set verdict: expected 'valid', got 'malformed'"
+      ]
+     },
+     "draftId": "CS28",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/vbb73d1139d98888d.json",
+     "id": "vbb73d1139d98888d",
+     "kind": "accept",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": false
+     },
+     "sha256": "bb73d1139d98888d93ca33aeb38ea64881f562979a14fd593ca36aae836134d6",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set verdict: expected 'valid', got 'malformed'"
+      ]
+     },
+     "draftId": "CS29",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v1436cb1bd7305b8b.json",
+     "id": "v1436cb1bd7305b8b",
+     "kind": "accept",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": false
+     },
+     "sha256": "1436cb1bd7305b8b1548716c9eb54c9f5139e17f37c5bb0b110bd0630b50f83d",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set codes: expected ['consumption-set-release-unshown'], got []"
+      ]
+     },
+     "draftId": "CS30",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/vac6a83d3eb89cedd.json",
+     "id": "vac6a83d3eb89cedd",
+     "kind": "accept",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": true
+     },
+     "sha256": "ac6a83d3eb89cedd6b2b37eae7a47710e31d2181ee4a4f4b8d29cb21649b247c",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set codes: expected ['consumption-set-retry-as-new'], got []"
+      ]
+     },
+     "draftId": "CS31",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v792d3e64b071293b.json",
+     "id": "v792d3e64b071293b",
+     "kind": "accept",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": true
+     },
+     "sha256": "792d3e64b071293b4add79f4b65c06f8d88d5028a3cbb4b9448931df6da5ec84",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "secondary result differs",
+      "conformance": "fail",
+      "reasons": [
+       "set verdict: expected 'malformed', got 'valid'"
+      ]
+     },
+     "draftId": "CS32",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v852d5f9a104bb585.json",
+     "id": "v852d5f9a104bb585",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "set.verdict": false
+     },
+     "sha256": "852d5f9a104bb58556273d2c02be860b48feff1beb5ebb641774b5fb9fd91dfb",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS33",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v209f3b5dc6bae152.json",
+     "id": "v209f3b5dc6bae152",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "set.verdict": true
+     },
+     "sha256": "209f3b5dc6bae152646c1993d40074effa65a6b59cca5ab2c702d72e72c16175",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "withinLimit: expected True, got None"
+      ]
+     },
+     "draftId": "CS34",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v8fa7a7183c96762f.json",
+     "id": "v8fa7a7183c96762f",
+     "kind": "accept",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "8fa7a7183c96762fa601b8b9ac807bcd77d0114545b7c7f64750dcc4863128cf",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS35",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "consumption-value-invalid"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v5f0ad7836909a477.json",
+     "id": "v5f0ad7836909a477",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "5f0ad7836909a477cb60d96bbeea4a8cd28c239210e6acbd491d067f5e104dc7",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS36",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "consumption-value-invalid"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vbb79dddb4241fe3f.json",
+     "id": "vbb79dddb4241fe3f",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "bb79dddb4241fe3f8073e4c556c8013cc742f0bff020104ec07018a05bb01e8d",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS37",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "consumption-unit-ambiguous"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v1714ffa1d3efa663.json",
+     "id": "v1714ffa1d3efa663",
+     "kind": "reject",
+     "ourFirstCode": "consumption-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "1714ffa1d3efa663ac40867dfdb2b39f2c3d6171c4fd8df455f673c13ec12fd7",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set codes: expected ['consumption-set-asset-mismatch'], got []"
+      ]
+     },
+     "draftId": "CS38",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/vdb9556d48947ef84.json",
+     "id": "vdb9556d48947ef84",
+     "kind": "accept",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": true
+     },
+     "sha256": "db9556d48947ef840b5aca35bbe691bd80bf4208ad9d9232ccf69f618981124a",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set codes: expected ['consumption-set-asset-mismatch'], got []"
+      ]
+     },
+     "draftId": "CS39",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v38c2a8727af3b997.json",
+     "id": "v38c2a8727af3b997",
+     "kind": "accept",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": true
+     },
+     "sha256": "38c2a8727af3b997760c145a3e4d08cb4155daa2b8cf13f2006a015b4fdb93c6",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set verdict: expected 'valid', got 'malformed'"
+      ]
+     },
+     "draftId": "CS40",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v1135206646a3a25c.json",
+     "id": "v1135206646a3a25c",
+     "kind": "accept",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": false
+     },
+     "sha256": "1135206646a3a25cc771cbf8afc75b5885573c797862796f4ef30ec7d30fb4b9",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "withinLimit: expected True, got None"
+      ]
+     },
+     "draftId": "CS41",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vc4129376086b1771.json",
+     "id": "vc4129376086b1771",
+     "kind": "accept",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "c4129376086b1771eb63f28fc1d6bab6e01e932dd305ee73a6147e2b7ee71290",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS42",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "consumption-key-reused"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v39082a228cbf2c32.json",
+     "id": "v39082a228cbf2c32",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "39082a228cbf2c3270798ae1aceb9000160c7d6169e3131b10ac232f512523ce",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "withinLimit: expected True, got None"
+      ]
+     },
+     "draftId": "CS43",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v1f427d459a92a6db.json",
+     "id": "v1f427d459a92a6db",
+     "kind": "accept",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "1f427d459a92a6dbac23e5fcb41a610a1238801432758f6dfe1d870018d9f524",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS44",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "consumption-settled-exceeds"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v906dd39fe5dd0ed7.json",
+     "id": "v906dd39fe5dd0ed7",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "906dd39fe5dd0ed72411778a2e14e9f89c1fb3925a4d8dbbf0ae08621eba30f7",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS45",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "consumption-settled-differs"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/ve332b7a9eb477ad5.json",
+     "id": "ve332b7a9eb477ad5",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "e332b7a9eb477ad57506da82a52f5ad9ca52d2e5e8a507fe2bfc45fabd4ba3c8",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS46",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "consumption-settled-differs"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/va3507e84a41f4de5.json",
+     "id": "va3507e84a41f4de5",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "a3507e84a41f4de554fbe07ab7fa3746b255444e86a439ed9909c634d423c8d1",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS47",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "consumption-value-invalid"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vc4f77810767e7130.json",
+     "id": "vc4f77810767e7130",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "c4f77810767e713063a6ff0c587df099806d5d7175b7ae46b6c372c108c3b5d2",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set verdict: expected 'valid', got 'malformed'"
+      ]
+     },
+     "draftId": "CS48",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v685ca6e0fe677df5.json",
+     "id": "v685ca6e0fe677df5",
+     "kind": "accept",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": false
+     },
+     "sha256": "685ca6e0fe677df5bbe4728221d598bf984448c12179fc8c5a994a4d5cfe4a2c",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set codes: expected ['consumption-set-settled-uncounted'], got []"
+      ]
+     },
+     "draftId": "CS49",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/veba2beabdf39da6b.json",
+     "id": "veba2beabdf39da6b",
+     "kind": "accept",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": true
+     },
+     "sha256": "eba2beabdf39da6b6fed356a8fcb7d4db1aa071ba7f5c54edd3b961ee7ef2f33",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "withinLimit: expected True, got None"
+      ]
+     },
+     "draftId": "CS50",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vc5944d012d8f4ad0.json",
+     "id": "vc5944d012d8f4ad0",
+     "kind": "accept",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "c5944d012d8f4ad0447f96d73d2412c3126b72a8ab66cdc8097f418e80de6cd5",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS51",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "consumption-value-invalid"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v8168d7d02f8610fb.json",
+     "id": "v8168d7d02f8610fb",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "8168d7d02f8610fb755c111d3173c32333fe441d74f15f98f8a8da90e0bbc96a",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "CS52",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "consumption-value-invalid"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v4614faef7282aaee.json",
+     "id": "v4614faef7282aaee",
+     "kind": "reject",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "4614faef7282aaeed82a70566bc72d09e9983bb76fa26c7b85efe234f3f3a376",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set codes: expected ['consumption-set-release-unshown'], got []"
+      ]
+     },
+     "draftId": "CS53",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v1e6e19e24a868a89.json",
+     "id": "v1e6e19e24a868a89",
+     "kind": "accept",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": true
+     },
+     "sha256": "1e6e19e24a868a89515d5c835d062c8206eda6b5ad7acc7b689c0e7296fb87a8",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['valid'], got 'malformed'",
+       "set verdict: expected 'valid', got 'malformed'"
+      ]
+     },
+     "draftId": "CS54",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/v2f0df6d2793c22c8.json",
+     "id": "v2f0df6d2793c22c8",
+     "kind": "accept",
+     "ourFirstCode": "member-missing",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": false
+     },
+     "sha256": "2f0df6d2793c22c847be57b15bbb714c1a511c4396674224a24beb9a1a64ba69",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "A21",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v9dfdb5fec24b90ee.json",
+     "id": "v9dfdb5fec24b90ee",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "9dfdb5fec24b90ee3c4e5f124d1a8c88116c0626e65ae3c8f1f918e7a702b1b4",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "SQ1",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v7afe1f39e8670c18.json",
+     "id": "v7afe1f39e8670c18",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "7afe1f39e8670c186e8e62b54cac491b51ab88ed9a75410a001b41e4b6a1f656",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "SQ2",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "sequence-malformed"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vca142e8033b749a4.json",
+     "id": "vca142e8033b749a4",
+     "kind": "reject",
+     "ourFirstCode": "sequence-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "ca142e8033b749a40a796f1ff8d7ad68207eb143d0b2b425451ee1b14e1194a9",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "SQ3",
+     "draftRevision": "01",
+     "expectedCodes": [
+      "sequence-malformed"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v6f17a0294db29c43.json",
+     "id": "v6f17a0294db29c43",
+     "kind": "reject",
+     "ourFirstCode": "sequence-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "6f17a0294db29c439327a92619ad8a53b1197f4c59ddbaa9a80537f5ace424cb",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "SQ4",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/vadd36be4ba786f38.json",
+     "id": "vadd36be4ba786f38",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "set.missing": true,
+      "set.verdict": true
+     },
+     "sha256": "add36be4ba786f38a483917d4c52159f3cb960cda31624e8b6c095dd9590e8fa",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "field not provided (set codes)",
+      "conformance": "fail",
+      "reasons": [
+       "set codes: expected ['sequence-duplicate'], got ['conflicts']"
+      ]
+     },
+     "draftId": "SQ5",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/sets/va885bfbdaf7a4920.json",
+     "id": "va885bfbdaf7a4920",
+     "kind": "accept",
+     "ourFirstCode": "set:conflicts",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true,
+      "set.verdict": true
+     },
+     "sha256": "a885bfbdaf7a492053c3400099b6efdf3e5b2754a3c40da4dabfe2b0d3caa8c9",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R10",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/ve38383b5fa8cfbe2.json",
+     "id": "ve38383b5fa8cfbe2",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "dating.receipt": true,
+      "derivedTier": true
+     },
+     "sha256": "e38383b5fa8cfbe222cd07761f08c95f95be285f22b94c34f307236fa5b12ae5",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R11",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/v601ab32149827ed3.json",
+     "id": "v601ab32149827ed3",
+     "kind": "accept",
+     "ourFirstCode": "dating:entry-received-after-anchor",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "601ab32149827ed3e3c623fb8c0dcabf43fd6472284ddbac6dc4b17b9b689885",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R12",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/v56258aa08b3bdb60.json",
+     "id": "v56258aa08b3bdb60",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "56258aa08b3bdb60971fbdd234ba79e84b95fa0d5d2c62e3cee6791425cac7ef",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R13",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/v5fdda90f44e68c91.json",
+     "id": "v5fdda90f44e68c91",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "5fdda90f44e68c9193358ce7b8257fe4376b374d42a5525f234a327b3513b459",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R14",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/v3bcc3efbad13217b.json",
+     "id": "v3bcc3efbad13217b",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "3bcc3efbad13217be83f5950c1b7f7578bfe0e7860455c242e7902f95709e06d",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R15",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/vd41f53ed499a1780.json",
+     "id": "vd41f53ed499a1780",
+     "kind": "accept",
+     "ourFirstCode": "dating:entry-delegation-root-mismatch",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "d41f53ed499a1780b9ef013e1f08999b6f8e334bb2b79f6fd474e3eb8f8cc431",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "R16",
+     "draftRevision": "01",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/va737fb3f9f927f4b.json",
+     "id": "va737fb3f9f927f4b",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "a737fb3f9f927f4b3fe8cd924c40495b450b27e4a9b1b532b57dd9b923e0a19c",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "IS1",
+     "draftRevision": "03",
+     "expectedCodes": [
+      "issued-before-sealed"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v17091ccb23254ec6.json",
+     "id": "v17091ccb23254ec6",
+     "kind": "reject",
+     "ourFirstCode": "issued-before-sealed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "17091ccb23254ec6f768f729eaaa33176359d78f1af8639135a5ce489070c7ea",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "IS2",
+     "draftRevision": "03",
+     "expectedCodes": [
+      "issued-before-sealed"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/ve2802a038120dd2c.json",
+     "id": "ve2802a038120dd2c",
+     "kind": "reject",
+     "ourFirstCode": "issued-before-sealed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "e2802a038120dd2cd59421bccd273a4f4de0faba9212eec120d8f4965feccdaa",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "PS1",
+     "draftRevision": "03",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vd96413ec87814d0b.json",
+     "id": "vd96413ec87814d0b",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "d96413ec87814d0be558eb2e060d9d57c65a63d8a447d92a3c8be8ccb42b22f3",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "PS2",
+     "draftRevision": "03",
+     "expectedCodes": [
+      "value-outside-vocabulary"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v77a2500154f96cb4.json",
+     "id": "v77a2500154f96cb4",
+     "kind": "reject",
+     "ourFirstCode": "value-outside-vocabulary",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "77a2500154f96cb43001ffbf3712983e6e6520e83ec61d9db48f2652043e82ee",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "PS1b",
+     "draftRevision": null,
+     "expectedCodes": [
+      "evaluation-inconsistent"
+     ],
+     "expectedVerdict": "any of valid|malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v12896bcb35edd1b1.json",
+     "id": "v12896bcb35edd1b1",
+     "kind": "indeterminate",
+     "ourFirstCode": "evaluation-inconsistent",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "12896bcb35edd1b1ed4b4d504a7b3e4e20608ed68627cb9fa41a2c5d63251ed9",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "PS3",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v64c9830c3336a68b.json",
+     "id": "v64c9830c3336a68b",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "64c9830c3336a68bbf010b17a5368c3ec2c22751551397debe5ddc945f7b4eb4",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "PS4",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vce2b9385988cdaa2.json",
+     "id": "vce2b9385988cdaa2",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "ce2b9385988cdaa22f8bd4d15ad02d684a59d44bb7ce84ca6b772e8ccb286e25",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "PS5",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vb381c43905c8cb8b.json",
+     "id": "vb381c43905c8cb8b",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "b381c43905c8cb8b51b34057b7905085af815a83eaacfd95ac6af0e63e22fc75",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "PR1",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v25048425b3cf4235.json",
+     "id": "v25048425b3cf4235",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "25048425b3cf423555642e030cd5f617931c2094353a65d2edaad18cb6436174",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "PR2",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v717e1bb82abc81e9.json",
+     "id": "v717e1bb82abc81e9",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "717e1bb82abc81e9227da888537cadcc41e6720c57aac99c26fac9594a5620ad",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "PR3",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v49c8e37c7b5b0a06.json",
+     "id": "v49c8e37c7b5b0a06",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "49c8e37c7b5b0a06dfb0bf0da37adb7c48960ee7bc14df60a0078e595d109e65",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "PR4",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "principal-thumbprint-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v1a2a14e3c671f2c7.json",
+     "id": "v1a2a14e3c671f2c7",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "1a2a14e3c671f2c767ea3c83e955be0a767a546888e27e0a67f45f12b8c44d52",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "PR5",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "principal-expired"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/va10144e3bbdce77d.json",
+     "id": "va10144e3bbdce77d",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "a10144e3bbdce77d8ff177fdfc36aec37bd532a1e02b26c64dd37154d7804508",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "PR6",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "principal-credential-unbound"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v84cecdd82e8e9656.json",
+     "id": "v84cecdd82e8e9656",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "84cecdd82e8e9656ec01ed8e18a341aa131d19b79fec15e5e9b357e9b0846c9a",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "PR7",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "principal-member-missing"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v147d091f7b537b8c.json",
+     "id": "v147d091f7b537b8c",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "147d091f7b537b8cce338e40cf2673115e4004d31c36c57d1ebc48914c6a6984",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "PR8",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "principal-subject-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v2e761c4d4f358c4b.json",
+     "id": "v2e761c4d4f358c4b",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "2e761c4d4f358c4bb3c1c4d610710e807f1e48172f1e2f8758bc664e51eef7dc",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "PR9",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "principal-kid-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v92a15ff9860863bd.json",
+     "id": "v92a15ff9860863bd",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "92a15ff9860863bdf07f6226e570ca05587b3d482b72a139947f52096290bdfd",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "PR10",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "principal-not-yet-valid"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vd5d17c5df6a3ba94.json",
+     "id": "vd5d17c5df6a3ba94",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "d5d17c5df6a3ba9448b86134e8e00fa0d4d538095f16cdb3d3dfb370945d885c",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "PR11",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "principal-member-unknown"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v9a3eb534e69f04b4.json",
+     "id": "v9a3eb534e69f04b4",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "9a3eb534e69f04b41ca2ff1779904664d1c3a3d6f2bdbd39b69359f35048f931",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "DS1",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v8f2ca677f5df0c0b.json",
+     "id": "v8f2ca677f5df0c0b",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "8f2ca677f5df0c0bbc6ad334a0f33bbd65d31831d819277bc46a8cbdecfe797f",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "DS2",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/v871494a8dba0a406.json",
+     "id": "v871494a8dba0a406",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "871494a8dba0a406812ef3f5d9f5124c865f2bd6652346d2874d1e158bb53d32",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "DS3",
+     "draftRevision": "04",
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/statements/vbe42b7b9275a9fc3.json",
+     "id": "vbe42b7b9275a9fc3",
+     "kind": "accept",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "derivedTier": true
+     },
+     "sha256": "be42b7b9275a9fc3fb1c3eab01f6d672a0f9c6b0f2f23f98788afe5193603910",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "DS4",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "data-subject-member-missing"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v013c59cf51774951.json",
+     "id": "v013c59cf51774951",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "013c59cf517749510f035fcf807c12775821d0eb3b041c7fc6484e5abbddd3c7",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "DS5",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "data-subject-member-unknown"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v64fb7d2b269d916c.json",
+     "id": "v64fb7d2b269d916c",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "64fb7d2b269d916c6eba514eb7cb5b8d30ed15630ce6fa3a6b823cbb151b96a6",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "DS6",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "data-subject-malformed"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v6b83c9a51a68e9d6.json",
+     "id": "v6b83c9a51a68e9d6",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "6b83c9a51a68e9d6b500954259d723a1417356f17d0fa37e96e8ee4ab3e845f6",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "DS7",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "data-subject-merged"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v112d8474d423174f.json",
+     "id": "v112d8474d423174f",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "112d8474d423174f062c8a16db1d310325fb2b8f9475885dae4d9c6ac07de14f",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "DS8",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "data-subject-relation-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/ve8a6caabb2b9be75.json",
+     "id": "ve8a6caabb2b9be75",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "e8a6caabb2b9be75ade5deb16200e58f59a9f76fd6c11b63bed68e67c0e6e91e",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "DS9",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "data-subject-purpose-undeclared"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vb7249b0ebaf69f97.json",
+     "id": "vb7249b0ebaf69f97",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "b7249b0ebaf69f97a569e6b227145da7ac1963688de9b08adec8ba87b709c0d8",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "DS10",
+     "draftRevision": "04",
+     "expectedCodes": [
+      "data-subject-purposes-digest-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/ved1e86ff17b0b12b.json",
+     "id": "ved1e86ff17b0b12b",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "ed1e86ff17b0b12b91d268bc09b0f59997456fca09624101d35bdd26060f5bfc",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X1",
+     "draftRevision": null,
+     "expectedCodes": [
+      "value-not-representable"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vb3a1cd46d33b8b3c.json",
+     "id": "vb3a1cd46d33b8b3c",
+     "kind": "reject",
+     "ourFirstCode": "signature-invalid",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "b3a1cd46d33b8b3cb5ab660c370b23010faee29d8b09bc304e712be9da8098d3",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X2",
+     "draftRevision": null,
+     "expectedCodes": [
+      "not-parseable"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/va43a28488a94e4c8.json",
+     "id": "va43a28488a94e4c8",
+     "kind": "reject",
+     "ourFirstCode": "not-parseable",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "a43a28488a94e4c8094ab11f892b7398ddbcb96e756e2a386569829cf1b09b2b",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X3",
+     "draftRevision": null,
+     "expectedCodes": [
+      "timestamp-malformed"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v8e7e0c83386e4498.json",
+     "id": "v8e7e0c83386e4498",
+     "kind": "reject",
+     "ourFirstCode": "timestamp-malformed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "8e7e0c83386e44984c44f22a2a8d4f3679246b5ed3df1aebac5375896c9bb8ec",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X4",
+     "draftRevision": null,
+     "expectedCodes": [
+      "statement-type-unexpected"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/ve84f8df9e1887b14.json",
+     "id": "ve84f8df9e1887b14",
+     "kind": "reject",
+     "ourFirstCode": "statement-type-unexpected",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "e84f8df9e1887b1482dd947c7c2083b3faef87e5f97509e2649019a3615fab78",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X5",
+     "draftRevision": null,
+     "expectedCodes": [
+      "predicate-type-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v0260a7415403fee4.json",
+     "id": "v0260a7415403fee4",
+     "kind": "reject",
+     "ourFirstCode": "predicate-type-mismatch",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "0260a7415403fee444681508a9a587a6429995230232dcf5a63ca8f89d37b341",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "verdict differs",
+      "conformance": "fail",
+      "reasons": [
+       "expected ['malformed'], got 'valid'"
+      ]
+     },
+     "draftId": "X6",
+     "draftRevision": null,
+     "expectedCodes": [
+      "consumption-malformed"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v460418d6fe1a5ba2.json",
+     "id": "v460418d6fe1a5ba2",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "valid",
+     "secondaryResults": {},
+     "sha256": "460418d6fe1a5ba2b7037ce4896c1ddeb017d8e0718784aa84954ee6ace32b25",
+     "verdictMatch": false
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X7",
+     "draftRevision": null,
+     "expectedCodes": [
+      "operation-key-invalid"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v348a99dd78f563d9.json",
+     "id": "v348a99dd78f563d9",
+     "kind": "reject",
+     "ourFirstCode": "operation-key-invalid",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "348a99dd78f563d965e089f74701bb4951f3aea0ecfff906f96817d4bd84e562",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X8",
+     "draftRevision": null,
+     "expectedCodes": [
+      "subject-request-mismatch"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/v219ae2dc9d96d2c0.json",
+     "id": "v219ae2dc9d96d2c0",
+     "kind": "reject",
+     "ourFirstCode": "subject-request-mismatch",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "219ae2dc9d96d2c0432c42c134ec4fd10d074b8f63176f2306d55d0693f3dc00",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X9",
+     "draftRevision": null,
+     "expectedCodes": [
+      "envelope-unreadable"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vb0c4f6608a0e9440.json",
+     "id": "vb0c4f6608a0e9440",
+     "kind": "reject",
+     "ourFirstCode": "envelope-unreadable",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "b0c4f6608a0e944076350a4ac36b5e2c3424eb15337b4aa816f0ed412bbe2284",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X10",
+     "draftRevision": null,
+     "expectedCodes": [
+      "statement-shape"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/statements/vb695708df82323e5.json",
+     "id": "vb695708df82323e5",
+     "kind": "reject",
+     "ourFirstCode": "statement-shape",
+     "ourVerdict": "malformed",
+     "secondaryResults": {},
+     "sha256": "b695708df82323e57c08ba6ea9d7573133fe7e701680b291c560c435761d06bb",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X11",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/vc8c061f291fe0343.json",
+     "id": "vc8c061f291fe0343",
+     "kind": "accept",
+     "ourFirstCode": "dating:entry-shape-malformed",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "c8c061f291fe03432f4b6d4becf018d649c054ebc23a250f9e8728a92f961d6e",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X12",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/ve9350800b1486fbb.json",
+     "id": "ve9350800b1486fbb",
+     "kind": "accept",
+     "ourFirstCode": "dating:entry-envelope-digest-mismatch",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "e9350800b1486fbb161a43ed844b08ab3796d63daa5bf783130ee71a143ea78e",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X13",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/v7cb7da46ce7042b9.json",
+     "id": "v7cb7da46ce7042b9",
+     "kind": "accept",
+     "ourFirstCode": "dating:entry-delegation-root-unexpected",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "7cb7da46ce7042b9c6134ca074ecbc2ad3ec593cef40ba90a99928a1bdb060f7",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X14",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "valid",
+     "file": "corpora/vectors-agent-audit-record/retained/vfb3f83b35b6cadd4.json",
+     "id": "vfb3f83b35b6cadd4",
+     "kind": "accept",
+     "ourFirstCode": "dating:entry-delegation-root-unreadable",
+     "ourVerdict": "valid",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true,
+      "derivedTier": true
+     },
+     "sha256": "fb3f83b35b6cadd4e0598f85f30bd56bf90e4c9242a4ad2c3d4c9967996d0734",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X15",
+     "draftRevision": null,
+     "expectedCodes": [
+      "not-parseable"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/retained/v45d4d20fab787f9b.json",
+     "id": "v45d4d20fab787f9b",
+     "kind": "reject",
+     "ourFirstCode": "not-parseable",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true
+     },
+     "sha256": "45d4d20fab787f9bdaece197eaf7324c819d9654e9e255256887c92dfd589978",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "conform",
+      "conformance": "conform",
+      "reasons": []
+     },
+     "draftId": "X16",
+     "draftRevision": null,
+     "expectedCodes": [
+      "retained-unreadable"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/retained/v52d0e34839045b02.json",
+     "id": "v52d0e34839045b02",
+     "kind": "reject",
+     "ourFirstCode": "retained-unreadable",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "dating.datedAt": true,
+      "dating.delegationRoot": true,
+      "dating.entry": true
+     },
+     "sha256": "52d0e34839045b02719740e10cd79a054275c3918922dcd6c84e54d0d7678701",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "field not provided (set codes)",
+      "conformance": "fail",
+      "reasons": [
+       "set codes: expected ['set-unreadable'], got []"
+      ]
+     },
+     "draftId": "X17",
+     "draftRevision": null,
+     "expectedCodes": [],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/sets/v932e921118b63a4b.json",
+     "id": "v932e921118b63a4b",
+     "kind": "reject",
+     "ourFirstCode": null,
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": true
+     },
+     "sha256": "932e921118b63a4b444d63929cff6ad5fc9200d86e210ceb697e5160585f000b",
+     "verdictMatch": true
+    },
+    {
+     "contract": {
+      "class": "field not provided (set codes)",
+      "conformance": "fail",
+      "reasons": [
+       "set codes: expected ['set-record-malformed'], got []"
+      ]
+     },
+     "draftId": "X18",
+     "draftRevision": null,
+     "expectedCodes": [
+      "issued-before-sealed"
+     ],
+     "expectedVerdict": "malformed",
+     "file": "corpora/vectors-agent-audit-record/sets/v425531073d0c4bd6.json",
+     "id": "v425531073d0c4bd6",
+     "kind": "reject",
+     "ourFirstCode": "issued-before-sealed",
+     "ourVerdict": "malformed",
+     "secondaryResults": {
+      "set.verdict": true
+     },
+     "sha256": "425531073d0c4bd62741d1c891090016b1a516ec29e1cc57ff8ea6a46ff3be36",
+     "verdictMatch": true
+    }
+   ],
+   "verifier": "b7n0de audit-record verifier, audit-record/agent_evidence_01/tools/aar_verifier.py in b7n0de-verifier-source-20261115.tar.gz (SHA-256 a81ab5af84a8da9cce6f64b65a911a83cc3a09973bb34bfce08da79f65cbd8fa); it follows revision 03 of the draft"
+  },
+  {
+   "commit": "250de75575a945d00211415d7af41894d15427fa",
+   "corpus": "corpora/vectors-restart-records",
+   "corpusDigest": "5b7f58c91b517bd7c96dcccdef0d827a4f730fd4a650b4992b362bb9925cae29",
+   "describe": "v0.36.3-201-g250de755",
+   "different": 0,
+   "equal": 57,
+   "manifestSha256": "7a3cd31da92c7349f508b8225f032dd43d16cb983ea647ac0027586bed31a6d0",
+   "members": 57,
+   "reasonEqual": 57,
+   "release": "MANIFEST.json byte-equal to agent-evidence-vectors 0.36.3 on PyPI and to vectors-restart-records/ at tag v0.31.2",
+   "repository": "https://github.com/probityai/agent-evidence-vectors",
+   "results": [
+    {
+     "expectedReason": "authorization-recorded",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/incident-action-authorization-control/statement.json": "9319b6c60acc1e282f81d6824fb5bdb1d43c6d21a2105c6258459257ea312636"
+     },
+     "id": "incident-action-authorization-control",
+     "kind": "accept",
+     "ourReason": "authorization-recorded",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "authorization-recorded",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/incident-action-authorization-accept-after-the-fact/statement.json": "29a7216c6bdb65b2cab741831394c687be9a7358d7690473eaae97f47e900354"
+     },
+     "id": "incident-action-authorization-accept-after-the-fact",
+     "kind": "accept",
+     "ourReason": "authorization-recorded",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "authorization-recorded",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/incident-action-authorization-accept-basis-unknown/statement.json": "39ba115ee13296af2398531b6bb1dd6c491bba4c2e8f396f28f91de0cfceb507"
+     },
+     "id": "incident-action-authorization-accept-basis-unknown",
+     "kind": "accept",
+     "ourReason": "authorization-recorded",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "statement-malformed",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/incident-action-authorization-statement-malformed/statement.json": "07dae1049e8df39e5d81de8f8570398f4d2d4a70f8d603082a1aa9474833ea37"
+     },
+     "id": "incident-action-authorization-statement-malformed",
+     "kind": "reject",
+     "ourReason": "statement-malformed",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "predicate-malformed",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/incident-action-authorization-predicate-malformed/statement.json": "bdeb1d320ba2bc5571034a8299dabf8ccb15cd508279f16994aba69e3a468fce"
+     },
+     "id": "incident-action-authorization-predicate-malformed",
+     "kind": "reject",
+     "ourReason": "predicate-malformed",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "closed-vocabulary-violation",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/incident-action-authorization-closed-vocabulary-violation/statement.json": "c967e32b35665f421e7f4d772309a87bb75cede349bc31bdb471ac40669a0464"
+     },
+     "id": "incident-action-authorization-closed-vocabulary-violation",
+     "kind": "reject",
+     "ourReason": "closed-vocabulary-violation",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "no-authorizer",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/incident-action-authorization-no-authorizer/statement.json": "ba8042220ca72c1ef4691d432063543b5bb99e17d96e5838f2ce6c1d31bb42e5"
+     },
+     "id": "incident-action-authorization-no-authorizer",
+     "kind": "reject",
+     "ourReason": "no-authorizer",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "no-accountable-party",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/incident-action-authorization-no-accountable-party/statement.json": "46efb715c9a499a0dbb84df600ec36e4d48efa434a23957d7b9867b7fa52a99b"
+     },
+     "id": "incident-action-authorization-no-accountable-party",
+     "kind": "reject",
+     "ourReason": "no-accountable-party",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "authority-basis-missing",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/incident-action-authorization-authority-basis-missing/statement.json": "aaa4e864ab8807a140987cdae02c4854fc6a9f566aa68893fcf5f2af145782cf"
+     },
+     "id": "incident-action-authorization-authority-basis-missing",
+     "kind": "reject",
+     "ourReason": "authority-basis-missing",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "authorization-window-inverted",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/incident-action-authorization-authorization-window-inverted/statement.json": "c710326055566f2b34919890f8b580539fc452018fc520ba4130c46ace34d948"
+     },
+     "id": "incident-action-authorization-authorization-window-inverted",
+     "kind": "reject",
+     "ourReason": "authorization-window-inverted",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "intent-not-committed-before",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/incident-action-authorization-intent-not-committed-before/statement.json": "d4fb19a4005bf4ca7ab2e8b219edd4558ce0a3ded89dd556e012f4bebb4914a5"
+     },
+     "id": "incident-action-authorization-intent-not-committed-before",
+     "kind": "reject",
+     "ourReason": "intent-not-committed-before",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "authorization-expired",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/incident-action-authorization-authorization-expired/statement.json": "686beeaf8ccea56806f8bcd53c452175cab143954bb8a48655e829b1519874e0"
+     },
+     "id": "incident-action-authorization-authorization-expired",
+     "kind": "reject",
+     "ourReason": "authorization-expired",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "induced-effects-unobserved",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/incident-action-authorization-induced-effects-unobserved/statement.json": "9727e73aef1e92b1f992b435979bc8c343ff17bc21c0f1f859245182c0f06b3d"
+     },
+     "id": "incident-action-authorization-induced-effects-unobserved",
+     "kind": "reject",
+     "ourReason": "induced-effects-unobserved",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "sweep-recorded",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/revocation-sweep-control/statement.json": "c864e1b41caf7a10e19cbfc08940e164c117fef8833660c76e7b864a80e4b834"
+     },
+     "id": "revocation-sweep-control",
+     "kind": "accept",
+     "ourReason": "sweep-recorded",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "sweep-recorded",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/revocation-sweep-accept-issued-after-only/statement.json": "f631ef952ba3516bbca3b8e254f2ea5d3954c54d617c14639fef8f7733772bc6"
+     },
+     "id": "revocation-sweep-accept-issued-after-only",
+     "kind": "accept",
+     "ourReason": "sweep-recorded",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "sweep-recorded",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/revocation-sweep-accept-use-after-revocation/statement.json": "3235759dbe88091070328b94483b467ef27822aa3c023aff8feb95ad763138b5"
+     },
+     "id": "revocation-sweep-accept-use-after-revocation",
+     "kind": "accept",
+     "ourReason": "sweep-recorded",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "statement-malformed",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/revocation-sweep-statement-malformed/statement.json": "12cfa7ba3432404bbc99ab193eec79d42100f469b83449be7b700e04ff33ce93"
+     },
+     "id": "revocation-sweep-statement-malformed",
+     "kind": "reject",
+     "ourReason": "statement-malformed",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "predicate-malformed",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/revocation-sweep-predicate-malformed/statement.json": "8848e41b1cbb7f0773c1576f3c18049acf572f2316264494fe3e1123b6d21aab"
+     },
+     "id": "revocation-sweep-predicate-malformed",
+     "kind": "reject",
+     "ourReason": "predicate-malformed",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "closed-vocabulary-violation",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/revocation-sweep-closed-vocabulary-violation/statement.json": "2c566b819339e7657707e931c9462b62e5c5ea9489ca8c2daf671d9ae20c080c"
+     },
+     "id": "revocation-sweep-closed-vocabulary-violation",
+     "kind": "reject",
+     "ourReason": "closed-vocabulary-violation",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "denominator-union-mismatch",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/revocation-sweep-denominator-union-mismatch/statement.json": "93ea2038497b2bbe2e4e35e19a6106fa0be95d90ad87e5889d0e34ef6f1215bd"
+     },
+     "id": "revocation-sweep-denominator-union-mismatch",
+     "kind": "reject",
+     "ourReason": "denominator-union-mismatch",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "revocation-entries-mismatch",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/revocation-sweep-revocation-entries-mismatch/statement.json": "15b64ec407ef51cd5ce9ba8738b67302798c862e3ae16bbf90869d9a062f2a84"
+     },
+     "id": "revocation-sweep-revocation-entries-mismatch",
+     "kind": "reject",
+     "ourReason": "revocation-entries-mismatch",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "coverage-claim-exceeds-proof",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/revocation-sweep-coverage-claim-exceeds-proof/statement.json": "c6f6b7e122b173aa7ba926dac476a79b5ce411ed7cb5472f0355d5edefb77a09"
+     },
+     "id": "revocation-sweep-coverage-claim-exceeds-proof",
+     "kind": "reject",
+     "ourReason": "coverage-claim-exceeds-proof",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "coverage-claim-incomplete",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/revocation-sweep-coverage-claim-incomplete/statement.json": "9b437367334d1ada2cf3edd3798296fa0c2d599c5bb56ec173d669a76be474b4"
+     },
+     "id": "revocation-sweep-coverage-claim-incomplete",
+     "kind": "reject",
+     "ourReason": "coverage-claim-incomplete",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "decision-recorded",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/re-enable-decision-control/statement.json": "81c99939127c22e31a4af4eda46558143f397035b99d36960f0a7342670c6543"
+     },
+     "id": "re-enable-decision-control",
+     "kind": "accept",
+     "ourReason": "decision-recorded",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "decision-recorded",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/re-enable-decision-accept-resume-full/statement.json": "a44228f221033dfbe7372ab2e415c228ec66d2a4ee107a44eb7bca84a4f0b986"
+     },
+     "id": "re-enable-decision-accept-resume-full",
+     "kind": "accept",
+     "ourReason": "decision-recorded",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "decision-recorded",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/re-enable-decision-accept-remain-restricted/statement.json": "6f9762e28b3fd66a65001568c53b9d4acaa8cc5d7c0f14a7b2a52a2cde51be5b"
+     },
+     "id": "re-enable-decision-accept-remain-restricted",
+     "kind": "accept",
+     "ourReason": "decision-recorded",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "statement-malformed",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/re-enable-decision-statement-malformed/statement.json": "ef1d16323974382d7f6601fb98c09e0bdd128fe1db82deb654c7b2d4fb002648"
+     },
+     "id": "re-enable-decision-statement-malformed",
+     "kind": "reject",
+     "ourReason": "statement-malformed",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "predicate-malformed",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/re-enable-decision-predicate-malformed/statement.json": "4781501504c004d71b0bffd071ced93b589f3203be7116223efe55a1d90bc0f2"
+     },
+     "id": "re-enable-decision-predicate-malformed",
+     "kind": "reject",
+     "ourReason": "predicate-malformed",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "closed-vocabulary-violation",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/re-enable-decision-closed-vocabulary-violation/statement.json": "9aadb3de706aab2834ddbdb0ba40fb02581cb2d3fb66173aab637d046585725b"
+     },
+     "id": "re-enable-decision-closed-vocabulary-violation",
+     "kind": "reject",
+     "ourReason": "closed-vocabulary-violation",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "evidence-slot-missing",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/re-enable-decision-evidence-slot-missing/statement.json": "07f94b7923d6415458b238cd285c48f0ba058c7c89eea57c57c8d3db5ba7f637"
+     },
+     "id": "re-enable-decision-evidence-slot-missing",
+     "kind": "reject",
+     "ourReason": "evidence-slot-missing",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "evidence-slot-unexplained",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/re-enable-decision-evidence-slot-unexplained/statement.json": "f68c20b673b9fe3723894ee881e907ed093c43d9f566ff50cfd95da0c42499c5"
+     },
+     "id": "re-enable-decision-evidence-slot-unexplained",
+     "kind": "reject",
+     "ourReason": "evidence-slot-unexplained",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "no-approver",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/re-enable-decision-no-approver/statement.json": "a95d0570df03197f1ffda197f15d1ac3d93e72ca6d71c8e3c4beb5992353a8cf"
+     },
+     "id": "re-enable-decision-no-approver",
+     "kind": "reject",
+     "ourReason": "no-approver",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "partial-without-scope",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/re-enable-decision-partial-without-scope/statement.json": "2b58979052f8a34c0d4d06fd0b23459f52ac710a20156c9871e8c403a7be0642"
+     },
+     "id": "re-enable-decision-partial-without-scope",
+     "kind": "reject",
+     "ourReason": "partial-without-scope",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "full-with-scope",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/re-enable-decision-full-with-scope/statement.json": "51aab3151b6aa5a82605c09da66fa9ad46c872cfe623bb4fd4f2c3652d26e5f1"
+     },
+     "id": "re-enable-decision-full-with-scope",
+     "kind": "reject",
+     "ourReason": "full-with-scope",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "assignment-recorded",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/joint-authority-control/statement.json": "df3388712d8e2a475176170cfc6b053e64c5af4e24f44c45ec952c47c0a4b1d9"
+     },
+     "id": "joint-authority-control",
+     "kind": "accept",
+     "ourReason": "assignment-recorded",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "statement-malformed",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/joint-authority-statement-malformed/statement.json": "da0e07941333b94d704c741ffa224b281c0cb5f7dc04209e439783b00537fe0b"
+     },
+     "id": "joint-authority-statement-malformed",
+     "kind": "reject",
+     "ourReason": "statement-malformed",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "predicate-malformed",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/joint-authority-predicate-malformed/statement.json": "541be3c5856c0ada3204eb95f94e9359a847c37a784d6454d87609cf3ed90947"
+     },
+     "id": "joint-authority-predicate-malformed",
+     "kind": "reject",
+     "ourReason": "predicate-malformed",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "authority-basis-missing",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/joint-authority-authority-basis-missing/statement.json": "1c5ed9d670fd9c73b7a4f5ba492855ff2abdce219e55a1bdf2c29c6638780000"
+     },
+     "id": "joint-authority-authority-basis-missing",
+     "kind": "reject",
+     "ourReason": "authority-basis-missing",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "single-organization",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/joint-authority-single-organization/statement.json": "50f95efaf5507e437626cf68ac84529bd54f80439832db0c019f8cefc8ea61dd"
+     },
+     "id": "joint-authority-single-organization",
+     "kind": "reject",
+     "ourReason": "single-organization",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "party-acts-outside-assignment",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/joint-authority-party-acts-outside-assignment/statement.json": "1d6360ae3267fbb321376ad40b4b1c367d1b5d759e77f74519b778d119ac8eb2"
+     },
+     "id": "joint-authority-party-acts-outside-assignment",
+     "kind": "reject",
+     "ourReason": "party-acts-outside-assignment",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "boundary-recorded",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/revocation-boundary-control/statement.json": "2c6792d6a7c6678f6edb8a70949229c2839540df4ad99fa278d372452d3a2514"
+     },
+     "id": "revocation-boundary-control",
+     "kind": "accept",
+     "ourReason": "boundary-recorded",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "boundary-recorded",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/revocation-boundary-accept-commit-observed/statement.json": "401c3a7770890875af158549e6fe61784b52ea710e0121aa08383279ef36fbdb"
+     },
+     "id": "revocation-boundary-accept-commit-observed",
+     "kind": "accept",
+     "ourReason": "boundary-recorded",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "boundary-recorded",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/revocation-boundary-accept-not-established/statement.json": "05672bbfd0f8a3d5af11f0aa6e5e551934c4711f21e6f0e7b74073b573c82e6e"
+     },
+     "id": "revocation-boundary-accept-not-established",
+     "kind": "accept",
+     "ourReason": "boundary-recorded",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "statement-malformed",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/revocation-boundary-statement-malformed/statement.json": "6f9492f85a1df84ef052632359ab9119e97739c7c0e3a081ba720e8d2d8134f4"
+     },
+     "id": "revocation-boundary-statement-malformed",
+     "kind": "reject",
+     "ourReason": "statement-malformed",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "predicate-malformed",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/revocation-boundary-predicate-malformed/statement.json": "c985b3b7913d4c50ca4d3aa6dcb5170d6e05270f32ddb217ab000f143d6c7c75"
+     },
+     "id": "revocation-boundary-predicate-malformed",
+     "kind": "reject",
+     "ourReason": "predicate-malformed",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "revocation-outside-window",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/revocation-boundary-revocation-outside-window/statement.json": "7216e4bfad52796975efe6d9120aafd1ea894128d5d59aba15e37818bac9060b"
+     },
+     "id": "revocation-boundary-revocation-outside-window",
+     "kind": "reject",
+     "ourReason": "revocation-outside-window",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "counts-inconsistent",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/revocation-boundary-counts-inconsistent/statement.json": "e5db0e5eb966ca2934c396fd6f0d8bd8a5c15faea9029dff20b27a0917eb5bf7"
+     },
+     "id": "revocation-boundary-counts-inconsistent",
+     "kind": "reject",
+     "ourReason": "counts-inconsistent",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "result-contradicts-counts",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/revocation-boundary-result-contradicts-counts/statement.json": "e0795591e99aa7a8f01b823cea8b6eb1e1be43f3f3f3d9df9b2431fb3022340a"
+     },
+     "id": "revocation-boundary-result-contradicts-counts",
+     "kind": "reject",
+     "ourReason": "result-contradicts-counts",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "observer-not-at-sink",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/revocation-boundary-observer-not-at-sink/statement.json": "020659904aafe89577b6e3b5bd524932fd2e76c31bdc419c4a7b9183df019c50"
+     },
+     "id": "revocation-boundary-observer-not-at-sink",
+     "kind": "reject",
+     "ourReason": "observer-not-at-sink",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "record",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "bundle-consistent",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/bundle-consistent/r1.json": "9319b6c60acc1e282f81d6824fb5bdb1d43c6d21a2105c6258459257ea312636",
+      "cases/bundle-consistent/r2.json": "c864e1b41caf7a10e19cbfc08940e164c117fef8833660c76e7b864a80e4b834",
+      "cases/bundle-consistent/r3.json": "81c99939127c22e31a4af4eda46558143f397035b99d36960f0a7342670c6543"
+     },
+     "id": "bundle-consistent",
+     "kind": "accept",
+     "ourReason": "bundle-consistent",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "bundle",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "bundle-consistent",
+     "expectedVerdict": "accept",
+     "files": {
+      "cases/bundle-consistent-with-optional-records/r1.json": "9319b6c60acc1e282f81d6824fb5bdb1d43c6d21a2105c6258459257ea312636",
+      "cases/bundle-consistent-with-optional-records/r2.json": "c864e1b41caf7a10e19cbfc08940e164c117fef8833660c76e7b864a80e4b834",
+      "cases/bundle-consistent-with-optional-records/r3.json": "81c99939127c22e31a4af4eda46558143f397035b99d36960f0a7342670c6543",
+      "cases/bundle-consistent-with-optional-records/r4.json": "df3388712d8e2a475176170cfc6b053e64c5af4e24f44c45ec952c47c0a4b1d9",
+      "cases/bundle-consistent-with-optional-records/rb.json": "97b942ec4f0b3bc228bcce622078133ccc9f477099e0cf059842cbb6dfabc80d"
+     },
+     "id": "bundle-consistent-with-optional-records",
+     "kind": "accept",
+     "ourReason": "bundle-consistent",
+     "ourVerdict": "accept",
+     "reasonMatch": true,
+     "shape": "bundle",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "coverage-claim-exceeds-proof",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/bundle-record-coverage-claim-exceeds-proof/r1.json": "9319b6c60acc1e282f81d6824fb5bdb1d43c6d21a2105c6258459257ea312636",
+      "cases/bundle-record-coverage-claim-exceeds-proof/r2.json": "c6f6b7e122b173aa7ba926dac476a79b5ce411ed7cb5472f0355d5edefb77a09",
+      "cases/bundle-record-coverage-claim-exceeds-proof/r3.json": "3cf57b8d3a09cf037fa9984b78549836d39d00cc4ff96c9c5a641ea28a4b9b79"
+     },
+     "id": "bundle-record-coverage-claim-exceeds-proof",
+     "kind": "reject",
+     "ourReason": "coverage-claim-exceeds-proof",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "bundle",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "predecessor-not-carried",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/bundle-predecessor-not-carried/r1.json": "9319b6c60acc1e282f81d6824fb5bdb1d43c6d21a2105c6258459257ea312636",
+      "cases/bundle-predecessor-not-carried/r2.json": "c864e1b41caf7a10e19cbfc08940e164c117fef8833660c76e7b864a80e4b834",
+      "cases/bundle-predecessor-not-carried/r3.json": "2e5745489693bd0bb9151fadb2778f24eb36515347caf6029047644ec12b51a6"
+     },
+     "id": "bundle-predecessor-not-carried",
+     "kind": "reject",
+     "ourReason": "predecessor-not-carried",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "bundle",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "predecessor-type-mismatch",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/bundle-predecessor-type-mismatch/r1.json": "9319b6c60acc1e282f81d6824fb5bdb1d43c6d21a2105c6258459257ea312636",
+      "cases/bundle-predecessor-type-mismatch/r2.json": "c864e1b41caf7a10e19cbfc08940e164c117fef8833660c76e7b864a80e4b834",
+      "cases/bundle-predecessor-type-mismatch/r3.json": "7c81b7d2d1524f11ccea5a3859a7927892bb4c6653d2689a225dc01f4e4aefdd"
+     },
+     "id": "bundle-predecessor-type-mismatch",
+     "kind": "reject",
+     "ourReason": "predecessor-type-mismatch",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "bundle",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "incident-mismatch",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/bundle-incident-mismatch/r1.json": "9319b6c60acc1e282f81d6824fb5bdb1d43c6d21a2105c6258459257ea312636",
+      "cases/bundle-incident-mismatch/r2.json": "032e024dfeea1d615dda5d2e355da68cc4c1e8d8254983fff92cb4f17f71b11a",
+      "cases/bundle-incident-mismatch/r3.json": "4c78dc29af7b755647466fc5ae8b0bf71c35df6678a5af01af2a188e61d373ce"
+     },
+     "id": "bundle-incident-mismatch",
+     "kind": "reject",
+     "ourReason": "incident-mismatch",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "bundle",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "predecessor-issued-later",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/bundle-predecessor-issued-later/r1.json": "9319b6c60acc1e282f81d6824fb5bdb1d43c6d21a2105c6258459257ea312636",
+      "cases/bundle-predecessor-issued-later/r2.json": "c864e1b41caf7a10e19cbfc08940e164c117fef8833660c76e7b864a80e4b834",
+      "cases/bundle-predecessor-issued-later/r3.json": "34c7b42fe4372a96984c0aab1a5f62339b29c0e8a80f7af07744d6b81db81166"
+     },
+     "id": "bundle-predecessor-issued-later",
+     "kind": "reject",
+     "ourReason": "predecessor-issued-later",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "bundle",
+     "verdictMatch": true
+    },
+    {
+     "expectedReason": "restored-credential-unswept",
+     "expectedVerdict": "reject",
+     "files": {
+      "cases/bundle-restored-credential-unswept/r1.json": "9319b6c60acc1e282f81d6824fb5bdb1d43c6d21a2105c6258459257ea312636",
+      "cases/bundle-restored-credential-unswept/r2.json": "c864e1b41caf7a10e19cbfc08940e164c117fef8833660c76e7b864a80e4b834",
+      "cases/bundle-restored-credential-unswept/r3.json": "ef00f621d8febf934b4e893d814a564b147455f2d2b9632517a46a63a6c477cc"
+     },
+     "id": "bundle-restored-credential-unswept",
+     "kind": "reject",
+     "ourReason": "restored-credential-unswept",
+     "ourVerdict": "reject",
+     "reasonMatch": true,
+     "shape": "bundle",
+     "verdictMatch": true
+    }
+   ],
+   "verifier": "b7n0de restoration-evidence verifier, audit-record/agent_evidence_01/tools/rer_verifier.py in b7n0de-verifier-source-20261115.tar.gz (SHA-256 a81ab5af84a8da9cce6f64b65a911a83cc3a09973bb34bfce08da79f65cbd8fa); it follows revision 00 of the draft"
+  }
+ ]
+}

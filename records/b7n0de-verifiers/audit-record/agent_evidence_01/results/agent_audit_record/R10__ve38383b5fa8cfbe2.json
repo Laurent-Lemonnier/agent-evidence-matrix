@@ -1,0 +1,43 @@
+{
+ "draftId": "R10",
+ "draftRevision": "draft-gilda-audit-agent-audit-record-01",
+ "draftSection": null,
+ "expected": {
+  "codes": [],
+  "dating": {
+   "codes": [],
+   "datedAt": "2026-09-19T10:54:30Z",
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "well-formed",
+   "receipt": "asserted-consistent"
+  },
+  "derivedTier": "authoritative",
+  "verdict": "valid"
+ },
+ "file": "retained/ve38383b5fa8cfbe2.json",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "dating": {
+   "datedAt": "2026-09-19T10:54:30Z",
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "well-formed",
+   "failure": null,
+   "receipt": "asserted-consistent"
+  },
+  "derivedTier": "authoritative",
+  "failure": null,
+  "verdict": "valid"
+ },
+ "subMatch": {
+  "dating.datedAt": true,
+  "dating.delegationRoot": true,
+  "dating.entry": true,
+  "dating.receipt": true,
+  "derivedTier": true
+ }
+}

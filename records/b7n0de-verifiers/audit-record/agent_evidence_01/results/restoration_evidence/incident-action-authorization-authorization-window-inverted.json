@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "authorization-window-inverted",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "incident-action-authorization-authorization-window-inverted",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "authorization-window-inverted",
+  "section": "5.1",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "7",
+ "shape": "record"
+}

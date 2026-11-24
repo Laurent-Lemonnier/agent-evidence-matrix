@@ -1,0 +1,28 @@
+{
+ "draftId": "F5",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "external-anchor-inconsistent"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v0f2a4658412f758b.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "external-anchor-inconsistent",
+   "section": "5.6",
+   "text": "beacon-anchored without externalAnchor"
+  },
+  "payloadSha256": "66ef07fc8bf7d59720f500951339f86d876338f2e02beb01e60a07691cb451a1",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

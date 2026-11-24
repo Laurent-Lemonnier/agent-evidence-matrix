@@ -1,0 +1,29 @@
+{
+ "draftId": "E6",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "write-chain-broken"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v7b494b5a9ee1bed7.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "write-chain-broken",
+   "section": "5.3",
+   "text": "running root after last write is not afterRoot"
+  },
+  "payloadSha256": "2323eed1b826e4957e7a01a0b2b8cb2062e42a3d1b184a5443be4e6076ae0183",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

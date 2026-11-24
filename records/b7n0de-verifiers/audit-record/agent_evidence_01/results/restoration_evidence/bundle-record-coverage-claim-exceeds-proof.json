@@ -1,0 +1,20 @@
+{
+ "expected": {
+  "reason": "coverage-claim-exceeds-proof",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "bundle-record-coverage-claim-exceeds-proof",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "file": "r2.json",
+  "reason": "coverage-claim-exceeds-proof",
+  "rule": "B1",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "B1",
+ "shape": "bundle"
+}

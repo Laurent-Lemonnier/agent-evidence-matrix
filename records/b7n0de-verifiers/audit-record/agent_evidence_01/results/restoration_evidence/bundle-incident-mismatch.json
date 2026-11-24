@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "incident-mismatch",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "bundle-incident-mismatch",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "file": "r2.json",
+  "reason": "incident-mismatch",
+  "rule": "B5",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "B5",
+ "shape": "bundle"
+}

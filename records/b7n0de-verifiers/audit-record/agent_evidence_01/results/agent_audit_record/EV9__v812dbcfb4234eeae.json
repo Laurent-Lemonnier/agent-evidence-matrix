@@ -1,0 +1,32 @@
+{
+ "draftId": "EV9",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "evaluation-inconsistent"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v812dbcfb4234eeae.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "derivedAgreement": "agree",
+  "derivedObserved": "none",
+  "derivedUnavailable": [],
+  "failure": {
+   "code": "evaluation-inconsistent",
+   "section": "5.4",
+   "text": "evaluated carries unavailableInput"
+  },
+  "payloadSha256": "9fb3f497c245888eee466dbaf6cca9fce84f090285c408e6565b6a54e317842e",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

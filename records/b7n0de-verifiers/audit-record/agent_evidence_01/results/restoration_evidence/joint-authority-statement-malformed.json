@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "statement-malformed",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "joint-authority-statement-malformed",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "statement-malformed",
+  "section": "4.1",
+  "text": "_type is not Statement v1",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "1",
+ "shape": "record"
+}

@@ -1,7 +1,7 @@
 {
   "reader": {
     "agent-evidence-vectors": "0.36.3",
-    "agent-evidence-verify": "0.5.1"
+    "agent-evidence-verify": "0.7.0"
   },
   "verdicts": [
     "agrees",
@@ -10,7 +10,7 @@
     "unsupported",
     "not run"
   ],
-  "total_projects": 24,
+  "total_projects": 29,
   "projects": [
     {
       "id": 1,
@@ -90,6 +90,12 @@
           "detail": "Section 7.1 names SHA-256 over its own serialization of the entry fields",
           "evidence": "adapters/aer1-run.txt (adapters/aer1_adapter.py)"
         }
+      },
+      "canonicalizer": {
+        "function": "AER-1 ser(), written from draft Sections 3.1 and 7.1 (adapters/aer1_ser_cli.py)",
+        "kind": "own serialization, not RFC 8785",
+        "input": "parsed value",
+        "parse_layer": "not probed"
       }
     },
     {
@@ -178,7 +184,7 @@
           "evidence": "adapters/aep_seal_timestamps-run.txt (adapters/aep_seal_timestamps.py)"
         },
         {
-          "cell": "IETF 127 cell 1, JSON side: payload/payload.jcs through the shared reader agent-evidence-verify 0.5.1, claim jcs_canonical/v1, target rfc8785",
+          "cell": "IETF 127 cell 1, JSON side: payload/payload.jcs through the shared reader agent-evidence-verify 0.7.0, claim jcs_canonical/v1, target rfc8785",
           "source": "their records",
           "verdict": "agrees",
           "detail": "1 of 1 supported (canonical_bytes_match): the 312 bytes are the RFC 8785 form of the payload. This reads the encoded payload only; the 12 COSE_Sign1 vectors of the cell are the next cell.",
@@ -213,7 +219,13 @@
         "note": "eatf-verifier carries the .aep packages (release v0.7.4); aep-sandbox carries the hackathon pack"
       },
       "replay": "git clone https://github.com/tyche-institute/aep-sandbox X && git -C X checkout c5d4194f4a5fbd0a117d3ed9b4ca0bd164822132 && git clone https://github.com/tyche-institute/eatf-verifier E && git -C E checkout fade5e0ac1223b7ff13339b7c9bcf973b699f9a7 && venv/bin/python -I adapters/aep_sandbox_adapter.py X/hackathon/ietf127/round1/vectors X/hackathon/ietf127/round1/trusted_issuers.json && venv/bin/python -I adapters/aep_sandbox_adapter.py X/interlab/round0/vectors X/interlab/round0/trusted_issuers.json && venv/bin/python -I adapters/aep_eatf_sigs.py E/test-vectors && venv/bin/python -I adapters/aep_seal_timestamps.py X/hackathon/ietf127/timestamps X/hackathon/ietf127/SEAL.sha256 && venv/bin/python -I adapters/aep_ard_cell2.py X/hackathon/ietf127/ard && venv/bin/python -I tools/seal.py verify records/aep-ard-cell2-seal --check-files && venv/bin/python -I adapters/aep_tamper_check.py E/test-vectors X/hackathon/ietf127/round1/vectors X/hackathon/ietf127/round1/trusted_issuers.json <scratch dir> && venv/bin/pip install E/lib-python && A2A_JCS_TARGET=rfc8785 EATF_LIB_PYTHON=E/lib-python EATF_CLASS_LOG=classes.log agent-evidence-vectors --corpus vectors-a2a-jcs-v01 --verifier \"venv/bin/python adapters/eatf_jcs_cli.py\"",
-      "independence": "non-author"
+      "independence": "non-author",
+      "canonicalizer": {
+        "function": "eatf_verifier.canonical.jcs (v0.7.4) after json.loads",
+        "kind": "hand-rolled",
+        "input": "parsed value",
+        "parse_layer": "not probed"
+      }
     },
     {
       "id": 3,
@@ -320,19 +332,68 @@
           "evidence": "adapters/lemonnier-run.txt (adapters/lemonnier_adapter.py)"
         },
         {
-          "cell": "Agent Action Capsule, DPS action-binding and passkey-signed approval records, and the refund chain across four drafts: our reader",
+          "cell": "the refund chain across four drafts (interop/one-chain): their verifiers on their committed records, against their README figures",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "Their build.py and negatives.py, run from a copy with python -I and the Decision Provenance Standard at 007f8c99: all_verified true, 12 of 12 joins true, the stated negative chain (150 executed for 120 approved) as expected, 22 of 22 failing cases caught where expected. Matches the figures of interop/README.md. No reader of ours is involved: agent-evidence-vectors has none for these formats. Project commit 615c0e07.",
+          "evidence": "adapters/lemonnier-own-records-run.txt (adapters/lemonnier_own_records_adapter.py), section E"
+        },
+        {
+          "cell": "the same chain with a real passkey approval (interop/one-chain-real): the WebAuthn-ES256 assertion checked by the Decision Provenance Standard's reference check",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "Their build.py and negatives.py, run from a copy with python -I: all_verified true, 12 of 12 joins true, the person approval verified on status, signature, subject, key_state and identity, 8 of 8 failing cases caught where expected. The signed inputs are the ones pinned in interop/one-chain-real/signed. Project commit 615c0e07.",
+          "evidence": "adapters/lemonnier-own-records-run.txt (adapters/lemonnier_own_records_adapter.py), section F"
+        },
+        {
+          "cell": "four receipts of a second Transparency Service (witness.agentactioncapsule.org) for the same four Signed Statements",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "Their verify_witness.py, run from a copy with python -I on the receipts committed in interop/one-chain/registration/second-log: entry, leaf, RFC 9162 inclusion proof and Ed25519 signature under the published key, two negative controls each; ALL FOUR VERIFIED. The receipts are RFC 9942 receipts of another operator; the tree size and leaf index they state are compared, not bound. Project commit 615c0e07.",
+          "evidence": "adapters/lemonnier-own-records-run.txt (adapters/lemonnier_own_records_adapter.py), section G"
+        },
+        {
+          "cell": "a ts.isoluce.net receipt that signs its tree size and leaf index (interop/receipt-size), against a plain RFC 9942 receipt of the same statement",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "Their check.py, run from a copy with python -I, offline: of 8,255 edited (tree size, leaf index) pairs, the plain receipt read alone is accepted for the issued pair and 31 others (leaf 0 at every size from 33 to 64); read with the service's signed tree head, or carrying the protected labels -65537 and -65538, it is accepted for the issued pair only. The results of this run equal the committed results.json. Project commit 615c0e07.",
+          "evidence": "adapters/lemonnier-own-records-run.txt (adapters/lemonnier_own_records_adapter.py), section H"
+        },
+        {
+          "cell": "decision-record reader (ours, agent-evidence-verify 0.7.0) on the 131 published binding cases of DPS action-binding 0.3.0, against their expected values",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "131 of 131: every binding dimension (specification digests and statements, record statements, action binding, stage order, recheck, observed results, rationale provenance), the execution state and the carried observed, executed, reviews and standing-approval lists equal each case's expected values, with each case's published patch applied to the published attachments. The reader was written from the extension's text and schemas, not its reference check. The published signed attachments A0 and B0 verify under the published trust policy on the stated time, and one changed byte of each fails the seal. Timestamps beside an attachment are reported not_supported by this reader, so no time_assurance cell is claimed. Second angle: with --mutation L01 the first stage of L01 names a specification the attachment does not carry, and L01 reads differs (action_binding failed), 130 of 131.",
+          "evidence": "adapters/decision-record-reader-run.txt (adapters/decision_record_reader.py)"
+        },
+        {
+          "cell": "Agent Action Capsule and passkey-signed approval records, and the refund chain across four drafts: our reader",
           "source": "none",
           "verdict": "unsupported",
-          "detail": "The project's capsule, DPS signed-outcome, WebAuthn approval and one-chain records are formats of other drafts that agent-evidence-vectors 0.36.3 and agent-evidence-verify 0.5.1 have no reader for; the shipped corpora cover the audit record and approval binding only. Not attempted, so no verdict on their 8/8, 10-join or 22/22 figures. The aac cases are in aac/cases of the upstream repository at the pinned commit.",
+          "detail": "The project's capsule, WebAuthn approval and one-chain records are formats of other drafts that agent-evidence-vectors 0.36.3 and agent-evidence-verify 0.7.0 have no reader for (the DPS action-binding attachment now has one: the cell before this); the shipped corpora cover the audit record and approval binding only. Not attempted, so no verdict on their 8/8, 10-join or 22/22 figures. The aac cases are in aac/cases of the upstream repository at the pinned commit.",
           "evidence": "upstream interop/README.md and interop/aac/README.md at the pinned commit; no adapter"
         }
       ],
       "upstream": {
         "url": "https://github.com/Laurent-Lemonnier/dps-scitt-decision-layer",
-        "sha": "00d748a63d96b13905dafb4100fb694c0715469f"
+        "sha": "00d748a63d96b13905dafb4100fb694c0715469f",
+        "also": [
+          {
+            "url": "https://github.com/Laurent-Lemonnier/dps-scitt-decision-layer",
+            "sha": "615c0e07039fab5503feed330bf3ff4f1f5ef68e"
+          },
+          {
+            "url": "https://github.com/decision-provenance-standard/standard",
+            "sha": "007f8c99ec910564bac1c508b76c8ce8391fa11e"
+          },
+          {
+            "url": "https://github.com/decision-provenance-standard/standard",
+            "sha": "729cdfcbbd9802182769dc19dacecb0a905dcc45"
+          }
+        ]
       },
-      "replay": "git clone https://github.com/Laurent-Lemonnier/dps-scitt-decision-layer ../dps-scitt-decision-layer && git -C ../dps-scitt-decision-layer checkout 00d748a63d96b13905dafb4100fb694c0715469f && venv/bin/python -I adapters/lemonnier_adapter.py ../dps-scitt-decision-layer",
-      "independence": "non-author"
+      "replay": "git clone https://github.com/Laurent-Lemonnier/dps-scitt-decision-layer ../dps-scitt-decision-layer && git -C ../dps-scitt-decision-layer checkout 00d748a63d96b13905dafb4100fb694c0715469f && venv/bin/python -I adapters/lemonnier_adapter.py ../dps-scitt-decision-layer\n# cells on the project's own records (refund chain, passkey approval, second log, signed-size receipt), at project commit 615c0e07039fab5503feed330bf3ff4f1f5ef68e:\ngit -C ../dps-scitt-decision-layer checkout 615c0e07039fab5503feed330bf3ff4f1f5ef68e && git clone https://github.com/decision-provenance-standard/standard ../dps-standard && git -C ../dps-standard checkout 007f8c99ec910564bac1c508b76c8ce8391fa11e && venv/bin/python -m pip install cbor2 cryptography jsonschema asn1crypto==1.5.1 && venv/bin/python -I adapters/lemonnier_own_records_adapter.py ../dps-scitt-decision-layer ../dps-standard\n# the decision-record reader cell, on the published action-binding cases at standard commit 729cdfcbbd98:\ngit -C ../dps-standard fetch origin 729cdfcbbd9802182769dc19dacecb0a905dcc45 && git -C ../dps-standard checkout 729cdfcbbd9802182769dc19dacecb0a905dcc45 && venv/bin/python -m pip install agent-evidence-verify==0.7.0 && venv/bin/python -I adapters/decision_record_reader.py ../dps-standard | diff adapters/decision-record-reader-run.txt -",
+      "independence": "co-author"
     },
     {
       "id": 5,
@@ -456,14 +517,20 @@
           "source": "our adapter",
           "verdict": "contradicted",
           "detail": "3 of 5 cases agree; differs on future_F_plus_1 (500,001 us ahead with dispersion 100: package intact, draft REJECT) and overflow_W_max; same in the npm dist. Draft-12 section 13.3 discloses the symmetric freshness helper. Spec: 'Dispersion extends only the past-freshness bound; it MUST NOT extend the future-skew allowance.'. The current module (HEAD e123ba9) follows draft-13 here; see the HEAD cell.",
-          "evidence": "adapters/tttps-run.txt (adapters/tttps_pot_adapter.py)"
+          "evidence": "adapters/tttps-run.txt (adapters/tttps_pot_adapter.py)",
+          "basis": "revision-skew",
+          "divergence_in": "their code",
+          "declared_revision": "draft-12 section 2.5 step 4 and Appendix C.6; section 13.3 of draft-12 discloses the symmetric freshness helper, and the current module at e123ba9 follows draft-13"
         },
         {
           "cell": "holder binding transcript of 0.4.7 against draft-12 section 6.1",
           "source": "our adapter",
           "verdict": "contradicted",
           "detail": "binding_input and exporter context differ (81 octets each, different bytes: package uses ctx_id||nonce, draft-12 uses record_hash); draft-12 sections 6.1 and 13.3 disclose the draft-11 transcript. The current module (HEAD e123ba9) follows draft-13 here; see the HEAD cell.",
-          "evidence": "adapters/tttps-run.txt (adapters/tttps_pot_adapter.py)"
+          "evidence": "adapters/tttps-run.txt (adapters/tttps_pot_adapter.py)",
+          "basis": "revision-skew",
+          "divergence_in": "their code",
+          "declared_revision": "draft-12 section 6.1; section 13.3 of draft-12 discloses the draft-11 transcript, and the current module at e123ba9 follows draft-13"
         },
         {
           "cell": "live conformance API kpp.kenosian.com/api/verify and api.kenosian.com:8090",
@@ -775,8 +842,9 @@
           "cell": "the ICON drafts (problem statement, requirements, agentops observability)",
           "source": "none",
           "verdict": "unsupported",
-          "detail": "requirements text with no record format a reader can open; the test-vector appendix of the requirements draft is where vectors would land",
-          "evidence": "no records emitted"
+          "detail": "requirements text with no record format a reader can open; producer mode: the agentops running code is the producer, and cell 1 reads the records it committed. The test-vector appendix of the requirements draft is where vectors would land",
+          "evidence": "no records emitted",
+          "producer": "cell 1"
         }
       ],
       "upstream": {
@@ -820,9 +888,17 @@
           "source": "our adapter",
           "verdict": "contradicted",
           "detail": "11 of 53",
-          "evidence": "adapters/atx-jcs-run.txt: the 11 floating-point vectors refused by design (ATX signs no such number), 42 of 53 agree; replayed outside the packaged harness"
+          "evidence": "adapters/atx-jcs-run.txt: the 11 floating-point vectors refused by design (ATX signs no such number), 42 of 53 agree; replayed outside the packaged harness",
+          "basis": "defect",
+          "divergence_in": "their code",
+          "declared_revision": "RFC 8785 number serialization, which the suite's vendored serializer refuses for floating-point values by design (atx-spec core.md 1.3a.2 rule 3)"
         }
-      ]
+      ],
+      "upstream": {
+        "url": "https://github.com/opena2a-standards/atx-spec",
+        "sha": "46c34fc288c8f39756c67786a9fa1531306ed231"
+      },
+      "replay": "git clone https://github.com/opena2a-standards/atx-conformance /tmp/atx && git -C /tmp/atx checkout 5f260e15eaadd92b290303e54384a3a30342f804 && for f in records/atx/*.json; do cmp \"$f\" \"/tmp/atx/fixtures/$(basename \"$f\")\" || exit 1; done && venv/bin/python adapters/atx_layers.py records/atx"
     },
     {
       "id": 14,
@@ -847,7 +923,10 @@
           "source": "our adapter",
           "verdict": "contradicted",
           "detail": "intentional unequal digests, despite valid signatures",
-          "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)"
+          "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)",
+          "basis": "defect",
+          "divergence_in": "their records",
+          "declared_revision": "AIREP v0.2 fixture examples/v02/fixtures/toctou-mismatch.json (the unequal digests are the fixture's intent)"
         },
         {
           "cell": "authorized/executed action digest equality: no-execution fixture",
@@ -861,7 +940,10 @@
           "source": "our adapter",
           "verdict": "contradicted",
           "detail": "17 agree, 1 contradicted (CLS-XT1 expected-projection defect); all 18 raw outputs reproduced byte-exact",
-          "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)"
+          "evidence": "adapters/airep-run.txt (adapters/airep_adapter.py)",
+          "basis": "defect",
+          "divergence_in": "corpus",
+          "declared_revision": "Certisyn handoff corpus v0.1 (the original v0.2 handoff corpus); CLS-XT1's expected projection is the defect"
         },
         {
           "cell": "AIREP records through the shared agent-evidence-verify reader",
@@ -869,7 +951,12 @@
           "verdict": "not run",
           "evidence": "adapters/airep_adapter.py: only scoped AIREP replay; no general cross-format interoperability claim"
         }
-      ]
+      ],
+      "upstream": {
+        "url": "https://github.com/halvrenofviryel/ai-runtime-evidence-protocol",
+        "sha": "3d62af2a3c217939a3556b741550c2563430322f"
+      },
+      "replay": "git clone https://github.com/halvrenofviryel/ai-runtime-evidence-protocol /tmp/airep && git -C /tmp/airep checkout 3d62af2a3c217939a3556b741550c2563430322f && venv/bin/python -B adapters/airep_adapter.py /tmp/airep"
     },
     {
       "id": 15,
@@ -960,7 +1047,10 @@
           "source": "our adapter",
           "verdict": "contradicted",
           "detail": "1 forged packet, 2 runs, both differ from the draft. Draft -01 Section 4.2: scope_conformance \"MUST be re-derived by the verifier from recorded inputs, never asserted without re-derivation\"; Section 5: the shipped verifier \"recomputes ... the scope verdict from the recorded intent scope and executed action\". The valid vector rebuilt with executed amount 9999.00 against intent max_amount 5000.00, verdict left IN_SCOPE, every hash and the chain recomputed and the receipt re-signed: their verify.py at the pinned commit prints VERIFIED (exit 0), and still prints VERIFIED with that signing key pinned through --receipt-public-key, which is the case of a trusted key holder signing a verdict its own recorded inputs do not support. Their verify_scope_conformance checks that manifest headline, receipt and ScopeEvaluated event agree and that scope_hash and action_hash recompute; it does not derive the verdict. Control: the same packet with one signature character changed is refused (exit 1, VERIFICATION FAILED). Clean rerun from a fresh export at the pin is byte-identical.",
-          "evidence": "adapters/actaseal-dispute-run.txt, cases draft-s4.2-s5/* and forged/* (adapters/actaseal_dispute_adapter.py)"
+          "evidence": "adapters/actaseal-dispute-run.txt, cases draft-s4.2-s5/* and forged/* (adapters/actaseal_dispute_adapter.py)",
+          "basis": "defect",
+          "divergence_in": "their code",
+          "declared_revision": "draft-xg-payment-dispute-profile-01 sections 4.2 and 5, verifier actaseal-verify at b862d1014c33"
         }
       ],
       "upstream": {
@@ -1063,7 +1153,7 @@
           "evidence": "adapters/proofbundle-theirs-conformance-run.txt (their conformance/run_conformance.py at the pinned commit)"
         },
         {
-          "cell": "every *.jcs record (16: content-root statements, evidence and decision bodies, decision receipts and evaluation results) through the shared reader agent-evidence-verify 0.5.1, claim jcs_canonical/v1, target rfc8785",
+          "cell": "every *.jcs record (16: content-root statements, evidence and decision bodies, decision receipts and evaluation results) through the shared reader agent-evidence-verify 0.7.0, claim jcs_canonical/v1, target rfc8785",
           "source": "their records",
           "verdict": "agrees",
           "detail": "16 of 16 supported (canonical_bytes_match): each file is the RFC 8785 form of the JSON value it encodes. CI replays the run from the pinned commit with the hash-locked reader, and a copy with two members swapped turns that one line contradicted (canonical_bytes_differ) and the exit code to 1.",
@@ -1113,39 +1203,37 @@
     },
     {
       "id": 21,
-      "name": "XAIP receipts (draft-xkumakichi-xaip-receipts-03, xkumakichi/xaip-protocol)",
+      "name": "Receipts draft with a hand-rolled JavaScript canonicalizer (project withheld under the small-project rule)",
       "cells": [
         {
-          "cell": "The 15 vectors of docs/spec/test-vectors/receipts-v1-vectors.json (5 preimage, 3 payload, 4 receipt, 3 rejection), recomputed from draft -03 Sections 3.1 to 3.5 with rfc8785 and Ed25519",
-          "source": "their records",
-          "verdict": "agrees",
-          "detail": "15 of 15 agree. The adapter also decides admission for every signed receipt (full format check, caller signature when present): the three valid receipts are admitted and tampered_success_flip is refused (failureType required when success is false). Second run from a second export is byte-identical; changing one byte of toolName in the v1_cosigned_valid receipt makes both signatures fail, 14 of 15.",
-          "evidence": "adapters/xaip-receipts-run.txt (adapters/xaip_receipts_adapter.py); adapters/xaip-receipts-tamper-run.txt"
-        },
-        {
-          "cell": "Their checker docs/spec/test-vectors/check.mjs (node:crypto only) on their own 15 vectors",
-          "source": "their records",
-          "verdict": "agrees",
-          "detail": "All 15 vectors verified, exit 0, node 24.19.0; the second run is byte-identical. With the same one-byte toolName change it prints FAIL for v1_cosigned_valid and exits 1.",
-          "evidence": "adapters/xaip-theirs-check-run.txt; adapters/xaip-theirs-check-tamper-run.txt"
-        },
-        {
-          "cell": "Their canonicalize() function (read verbatim from check.mjs, labelled 'JCS (RFC 8785) canonical serialization') against vectors-a2a-jcs-v01, rfc8785 target",
+          "cell": "The draft's own canonicalize() function, labelled 'JCS (RFC 8785) canonical serialization' in its reference checker, against vectors-a2a-jcs-v01, rfc8785 target",
           "source": "our adapter",
           "verdict": "contradicted",
-          "detail": "48 of 53 agree, 5 differ. Executed 53 of 53, 48 pass. The 5 failures are the lone-surrogate rejects A3-REJECT-011, A3-REJECT-012, A4-REJECT-013, A4-REJECT-014 and A4-REJECT-015: the function emits a \\udXXX escape and exits 0 where the corpus says no canonical form exists. RFC 8785 Section 3.2.2.2: 'occurrences of such data MUST cause a compliant JCS implementation to terminate with an appropriate error'; Section 3.1 requires I-JSON input and RFC 7493 Section 2.1 says string values 'MUST NOT include code points that identify Surrogates or Noncharacters'. Draft -03 says 'Implementations producing receipts MUST canonicalize using JCS as defined in [RFC8785]'. Control: the same function patched to refuse a lone surrogate passes 53 of 53, so the verdict follows that one behaviour. Second run byte-identical.",
-          "evidence": "adapters/xaip-jcs-a2a-run.txt (adapters/xaip_jcs_cli.mjs); adapters/xaip-jcs-a2a-control-run.txt",
+          "detail": "48 of 53 agree, 5 differ: the lone-surrogate rejects A3-REJECT-011, A3-REJECT-012, A4-REJECT-013, A4-REJECT-014 and A4-REJECT-015, where the function emits a \\udXXX escape and returns where the corpus says no canonical form exists. RFC 8785 Section 3.2.2.2: 'occurrences of such data MUST cause a compliant JCS implementation to terminate with an appropriate error'; Section 3.1 requires I-JSON input and RFC 7493 Section 2.1 says string values 'MUST NOT include code points that identify Surrogates or Noncharacters'. The draft says receipts MUST be canonicalized with RFC 8785. The failure class is a parse, sort and JSON.stringify canonicalizer that writes a lone surrogate as an escape; the function takes a parsed value, so the four parse-layer probes reach it already parsed. The A2A JS SDK's jcsStringify (row 26) fails the same five cases with the same bytes, so the class replays in public there (it also fails the three non-finite cases, which this function refuses).",
+          "evidence": "adapters/row21-jcs-run.txt (adapters/jcs_function_score.mjs)",
           "basis": "defect",
           "divergence_in": "their code",
-          "declared_revision": "draft-xkumakichi-xaip-receipts-03"
+          "declared_revision": "the draft's own requirement to canonicalize with RFC 8785 (revision withheld)"
         }
       ],
-      "upstream": {
-        "url": "https://github.com/xkumakichi/xaip-protocol",
-        "sha": "287d77654ea504d8dc0f1feaa9bbb5db4e43271a"
+      "withheld": {
+        "reason": "the project is far below the size line the matrix cites at, so it is not named (no name, repository link or fix pointer); the cell and its failure class stay",
+        "inputs": [
+          {
+            "what": "the reference checker source file canonicalize() was read from",
+            "sha256": "d6f5a35af5873719c4b46b53a7111ae5cb8decba67b0ccde1ceb6149ecf7e482"
+          }
+        ]
       },
-      "replay": "git clone https://github.com/xkumakichi/xaip-protocol /tmp/xaip && git -C /tmp/xaip checkout 287d77654ea504d8dc0f1feaa9bbb5db4e43271a && python -I adapters/xaip_receipts_adapter.py /tmp/xaip && (cd /tmp/xaip/docs/spec/test-vectors && node check.mjs) && XAIP_ROOT=/tmp/xaip A2A_JCS_TARGET=rfc8785 agent-evidence-vectors --corpus vectors-a2a-jcs-v01 --verifier \"node adapters/xaip_jcs_cli.mjs\"",
-      "independence": "non-author"
+      "replay": "node --no-warnings=ExperimentalWarning adapters/jcs_function_score.mjs --source CHECKER.mjs --entry canonicalize ../aev/corpora/vectors-a2a-jcs-v01   # CHECKER.mjs: a copy of the withheld input, sha256 above (../aev: agent-evidence-vectors v0.36.3, cloned as in the replay of project 25)",
+      "independence": "non-author",
+      "canonicalizer": {
+        "function": "canonicalize() of the draft's reference checker",
+        "kind": "hand-rolled",
+        "input": "parsed value",
+        "parse_layer": "parsed before it",
+        "evidence": "adapters/row21-jcs-run.txt"
+      }
     },
     {
       "id": 22,
@@ -1222,6 +1310,183 @@
           "detail": "needs a signed catalog entry and a recorded run"
         }
       }
+    },
+    {
+      "id": 25,
+      "name": "Proofable authority-at-dispatch evidence (proofable/docs; CAIP-380 portable proofs)",
+      "cells": [
+        {
+          "cell": "SHA256SUMS of the 2026-11-02 packet (public/evidence/aaif/authority-at-dispatch/2026-11-02-suite), recomputed with hashlib",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "7 of 7 listed files match. Second run byte-identical.",
+          "evidence": "adapters/proofable-aad-run.txt (adapters/proofable_aad_adapter.py)"
+        },
+        {
+          "cell": "Their offline verifier verify-portable-proofs.mjs (@proofable/sdk 0.1.11) on their 15 CAIP-380 envelopes: 10 authority decisions and 5 job receipts",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "15 of 15 verify (signature and qHash), each signed by 0xa41494e1e5f9e5eaf786961e6ef84cd1a3071eec as the packet README states. Changing one digit of one envelope's signed content makes the verifier refuse that envelope, and only that one, with exit 1: 15 of 15. Second run byte-identical. The signer is the Proofable service key, so each envelope is a service-attested statement, not one signed by the controller.",
+          "evidence": "adapters/proofable-aad-run.txt (adapters/proofable_aad_adapter.py)"
+        },
+        {
+          "cell": "the authority-at-dispatch/v1 reader of agent-evidence-vectors 0.36.3 (the reader of the corpus vectors-authority-at-dispatch) on the 8 case records of trace.jsonl, which name that contract",
+          "source": "our adapter",
+          "verdict": "unsupported",
+          "profile": "authority-at-dispatch/v1 record shape: decisionTime, approvedAction, dispatch (with the dispatched bytes), delegation grants with notBefore and expiresAt, authorityEvidence with observedAt",
+          "detail": "contractId is present and equal to the reader's on 8 of 8 records, and the 8 records cite all 15 envelopes. The reader returns no decision on any of the 8 (0 of 8): the records carry none of decisionTime, approvedAction, dispatch, delegation or authorityEvidence, which the reader's checks 3 to 8 read, and trace.jsonl states evidenceAgeSeconds as not_emitted. A refusal on shape, so no verdict on the packet's expected outcomes: they are the project's statements, read by the cells above through the project's own verifier only.",
+          "evidence": "adapters/proofable-reader-cell-run.txt (adapters/proofable_reader_cell.py)"
+        }
+      ],
+      "upstream": {
+        "url": "https://github.com/proofable/docs",
+        "sha": "513cd308c9f943e5cb4b096912806ad6fa3146e8",
+        "note": "verifier dependency @proofable/sdk@0.1.11 from npm, as the packet README pins it"
+      },
+      "replay": "git clone https://github.com/proofable/docs ../proofable-docs && git -C ../proofable-docs checkout 513cd308c9f943e5cb4b096912806ad6fa3146e8 && (cd ../proofable-docs/public/evidence/aaif/authority-at-dispatch/2026-11-02-suite && npm install --no-save @proofable/sdk@0.1.11) && python -I adapters/proofable_aad_adapter.py ../proofable-docs && python -I adapters/proofable_reader_cell.py ../proofable-docs",
+      "independence": "co-author"
+    },
+    {
+      "id": 26,
+      "name": "A2A JS SDK (a2aproject/a2a-js; Agent Card signing, canonicalizeAgentCard)",
+      "cells": [
+        {
+          "cell": "jcsStringify() of src/signature.ts, the canonicalizer under canonicalizeAgentCard, against vectors-a2a-jcs-v01, rfc8785 target",
+          "source": "our adapter",
+          "verdict": "contradicted",
+          "detail": "45 of 53 agree, 8 differ: the lone-surrogate rejects A3-REJECT-011, A3-REJECT-012 and A4-REJECT-013 to 015 come out as \\udXXX escapes instead of a refusal (RFC 8785 Section 3.2.2.2, RFC 7493 Section 2.1), and the non-finite rejects A5-REJECT-016 to 018 (NaN, Infinity, -Infinity, given to the function as the numbers they name) come out as {\"n\":null}, because JSON.stringify writes a non-finite number as null where RFC 8785 Section 3.2.2.3 requires an error. The function takes a parsed value, so the four parse-layer probes (two duplicate members, a surrogate written as UTF-8 bytes, a raw 0xFF byte) reach it already parsed: their outcome belongs to whatever parses the received bytes before it, and the SDK's readers were not run here. signature.ts is byte-identical at 41335e66 and at the pin. Open pull request a2aproject/a2a-js#804 adds the lone-surrogate refusal and a CI job running agent-evidence-vectors; with it merged the five lone-surrogate cases agree and the three non-finite cases still differ. The function is measured alone, without the AgentCard round trip before it.",
+          "evidence": "adapters/a2a-js-jcs-run.txt (adapters/jcs_function_score.mjs)",
+          "basis": "defect",
+          "divergence_in": "their code",
+          "declared_revision": "A2A specification 8.4.1 (canonicalize with RFC 8785) at a2a-js 3f5cb54f"
+        }
+      ],
+      "upstream": {
+        "url": "https://github.com/a2aproject/a2a-js",
+        "sha": "3f5cb54fa94f81e3d1ff58f852c53fcb7135934c",
+        "also": [
+          {
+            "url": "https://github.com/probityai/agent-evidence-vectors",
+            "sha": "13247ea551e470fb57413fdfab4f2738147613a1"
+          }
+        ],
+        "note": "the corpus is agent-evidence-vectors v0.36.3 (the pinned reader); node 24.19.0"
+      },
+      "replay": "git clone --filter=blob:none https://github.com/probityai/agent-evidence-vectors ../aev && git -C ../aev checkout 13247ea551e470fb57413fdfab4f2738147613a1 && git clone https://github.com/a2aproject/a2a-js ../a2a-js && git -C ../a2a-js checkout 3f5cb54fa94f81e3d1ff58f852c53fcb7135934c && node --no-warnings=ExperimentalWarning adapters/jcs_function_score.mjs --source ../a2a-js/src/signature.ts --entry jcsStringify --decl MAX_CANONICALIZATION_DEPTH --decl CanonicalizationError --decl isContainer --decl assertNestingDepth ../aev/corpora/vectors-a2a-jcs-v01",
+      "independence": "non-author",
+      "canonicalizer": {
+        "function": "jcsStringify (src/signature.ts)",
+        "kind": "hand-rolled",
+        "input": "parsed value",
+        "parse_layer": "parsed before it",
+        "evidence": "adapters/a2a-js-jcs-run.txt"
+      }
+    },
+    {
+      "id": 27,
+      "name": "x402 offer and receipt extension (x402-foundation/x402, typescript/packages/extensions)",
+      "cells": [
+        {
+          "cell": "canonicalize() of src/offer-receipt/signing.ts, the canonical JSON its JWS offers and receipts are signed over, against vectors-a2a-jcs-v01, rfc8785 target",
+          "source": "our adapter",
+          "verdict": "agrees",
+          "detail": "53 of 53 agree, the five lone-surrogate rejects included. Second run byte-identical.",
+          "evidence": "adapters/x402-jcs-run.txt (adapters/jcs_function_score.mjs)"
+        },
+        {
+          "cell": "the same function on four inputs with no canonical form at the parse or decode layer (two duplicate members, a surrogate written as UTF-8 bytes, a raw 0xFF byte)",
+          "source": "our adapter",
+          "verdict": "cannot-tell",
+          "detail": "all four come out as bytes: the duplicates keep the last value and invalid UTF-8 becomes U+FFFD. The function takes a parsed value, so the refusal belongs to whatever parses the received bytes before it; the extension's readers (extractReceiptPayload) were not run here, so whether a duplicate member in a signed payload is refused is not known from this cell.",
+          "evidence": "adapters/x402-jcs-run.txt (adapters/jcs_function_score.mjs)"
+        }
+      ],
+      "upstream": {
+        "url": "https://github.com/x402-foundation/x402",
+        "sha": "b38d3becc5a05234008506a42f62c3b2186510ce",
+        "also": [
+          {
+            "url": "https://github.com/probityai/agent-evidence-vectors",
+            "sha": "13247ea551e470fb57413fdfab4f2738147613a1"
+          }
+        ],
+        "note": "the corpus is agent-evidence-vectors v0.36.3 (the pinned reader); node 24.19.0"
+      },
+      "replay": "git clone --filter=blob:none https://github.com/probityai/agent-evidence-vectors ../aev && git -C ../aev checkout 13247ea551e470fb57413fdfab4f2738147613a1 && git clone --filter=blob:none https://github.com/x402-foundation/x402 ../x402 && git -C ../x402 checkout b38d3becc5a05234008506a42f62c3b2186510ce && node --no-warnings=ExperimentalWarning adapters/jcs_function_score.mjs --source ../x402/typescript/packages/extensions/src/offer-receipt/signing.ts --entry canonicalize --decl serializeValue --decl serializeNumber --decl serializeString --decl serializeArray --decl serializeObject ../aev/corpora/vectors-a2a-jcs-v01",
+      "independence": "non-author",
+      "canonicalizer": {
+        "function": "canonicalize (src/offer-receipt/signing.ts)",
+        "kind": "hand-rolled",
+        "input": "parsed value",
+        "parse_layer": "parsed before it",
+        "evidence": "adapters/x402-jcs-run.txt"
+      }
+    },
+    {
+      "id": 28,
+      "name": "Clean-room verifiers for agent-audit-record and restoration-evidence (b7n0de, Konrad Gruszka)",
+      "cells": [
+        {
+          "cell": "Their audit-record verifier, written from the text of draft-gilda-audit-agent-audit-record-03 alone, run by their own runner on the 225 members of corpora/vectors-agent-audit-record at 250de755; its verdict on each member against MANIFEST.json",
+          "source": "our adapter",
+          "verdict": "contradicted",
+          "basis": "revision-skew",
+          "divergence_in": "corpus",
+          "declared_revision": "draft-gilda-audit-agent-audit-record-03 (29 October 2026); of the 38 members that differ the manifest names revision -01 on 15, revision -04 (not published) on 22 and none on X6",
+          "detail": "187 of 225 verdicts agree and 38 differ. None of the 38 is a failure of his verifier against the text of -03: 11 members carry consumption.supersedes (CS18 to CS22, CS26 to CS31), 11 carry consumption.asset in place of unit (CS34, CS38 to CS41, CS43, CS48 to CS50, CS53, CS54), 8 carry a principal member (PR4 to PR11) and 7 a dataSubject member (DS4 to DS10), and no published revision 00 to 03 of the draft defines any of them; they are rules of text proposed for revision 04, and Appendix B of -01 holds only CS1 to CS9 although the manifest labels 15 of these members -01. X6 (a fourth member in a held entry, expected malformed) falls where -03 is silent: its held-entry sentence has no 'and no other'. Where the manifest states them the secondary results agree: derivedTier 76 of 76, withinLimit 7 of 7, dating 22 of 22, receipt statement 3 of 3; the set verdict agrees for 17 of 28 sets. Their 5620 planted faults (signature, signed field, key, required member, reference, I-JSON, time) all come out as expected, and their runner exits 0, so every one of the 304 pinned corpus files holds and the fresh results equal theirs byte for byte. One record with a signature character changed turns his verdict from valid to malformed (signature-invalid).",
+          "evidence": "adapters/b7n0de-verifiers-run.txt (adapters/b7n0de_verifiers_adapter.py; records/b7n0de-verifiers/); adapters/b7n0de-verifiers-mutation-run.txt"
+        },
+        {
+          "cell": "Their restoration-evidence verifier, written from the text of draft-gilda-audit-restoration-evidence-00 alone, run by their own runner on the 57 members of corpora/vectors-restart-records at 250de755; verdict and first reason code against MANIFEST.json",
+          "source": "our adapter",
+          "verdict": "agrees",
+          "detail": "57 of 57 verdicts agree and 57 of 57 first reason codes agree (49 single records and 8 bundles; 15 accept and 42 reject). The manifest of this corpus is byte-equal to the one in agent-evidence-vectors 0.36.3 on PyPI. Their planted faults at the 15 valid members all come out as expected (counted in the 5620 of the cell above).",
+          "evidence": "adapters/b7n0de-verifiers-run.txt (adapters/b7n0de_verifiers_adapter.py; records/b7n0de-verifiers/)"
+        },
+        {
+          "cell": "Their audit-record verifier through the external-verifier contract of agent-evidence-vectors (packaging/run_vectors.py at pull request 575, head 34704695), with the thin adapter contract-adapter/contract_adapter.py that reshapes its result into the contract's output",
+          "source": "our adapter",
+          "verdict": "contradicted",
+          "basis": "defect",
+          "divergence_in": "our reader",
+          "declared_revision": "agent-evidence-vectors pull request 575 at 34704695b763 (open, not on main); contract https://probityai.github.io/agent-evidence-vectors/contract/agent-audit-record/v1",
+          "detail": "225 members executed, 180 conform, 45 fail, 32 reason-parity notes, exit 1, the totals his results package states. The 45: the 38 verdict differences of the first cell, CS32 (the manifest expects the set malformed, a rule of the proposed text that keys a held claim by principal, agent key and operation key; -03 scopes the key by limitDigest, so his valid set is right under -03), and six members (CS7, CS8, CS17, SQ5, X17, X18) whose record and set verdicts match and which fail only on set.codes. Those six are our defect: the code names (consumption-set-stale-revision and the others) appear in no revision of the draft and the manifest says the draft does not define them, yet the contract scores set codes by equality while its own docstring says codes are compared and reported, never scored.",
+          "evidence": "adapters/b7n0de-contract-run.txt (records/b7n0de-verifiers/contract-adapter/contract_adapter.py)"
+        }
+      ],
+      "upstream": {
+        "url": "https://github.com/probityai/agent-evidence-vectors",
+        "sha": "250de75575a945d00211415d7af41894d15427fa",
+        "also": [
+          {
+            "url": "https://github.com/probityai/agent-evidence-vectors",
+            "sha": "34704695b763814f2f56d7926939131553465208"
+          }
+        ],
+        "note": "The corpora under test, with the commit his results name. The verifiers are his own code, kept under records/b7n0de-verifiers/ because the source exists only as an archive sent by email on 15 November 2026 (Apache-2.0, used with his written permission)."
+      },
+      "replay": "git clone --bare https://github.com/probityai/agent-evidence-vectors /tmp/aev.git && venv/bin/python -I adapters/b7n0de_verifiers_adapter.py records/b7n0de-verifiers /tmp/aev.git && venv/bin/python -I adapters/b7n0de_verifiers_adapter.py records/b7n0de-verifiers /tmp/aev.git --mutation  # exit 1; the contract run (open pull request 575): git -C /tmp/aev.git fetch origin 34704695b763814f2f56d7926939131553465208 && git -C /tmp/aev.git worktree add /tmp/pr575 34704695b763814f2f56d7926939131553465208 && cd records/b7n0de-verifiers && ../../venv/bin/python /tmp/pr575/packaging/run_vectors.py --vectors /tmp/pr575/corpora/vectors-agent-audit-record --verifier '../../venv/bin/python -I contract-adapter/contract_adapter.py audit-record/agent_evidence_01/tools' --report /tmp/contract-report.json  # exit 1, 180 of 225 conform",
+      "independence": "non-author"
+    },
+    {
+      "id": 29,
+      "name": "Praxis Policy Engine OCSF decision records (praxis-proxy/policy, reference/plugins/ocsf-audit; AID-EMIT-1)",
+      "upstream": {
+        "url": "https://github.com/praxis-proxy/policy",
+        "sha": "82ff511b1b512d2421e3d3a179416b061197c462",
+        "note": "The three SAMPLE-OUTPUT*.md files next to the sink's README, which it names as AID-EMIT-1's conformance vectors. The two records of SAMPLE-OUTPUT.md are signed with the published demo key, the P-256 scalar of 32 bytes 0x42."
+      },
+      "replay": "git clone https://github.com/praxis-proxy/policy ../praxis-policy && git -C ../praxis-policy checkout 82ff511b1b512d2421e3d3a179416b061197c462 && venv/bin/python -m pip install agent-evidence-verify==0.7.0 && venv/bin/python -I adapters/ocsf_decision_reader.py ../praxis-policy && venv/bin/python -I adapters/ocsf_decision_reader.py --mutation ../praxis-policy  # exit 1",
+      "independence": "non-author",
+      "cells": [
+        {
+          "cell": "OCSF decision-record reader (ours, agent-evidence-verify 0.7.0) on the 11 records of the sink's three published sample outputs",
+          "source": "their records",
+          "verdict": "agrees",
+          "detail": "11 of 11. Both signed records of SAMPLE-OUTPUT.md read with structure, ruling, fingerprint, DSSE signature and key binding verified under the published demo key, and they form one chain (links, gaps and opening verified); the tail reads not_checked, since no record can show that later records were not deleted and the samples carry no independent head. The nine decision records of SAMPLE-OUTPUT-DECISIONS.md and SAMPLE-OUTPUT-PROVENANCE.md read with every ruling consistent (ids, captions, verdict, steps, deny_ignored flag, status code) and stream_seq 41 to 49 dense with emission_seq in order; they are unchained and unsigned, so no fingerprint or signature cell is claimed for them. The reader was written from the sink's README and the samples, not its code. Second angle: one changed byte of each signed record fails its fingerprint (2 of 2), and with --mutation an earlier duplicate disposition injected into the first signed record reads differs (structural_validity failed).",
+          "evidence": "adapters/ocsf-decision-reader-run.txt (adapters/ocsf_decision_reader.py)"
+        }
+      ]
     }
   ]
 }

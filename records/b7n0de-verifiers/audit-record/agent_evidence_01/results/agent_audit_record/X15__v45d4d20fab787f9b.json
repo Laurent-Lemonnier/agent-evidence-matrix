@@ -1,0 +1,50 @@
+{
+ "draftId": "X15",
+ "draftRevision": null,
+ "draftSection": "4.6",
+ "expected": {
+  "codes": [
+   "not-parseable"
+  ],
+  "dating": {
+   "codes": [
+    "entry-record-unreadable"
+   ],
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "malformed"
+  },
+  "verdict": "malformed"
+ },
+ "file": "retained/v45d4d20fab787f9b.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "dating": {
+   "datedAt": null,
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "malformed",
+   "failure": {
+    "code": "entry-record-unreadable",
+    "section": "4.7",
+    "text": "record payload not readable"
+   },
+   "receipt": null
+  },
+  "derivedTier": null,
+  "failure": {
+   "code": "not-parseable",
+   "section": "4.6",
+   "text": "payload is not JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {
+  "dating.datedAt": true,
+  "dating.delegationRoot": true,
+  "dating.entry": true
+ }
+}

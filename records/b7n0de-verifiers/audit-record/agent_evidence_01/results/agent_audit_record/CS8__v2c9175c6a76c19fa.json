@@ -1,0 +1,79 @@
+{
+ "draftId": "CS8",
+ "draftRevision": "draft-gilda-audit-agent-audit-record-01",
+ "draftSection": null,
+ "expected": {
+  "codes": [],
+  "derivedTier": "authoritative",
+  "set": {
+   "codes": [
+    "consumption-set-release-unshown"
+   ],
+   "verdict": "malformed",
+   "withinLimit": [
+    true,
+    true
+   ]
+  },
+  "verdict": "valid"
+ },
+ "file": "sets/v2c9175c6a76c19fa.json",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "derivedTier": "authoritative",
+  "records": [
+   {
+    "derivedAgreement": "agree",
+    "derivedObserved": "occurred",
+    "derivedTier": "authoritative",
+    "derivedUnavailable": [],
+    "failure": null,
+    "payloadSha256": "14b2c31a4e5ce32f5a54b09fae85861d5d2f2d659764c9fdf831612d08c4a571",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "bec9c80a8ab5c0b5f32fcc9ae11cb5479f2f571e32780c6919b0f81adada402a",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "valid",
+    "withinLimit": true
+   },
+   {
+    "derivedAgreement": "agree",
+    "derivedObserved": "occurred",
+    "derivedTier": "authoritative",
+    "derivedUnavailable": [],
+    "failure": null,
+    "payloadSha256": "eaa9cd321560e0f28f9b55289f4e7185175b867805a66419d4a1ce1f94d395ef",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "bec9c80a8ab5c0b5f32fcc9ae11cb5479f2f571e32780c6919b0f81adada402a",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "valid",
+    "withinLimit": true
+   }
+  ],
+  "set": {
+   "conflicts": [],
+   "consumptionFailures": [
+    {
+     "check": "release-without-settlement",
+     "key": "urn:example:op:r1",
+     "limitDigest": "9bf5456f2d7dfe274e26d225a7c4ee1d2e76293e917b21eac737766ef3bca4aa"
+    }
+   ],
+   "missing": [],
+   "verdict": "malformed",
+   "withinLimit": [
+    true,
+    true
+   ]
+  },
+  "verdict": "valid"
+ },
+ "subMatch": {
+  "derivedTier": true,
+  "set.verdict": true
+ }
+}

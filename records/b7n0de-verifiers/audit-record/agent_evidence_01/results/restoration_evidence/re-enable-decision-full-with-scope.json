@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "full-with-scope",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "re-enable-decision-full-with-scope",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "full-with-scope",
+  "section": "5.3",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "8",
+ "shape": "record"
+}

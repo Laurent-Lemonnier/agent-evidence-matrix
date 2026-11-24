@@ -1,0 +1,47 @@
+{
+ "draftId": "R4",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [],
+  "dating": {
+   "codes": [
+    "entry-retainer-anchor-missing"
+   ],
+   "datedAt": "2026-09-19T11:04:20Z",
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "malformed"
+  },
+  "derivedTier": "authoritative",
+  "verdict": "valid"
+ },
+ "file": "retained/v87c7ddc3f1d1682c.json",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "dating": {
+   "datedAt": "2026-09-19T11:04:20Z",
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "malformed",
+   "failure": {
+    "code": "entry-retainer-anchor-missing",
+    "section": "4.7.1",
+    "text": "received true and no anchor of origin retainer"
+   },
+   "receipt": null
+  },
+  "derivedTier": "authoritative",
+  "failure": null,
+  "verdict": "valid"
+ },
+ "subMatch": {
+  "dating.datedAt": true,
+  "dating.delegationRoot": true,
+  "dating.entry": true,
+  "derivedTier": true
+ }
+}

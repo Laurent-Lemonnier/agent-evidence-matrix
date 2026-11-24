@@ -1,0 +1,29 @@
+{
+ "draftId": "X8",
+ "draftRevision": null,
+ "draftSection": "4.2",
+ "expected": {
+  "codes": [
+   "subject-request-mismatch"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v219ae2dc9d96d2c0.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "subject-request-mismatch",
+   "section": "5.3",
+   "text": "first subject digest is not decision.requestDigest"
+  },
+  "payloadSha256": "8b96124128b1e8309393de833bbc524a6ef3b72eb88047e30147247a0d98508d",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

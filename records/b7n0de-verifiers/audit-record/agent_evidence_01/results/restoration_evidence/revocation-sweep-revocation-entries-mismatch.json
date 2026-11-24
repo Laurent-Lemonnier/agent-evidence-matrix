@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "revocation-entries-mismatch",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "revocation-sweep-revocation-entries-mismatch",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "revocation-entries-mismatch",
+  "section": "5.2",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "5",
+ "shape": "record"
+}

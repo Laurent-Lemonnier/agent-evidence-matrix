@@ -1,0 +1,29 @@
+{
+ "draftId": "F4",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "request-digest-mismatch"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v17e215cb0d25c03a.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "request-digest-mismatch",
+   "section": "5.3",
+   "text": "decision.requestDigest is not the RFC 8785 digest"
+  },
+  "payloadSha256": "8fdbeebf62e53acfa676ee032db56b4a7ed611810d427b574361f9cc6dda6800",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "recomputedRequestDigest": "62e9796a2c8b25ceedf1d86583deab0fc3363788d4e76a5dc1aa1810ec1ee8b1",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

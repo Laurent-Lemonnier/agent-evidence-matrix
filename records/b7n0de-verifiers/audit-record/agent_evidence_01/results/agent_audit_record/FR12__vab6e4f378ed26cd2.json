@@ -1,0 +1,28 @@
+{
+ "draftId": "FR12",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "value-outside-vocabulary"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/vab6e4f378ed26cd2.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "value-outside-vocabulary",
+   "section": "5.4",
+   "text": "inputs[1].input='network' outside closed set"
+  },
+  "payloadSha256": "147315cbdbb5ca5b2fe02598707e09d8e6342f550a5b90dec6ddf582cad19140",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

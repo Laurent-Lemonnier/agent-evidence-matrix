@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "predecessor-type-mismatch",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "bundle-predecessor-type-mismatch",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "file": "r3.json",
+  "reason": "predecessor-type-mismatch",
+  "rule": "B3",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "B3",
+ "shape": "bundle"
+}

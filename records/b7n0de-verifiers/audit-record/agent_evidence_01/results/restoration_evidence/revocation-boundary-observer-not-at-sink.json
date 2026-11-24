@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "observer-not-at-sink",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "revocation-boundary-observer-not-at-sink",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "observer-not-at-sink",
+  "section": "5.5",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "7",
+ "shape": "record"
+}

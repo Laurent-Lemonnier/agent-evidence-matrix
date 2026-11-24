@@ -1,0 +1,23 @@
+{
+ "draftId": "X9",
+ "draftRevision": null,
+ "draftSection": "4.4",
+ "expected": {
+  "codes": [
+   "envelope-unreadable"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/vb0c4f6608a0e9440.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "envelope-unreadable",
+   "section": "4.4",
+   "text": "payloadType is not application/vnd.in-toto+json"
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

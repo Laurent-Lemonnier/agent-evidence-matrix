@@ -1,0 +1,28 @@
+{
+ "draftId": "F2",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "delegation-subject-inconsistent"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/va862b2ef7296801f.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "delegation-subject-inconsistent",
+   "section": "5.2",
+   "text": "subjectKind none beside a named subject"
+  },
+  "payloadSha256": "7fcb81d7cdb6aaa034081d265855d7b5c14456612d9fd10bc4b3f723acd6c543",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

@@ -1,0 +1,28 @@
+{
+ "draftId": "PS2",
+ "draftRevision": "draft-gilda-audit-agent-audit-record-03",
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "value-outside-vocabulary"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v77a2500154f96cb4.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "value-outside-vocabulary",
+   "section": "5.4",
+   "text": "inputs[2].input='principal-standing-source' outside closed set"
+  },
+  "payloadSha256": "e8e28821b32866c996ff96344bea72e0e2ac40876a6b832eb886af7dda1d591e",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

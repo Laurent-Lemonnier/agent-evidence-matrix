@@ -1,0 +1,88 @@
+{
+ "draftId": "CS28",
+ "draftRevision": "draft-gilda-audit-agent-audit-record-01",
+ "draftSection": null,
+ "expected": {
+  "codes": [],
+  "derivedTier": "authoritative",
+  "set": {
+   "codes": [],
+   "verdict": "valid",
+   "withinLimit": [
+    true,
+    true,
+    true
+   ]
+  },
+  "verdict": "valid"
+ },
+ "file": "sets/vbb73d1139d98888d.json",
+ "kind": "accept",
+ "match": false,
+ "own": {
+  "records": [
+   {
+    "derivedAgreement": "agree",
+    "derivedObserved": "occurred",
+    "derivedTier": "authoritative",
+    "derivedUnavailable": [],
+    "failure": null,
+    "payloadSha256": "8723859bf7740d41eb76e4b3198f3b94d73b5d2bb586d5ac7ee2e15f063207d5",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "bec9c80a8ab5c0b5f32fcc9ae11cb5479f2f571e32780c6919b0f81adada402a",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "valid",
+    "withinLimit": true
+   },
+   {
+    "derivedAgreement": "not-exercised",
+    "derivedObserved": "none",
+    "derivedTier": "authoritative",
+    "derivedUnavailable": [],
+    "failure": null,
+    "payloadSha256": "db4f11c1291569d94b74fb863fc82ed31b6ee62a701f08c4d50d7563fe3eae5c",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "valid",
+    "withinLimit": true
+   },
+   {
+    "derivedAgreement": "agree",
+    "derivedObserved": "occurred",
+    "derivedUnavailable": [],
+    "failure": {
+     "code": "consumption-malformed",
+     "section": "5.9",
+     "text": "consumption carries supersedes"
+    },
+    "payloadSha256": "37cdb089ad2969a38b1ca4e1d60b6f292da18ef4b4baa88e985bcd3ec10551d9",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "malformed"
+   }
+  ],
+  "set": {
+   "conflicts": [],
+   "consumptionFailures": [],
+   "missing": [],
+   "verdict": "malformed",
+   "withinLimit": [
+    true,
+    true,
+    null
+   ]
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {
+  "set.verdict": false
+ }
+}

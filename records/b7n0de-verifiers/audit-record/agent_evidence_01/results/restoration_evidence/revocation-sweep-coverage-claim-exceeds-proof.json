@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "coverage-claim-exceeds-proof",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "revocation-sweep-coverage-claim-exceeds-proof",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "coverage-claim-exceeds-proof",
+  "section": "5.2",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "6",
+ "shape": "record"
+}

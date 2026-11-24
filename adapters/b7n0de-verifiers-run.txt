@@ -1,0 +1,294 @@
+# Konrad Gruszka (b7n0de) verifiers run by his own runner on the audit-record (225 members) and restart-records (57 members) corpora at agent-evidence-vectors 250de755; columns: member, his verdict, manifest verdict, equal or differ, members the record carries that revision 03 does not define. Re-run on HiPerGator and locally, 19 Nov 2026: byte-identical.
+# command: venv/bin/python -I adapters/b7n0de_verifiers_adapter.py records/b7n0de-verifiers <bare clone of probityai/agent-evidence-vectors holding 250de75575a945d00211415d7af41894d15427fa>
+audit-record/A1	valid	valid	equal	
+audit-record/A2	valid	valid	equal	
+audit-record/A3	valid	valid	equal	
+audit-record/A4	valid	valid	equal	
+audit-record/A5	valid	valid	equal	
+audit-record/A6	valid	valid	equal	
+audit-record/A7	valid	valid	equal	
+audit-record/A8	valid	valid	equal	
+audit-record/A9	valid	valid	equal	
+audit-record/A10	valid	valid	equal	
+audit-record/A11	valid	valid	equal	
+audit-record/A12	valid	valid	equal	
+audit-record/A13	valid	valid	equal	
+audit-record/A14	valid	valid	equal	
+audit-record/A15	valid	valid	equal	
+audit-record/A16	valid	valid	equal	
+audit-record/A17	valid	valid	equal	
+audit-record/A18	valid	valid	equal	
+audit-record/A19	valid	valid	equal	
+audit-record/A20	valid	valid	equal	
+audit-record/F1	malformed	malformed	equal	
+audit-record/F2	malformed	malformed	equal	
+audit-record/F3	malformed	malformed	equal	
+audit-record/F3b	malformed	malformed	equal	
+audit-record/F3c	malformed	malformed	equal	
+audit-record/F4	malformed	malformed	equal	
+audit-record/F5	malformed	malformed	equal	
+audit-record/F6	malformed	malformed	equal	
+audit-record/F7	malformed	malformed	equal	
+audit-record/T1	malformed	malformed	equal	
+audit-record/T2	malformed	malformed	equal	
+audit-record/T3	malformed	malformed	equal	
+audit-record/T4	malformed	malformed	equal	
+audit-record/T5	malformed	malformed	equal	
+audit-record/D1	malformed	malformed	equal	
+audit-record/D2	malformed	malformed	equal	
+audit-record/D3	malformed	malformed	equal	
+audit-record/S1	malformed	malformed	equal	
+audit-record/S2	malformed	malformed	equal	
+audit-record/I1r	malformed	malformed	equal	
+audit-record/TI1	malformed	malformed	equal	
+audit-record/TI2	malformed	malformed	equal	
+audit-record/TI3	malformed	malformed	equal	
+audit-record/TI4	malformed	malformed	equal	
+audit-record/TI5	malformed	malformed	equal	
+audit-record/C1	malformed	malformed	equal	
+audit-record/C2	malformed	malformed	equal	
+audit-record/C3	malformed	malformed	equal	
+audit-record/E1	malformed	malformed	equal	
+audit-record/E2	malformed	malformed	equal	
+audit-record/E3	malformed	malformed	equal	
+audit-record/E4	malformed	malformed	equal	
+audit-record/E5	malformed	malformed	equal	
+audit-record/E6	malformed	malformed	equal	
+audit-record/V1	malformed	malformed	equal	
+audit-record/V2	malformed	malformed	equal	
+audit-record/V3	malformed	malformed	equal	
+audit-record/FE1	malformed	malformed	equal	
+audit-record/FE2	malformed	malformed	equal	
+audit-record/FR1	valid	valid	equal	
+audit-record/FR2	valid	valid	equal	
+audit-record/FR3	valid	valid	equal	
+audit-record/FR4	valid	valid	equal	
+audit-record/FR5	malformed	malformed	equal	
+audit-record/FR6	malformed	malformed	equal	
+audit-record/FR7	malformed	malformed	equal	
+audit-record/FR8	malformed	malformed	equal	
+audit-record/FR9	malformed	malformed	equal	
+audit-record/FR10	malformed	malformed	equal	
+audit-record/FR11	malformed	malformed	equal	
+audit-record/FR12	malformed	malformed	equal	
+audit-record/FR13	malformed	malformed	equal	
+audit-record/EV1	malformed	malformed	equal	
+audit-record/EV2	malformed	malformed	equal	
+audit-record/EV3	malformed	malformed	equal	
+audit-record/EV4	malformed	malformed	equal	
+audit-record/EV5	malformed	malformed	equal	
+audit-record/EV6	malformed	malformed	equal	
+audit-record/EV7	malformed	malformed	equal	
+audit-record/EV8	malformed	malformed	equal	
+audit-record/EV9	malformed	malformed	equal	
+audit-record/EV10	malformed	malformed	equal	
+audit-record/EV11	malformed	malformed	equal	
+audit-record/EV12	malformed	malformed	equal	
+audit-record/EV13	malformed	malformed	equal	
+audit-record/OV1	malformed	malformed	equal	
+audit-record/OV2	malformed	malformed	equal	
+audit-record/OV3	malformed	malformed	equal	
+audit-record/N1	valid	valid	equal	
+audit-record/N2	valid	any reading	equal	
+audit-record/R1	valid	valid	equal	
+audit-record/R2	valid	valid	equal	
+audit-record/R3	valid	valid	equal	
+audit-record/R4	valid	valid	equal	
+audit-record/R5	valid	valid	equal	
+audit-record/R6	valid	valid	equal	
+audit-record/R7	valid	valid	equal	
+audit-record/R8	valid	valid	equal	
+audit-record/R9	valid	valid	equal	
+audit-record/FR13b	malformed	malformed	equal	
+audit-record/FR16	malformed	malformed	equal	
+audit-record/FR17a	valid	valid	equal	
+audit-record/FR17b	valid	valid	equal	
+audit-record/FR17c	malformed	malformed	equal	
+audit-record/FR18	valid	valid	equal	
+audit-record/EV14	malformed	malformed	equal	
+audit-record/TI6	malformed	malformed	equal	
+audit-record/V4	malformed	malformed	equal	
+audit-record/V5	malformed	malformed	equal	
+audit-record/FR14	valid	valid	equal	
+audit-record/FR15	malformed	malformed	equal	
+audit-record/CS1	valid	valid	equal	
+audit-record/CS2	valid	valid	equal	
+audit-record/CS3	malformed	malformed	equal	
+audit-record/CS4	valid	valid	equal	
+audit-record/CS5	malformed	malformed	equal	
+audit-record/CS6	malformed	malformed	equal	
+audit-record/CS7	valid	valid	equal	
+audit-record/CS8	valid	valid	equal	
+audit-record/CS9	malformed	malformed	equal	
+audit-record/CS10	malformed	malformed	equal	
+audit-record/CS11	valid	valid	equal	
+audit-record/CS12	valid	valid	equal	
+audit-record/CS13	malformed	malformed	equal	
+audit-record/CS14	malformed	malformed	equal	
+audit-record/CS15	valid	valid	equal	
+audit-record/CS16	valid	valid	equal	
+audit-record/CS17	valid	valid	equal	
+audit-record/CS18	malformed	valid	differ	supersedes
+audit-record/CS19	malformed	valid	differ	supersedes
+audit-record/CS20	malformed	valid	differ	supersedes
+audit-record/CS21	malformed	valid	differ	supersedes
+audit-record/CS22	malformed	valid	differ	supersedes
+audit-record/CS23	malformed	malformed	equal	supersedes
+audit-record/CS24	malformed	malformed	equal	supersedes
+audit-record/CS25	valid	valid	equal	
+audit-record/CS26	malformed	valid	differ	supersedes
+audit-record/CS27	malformed	valid	differ	supersedes
+audit-record/CS28	malformed	valid	differ	supersedes
+audit-record/CS29	malformed	valid	differ	supersedes
+audit-record/CS30	malformed	valid	differ	supersedes
+audit-record/CS31	malformed	valid	differ	supersedes
+audit-record/CS32	valid	valid	equal	
+audit-record/CS33	valid	valid	equal	
+audit-record/CS34	malformed	valid	differ	asset
+audit-record/CS35	malformed	malformed	equal	asset
+audit-record/CS36	malformed	malformed	equal	asset
+audit-record/CS37	malformed	malformed	equal	asset
+audit-record/CS38	malformed	valid	differ	asset
+audit-record/CS39	malformed	valid	differ	asset
+audit-record/CS40	malformed	valid	differ	asset
+audit-record/CS41	malformed	valid	differ	asset
+audit-record/CS42	malformed	malformed	equal	asset
+audit-record/CS43	malformed	valid	differ	asset
+audit-record/CS44	malformed	malformed	equal	asset
+audit-record/CS45	malformed	malformed	equal	asset
+audit-record/CS46	malformed	malformed	equal	asset
+audit-record/CS47	malformed	malformed	equal	asset
+audit-record/CS48	malformed	valid	differ	asset
+audit-record/CS49	malformed	valid	differ	asset
+audit-record/CS50	malformed	valid	differ	asset,held-extra
+audit-record/CS51	malformed	malformed	equal	asset,held-extra
+audit-record/CS52	malformed	malformed	equal	asset
+audit-record/CS53	malformed	valid	differ	asset,held-extra
+audit-record/CS54	malformed	valid	differ	asset,held-extra
+audit-record/A21	valid	valid	equal	
+audit-record/SQ1	valid	valid	equal	
+audit-record/SQ2	malformed	malformed	equal	
+audit-record/SQ3	malformed	malformed	equal	
+audit-record/SQ4	valid	valid	equal	
+audit-record/SQ5	valid	valid	equal	
+audit-record/R10	valid	valid	equal	
+audit-record/R11	valid	valid	equal	
+audit-record/R12	valid	valid	equal	
+audit-record/R13	valid	valid	equal	
+audit-record/R14	valid	valid	equal	
+audit-record/R15	valid	valid	equal	
+audit-record/R16	valid	valid	equal	
+audit-record/IS1	malformed	malformed	equal	
+audit-record/IS2	malformed	malformed	equal	
+audit-record/PS1	valid	valid	equal	
+audit-record/PS2	malformed	malformed	equal	
+audit-record/PS1b	malformed	any reading	equal	
+audit-record/PS3	valid	valid	equal	
+audit-record/PS4	valid	valid	equal	
+audit-record/PS5	valid	valid	equal	
+audit-record/PR1	valid	valid	equal	principal
+audit-record/PR2	valid	valid	equal	principal
+audit-record/PR3	valid	valid	equal	principal
+audit-record/PR4	valid	malformed	differ	principal
+audit-record/PR5	valid	malformed	differ	principal
+audit-record/PR6	valid	malformed	differ	principal
+audit-record/PR7	valid	malformed	differ	principal
+audit-record/PR8	valid	malformed	differ	principal
+audit-record/PR9	valid	malformed	differ	principal
+audit-record/PR10	valid	malformed	differ	principal
+audit-record/PR11	valid	malformed	differ	principal
+audit-record/DS1	valid	valid	equal	dataSubject
+audit-record/DS2	valid	valid	equal	dataSubject
+audit-record/DS3	valid	valid	equal	dataSubject
+audit-record/DS4	valid	malformed	differ	dataSubject
+audit-record/DS5	valid	malformed	differ	dataSubject
+audit-record/DS6	valid	malformed	differ	dataSubject
+audit-record/DS7	valid	malformed	differ	dataSubject
+audit-record/DS8	valid	malformed	differ	dataSubject
+audit-record/DS9	valid	malformed	differ	dataSubject
+audit-record/DS10	valid	malformed	differ	dataSubject
+audit-record/X1	malformed	malformed	equal	
+audit-record/X2	malformed	malformed	equal	
+audit-record/X3	malformed	malformed	equal	
+audit-record/X4	malformed	malformed	equal	
+audit-record/X5	malformed	malformed	equal	
+audit-record/X6	valid	malformed	differ	held-extra
+audit-record/X7	malformed	malformed	equal	
+audit-record/X8	malformed	malformed	equal	
+audit-record/X9	malformed	malformed	equal	
+audit-record/X10	malformed	malformed	equal	
+audit-record/X11	valid	valid	equal	
+audit-record/X12	valid	valid	equal	
+audit-record/X13	valid	valid	equal	
+audit-record/X14	valid	valid	equal	
+audit-record/X15	malformed	malformed	equal	
+audit-record/X16	malformed	malformed	equal	
+audit-record/X17	malformed	malformed	equal	
+audit-record/X18	malformed	malformed	equal	
+restoration/incident-action-authorization-control	accept	accept	equal	
+restoration/incident-action-authorization-accept-after-the-fact	accept	accept	equal	
+restoration/incident-action-authorization-accept-basis-unknown	accept	accept	equal	
+restoration/incident-action-authorization-statement-malformed	reject	reject	equal	
+restoration/incident-action-authorization-predicate-malformed	reject	reject	equal	
+restoration/incident-action-authorization-closed-vocabulary-violation	reject	reject	equal	
+restoration/incident-action-authorization-no-authorizer	reject	reject	equal	
+restoration/incident-action-authorization-no-accountable-party	reject	reject	equal	
+restoration/incident-action-authorization-authority-basis-missing	reject	reject	equal	
+restoration/incident-action-authorization-authorization-window-inverted	reject	reject	equal	
+restoration/incident-action-authorization-intent-not-committed-before	reject	reject	equal	
+restoration/incident-action-authorization-authorization-expired	reject	reject	equal	
+restoration/incident-action-authorization-induced-effects-unobserved	reject	reject	equal	
+restoration/revocation-sweep-control	accept	accept	equal	
+restoration/revocation-sweep-accept-issued-after-only	accept	accept	equal	
+restoration/revocation-sweep-accept-use-after-revocation	accept	accept	equal	
+restoration/revocation-sweep-statement-malformed	reject	reject	equal	
+restoration/revocation-sweep-predicate-malformed	reject	reject	equal	
+restoration/revocation-sweep-closed-vocabulary-violation	reject	reject	equal	
+restoration/revocation-sweep-denominator-union-mismatch	reject	reject	equal	
+restoration/revocation-sweep-revocation-entries-mismatch	reject	reject	equal	
+restoration/revocation-sweep-coverage-claim-exceeds-proof	reject	reject	equal	
+restoration/revocation-sweep-coverage-claim-incomplete	reject	reject	equal	
+restoration/re-enable-decision-control	accept	accept	equal	
+restoration/re-enable-decision-accept-resume-full	accept	accept	equal	
+restoration/re-enable-decision-accept-remain-restricted	accept	accept	equal	
+restoration/re-enable-decision-statement-malformed	reject	reject	equal	
+restoration/re-enable-decision-predicate-malformed	reject	reject	equal	
+restoration/re-enable-decision-closed-vocabulary-violation	reject	reject	equal	
+restoration/re-enable-decision-evidence-slot-missing	reject	reject	equal	
+restoration/re-enable-decision-evidence-slot-unexplained	reject	reject	equal	
+restoration/re-enable-decision-no-approver	reject	reject	equal	
+restoration/re-enable-decision-partial-without-scope	reject	reject	equal	
+restoration/re-enable-decision-full-with-scope	reject	reject	equal	
+restoration/joint-authority-control	accept	accept	equal	
+restoration/joint-authority-statement-malformed	reject	reject	equal	
+restoration/joint-authority-predicate-malformed	reject	reject	equal	
+restoration/joint-authority-authority-basis-missing	reject	reject	equal	
+restoration/joint-authority-single-organization	reject	reject	equal	
+restoration/joint-authority-party-acts-outside-assignment	reject	reject	equal	
+restoration/revocation-boundary-control	accept	accept	equal	
+restoration/revocation-boundary-accept-commit-observed	accept	accept	equal	
+restoration/revocation-boundary-accept-not-established	accept	accept	equal	
+restoration/revocation-boundary-statement-malformed	reject	reject	equal	
+restoration/revocation-boundary-predicate-malformed	reject	reject	equal	
+restoration/revocation-boundary-revocation-outside-window	reject	reject	equal	
+restoration/revocation-boundary-counts-inconsistent	reject	reject	equal	
+restoration/revocation-boundary-result-contradicts-counts	reject	reject	equal	
+restoration/revocation-boundary-observer-not-at-sink	reject	reject	equal	
+restoration/bundle-consistent	accept	accept	equal	
+restoration/bundle-consistent-with-optional-records	accept	accept	equal	
+restoration/bundle-record-coverage-claim-exceeds-proof	reject	reject	equal	
+restoration/bundle-predecessor-not-carried	reject	reject	equal	
+restoration/bundle-predecessor-type-mismatch	reject	reject	equal	
+restoration/bundle-incident-mismatch	reject	reject	equal	
+restoration/bundle-predecessor-issued-later	reject	reject	equal	
+restoration/bundle-restored-credential-unswept	reject	reject	equal	
+SUMMARY audit-record	members 225	verdict equal 187	different 38
+SUMMARY audit-record differ carrying asset	8	CS34 CS38 CS39 CS40 CS41 CS43 CS48 CS49
+SUMMARY audit-record differ carrying asset,held-extra	3	CS50 CS53 CS54
+SUMMARY audit-record differ carrying dataSubject	7	DS4 DS5 DS6 DS7 DS8 DS9 DS10
+SUMMARY audit-record differ carrying held-extra	1	X6
+SUMMARY audit-record differ carrying principal	8	PR4 PR5 PR6 PR7 PR8 PR9 PR10 PR11
+SUMMARY audit-record differ carrying supersedes	11	CS18 CS19 CS20 CS21 CS22 CS26 CS27 CS28 CS29 CS30 CS31
+SUMMARY restoration	members 57	verdict equal 57	verdict and reason equal 57
+SUMMARY pins	pinned vector files: 304, digest equal to pins.json 304, different 0
+SUMMARY planted faults	planted cases in total 5620, as expected 5620, deviating 0

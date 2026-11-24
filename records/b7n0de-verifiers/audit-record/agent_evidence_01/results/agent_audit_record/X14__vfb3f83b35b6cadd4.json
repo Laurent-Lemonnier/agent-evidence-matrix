@@ -1,0 +1,47 @@
+{
+ "draftId": "X14",
+ "draftRevision": null,
+ "draftSection": "4.7",
+ "expected": {
+  "codes": [],
+  "dating": {
+   "codes": [
+    "entry-delegation-root-unreadable"
+   ],
+   "datedAt": "2026-09-19T11:05:00Z",
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "malformed"
+  },
+  "derivedTier": "authoritative",
+  "verdict": "valid"
+ },
+ "file": "retained/vfb3f83b35b6cadd4.json",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "dating": {
+   "datedAt": "2026-09-19T11:05:00Z",
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "malformed",
+   "failure": {
+    "code": "entry-delegation-root-unreadable",
+    "section": "4.7",
+    "text": "delegation-root value not base64"
+   },
+   "receipt": null
+  },
+  "derivedTier": "authoritative",
+  "failure": null,
+  "verdict": "valid"
+ },
+ "subMatch": {
+  "dating.datedAt": true,
+  "dating.delegationRoot": true,
+  "dating.entry": true,
+  "derivedTier": true
+ }
+}

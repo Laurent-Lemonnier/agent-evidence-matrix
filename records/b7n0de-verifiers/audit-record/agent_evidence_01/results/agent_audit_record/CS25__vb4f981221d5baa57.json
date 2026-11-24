@@ -1,0 +1,71 @@
+{
+ "draftId": "CS25",
+ "draftRevision": "draft-gilda-audit-agent-audit-record-01",
+ "draftSection": null,
+ "expected": {
+  "codes": [],
+  "derivedTier": "authoritative",
+  "set": {
+   "codes": [],
+   "verdict": "valid",
+   "withinLimit": [
+    true,
+    true
+   ]
+  },
+  "verdict": "valid"
+ },
+ "file": "sets/vb4f981221d5baa57.json",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "derivedTier": "authoritative",
+  "records": [
+   {
+    "derivedAgreement": "agree",
+    "derivedObserved": "occurred",
+    "derivedTier": "authoritative",
+    "derivedUnavailable": [],
+    "failure": null,
+    "payloadSha256": "1241a1a2b88a36db3cc6c3bd44d137117de3ddf802f19d4e09d359799fb7c6d8",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "bec9c80a8ab5c0b5f32fcc9ae11cb5479f2f571e32780c6919b0f81adada402a",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "valid",
+    "withinLimit": true
+   },
+   {
+    "derivedAgreement": "agree",
+    "derivedObserved": "occurred",
+    "derivedTier": "authoritative",
+    "derivedUnavailable": [],
+    "failure": null,
+    "payloadSha256": "21c076febdb7327bcf898eaf9238d1bef808b1caa46a3ad7301abff9d528845c",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "bec9c80a8ab5c0b5f32fcc9ae11cb5479f2f571e32780c6919b0f81adada402a",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "valid",
+    "withinLimit": true
+   }
+  ],
+  "set": {
+   "conflicts": [],
+   "consumptionFailures": [],
+   "missing": [],
+   "verdict": "valid",
+   "withinLimit": [
+    true,
+    true
+   ]
+  },
+  "verdict": "valid"
+ },
+ "subMatch": {
+  "derivedTier": true,
+  "set.verdict": true
+ }
+}

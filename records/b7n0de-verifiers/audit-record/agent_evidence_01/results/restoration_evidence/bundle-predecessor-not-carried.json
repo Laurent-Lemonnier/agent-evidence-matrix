@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "predecessor-not-carried",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "bundle-predecessor-not-carried",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "file": "r3.json",
+  "reason": "predecessor-not-carried",
+  "rule": "B2",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "B2",
+ "shape": "bundle"
+}

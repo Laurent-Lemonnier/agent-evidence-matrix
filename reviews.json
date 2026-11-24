@@ -22,8 +22,8 @@
     },
     {
       "project": 4,
-      "review": "R-2026-11-15-04",
-      "date": "2026-11-15",
+      "review": "R-2026-11-19-04",
+      "date": "2026-11-19",
       "state": "published"
     },
     {
@@ -40,10 +40,10 @@
     },
     {
       "project": 7,
-      "review": "R-2026-11-15-07",
-      "date": "2026-11-15",
+      "review": "R-2026-11-19-07",
+      "date": "2026-11-19",
       "state": "frozen",
-      "digest": "2e6a643c0daa10b465c5771e4f363b8f4a309c3d0a813e76a8b0db934ebff4f6"
+      "digest": "f4f362bcc735e1e69df11bb3b6f12298e3757960b208c81dcf3f80883392009c"
     },
     {
       "project": 8,
@@ -77,17 +77,17 @@
     },
     {
       "project": 13,
-      "review": "R-2026-11-15-13",
-      "date": "2026-11-15",
+      "review": "R-2026-11-19-13b",
+      "date": "2026-11-19",
       "state": "frozen",
-      "digest": "e829ce39c18828d525065b0dd1839732186fe07a7ca2d8f978c0982a7a5be170"
+      "digest": "f52f4180874c0f8d59fe48a7a0634a627d8280920c5b875b1e998cba52542a87"
     },
     {
       "project": 14,
-      "review": "R-2026-11-15-14",
-      "date": "2026-11-15",
+      "review": "R-2026-11-19-14b",
+      "date": "2026-11-19",
       "state": "frozen",
-      "digest": "ee61cd291afd57140d50b9a049d64321001bbb4c173c8dbd72c461f7c2b4c984"
+      "digest": "aae488de7770a02e2ba90b47131fdf0dc8859e75374be9fb733fd16cb02e5379"
     },
     {
       "project": 15,
@@ -103,10 +103,10 @@
     },
     {
       "project": 17,
-      "review": "R-2026-11-15-17",
-      "date": "2026-11-15",
+      "review": "R-2026-11-19-17",
+      "date": "2026-11-19",
       "state": "frozen",
-      "digest": "981f94c0694a6c8378f48c2d92813c0dd0e11918234e7bd807c140b5cc054577"
+      "digest": "29df27dfaa89a94685a00830a82b68356ee351da0ce9da51ae11ec6940668158"
     },
     {
       "project": 18,
@@ -128,8 +128,8 @@
     },
     {
       "project": 21,
-      "review": "R-2026-11-15-21",
-      "date": "2026-11-15",
+      "review": "R-2026-11-17-21",
+      "date": "2026-11-17",
       "state": "published"
     },
     {
@@ -148,6 +148,36 @@
       "project": 24,
       "review": "R-2026-11-15-24",
       "date": "2026-11-15",
+      "state": "published"
+    },
+    {
+      "project": 25,
+      "review": "R-2026-11-17-25",
+      "date": "2026-11-17",
+      "state": "published"
+    },
+    {
+      "project": 26,
+      "review": "R-2026-11-17-26",
+      "date": "2026-11-17",
+      "state": "published"
+    },
+    {
+      "project": 27,
+      "review": "R-2026-11-17-27",
+      "date": "2026-11-17",
+      "state": "published"
+    },
+    {
+      "project": 28,
+      "review": "R-2026-11-19-28",
+      "date": "2026-11-19",
+      "state": "published"
+    },
+    {
+      "project": 29,
+      "review": "R-2026-11-19-29",
+      "date": "2026-11-19",
       "state": "published"
     }
   ]

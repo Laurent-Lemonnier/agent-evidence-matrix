@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "denominator-union-mismatch",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "revocation-sweep-denominator-union-mismatch",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "denominator-union-mismatch",
+  "section": "5.2",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "4",
+ "shape": "record"
+}

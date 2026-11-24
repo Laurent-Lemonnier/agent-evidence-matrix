@@ -1,0 +1,33 @@
+{
+ "draftId": "TI4",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "tier-overclaim-coverage"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/v5e1bf3158dda9533.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "derivedAgreement": "agree",
+  "derivedObserved": "occurred",
+  "derivedTier": "voluntary",
+  "derivedUnavailable": [],
+  "failure": {
+   "code": "tier-overclaim-coverage",
+   "section": "5.7",
+   "text": "authoritative declared, clause coverage fails"
+  },
+  "payloadSha256": "a7b60ab9b1c97ac642ad479a37860b3d157ab899deb327da7e56edf3cb63626a",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

@@ -1,0 +1,28 @@
+{
+ "draftId": "FE1",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [
+   "field-evidence-keys"
+  ],
+  "verdict": "malformed"
+ },
+ "file": "statements/vc0255c3e52251e4c.json",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "failure": {
+   "code": "field-evidence-keys",
+   "section": "5.7",
+   "text": "fieldEvidence does not carry exactly the seven keys"
+  },
+  "payloadSha256": "a78333fd05680212e278695c74a3afefb888afac96c2ddbd68818598d00de4c4",
+  "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+  "signedBy": [
+   "292f087bf72c85a72cdea8483084d18d"
+  ],
+  "verdict": "malformed"
+ },
+ "subMatch": {}
+}

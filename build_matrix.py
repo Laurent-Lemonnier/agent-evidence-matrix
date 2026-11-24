@@ -7,8 +7,9 @@
 
 The schema rules, each a refusal (exit 1 with every problem named):
 
-- every project has a review entry in reviews.json; a project under a frozen review must keep the
-  exact bytes its review recorded (its digest), and the rules below are not applied to it;
+- every project has a review entry in reviews.json, and every project id (in matrix.json and in reviews.json) is a
+  positive integer; a project under a frozen review must keep the exact bytes its review recorded (its digest), and of
+  the rules below only one applies to it: every repository path it cites still resolves inside this tree;
 - a verdict is one of the listed codes and a source one of "their records", "our adapter", "none";
 - a contradicted cell carries basis, divergence_in and declared_revision; a refusal inside a declared
   profile is not a contradiction, so basis "declared-profile" requires verdict unsupported and a profile;
@@ -24,6 +25,17 @@ The schema rules, each a refusal (exit 1 with every problem named):
 - the reader the matrix names (matrix.json "reader") is the reader requirements.in pins, the reader the
   hash-locked requirements.txt installs, and every reader pin a workflow installs by name, package for package and
   version for version, so the stated reader and the installed one cannot drift apart.
+- a project that withholds its source (the small-project rule: a project far below the citation line is never named)
+  carries `withheld` instead of an upstream: the reason and the SHA-256 of every input its cells read, and a replay
+  that runs on a copy of those bytes; it carries no upstream, and its name and cells must not name the project;
+- a `canonicalizer` record names the function a project canonicalizes with, its kind, what it takes (a parsed value,
+  text or the received bytes) and, in `parse_layer`, what it did with the four probes that have no canonical form at
+  the parse or decode layer (two duplicate members, a surrogate written as UTF-8 bytes, a raw 0xFF byte): refused
+  (all four), accepted (any one), "parsed before it" (a function that takes a parsed value never sees them, so their
+  outcome belongs to whatever parses before it), or not probed; anything but not probed needs the run that showed it;
+- a cell whose evidence is "no records emitted" names its producer route: `producer` is the cell of this project that
+  reads records the project's own code produced (producer mode), or "none" with the reason no producer exists;
+- README.md carries the coverage counts between its counts markers, and --check refuses a README that disagrees.
 """
 from __future__ import annotations
 
@@ -51,12 +63,24 @@ COLUMNS = (
     "re-proven by us",
 )
 REVIEW_STATES = ("published", "frozen")
-PATH = re.compile(r"(?<![\w/.-])((?:adapters|records|libraries|tests|tools|badges)/[\w.@+/-]*[\w@+-])")
-ONE_MACHINE = re.compile(r"(?:^|[\s(])(?:/home/|/Users/|~/|/tmp/)|_raw/|probity-lanes")
+PATH = re.compile(r"(?<![\w/.-])((?:\.{1,2}/)*(?:adapters|records|libraries|tests|tools|badges)/[\w.@+/-]*[\w@+-])")
+ONE_MACHINE = re.compile(r"(?<![\w.~/-])(?:/home/|/Users/|/root/|/tmp/|/private/|/var/folders/|/mnt/|~/)"
+                         r"|\$HOME\b|\$\{HOME\}|(?i:\b[a-z]:\\users\\)|_raw/|probity-lanes")
 REPO_URL = re.compile(r"https://[a-z0-9.-]+\.[a-z]{2,}/[\w.-]+/[\w.-]+")
 FILE_URL = re.compile(r"https://[a-z0-9.-]+\.[a-z]{2,}/\S+")
 SHA1 = re.compile(r"[0-9a-f]{40}")
+CANON_KINDS = ("rfc8785 library", "vendored rfc8785", "hand-rolled", "own serialization, not RFC 8785")
+CANON_INPUTS = ("parsed value", "text", "received bytes")
+CANON_PARSE_LAYER = ("refused", "accepted", "parsed before it", "not probed")
+NO_RECORDS = "no records emitted"
+COUNTS_START, COUNTS_END = "<!-- counts:start -->", "<!-- counts:end -->"
 SHA256 = re.compile(r"[0-9a-f]{64}")
+# Anything that locates a repository or a site: a scheme URL, an scp-style git remote, or host.tld/path with no scheme.
+# A withheld project carries none of them anywhere in its entry, its withheld block included; only our own corpus
+# (github.com/probityai/...) may be named, because a replay clones it.
+ANY_LOCATOR = re.compile(r"(?i)(?:\b[a-z][a-z0-9+.-]*://[^\s)\]\"']+|\b[\w.-]+@[a-z0-9.-]+\.[a-z]{2,}:[\w./-]+"
+                         r"|(?<![\w@/.-])(?:[a-z0-9-]+\.)+[a-z]{2,}/[^\s)\]\"']*)")
+OWN_LOCATOR = re.compile(r"(?i)^(?:https://)?github\.com/probityai/")
 
 
 def project_digest(project: dict) -> str:
@@ -123,6 +147,17 @@ def _upstream_problems(pid, up: dict) -> list[str]:
     return out
 
 
+def _contradiction_problems(where: str, cell: dict) -> list[str]:
+    """A contradicted cell names its basis, where the divergence sits and the revision it was judged against."""
+    if cell.get("verdict") != "contradicted":
+        return []
+    out = [f"{where}: a contradicted cell needs {key}"
+           for key in ("basis", "divergence_in", "declared_revision") if not cell.get(key)]
+    if cell.get("basis") == "declared-profile":
+        out.append(f"{where}: a refusal inside a declared profile is unsupported, not contradicted")
+    return out
+
+
 def _cell_problems(where: str, cell: dict, codes: set[str], root: pathlib.Path) -> list[str]:
     out = []
     verdict = cell.get("verdict")
@@ -138,12 +173,7 @@ def _cell_problems(where: str, cell: dict, codes: set[str], root: pathlib.Path) 
         out.append(f"{where}: basis {basis!r} is not one of {list(BASIS)}")
     if cell.get("divergence_in") is not None and cell["divergence_in"] not in DIVERGENCE_IN:
         out.append(f"{where}: divergence_in {cell['divergence_in']!r} is not one of {list(DIVERGENCE_IN)}")
-    if verdict == "contradicted":
-        for key in ("basis", "divergence_in", "declared_revision"):
-            if not cell.get(key):
-                out.append(f"{where}: a contradicted cell needs {key}")
-        if basis == "declared-profile":
-            out.append(f"{where}: a refusal inside a declared profile is unsupported, not contradicted")
+    out += _contradiction_problems(where, cell)
     if basis == "declared-profile":
         if verdict != "unsupported":
             out.append(f"{where}: basis declared-profile requires verdict unsupported")
@@ -165,6 +195,68 @@ def _cell_problems(where: str, cell: dict, codes: set[str], root: pathlib.Path) 
     return out
 
 
+def _withheld_problems(pid, project: dict) -> list[str]:
+    held = project["withheld"]
+    out = []
+    if not isinstance(held, dict) or not isinstance(held.get("reason"), str) or not held["reason"].strip():
+        return [f"project {pid}: withheld needs a reason"]
+    inputs = held.get("inputs")
+    if not isinstance(inputs, list) or not inputs:
+        out.append(f"project {pid}: withheld needs the inputs its cells read")
+    for i, item in enumerate(inputs or []):
+        if not (isinstance(item, dict) and isinstance(item.get("what"), str) and item["what"].strip()
+                and isinstance(item.get("sha256"), str) and SHA256.fullmatch(item["sha256"])):
+            out.append(f"project {pid}: withheld.inputs[{i}] needs what and a 64-hex sha256")
+    if project.get("upstream"):
+        out.append(f"project {pid}: a withheld project carries no upstream")
+    text = json.dumps(project, ensure_ascii=False)
+    found = sorted({m.group(0) for m in ANY_LOCATOR.finditer(text) if not OWN_LOCATOR.match(m.group(0))})
+    if found:
+        out.append(f"project {pid}: a withheld project names no repository URL or site, its withheld block included "
+                   f"(found {found[:3]})")
+    return out
+
+
+def _canonicalizer_problems(pid, rec, root: pathlib.Path) -> list[str]:
+    where = f"project {pid}: canonicalizer"
+    if not isinstance(rec, dict):
+        return [f"{where} is an object"]
+    out = []
+    if not isinstance(rec.get("function"), str) or not rec["function"].strip():
+        out.append(f"{where} needs the function it names")
+    if rec.get("kind") not in CANON_KINDS:
+        out.append(f"{where} kind {rec.get('kind')!r} is not one of {list(CANON_KINDS)}")
+    if rec.get("input") not in CANON_INPUTS:
+        out.append(f"{where} input {rec.get('input')!r} is not one of {list(CANON_INPUTS)}")
+    unknown = set(rec) - {"function", "kind", "input", "parse_layer", "evidence"}
+    if unknown:
+        out.append(f"{where} has unknown keys {sorted(unknown)}")
+    layer = rec.get("parse_layer")
+    if layer not in CANON_PARSE_LAYER:
+        out.append(f"{where} parse_layer {layer!r} is not one of {list(CANON_PARSE_LAYER)}")
+        return out
+    if rec.get("input") == "parsed value" and layer in ("refused", "accepted"):
+        out.append(f"{where} takes a parsed value, so it never sees the parse layer: parse_layer is "
+                   "\"parsed before it\" or \"not probed\", never " + repr(layer))
+    if layer == "parsed before it" and rec.get("input") in CANON_INPUTS and rec["input"] != "parsed value":
+        out.append(f"{where} takes {rec['input']}, so the parse layer reaches it: parse_layer is refused, accepted or "
+                   "not probed")
+    if layer == "not probed":
+        if rec.get("evidence"):
+            out.append(f"{where} is not probed and cites a run")
+    elif not isinstance(rec.get("evidence"), str) or not rec["evidence"].strip():
+        out.append(f"{where} says {layer} and names no run that showed it")
+    else:
+        out += _evidence_problems(where, rec["evidence"], root)
+    return out
+
+
+def _says_no_records(cell) -> bool:
+    """A cell whose evidence says the project emitted no records, however it is capitalised or punctuated."""
+    ev = cell.get("evidence") if isinstance(cell, dict) else None
+    return isinstance(ev, str) and re.match(r"(?i)\s*no records (?:were )?emitted\b", ev) is not None
+
+
 def _project_problems(project: dict, codes: set[str], root: pathlib.Path) -> list[str]:
     pid = project.get("id")
     out = []
@@ -173,10 +265,32 @@ def _project_problems(project: dict, codes: set[str], root: pathlib.Path) -> lis
         out.append(f"project {pid}: no cells")
     for i, cell in enumerate(cells, 1):
         out += _cell_problems(f"project {pid} cell {i}", cell, codes, root)
+        if _says_no_records(cell):
+            producer = cell.get("producer")
+            target = re.fullmatch(r"cell (\d+)", producer) if isinstance(producer, str) else None
+            n = int(target.group(1)) if target else 0
+            if not isinstance(producer, str) or not producer.strip():
+                out.append(f"project {pid} cell {i}: \"{NO_RECORDS}\" names its producer route (a cell reading "
+                           "records the project's own code produced, or none with the reason)")
+            elif target and (n == i or not 1 <= n <= len(cells)):
+                out.append(f"project {pid} cell {i}: producer {producer!r} is not another cell of this project")
+            elif target and _says_no_records(cells[n - 1]):
+                # two "no records" cells naming each other would each claim a producer route and neither reads one
+                out.append(f"project {pid} cell {i}: producer {producer!r} itself says \"{NO_RECORDS}\"; the "
+                           "producer cell reads records the project's own code produced")
+            elif not target and not re.fullmatch(r"none: \S.*", producer.strip()):
+                out.append(f"project {pid} cell {i}: producer {producer!r} is neither another cell of this project "
+                           "nor \"none: <reason>\"")
     has_result = any(c.get("verdict") in RESULT for c in cells)
     up = project.get("upstream") or {}
-    if has_result and not (up.get("url") and up.get("sha") and project.get("replay")):
+    if "withheld" in project:
+        out += _withheld_problems(pid, project)
+        if has_result and not project.get("replay"):
+            out.append(f"project {pid}: a withheld project with a result needs a replay over the withheld bytes")
+    elif has_result and not (up.get("url") and up.get("sha") and project.get("replay")):
         out.append(f"project {pid}: a project with a result needs upstream.url, upstream.sha and replay")
+    if "canonicalizer" in project:
+        out += _canonicalizer_problems(pid, project["canonicalizer"], root)
     out += _upstream_problems(pid, up)
     if project.get("independence") is not None and project["independence"] not in INDEPENDENCE:
         out.append(f"project {pid}: independence {project['independence']!r} is not one of {list(INDEPENDENCE)}")
@@ -205,6 +319,8 @@ def problems(data: dict, reviews: dict, root: pathlib.Path = ROOT) -> list[str]:
     by_project = {}
     for entry in reviews.get("reviews") or []:
         pid = entry.get("project")
+        if not _is_id(pid):
+            out.append(f"reviews.json: a review names project {pid!r}; a project id is a positive integer")
         if pid in by_project:
             out.append(f"reviews.json: project {pid} reviewed twice")
         by_project[pid] = entry
@@ -213,6 +329,10 @@ def problems(data: dict, reviews: dict, root: pathlib.Path = ROOT) -> list[str]:
         if not entry.get("review") or not entry.get("date"):
             out.append(f"reviews.json: project {pid} needs a review id and a date")
     ids = [p.get("id") for p in data.get("projects") or []]
+    bad_ids = [i for i in ids if not _is_id(i)]
+    if bad_ids:
+        out.append(f"matrix.json: project ids {bad_ids!r} are not positive integers (a missing id, or \"1\" beside 1, "
+                   "renders as a second row under one number)")
     if len(ids) != len(set(ids)):
         out.append("matrix.json: two projects share an id")
     if data.get("total_projects") != len(ids):
@@ -238,6 +358,11 @@ def problems(data: dict, reviews: dict, root: pathlib.Path = ROOT) -> list[str]:
             if review.get("digest") != project_digest(project):
                 out.append(f"project {pid}: its review is frozen and the entry changed "
                            f"(recorded {str(review.get('digest'))[:12]}, now {project_digest(project)[:12]})")
+            # The digest pins the entry's bytes, not the files it cites: a frozen row still needs its evidence.
+            out += _frozen_path_problems(pid, project, root)
+            # The freeze fixes the bytes, not the labelling rule: a contradicted cell still names its basis.
+            for i, cell in enumerate(project.get("cells") or [], 1):
+                out += _contradiction_problems(f"project {pid} (frozen) cell {i}", cell)
             continue
         out += _project_problems(project, codes, root)
     return out
@@ -289,6 +414,24 @@ def reader_problems(reader: dict, sources: dict[str, str]) -> list[str]:
 def reader_sources(root: pathlib.Path = ROOT) -> dict[str, str]:
     files = [root / "requirements.in", root / "requirements.txt"] + sorted((root / ".github").rglob("*.y*ml"))
     return {str(f.relative_to(root)): f.read_text(encoding="utf-8") for f in files if f.is_file()}
+
+
+def _is_id(value) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool) and value > 0
+
+
+def _frozen_path_problems(pid, project: dict, root: pathlib.Path) -> list[str]:
+    """Every repository path a frozen entry cites, anywhere in it, must still resolve inside this tree."""
+    top = root.resolve()
+    out = []
+    for path in sorted(set(PATH.findall(json.dumps(project, ensure_ascii=False)))):
+        target = (root / path).resolve()
+        if not target.is_relative_to(top):
+            out.append(f"project {pid} (frozen): evidence path {path} leaves this tree")
+        elif not target.exists():
+            out.append(f"project {pid} (frozen): evidence path {path} does not resolve in this tree; the review "
+                       "froze the entry, and the file it cites was removed or renamed")
+    return out
 
 
 def _frozen(reviews: dict) -> set:
@@ -361,6 +504,11 @@ def render(data: dict, reviews: dict) -> tuple[str, dict[str, str]]:
             if rel:
                 same = "the same bytes as the pinned source" if rel["same_as_source"] else "different bytes from the pinned source"
                 pin += f"Released: {rel['registry']} {rel['version']}, {same}.\n\n"
+            held = p.get("withheld")
+            if held:
+                pin += f"Withheld: {held['reason']}\n\n"
+                for item in held["inputs"]:
+                    pin += f"Input: {item['what']}, sha256 {item['sha256']}\n\n"
             replay.append(f"### {p['id']}. {p['name']}\n\n{pin}```\n{p['replay']}\n```\n")
     props = []
     for p in data["projects"]:
@@ -402,6 +550,21 @@ def render(data: dict, reviews: dict) -> tuple[str, dict[str, str]]:
                  "Re-proven by us: the project's own proof or test run repeated here with the binaries' digests recorded.\n\n"
                  "| # | Project | Independence | " + " | ".join(COLUMNS) + " |\n|---|---|---|"
                  + "---|" * len(COLUMNS) + "\n" + "\n".join(props) + "\n")
+    canon = [p for p in data["projects"] if p.get("canonicalizer") and p["id"] not in frozen]
+    if canon:
+        lines = []
+        for p in canon:
+            r = p["canonicalizer"]
+            dup = r["parse_layer"] + (f" ({esc(r['evidence'])})" if r.get("evidence") else "")
+            lines.append(f"| {p['id']} | {esc(p['name'])} | {esc(r['function'])} | {r['kind']} | {r['input']} | {dup} |")
+        text += ("\n## Canonicalizers\n\nThe function each project canonicalizes with, and what it does with an input that "
+                 "has no RFC 8785 canonical form at the parse or decode layer: two duplicate members, a surrogate written "
+                 "as UTF-8 bytes and a raw 0xFF byte. A canonicalizer that takes a parsed value cannot see them: the parse "
+                 "already kept one of two duplicate values and decoded the bytes, so the column says \"parsed before it\" "
+                 "and the refusal has to happen on the received bytes, before canonicalization. CI holds the matrix's own "
+                 "reader to that, and every recorded column to the probe lines of its run (tests/test_canonicalizers.py).\n\n"
+                 "| # | Project | Function | Kind | Takes | Parse-layer inputs |\n|---|---|---|---|---|---|\n"
+                 + "\n".join(lines) + "\n")
     if replay:
         text += ("\n## Replay\n\nEach command runs from the repository root with the pinned reader installed "
                  "(`pip install -r requirements.txt` into `venv/`).\n\n" + "\n".join(replay))
@@ -452,6 +615,30 @@ def freshness(data: dict, fetch=None) -> list[str]:
     return lines
 
 
+def counts_text(data: dict) -> str:
+    """The README's coverage sentence, between its counts markers."""
+    c = counts(data)
+    unread = ", ".join(str(i) for i in sorted(c["unread"])) or "none"
+    held = sorted(p["id"] for p in data["projects"] if "withheld" in p)
+    text = (f"`python build_matrix.py` prints `N of {c['total']}: {len(c['run'])}; no record read yet: "
+            f"{len(c['unread'])} of {c['total']}` today. Rows with no record we can open: {len(c['unread'])} of "
+            f"{c['total']} ({'project' if len(c['unread']) == 1 else 'projects'} {unread}): every cell is unsupported or not run.")
+    if held:
+        text += (f" Rows whose source is withheld under the small-project rule: {len(held)} "
+                 f"({'project' if len(held) == 1 else 'projects'} {', '.join(map(str, held))}); their inputs are named by SHA-256 "
+                 "under Replay in MATRIX.md.")
+    return text
+
+
+def readme_with_counts(readme: str, data: dict) -> str:
+    """README text with the counts block rewritten; ValueError when the markers are missing."""
+    a, b = readme.find(COUNTS_START), readme.find(COUNTS_END)
+    if readme.count(COUNTS_START) != 1 or readme.count(COUNTS_END) != 1 or b < a:
+        # a second block would never be rewritten or checked, so a stale count could sit in it
+        raise ValueError(f"README.md needs exactly one {COUNTS_START} ... {COUNTS_END} block")
+    return readme[: a + len(COUNTS_START)] + "\n" + counts_text(data) + "\n" + readme[b:]
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--check", action="store_true", help="refuse when the rendered files differ")
@@ -468,8 +655,15 @@ def main(argv=None) -> int:
         print("\n".join(bad), file=sys.stderr)
         return 1
     text, badges = render(data, reviews)
+    readme_now = (ROOT / "README.md").read_text(encoding="utf-8")
+    try:
+        readme = readme_with_counts(readme_now, data)
+    except ValueError as exc:
+        print(exc, file=sys.stderr)
+        return 1
     if args.check:
         stale = [] if (ROOT / "MATRIX.md").read_text(encoding="utf-8") == text else ["MATRIX.md"]
+        stale += [] if readme_now == readme else ["README.md (counts)"]
         on_disk = {f"badges/{f.name}" for f in (ROOT / "badges").glob("*.json")} if (ROOT / "badges").is_dir() else set()
         stale += sorted(on_disk ^ set(badges))
         stale += [k for k, v in badges.items() if (ROOT / k).exists() and (ROOT / k).read_text(encoding="utf-8") != v]
@@ -478,6 +672,7 @@ def main(argv=None) -> int:
             return 1
     else:
         (ROOT / "MATRIX.md").write_text(text, encoding="utf-8")
+        (ROOT / "README.md").write_text(readme, encoding="utf-8")
         (ROOT / "badges").mkdir(exist_ok=True)
         for f in (ROOT / "badges").glob("*.json"):
             if f"badges/{f.name}" not in badges:

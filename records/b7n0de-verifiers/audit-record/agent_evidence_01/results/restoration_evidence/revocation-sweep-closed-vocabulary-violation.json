@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "closed-vocabulary-violation",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "revocation-sweep-closed-vocabulary-violation",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "closed-vocabulary-violation",
+  "section": "4.3",
+  "text": "relyingParties.state='acknowledged' outside the registry set",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "3",
+ "shape": "record"
+}

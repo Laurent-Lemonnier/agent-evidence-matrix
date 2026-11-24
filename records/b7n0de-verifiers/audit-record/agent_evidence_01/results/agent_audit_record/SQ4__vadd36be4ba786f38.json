@@ -1,0 +1,77 @@
+{
+ "draftId": "SQ4",
+ "draftRevision": "draft-gilda-audit-agent-audit-record-01",
+ "draftSection": null,
+ "expected": {
+  "codes": [],
+  "derivedTier": "authoritative",
+  "set": {
+   "codes": [],
+   "missing": [
+    {
+     "boundary": "urn:example:series:observer-1",
+     "seq": 2
+    }
+   ],
+   "verdict": "valid"
+  },
+  "verdict": "valid"
+ },
+ "file": "sets/vadd36be4ba786f38.json",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "derivedTier": "authoritative",
+  "records": [
+   {
+    "derivedAgreement": "agree",
+    "derivedObserved": "occurred",
+    "derivedTier": "authoritative",
+    "derivedUnavailable": [],
+    "failure": null,
+    "payloadSha256": "208c10131484f320530ed43920234f98da30aff09bb28d5954e723ff914af0d5",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "valid"
+   },
+   {
+    "derivedAgreement": "agree",
+    "derivedObserved": "occurred",
+    "derivedTier": "authoritative",
+    "derivedUnavailable": [],
+    "failure": null,
+    "payloadSha256": "6e7e5f833ea7ab40043bd000e1b8a9f08e03ce8b1f5c3bb5b9d3d07305b8e650",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "valid"
+   }
+  ],
+  "set": {
+   "conflicts": [],
+   "consumptionFailures": [],
+   "missing": [
+    {
+     "boundary": "urn:example:series:observer-1",
+     "seq": 2
+    }
+   ],
+   "verdict": "valid",
+   "withinLimit": [
+    null,
+    null
+   ]
+  },
+  "verdict": "valid"
+ },
+ "subMatch": {
+  "derivedTier": true,
+  "set.missing": true,
+  "set.verdict": true
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "revocation-outside-window",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "revocation-boundary-revocation-outside-window",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "revocation-outside-window",
+  "section": "5.5",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "4",
+ "shape": "record"
+}

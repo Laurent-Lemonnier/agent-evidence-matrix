@@ -1,0 +1,71 @@
+{
+ "draftId": "CS26",
+ "draftRevision": "draft-gilda-audit-agent-audit-record-01",
+ "draftSection": null,
+ "expected": {
+  "codes": [],
+  "derivedTier": "authoritative",
+  "set": {
+   "codes": [],
+   "verdict": "valid",
+   "withinLimit": [
+    false,
+    true
+   ]
+  },
+  "verdict": "valid"
+ },
+ "file": "sets/vcd25bd185157ec57.json",
+ "kind": "accept",
+ "match": false,
+ "own": {
+  "records": [
+   {
+    "derivedAgreement": "agree",
+    "derivedObserved": "none",
+    "derivedTier": "authoritative",
+    "derivedUnavailable": [],
+    "failure": null,
+    "payloadSha256": "1ccbad79e0679e136ea498fb0ddeb73a786abcdc0506f5959d5df4ad64a8e5bd",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "valid",
+    "withinLimit": false
+   },
+   {
+    "derivedAgreement": "agree",
+    "derivedObserved": "occurred",
+    "derivedUnavailable": [],
+    "failure": {
+     "code": "consumption-malformed",
+     "section": "5.9",
+     "text": "consumption carries supersedes"
+    },
+    "payloadSha256": "8aaaf22c248dfa3644553c96a36064f5954d72b63f682014ea0f9357aa4c82cd",
+    "predicateType": "https://probityai.github.io/agent-evidence-vectors/predicate/v1/agent-audit-record",
+    "recomputedRequestDigest": "202057fd18d02cb2809ad143febfc63e28f78d334b0d4d38c382e922fe0d50e3",
+    "signedBy": [
+     "292f087bf72c85a72cdea8483084d18d"
+    ],
+    "verdict": "malformed"
+   }
+  ],
+  "set": {
+   "conflicts": [],
+   "consumptionFailures": [],
+   "missing": [],
+   "verdict": "malformed",
+   "withinLimit": [
+    false,
+    null
+   ]
+  },
+  "verdict": "malformed"
+ },
+ "subMatch": {
+  "set.verdict": false
+ }
+}

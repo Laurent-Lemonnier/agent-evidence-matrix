@@ -14,6 +14,12 @@ jobs:
         with:
           python-version: "3.12"
       - run: python build_matrix.py --check
+      # The review gate (intake.yml) only holds if main requires it: refuse a run in which it is advisory.
+      - name: Main requires the review gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: python3 -I tools/required_checks.py
       # The daily run reports every pinned upstream whose default branch moved past its pin.
       - name: Upstream freshness (warnings only)
         if: github.event_name == 'schedule'
@@ -179,6 +185,47 @@ jobs:
       - run: pip install --require-hashes -r requirements.txt
       - run: pip install pytest==8.3.5
       - run: python -m pytest -q tests
+  canonicalizers:
+    # Rows 26 and 27: each project's canonicalization function, read from its pinned commit, scored again on the pinned
+    # corpus and probed with the four parse-layer inputs; the output must equal the committed run line for line.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24.19.0"
+      - name: Fetch the corpus and the pinned upstreams
+        run: |
+          git clone -q --filter=blob:none https://github.com/probityai/agent-evidence-vectors ../aev && git -C ../aev checkout -q 13247ea551e470fb57413fdfab4f2738147613a1
+          git clone -q --filter=blob:none https://github.com/a2aproject/a2a-js ../a2a-js && git -C ../a2a-js checkout -q 3f5cb54fa94f81e3d1ff58f852c53fcb7135934c
+          git clone -q --filter=blob:none https://github.com/x402-foundation/x402 ../x402 && git -C ../x402 checkout -q b38d3becc5a05234008506a42f62c3b2186510ce
+      - name: Each run equals its recorded run
+        run: |
+          S="node --no-warnings=ExperimentalWarning adapters/jcs_function_score.mjs"
+          C=../aev/corpora/vectors-a2a-jcs-v01
+          $S --source ../a2a-js/src/signature.ts --entry jcsStringify --decl MAX_CANONICALIZATION_DEPTH --decl CanonicalizationError --decl isContainer --decl assertNestingDepth $C > a2a.txt
+          diff adapters/a2a-js-jcs-run.txt a2a.txt
+          $S --source ../x402/typescript/packages/extensions/src/offer-receipt/signing.ts --entry canonicalize --decl serializeValue --decl serializeNumber --decl serializeString --decl serializeArray --decl serializeObject $C > x402.txt
+          diff adapters/x402-jcs-run.txt x402.txt
+      - name: Each control edit must flip exactly the cases it fixes
+        # Lone-surrogate refusal alone flips the five lone-surrogate cases and leaves the three non-finite cases failing,
+        # which proves those three reach the function as the numbers they name rather than being refused by the harness
+        # parse; adding the non-finite refusal flips them too. The duplicate probes stay accepted: the function takes a
+        # parsed value.
+        run: |
+          D=(--decl MAX_CANONICALIZATION_DEPTH --decl CanonicalizationError --decl isContainer --decl assertNestingDepth)
+          sed -e 's/^  assertNestingDepth(value, depth);$/  assertNestingDepth(value, depth); if (typeof value === "string" \&\& !value.isWellFormed()) throw new Error("lone surrogate");/' \
+              -e 's/^  const keys = Object.keys(record).sort();$/  const keys = Object.keys(record).sort(); for (const k of keys) if (!k.isWellFormed()) throw new Error("lone surrogate");/' \
+              ../a2a-js/src/signature.ts > surrogates.ts
+          sed -e 's/^    return JSON.stringify(value);$/    if (typeof value === "number" \&\& !Number.isFinite(value)) throw new Error("non-finite"); return JSON.stringify(value);/' \
+              surrogates.ts > fixed.ts
+          if cmp -s surrogates.ts ../a2a-js/src/signature.ts || cmp -s fixed.ts surrogates.ts; then echo "::error::a control edit did not apply"; exit 1; fi
+          node --no-warnings=ExperimentalWarning adapters/jcs_function_score.mjs --source surrogates.ts --entry jcsStringify "${D[@]}" ../aev/corpora/vectors-a2a-jcs-v01 > surrogates.txt
+          grep -q "^scored=53 pass=50 fail=3 " surrogates.txt || { cat surrogates.txt; exit 1; }
+          [ "$(grep -c '^FAIL A5-REJECT-01[678] MUST-REJECT got=7b226e223a6e756c6c7d$' surrogates.txt)" = 3 ] || { cat surrogates.txt; exit 1; }
+          node --no-warnings=ExperimentalWarning adapters/jcs_function_score.mjs --source fixed.ts --entry jcsStringify "${D[@]}" ../aev/corpora/vectors-a2a-jcs-v01 > fixed.txt
+          grep -q "^scored=53 pass=53 fail=0 " fixed.txt || { cat fixed.txt; exit 1; }
+          grep -q "^PROBE duplicate-member input=7b2261223a312c2261223a327d accepted " fixed.txt || { cat fixed.txt; exit 1; }
   corpus-jcs:
     runs-on: ubuntu-latest
     steps:
@@ -206,7 +253,7 @@ jobs:
       - uses: actions/checkout@v7
       # The recorded run names Python 3.12.3, and the runner image no longer ships it, so uv
       # installs that exact interpreter for AIREP's environment.
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@v7
       - name: Fetch AIREP at the pinned commit
         run: |
           git clone -q https://github.com/halvrenofviryel/ai-runtime-evidence-protocol ../ai-runtime-evidence-protocol
@@ -293,3 +340,84 @@ jobs:
           if [ "$rc" != 1 ]; then echo "expected exit 1, got $rc"; cat "$RUNNER_TEMP/airep-mut4.txt"; exit 1; fi
           grep -q '^lifecycle/complete contradicted' "$RUNNER_TEMP/airep-mut4.txt"
           grep -q '^authorized-vs-executed/complete cannot-tell' "$RUNNER_TEMP/airep-mut4.txt"
+  # Replays the cells on the Decision Provenance project's own records (row 4, cells E to H): the project's
+  # verifiers at the pinned commits, run from copies with python -I, must print the committed run.
+  lemonnier-own-records:
+    runs-on: ubuntu-latest
+    env:
+      LEMONNIER_COMMIT: 615c0e07039fab5503feed330bf3ff4f1f5ef68e
+      DPS_STANDARD_COMMIT: 007f8c99ec910564bac1c508b76c8ce8391fa11e
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install cbor2==6.3.0 cryptography==50.0.2 jsonschema==4.26.0 asn1crypto==1.5.1
+      - name: Fetch the pinned upstreams
+        run: |
+          git clone -q https://github.com/Laurent-Lemonnier/dps-scitt-decision-layer ../dps-scitt-decision-layer
+          git -C ../dps-scitt-decision-layer checkout -q "$LEMONNIER_COMMIT"
+          git clone -q https://github.com/decision-provenance-standard/standard ../dps-standard
+          git -C ../dps-standard checkout -q "$DPS_STANDARD_COMMIT"
+          test "$(cat ../dps-scitt-decision-layer/interop/aqta/approval-record/DPS_STANDARD_COMMIT)" = "$DPS_STANDARD_COMMIT"
+      - name: Replay and compare with the recorded run
+        run: python -I adapters/lemonnier_own_records_adapter.py ../dps-scitt-decision-layer ../dps-standard | diff adapters/lemonnier-own-records-run.txt -
+  # Replays the Proofable authority-at-dispatch packet (row 25): the packet's own offline verifier on its 15
+  # envelopes and one tampered copy per envelope, then the pinned reader of the contract on its 8 case records.
+  proofable:
+    runs-on: ubuntu-latest
+    env:
+      PROOFABLE_COMMIT: 513cd308c9f943e5cb4b096912806ad6fa3146e8
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install --require-hashes -r requirements.txt
+      - name: Fetch the pinned packet and its verifier's dependency
+        run: |
+          git clone -q https://github.com/proofable/docs ../proofable-docs
+          git -C ../proofable-docs checkout -q "$PROOFABLE_COMMIT"
+          (cd ../proofable-docs/public/evidence/aaif/authority-at-dispatch/2026-11-02-suite && npm install --no-save @proofable/sdk@0.1.11)
+      - name: The packet's verifier run equals the recorded run
+        run: python -I adapters/proofable_aad_adapter.py ../proofable-docs | diff adapters/proofable-aad-run.txt -
+      - name: The pinned reader's answer on the packet's records equals the recorded run
+        run: python -I adapters/proofable_reader_cell.py ../proofable-docs | diff adapters/proofable-reader-cell-run.txt -
+  # Row 28: Konrad Gruszka's two verifiers (retained source, run by his own runner) on the pinned
+  # agent-evidence-vectors corpora, then the audit-record verifier through the external-verifier contract of
+  # the open pull request 575. Each run must equal the committed one; one changed signature character must
+  # turn his verdict from valid to malformed (exit 1, comparison failed as it must).
+  b7n0de-verifiers:
+    runs-on: ubuntu-latest
+    env:
+      VECTORS_COMMIT: 250de75575a945d00211415d7af41894d15427fa
+      PR575_COMMIT: 34704695b763814f2f56d7926939131553465208
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install --require-hashes -r requirements.txt
+      - name: Fetch the pinned corpora and the contract runner
+        run: |
+          git clone -q --bare https://github.com/probityai/agent-evidence-vectors "$RUNNER_TEMP/aev.git"
+          git -C "$RUNNER_TEMP/aev.git" cat-file -e "$VECTORS_COMMIT^{commit}"
+          git -C "$RUNNER_TEMP/aev.git" fetch -q origin "$PR575_COMMIT"
+          git -C "$RUNNER_TEMP/aev.git" worktree add -q "$RUNNER_TEMP/pr575" "$PR575_COMMIT"
+      - name: His runner's verdicts on the corpus members equal the recorded run
+        run: python -I adapters/b7n0de_verifiers_adapter.py records/b7n0de-verifiers "$RUNNER_TEMP/aev.git" | diff <(tail -n +3 adapters/b7n0de-verifiers-run.txt) -
+      - name: One changed signature character turns his verdict
+        run: |
+          rc=0
+          python -I adapters/b7n0de_verifiers_adapter.py records/b7n0de-verifiers "$RUNNER_TEMP/aev.git" --mutation > "$RUNNER_TEMP/mut.txt" || rc=$?
+          test "$rc" = 1
+          diff <(tail -n +3 adapters/b7n0de-verifiers-mutation-run.txt) "$RUNNER_TEMP/mut.txt"
+      # No -I on the runner: it takes the agent_evidence_vectors of its own checkout from the script directory,
+      # which -I would drop in favour of the pinned release in site-packages (that release lacks the PR 575 modules).
+      - name: The contract run equals the recorded run
+        run: |
+          rc=0
+          (cd records/b7n0de-verifiers && python "$RUNNER_TEMP/pr575/packaging/run_vectors.py" --vectors "$RUNNER_TEMP/pr575/corpora/vectors-agent-audit-record" --verifier "python -I contract-adapter/contract_adapter.py audit-record/agent_evidence_01/tools" --report "$RUNNER_TEMP/contract-report.json") > "$RUNNER_TEMP/contract.txt" || rc=$?
+          test "$rc" = 1
+          # the runner echoes the verifier command; the recorded run was made from a venv
+          diff <(tail -n +5 adapters/b7n0de-contract-run.txt) <(sed 's#^\(agent-audit-record-conformance: \)python #\1venv/bin/python #' "$RUNNER_TEMP/contract.txt")

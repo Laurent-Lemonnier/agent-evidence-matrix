@@ -1,0 +1,43 @@
+{
+ "draftId": "R2",
+ "draftRevision": null,
+ "draftSection": null,
+ "expected": {
+  "codes": [],
+  "dating": {
+   "codes": [],
+   "datedAt": "2026-09-19T11:04:20Z",
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "well-formed",
+   "receipt": "asserted-consistent"
+  },
+  "derivedTier": "authoritative",
+  "verdict": "valid"
+ },
+ "file": "retained/v90581da25d334bc5.json",
+ "kind": "accept",
+ "match": true,
+ "own": {
+  "dating": {
+   "datedAt": "2026-09-19T11:04:20Z",
+   "delegationRoot": {
+    "result": "not-established"
+   },
+   "entry": "well-formed",
+   "failure": null,
+   "receipt": "asserted-consistent"
+  },
+  "derivedTier": "authoritative",
+  "failure": null,
+  "verdict": "valid"
+ },
+ "subMatch": {
+  "dating.datedAt": true,
+  "dating.delegationRoot": true,
+  "dating.entry": true,
+  "dating.receipt": true,
+  "derivedTier": true
+ }
+}

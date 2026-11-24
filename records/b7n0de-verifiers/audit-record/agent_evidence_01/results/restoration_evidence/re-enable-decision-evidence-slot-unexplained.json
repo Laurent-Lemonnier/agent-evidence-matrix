@@ -1,0 +1,19 @@
+{
+ "expected": {
+  "reason": "evidence-slot-unexplained",
+  "verdict": "reject"
+ },
+ "fileHashesMatchManifest": true,
+ "id": "re-enable-decision-evidence-slot-unexplained",
+ "kind": "reject",
+ "match": true,
+ "own": {
+  "reason": "evidence-slot-unexplained",
+  "section": "5.3",
+  "text": "",
+  "verdict": "reject"
+ },
+ "reasonMatch": true,
+ "rule": "5",
+ "shape": "record"
+}

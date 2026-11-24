@@ -2,15 +2,24 @@
 
 Run by .github/workflows/intake.yml under pull_request_target from the BASE branch's checkout. It reads
 the pull request through the API and never checks out or runs the pull request's code. Inputs come from
-the environment (REPO, PR, AUTHOR, ASSOCIATION, BASE_SHA, HEAD_REPO, HEAD_SHA, HELD_LOGINS, HELD_OWNERS);
-the held lists are repository variables and are never printed.
+the environment (REPO, PR, AUTHOR, SENDER, BASE_SHA, HEAD_REPO, HEAD_SHA, HELD_LOGINS, HELD_OWNERS); the held lists
+are repository variables and are never printed. A maintainer is an account with admin, maintain or write permission
+on the repository, read through the API: the pull request's author_association is not used, because GitHub reports an
+organization owner whose membership is private as CONTRIBUTOR. The pull request counts as a maintainer's only when
+its author and the account whose event ran the gate (SENDER: for a push, the pusher) are both maintainers, so a
+commit pushed to a maintainer's branch by someone else is judged as theirs.
 
 Refusals:
 - the author is on the held list;
 - a non-maintainer changes reviews.json;
-- a non-maintainer adds, changes or removes a project in matrix.json (a row lands after its review);
+- a non-maintainer adds, changes or removes a project in matrix.json (a row lands after its review), or changes
+  any other field of matrix.json (the reader, the verdict vocabulary, the count), which every row is read under;
+- matrix.json lists a project with no id or one id twice (either copy could be the row that lands);
 - any project the pull request adds or changes names a held owner anywhere in its entry, in any GitHub
-  URL spelling (https://github.com/<owner>, git@github.com:<owner>/..., api.github.com/repos/<owner>);
+  URL spelling (https://github.com/<owner>, git@github.com:<owner>/..., api.github.com/repos|users|orgs/<owner>,
+  github.com/orgs/<owner>, raw.githubusercontent.com/<owner>, <owner>.github.io, ghcr.io/<owner>), percent-encoded
+  or not, and read after NFKC folding with invisible format characters dropped (a zero-width space or a fullwidth
+  letter inside the name still renders as the name);
 - the changed-file list could not be read whole (every page, and as many files as the pull request says
   it changes).
 Exit 0 when nothing is refused, 1 with one ::error:: line per refusal, 2 when the API could not be read.
@@ -23,8 +32,12 @@ import os
 import re
 import subprocess
 import sys
+import unicodedata
+import urllib.parse
 
-MAINTAINER = ("OWNER", "MEMBER", "COLLABORATOR")
+MAINTAINER = ("admin", "maintain", "write")
+# The labelling a contradicted cell carries: where the divergence sits and the revision it was judged against.
+LABELS = ("basis", "divergence_in", "declared_revision")
 
 
 class ReadError(RuntimeError):
@@ -32,7 +45,7 @@ class ReadError(RuntimeError):
 
 
 def gh(*args: str) -> str:
-    out = subprocess.run(["gh", "api", *args], capture_output=True, text=True)
+    out = subprocess.run(["gh", "api", *args], capture_output=True, text=True, check=False)
     if out.returncode != 0:
         raise ReadError(f"could not read {args[-1].split('?')[0]}: {out.stderr.strip()}")
     return out.stdout
@@ -61,19 +74,72 @@ def matrix_at(repo: str, sha: str, read=gh) -> dict:
     return json.loads(base64.b64decode(doc["content"]))
 
 
+def fold(text: str) -> str:
+    """The text as a reader sees it: compatibility forms folded (NFKC) and invisible format characters dropped.
+
+    A zero-width space, a soft hyphen or a fullwidth letter inside an owner name renders as that name in
+    MATRIX.md while a pattern over the raw characters misses it.
+    """
+    text = unicodedata.normalize("NFKC", text)
+    return "".join(c for c in text if unicodedata.category(c) != "Cf")
+
+
 def held_owner_named(project: dict, owners: set[str]) -> bool:
-    text = json.dumps(project, ensure_ascii=False).lower()
+    text = json.dumps(project, ensure_ascii=False)
+    for _ in range(4):  # %2568 is %68 is h: decode until nothing changes
+        decoded = fold(urllib.parse.unquote(text))
+        if decoded == text:
+            break
+        text = decoded
+    text = fold(text).casefold()
     for owner in owners:
         spelled = re.escape(owner)
-        if re.search(r"github\.com(?:/repos)?[/:]+" + spelled + r"(?![\w.-])", text):
+        after = r"(?![\w.-])"
+        host = r"(?:github\.com(?:/(?:repos|users|orgs))?|githubusercontent\.com|ghcr\.io)[/:]+"
+        if re.search(host + spelled + after, text) or re.search(r"(?<![a-z0-9-])" + spelled + r"\.github\.io" + after,
+                                                                 text):
             return True
     return False
 
 
-def refusals(files, base, head, author, association, held_logins, held_owners) -> list[str]:
+def is_maintainer(repo: str, author: str, read=gh) -> bool:
+    """True when the author holds admin, maintain or write permission on the repository (raises ReadError if unread)."""
+    perm = json.loads(read(f"repos/{repo}/collaborators/{author}/permission")).get("permission")
+    if not isinstance(perm, str):
+        raise ReadError(f"no permission value for {author}")
+    return perm in MAINTAINER
+
+
+def label_changes(old, new):
+    """The values a maintainer's edit puts in the labelling fields of contradicted cells, or None when the edit
+    changes anything else of the entry (another field, another cell, a cell's verdict, the cell count)."""
+    if not (isinstance(old, dict) and isinstance(new, dict)):
+        return None
+    if {k: v for k, v in old.items() if k != "cells"} != {k: v for k, v in new.items() if k != "cells"}:
+        return None
+    old_cells, new_cells = old.get("cells"), new.get("cells")
+    if not (isinstance(old_cells, list) and isinstance(new_cells, list) and len(old_cells) == len(new_cells)):
+        return None
+    values = []
+    for a, b in zip(old_cells, new_cells):
+        if not (isinstance(a, dict) and isinstance(b, dict)):
+            return None
+        strip = b.get("verdict") == "contradicted"
+        keep = lambda cell: {k: v for k, v in cell.items() if not (strip and k in LABELS)}  # noqa: E731
+        if keep(a) != keep(b):
+            return None
+        values += [b[k] for k in LABELS if strip and k in b and b.get(k) != a.get(k)]
+    return values
+
+
+def refusals(files, base, head, author, maintainer, held_logins, held_owners) -> list[str]:
     """Every refusal for one pull request; base and head are matrix.json documents (or None if unchanged)."""
-    maintainer = association in MAINTAINER
     out = []
+    for name, doc in (("base", base), ("head", head)):
+        ids = [p.get("id") if isinstance(p, dict) else None for p in (doc or {}).get("projects", [])]
+        twice = sorted({i for i in ids if ids.count(i) > 1}, key=str)
+        if None in ids or twice:
+            out.append(f"matrix.json at the {name} lists a project with no id or ids {twice} more than once")
     if author.lower() in held_logins:
         out.append("this account's rows are held for maintainer review; a maintainer will follow up")
     if "reviews.json" in files and not maintainer:
@@ -84,14 +150,24 @@ def refusals(files, base, head, author, association, held_logins, held_owners) -
         added = sorted(set(after) - set(before), key=str)
         removed = sorted(set(before) - set(after), key=str)
         edited = sorted((pid for pid in set(after) & set(before) if after[pid] != before[pid]), key=str)
+        rest = sorted(k for k in set(base or {}) | set(head or {}) if k != "projects"
+                      and (base or {}).get(k) != (head or {}).get(k))
+        if rest and not maintainer:
+            out.append(f"matrix.json fields {rest} are read by every row; a maintainer changes them")
         if not maintainer:
             if added:
                 out.append(f"project {added} has no review yet; a project lands after its review")
             if edited or removed:
                 out.append(f"projects {edited + removed} change a reviewed row; a maintainer records the review")
-        for pid in added + edited:
-            if held_owner_named(after[pid], held_owners):
-                out.append(f"project {pid} is held for maintainer review")
+        changed = set(added) | set(edited)
+        for p in (head or {}).get("projects", []):  # every copy, so a second entry with one id is read too
+            pid = p.get("id") if isinstance(p, dict) else None
+            if (pid in changed or p != before.get(pid)) and held_owner_named(p, held_owners):
+                # A maintainer may add or change only the labelling of a contradicted cell on a held row, and the
+                # new labels may not name a held owner; every other change to a held row stays held.
+                labels = label_changes(before.get(pid), p) if maintainer else None
+                if labels is None or held_owner_named({"labels": labels}, held_owners):
+                    out.append(f"project {pid} is held for maintainer review")
     return out
 
 
@@ -100,16 +176,18 @@ def main() -> int:
     held_logins = {x.strip().lower() for x in env.get("HELD_LOGINS", "").split(",") if x.strip()}
     held_owners = {x.strip().lower() for x in env.get("HELD_OWNERS", "").split(",") if x.strip()}
     try:
-        files = changed_files(env["REPO"], env["PR"])
+        files = changed_files(env["REPO"], env["PR"], gh)
+        accounts = {env["AUTHOR"], env.get("SENDER") or env["AUTHOR"]}
+        maintainer = all(is_maintainer(env["REPO"], a, gh) for a in sorted(accounts))
         base = head = None
         if "matrix.json" in files:
-            base = matrix_at(env["REPO"], env["BASE_SHA"])
+            base = matrix_at(env["REPO"], env["BASE_SHA"], gh)
             gone = files["matrix.json"] in ("removed", "renamed-from")
-            head = {"projects": []} if gone else matrix_at(env["HEAD_REPO"], env["HEAD_SHA"])
+            head = {"projects": []} if gone else matrix_at(env["HEAD_REPO"], env["HEAD_SHA"], gh)
     except ReadError as exc:
         print(f"::error::intake: {exc}")
         return 2
-    found = refusals(files, base, head, env["AUTHOR"], env["ASSOCIATION"], held_logins, held_owners)
+    found = refusals(files, base, head, env["AUTHOR"], maintainer, held_logins, held_owners)
     for r in found:
         print(f"::error::{r}")
     return 1 if found else 0
