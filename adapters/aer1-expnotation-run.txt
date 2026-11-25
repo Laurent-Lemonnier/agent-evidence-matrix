@@ -1,0 +1,18 @@
+entry_count 5.0
+  python: [commitment] x-entry-count-float: PASS (exit 0)
+  node:   [commitment] x-entry-count-float: PASS (exit 0)
+entry_count 5
+  python: [commitment] x-entry-count-float: FAIL () (exit 1)
+  node:   [commitment] x-entry-count-float: FAIL () (exit 1)
+entry_count 5e0
+  python: [commitment] x-entry-count-float: PASS (exit 0)
+  node:   [commitment] x-entry-count-float: FAIL () (exit 1)
+entry_count 5E+0
+  python: [commitment] x-entry-count-float: PASS (exit 0)
+  node:   [commitment] x-entry-count-float: FAIL () (exit 1)
+entry_count 50e-1
+  python: [commitment] x-entry-count-float: PASS (exit 0)
+  node:   [commitment] x-entry-count-float: FAIL () (exit 1)
+entry_count 5.00
+  python: [commitment] x-entry-count-float: PASS (exit 0)
+  node:   [commitment] x-entry-count-float: PASS (exit 0)
