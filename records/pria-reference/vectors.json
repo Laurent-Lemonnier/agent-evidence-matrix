@@ -1,0 +1,10 @@
+{
+  "statement_url": "https://ts.isoluce.net/entries/ab776ad42a389176a3ba879e5381e73f861a04f9dedd7f63747e7e29866713b8/statement",
+  "statement_sha256": "82d79b1000536d512a3dae5555c081aa9aea63172e08abbee9f52282853b91ea",
+  "reference_digest": "5840fe6c29969414d4e1f88e7f6633c6a1807d514733b07754ba1a112d05c1ee",
+  "cases": [
+    {"id": "correct-rule", "rule": "to-be-signed", "expected": "match"},
+    {"id": "wrong-rule", "rule": "exact-envelope", "expected": "mismatch"},
+    {"id": "missing-rule", "rule": null, "expected": "indeterminate"}
+  ]
+}

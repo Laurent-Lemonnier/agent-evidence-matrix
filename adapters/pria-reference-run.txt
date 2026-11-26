@@ -1,0 +1,4 @@
+correct-rule	agrees	match
+wrong-rule	agrees	mismatch
+missing-rule	agrees	indeterminate
+3/3 agree
